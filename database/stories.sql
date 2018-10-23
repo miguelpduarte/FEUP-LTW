@@ -21,6 +21,7 @@ CREATE TABLE channels (
 CREATE TABLE comments (
     comment_id INTEGER PRIMARY KEY,
     content VARCHAR NOT NULL,
+    author INTEGER  REFERENCES users NOT NULL,
     story REFERENCES stories,
     parent_comment REFERENCES comments,
     CHECK(
