@@ -41,5 +41,5 @@ CREATE TABLE commentVotes(
 CREATE TABLE storyVotes(
     user_id INTEGER REFERENCES users NOT NULL,
     story_id INTEGER REFERENCES stories NOT NULL,
-    is_up INTEGER CHECK(is_up = 1 OR is_up =is 0)
+    is_up INTEGER CHECK(is_up = 1 OR is_up = 0)
 );
