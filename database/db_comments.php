@@ -20,10 +20,10 @@
         $stmt->execute(array($story_id));
         $comments = $stmt->fetchAll();
         foreach ($comments as $key => $comment) {
-            $comment_id = $comment[comment_id];
+            $comment_id = $comment['comment_id'];
             $substmt = $db->prepare('SELECT comment_id, author, content FROM comments WHERE parent_comment = ?');
             $substmt->execute(array($comment_id));
-            $comments[$key][nested_comments] = $substmt->fetchAll();
+            $comments[$key]['nested_comments'] = $substmt->fetchAll();
         }
         return $comments; 
     }
