@@ -7,23 +7,24 @@ CREATE TABLE users (
 );
 
 CREATE TABLE stories (
-    story_id INTEGER PRIMARY KEY,
+    story_id INTEGER PRIMARY KEY AUTOINCREMENT,
     author INTEGER REFERENCES users NOT NULL,
+    title VARCHAR NOT NULL,
     content VARCHAR NOT NULL,
     channel INTEGER REFERENCES channels NOT NULL
 );
 
 CREATE TABLE channels (
-    channel_id INTEGER PRIMARY KEY,
+    channel_id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR UNIQUE NOT NULL
 );
 
 CREATE TABLE comments (
-    comment_id INTEGER PRIMARY KEY,
+    comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
     content VARCHAR NOT NULL,
     author INTEGER  REFERENCES users NOT NULL,
-    story REFERENCES stories,
-    parent_comment REFERENCES comments,
+    story INTEGER REFERENCES stories,
+    parent_comment INTEGER REFERENCES comments,
     CHECK(
             (story is NULL 
             OR parent_comment is NULL) 
