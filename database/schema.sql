@@ -44,3 +44,15 @@ CREATE TABLE storyVotes(
     story_id INTEGER REFERENCES stories NOT NULL,
     is_up INTEGER CHECK(is_up = 1 OR is_up = 0)
 );
+
+CREATE TRIGGER IF NOT EXISTS onlylvl2 
+BEFORE INSERT ON comments 
+FOR EACH ROW WHEN 
+                new.story is NULL 
+                AND
+                (SELECT story 
+                FROM comments 
+                WHERE comment_id = new.parent_comment) is NULL 
+BEGIN
+SELECT RAISE(ABORT, 'The level of the comment is invalid');
+END;

@@ -38,7 +38,7 @@
     }
 
     /**
-     * Insert comment on story.
+     * Insert comment on a comment.
      */
     function insertNestedComment($author, $content, $comment_id) {
         $db = Database::instance()->db();
