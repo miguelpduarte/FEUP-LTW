@@ -16,19 +16,60 @@
     }
     
     function handle_get() {
+        header('Content-Type: application/json');
         if(isset($_GET['id'])) {
             $data = getFullStory($_GET['id']);
         } else {
             $data = getStoriesNoContent();
         }
-        header('Content-Type: application/json');
         echo json_encode($data);
         exit;
     }
     
     function handle_post() {
-        echo "<br>POST args<br>";
-        print_r($_POST);
+        header('Content-Type: application/json');
+        $data = json_decode(file_get_contents('php://input'), true);
+        //TODO: Add login validation - can only insert stories of own user, etc
+        // $author, $title, $content, $channel
+        
+        if(!isset($data['author']) || $data['author'] === '' || !is_int($data['author'])) {
+            echo json_encode([
+                'success' => false,
+                'reason' => 'The author field is missing'
+                ]);
+            exit;
+        }
+
+        if(!isset($data['title']) || $data['title'] === '') {
+            echo json_encode([
+                'success' => false,
+                'reason' => 'The title field is missing'
+                ]);
+            exit;
+        }
+
+        if(!isset($data['content']) || $data['content'] === '') {
+            echo json_encode([
+                'success' => false,
+                'reason' => 'The content field is missing'
+                ]);
+            exit;
+        }
+
+        if(!isset($data['channel']) || $data['channel'] === '' || !is_int($data['channel'])) {
+            echo json_encode([
+                'success' => false,
+                'reason' => 'The channel field is missing'
+                ]);
+            exit;
+        }
+
+        insertStory($data['author'], $data['title'], $data['content'], $data['channel']);
+
+        echo json_encode([
+            'success' => true
+        ]);
+        exit;
     }
 
     function handle_error() {
