@@ -24,10 +24,10 @@
      /**
      * Returns a story.
      */
-    function getStory($story_id) {
+    function getFullStory($story_id) {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT author, title, content, channel FROM stories WHERE story_id = ?');
-        $stmt->execute();
+        $stmt->execute(array($story_id));
         return $stmt->fetchAll(); 
     }
 

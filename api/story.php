@@ -16,9 +16,13 @@
     }
     
     function handle_get() {
-        $stories = getStories();
+        if(isset($_GET['id'])) {
+            $data = getFullStory($_GET['id']);
+        } else {
+            $data = getStoriesNoContent();
+        }
         header('Content-Type: application/json');
-        echo json_encode($stories);
+        echo json_encode($data);
         exit;
     }
     
