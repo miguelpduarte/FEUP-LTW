@@ -1,20 +1,18 @@
 import { Story } from "./story.js";
 
-const loadStories = () => {
+export const loadStories = () => {
     fetch("/api/story.php")
         .then(res => res.json())
         .then(data => {
             const stories_container = document.getElementById("stories_container");
     
             for(const element of data) {
-                let story = new Story();
-                story.setData(element);
-                story.render(stories_container);
+                stories_container.appendChild(Story.render_short(element));
             }
     });
 };
 
-const clearStories = () => {
+export const clearStories = () => {
     const stories_container = document.getElementById("stories_container");
 
     while (stories_container.firstChild) {
@@ -22,9 +20,7 @@ const clearStories = () => {
     }
 };
 
-const refreshStories = () => {
+export const refreshStories = () => {
     clearStories();
     loadStories();
 };
-
-loadStories();

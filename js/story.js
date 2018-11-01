@@ -1,16 +1,22 @@
 export class Story {
-    setData(story_data) {
-        this.data = story_data;
-    }
-
-    render(parent_elem) {
+    static render_short(story_data) {
         let base = document.createElement('div');
         base.className = "story-item";
         base.innerHTML = `
-            <h3>${this.data.title}</h3>
-            <h4>${this.data.content}</h4>
+            <h3>${story_data.title}</h3>
         `;
 
-        parent_elem.appendChild(base);
+        return base;
+    }
+
+    static render_full(story_data) {
+        let base = document.createElement('div');
+        base.className = "full-story";
+        base.innerHTML = `
+            <h3>${story_data.title}</h3>
+            <h4>${story_data.content}</h4>
+        `;
+
+        return base;
     }
 }

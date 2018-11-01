@@ -6,7 +6,10 @@
     <h2>More content</h2>
     <h3>Stories will be inserted below:</h3>
     <div id="stories_container"></div>
-    <script type="module" src="/js/main.js"></script>
+    <script async type="module">
+        import { loadStories } from "/js/actions.js";
+        loadStories();
+    </script>
 <?php
     draw_footer();
 ?>
