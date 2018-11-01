@@ -9,7 +9,7 @@ function draw_header($page_title) { ?>
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title><?=$page_title?></title>
-            <link rel="stylesheet" type="text/css" href="css/style.css">
+            <link rel="stylesheet" type="text/css" href="/css/style.css">
         </head>
         <body>
 <?php } ?>

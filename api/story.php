@@ -17,7 +17,7 @@
     
     function handle_get() {
         header('Content-Type: application/json');
-        if(isset($_GET['id'])) {
+        if(isset($_GET['id']) && $_GET['id'] !== '' && is_int($_GET['id]'])) {
             $data = getFullStory($_GET['id']);
         } else {
             $data = getStoriesNoContent();

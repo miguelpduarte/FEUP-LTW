@@ -24,3 +24,7 @@ export const refreshStories = () => {
     clearStories();
     loadStories();
 };
+
+loadStories();
+
+document.getElementById('refresh_stories').onclick = refreshStories;
