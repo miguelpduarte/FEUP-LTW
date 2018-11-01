@@ -1,5 +1,5 @@
 <?php
-    include_once('../database/db_story.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_story.php');
 
     $method = $_SERVER['REQUEST_METHOD'];
 
@@ -19,6 +19,7 @@
         $stories = getStories();
         header('Content-Type: application/json');
         echo json_encode($stories);
+        exit;
     }
     
     function handle_post() {

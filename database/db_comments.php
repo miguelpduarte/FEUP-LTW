@@ -1,5 +1,5 @@
 <?php
-    include_once('../utils/database.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../utils/database.php');
 
     /**
      * Get comments.

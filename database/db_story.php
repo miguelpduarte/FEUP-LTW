@@ -1,5 +1,5 @@
 <?php
-    include_once('../utils/database.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../utils/database.php');
 
     /**
      * Returns all the stories
@@ -12,7 +12,7 @@
     }
 
     /**
-     * Returns stories without.
+     * Returns stories without content.
      */
     function getStoriesNoContent() {
         $db = Database::instance()->db();

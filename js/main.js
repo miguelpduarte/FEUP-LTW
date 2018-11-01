@@ -1,28 +1,30 @@
-class Story {
-    constructor(story_data) {
-        this.data = story_data;
-    }
+import { Story } from "./story.js";
 
-    render(parent_elem) {
-        let base = document.createElement('div');
-        base.innerHTML = `
-            <h3>${this.data.title}</h3>
-            <h4>${this.data.content}</h4>
-        `;
-
-        parent_elem.appendChild(base);
-    }
-}
-
-fetch('/api/story.php')
-    .then(res => res.json())
-    .then(data => {
-        console.log(data);
-
-        const insert_here = document.getElementById('stories_container');
-
-        for(const element of data) {
-            let story = new Story(element);
-            story.render(insert_here);
-        }
+const loadStories = () => {
+    fetch("/api/story.php")
+        .then(res => res.json())
+        .then(data => {
+            const stories_container = document.getElementById("stories_container");
+    
+            for(const element of data) {
+                let story = new Story();
+                story.setData(element);
+                story.render(stories_container);
+            }
     });
+};
+
+const clearStories = () => {
+    const stories_container = document.getElementById("stories_container");
+
+    while (stories_container.firstChild) {
+        stories_container.removeChild(stories_container.firstChild);
+    }
+};
+
+const refreshStories = () => {
+    clearStories();
+    loadStories();
+};
+
+loadStories();
