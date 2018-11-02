@@ -1,31 +1,19 @@
 import { Story } from "./story.js";
 import { getParams } from "./utils.js";
+import { fetchStory } from "./fetch_actions.js";
 
-let story_data = null;
 let story = null;
 
-const fetchStory = id => {
-    let real_id = Number.parseInt(id);
-
-    fetch(`/api/story.php?id=${real_id}`)
-        .then(res => res.json())
-        .then(data => {
-            console.log('Fix story data [0] spaghet maybe in "backend"');
-            story_data = data[0];
-
-            createStory();
-    });
-};
-
-const createStory = () => {
+const createStory = (story_data) => {
     const story_container = document.getElementById("story_container");
     story = new Story(story_data);
     story_container.appendChild(story.renderFull());
 }
 
-const loadCurrentStory = () => {
+const loadCurrentStory = async () => {
     let params = getParams();
-    fetchStory(params.id);
+    const story_data = await fetchStory(params.id);
+    createStory(story_data);
 };
 
 const clearCurrentStory = () => {

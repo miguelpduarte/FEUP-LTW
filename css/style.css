@@ -9,6 +9,14 @@ body {
     margin-top: 1em;
 }
 
+.story-card .story-card-content {
+    display: none;
+}
+
+.story-card.open .story-card-content {
+    display: block;
+}
+
 .story-card.open {
     background-color: grey;
 }

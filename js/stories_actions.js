@@ -1,19 +1,14 @@
 import { Story } from "./story.js";
+import { fetchStories } from "./fetch_actions.js";
 
 let stories = [];
-let stories_data = null;
 
-const fetchStories = () => {
-    fetch("/api/story.php")
-        .then(res => res.json())
-        .then(data => {
-            //Check for data errors here
-            stories_data = data;
-            populateStories();
-    });
-};
+const loadStories = async () => {
+    const stories_data = await fetchStories();
+    populateStories(stories_data);
+}
 
-const populateStories = () => {
+const populateStories = (stories_data) => {
     const stories_container = document.getElementById("stories_container");
     
     for(const story_data of stories_data) {
@@ -33,16 +28,15 @@ const clearStories = () => {
     }
 
     stories = [];
-    stories_data = null;
 };
 
 const refreshStories = () => {
     clearStories();
-    fetchStories();
+    loadStories();
 };
 
 // This runs as the file is loaded from here down
 
 document.getElementById('refresh_stories').onclick = refreshStories;
 
-fetchStories();
+loadStories();

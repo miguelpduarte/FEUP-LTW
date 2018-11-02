@@ -1,3 +1,5 @@
+import { fetchStory } from "./fetch_actions.js";
+
 export class Story {
     constructor(story_data) {
         this.content_loaded = !!story_data.content;
@@ -15,6 +17,7 @@ export class Story {
         article.innerHTML = `
             <h1><a href="story.php?id=${this.data.story_id}">${this.data.title}</a></h1>
             <h2><a href="user.php?id=${this.data.author_id}">${this.data.author_name}</a></h2>
+            <section class="story-card-content">Loading...</section>
         `;
 
         article.onclick = () => {this.toggleCardOpen()};
@@ -23,6 +26,10 @@ export class Story {
     }
 
     toggleCardOpen() {
+        if(!this.content_loaded) {
+            this.addCardContent();
+        }
+
         if (this.element.classList.contains("open")) {
             this.element.classList.remove("open");
         } else {
@@ -30,16 +37,12 @@ export class Story {
         }
     }
 
-    renderOpenCard() {
-        let article = document.createElement("article");
-        article.classList.add("story-card");
-        article.id = `story_${this.data.story_id}`;
-        article.innerHTML = `
-            <h1><a href="story.php?id=${this.data.story_id}">${this.data.title}</a></h1>
-            <h2><a href="user.php?id=${this.data.author_id}">${this.data.author_name}</a></h2>
-        `;
+    async addCardContent() {
+        const story_data = await fetchStory(this.data.story_id);
+        this.data = story_data;
 
-        return article;
+        this.element.getElementsByClassName('story-card-content')[0].innerHTML = this.data.content;
+        this.content_loaded = true;
     }
 
     renderFull() {
