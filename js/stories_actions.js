@@ -1,6 +1,6 @@
 import { Story } from "./story.js";
 
-export const loadStories = () => {
+const loadStories = () => {
     fetch("/api/story.php")
         .then(res => res.json())
         .then(data => {
@@ -12,7 +12,7 @@ export const loadStories = () => {
     });
 };
 
-export const clearStories = () => {
+const clearStories = () => {
     const stories_container = document.getElementById("stories_container");
 
     while (stories_container.firstChild) {
@@ -20,7 +20,7 @@ export const clearStories = () => {
     }
 };
 
-export const refreshStories = () => {
+const refreshStories = () => {
     clearStories();
     loadStories();
 };

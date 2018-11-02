@@ -2,3 +2,14 @@ body {
     margin: 1em auto;
     max-width: 60em;
 }
+
+.story-card {
+    padding: 1em;
+    border: 1px solid black;
+    margin-top: 1em;
+}
+
+.full-story {
+    border: 1px solid blue;
+    margin-top: 1em;
+}

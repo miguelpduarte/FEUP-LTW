@@ -1,3 +1,3 @@
 <?php
-    header('Location: pages/test.php');
+    header('Location: pages/stories.php');
 ?>
