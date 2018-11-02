@@ -2,21 +2,11 @@
     require_once(realpath( dirname( __FILE__ ) ) . '/../utils/database.php');
 
     /**
-     * Returns all the stories
-     */
-    function getStories() {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT story_id, author, title, content, channel FROM stories');
-        $stmt->execute();
-        return $stmt->fetchAll(); 
-    }
-
-    /**
      * Returns stories without content.
      */
     function getStoriesNoContent() {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT story_id, author, title, channel FROM stories');
+        $stmt = $db->prepare('SELECT story_id, author as author_id, title, channel, username as author_name FROM stories JOIN users ON stories.author = users.user_id');
         $stmt->execute();
         return $stmt->fetchAll(); 
     }
@@ -26,7 +16,7 @@
      */
     function getFullStory($story_id) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT author, title, content, channel FROM stories WHERE story_id = ?');
+        $stmt = $db->prepare('SELECT author as author_id, title, content, channel, username as author_name FROM stories JOIN users ON stories.author = users.user_id WHERE story_id = ?');
         $stmt->execute(array($story_id));
         return $stmt->fetchAll(); 
     }

@@ -17,7 +17,7 @@
     
     function handle_get() {
         header('Content-Type: application/json');
-        if(isset($_GET['id']) && $_GET['id'] !== '' && is_int($_GET['id]'])) {
+        if(isset($_GET['id']) && $_GET['id'] !== '') {
             $data = getFullStory($_GET['id']);
         } else {
             $data = getStoriesNoContent();
@@ -31,7 +31,7 @@
         $data = json_decode(file_get_contents('php://input'), true);
         //TODO: Add login validation - can only insert stories of own user, etc
         // $author, $title, $content, $channel
-        
+
         if(!isset($data['author']) || $data['author'] === '' || !is_int($data['author'])) {
             echo json_encode([
                 'success' => false,
