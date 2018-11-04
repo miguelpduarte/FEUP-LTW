@@ -16,7 +16,7 @@
      */
     function getFullStory($story_id) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT author as author_id, title, content, channel, username as author_name FROM stories JOIN users ON stories.author = users.user_id WHERE story_id = ?');
+        $stmt = $db->prepare('SELECT story_id, author as author_id, title, content, channel, username as author_name FROM stories JOIN users ON stories.author = users.user_id WHERE story_id = ?');
         $stmt->execute(array($story_id));
         return $stmt->fetchAll(); 
     }
