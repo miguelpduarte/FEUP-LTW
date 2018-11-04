@@ -1,4 +1,5 @@
 import { fetchStory } from "./fetch_actions.js";
+import { mdToHTML } from "./utils.js";
 
 export class Story {
     constructor(story_data) {
@@ -41,7 +42,7 @@ export class Story {
         const story_data = await fetchStory(this.data.story_id);
         this.data = story_data;
 
-        this.element.getElementsByClassName('story-card-content')[0].innerHTML = this.data.content;
+        this.element.getElementsByClassName('story-card-content')[0].innerHTML = mdToHTML(this.data.content);
         this.content_loaded = true;
     }
 
@@ -51,8 +52,8 @@ export class Story {
         section.className = "full-story";
         section.innerHTML = `
             <h1>${this.data.title}</h1>
-            <p>${this.data.content}</p>
-            <p>TODO: Markdownify the previous p</p>
+            <hr/>
+            <div class="md-content">${mdToHTML(this.data.content)}</div>
         `;
 
         return section;

@@ -5,3 +5,9 @@ export const getParams = () => {
     });
     return queryDict;
 }
+
+var mdParser = new Remarkable();
+
+export const mdToHTML = (md) => {
+    return mdParser.render(md);
+}
