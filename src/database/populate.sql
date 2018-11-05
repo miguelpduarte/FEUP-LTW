@@ -1,10 +1,24 @@
+-- users
 INSERT INTO users values(1, 0, 'testuser', 'password123', 'Test User');
 INSERT INTO users values(2, 0, 'testuser2', 'password123', 'Test User 2');
 
-INSERT INTO channels values(1, 'testchan');
-INSERT INTO channels values(2, 'test-reddit');
+-- channels
+INSERT INTO channels values(1, '1234chan');
+INSERT INTO channels values(2, 'definitelynotreddit');
 
-INSERT INTO stories VALUES(1, 1, 'This is a very existing title', 'This is a very existing story, not a test at all', 1);
-INSERT INTO stories VALUES(2, 2, 'This is another very existing title', 'This is another story that does exist and is not a test at all', 2);
+-- stories
+INSERT INTO stories(story_id, author, title, content, channel) VALUES(1, 1, 'This is a very existing title', 'This is a very existing story, not a test at all', 1);
+INSERT INTO stories(story_id, author, title, content, channel) VALUES(2, 2, 'This is another very existing title', 'This is another story that does exist and is not a test at all', 2);
+INSERT INTO stories(story_id, author, title, content, channel) VALUES(3, 2, 'Marking story!', '# Did you know that\n\n## This is\n\n*Something* cool __here__?', 2);
 
---  For now, small amount of data is populated: TODO: Add comments and votes
+-- comments
+INSERT INTO comments VALUES(1, 'This comments has *markdown*!\n\n> This is some sort of a quote\n\nAnd this is not!', 2, 3, NULL);
+INSERT INTO comments VALUES(2, 'This is a sub-level _reply_ to the **parent** comment!', 1, NULL, 1);
+
+-- comment votes
+INSERT INTO commentVotes VALUES(1, 1, 1);
+
+-- story votes
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(1, 1, 1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(2, 1, 1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(1, 2, -1);

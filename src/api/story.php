@@ -21,6 +21,13 @@
             $data = getFullStory($_GET['id']);
         } else {
             $data = getStoriesNoContent();
+
+            //Ensuring that no NULLs are left behind (when a story does not have any rating)
+            foreach ($data as $key => $value) {
+                if($value['score'] === NULL) {
+                    $data[$key]['score'] = '0';
+                }
+            }
         }
         echo json_encode($data);
         exit;

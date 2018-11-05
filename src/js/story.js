@@ -16,6 +16,7 @@ export class Story {
         article.classList.add("story-card");
         article.id = `story_${this.data.story_id}`;
         article.innerHTML = `
+            <div class="story-card-score">${this.data.score}</div>
             <h1><a href="story.php?id=${this.data.story_id}">${this.data.title}</a></h1>
             <h2>Author: <a href="user.php?id=${this.data.author_id}">${this.data.author_name}</a></h2>
             <section class="story-card-content">Loading...</section>
