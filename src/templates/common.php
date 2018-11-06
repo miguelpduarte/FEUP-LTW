@@ -13,6 +13,7 @@ function draw_header($page_title) { ?>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
         </head>
         <body>
+            <nav id="navbar"></nav>
 <?php } ?>
 
 <?php
@@ -20,6 +21,7 @@ function draw_header($page_title) { ?>
  * Draws the footer for all pages.
  */
 function draw_footer() { ?>
-  </body>
+    <script type="module" src="/js/navbar.js"></script>
+    </body>
 </html>
 <?php } ?>
