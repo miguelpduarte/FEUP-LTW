@@ -9,12 +9,23 @@ body {
     margin-top: 1em;
 }
 
-.story-card .story-card-content {
-    display: none;
+.story-card.loading {
+    background-color: purple;
 }
 
-.story-card.open .story-card-content {
-    display: block;
+.story-card.open .story-card-info {
+    background-color: white;
+}
+
+.story-card .story-card-content {
+    overflow: hidden;
+
+    -moz-transition: height .5s;
+    -ms-transition: height .5s;
+    -o-transition: height .5s;
+    -webkit-transition: height .5s;
+    transition: height .5s;
+    height: 0;
 }
 
 .story-card.open {

@@ -1,19 +1,19 @@
 export const fetchStories = () => {
     return new Promise((resolve, reject) => {
         fetch("/api/story.php")
-        .then(res => res.json())
-        .then(data => {
-            //Check for data errors here
-            //TODO:
-            // if(data.success) {
-            //     resolve(data);
-            // } else {
-            //     reject("Fetching not successful");
-            // }
-
-            resolve(data);
-        });
+            .then(res => res.json())
+            .then(data => {
+                //Checking for data errors
+                if(data.success) {
+                    return resolve(data.data);
+                } else {
+                    return reject(new Exception("Fetching not successful, reason: " + data.reason));
+                }
+            })
+            .catch(err => console.error('Fetch error:', err));
     });
+
+
 }
 
 export const fetchStory = id => {
@@ -24,17 +24,13 @@ export const fetchStory = id => {
             .then(res => res.json())
             .then(data => {
                 
-            //Check for data errors here
-            //TODO:
-            // if(data.success) {
-            //     resolve(data);
-            // } else {
-            //     reject("Fetching not successful");
-            // }
-                        
-            console.log('Fix story data [0] spaghet maybe in "backend"');
-            let story_data = data[0];
-            resolve(story_data);
-        });
+            //Check for data errors
+            if(data.success) {
+                return resolve(data.data);
+            } else {
+                return reject(new Exception("Fetching not successful, reason: " + data.reason));
+            }
+        })
+        .catch(err => console.error('Fetch error:', err));;
     });
 };

@@ -6,10 +6,11 @@
      */
     function getStoriesNoContent() {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT stories.story_id, author as author_id, title, channel, created_at, username as author_name, SUM(rating) as score
-                                FROM stories JOIN users ON stories.author = users.user_id
-                                LEFT OUTER JOIN storyVotes ON storyVotes.story_id = stories.story_id
-                                GROUP BY stories.story_id');
+        $stmt = $db->prepare(
+            'SELECT stories.story_id, author as author_id, title, channel, created_at, username as author_name, SUM(rating) as score
+            FROM stories JOIN users ON stories.author = users.user_id
+            LEFT OUTER JOIN storyVotes ON storyVotes.story_id = stories.story_id
+            GROUP BY stories.story_id');
         $stmt->execute();
         return $stmt->fetchAll(); 
     }
@@ -19,9 +20,12 @@
      */
     function getFullStory($story_id) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT story_id, author as author_id, title, content, channel, created_at, updated_at, username as author_name FROM stories JOIN users ON stories.author = users.user_id WHERE story_id = ?');
+        $stmt = $db->prepare(
+            'SELECT story_id, author as author_id, title, content, channel, created_at, updated_at, username as author_name
+            FROM stories JOIN users ON stories.author = users.user_id
+            WHERE story_id = ?');
         $stmt->execute(array($story_id));
-        return $stmt->fetchAll(); 
+        return $stmt->fetch(); 
     }
 
     /**

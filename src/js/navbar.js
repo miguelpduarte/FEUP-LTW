@@ -9,8 +9,8 @@ class Navbar {
             <div class="hamburger">
                 <ul>
                     <li><a href="/">Stuff</a></li>
-                    <li><a href="/channels">Channels</a></li>
-                    <li><a href="/ipsum">Lorem</a></li>
+                    <li><a href="/pages/channels.php">Channels</a></li>
+                    <li><a href="/ipsum.php">Lorem</a></li>
                 </ul>
             </div>
         `;

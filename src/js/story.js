@@ -5,6 +5,7 @@ export class Story {
     constructor(story_data) {
         this.content_loaded = !!story_data.content;
         this.data = story_data;
+        this.isOpen = false;
     }
 
     setDomElement(dom_element) {
@@ -16,9 +17,11 @@ export class Story {
         article.classList.add("story-card");
         article.id = `story_${this.data.story_id}`;
         article.innerHTML = `
-            <div class="story-card-score">${this.data.score}</div>
-            <h1><a href="story.php?id=${this.data.story_id}">${this.data.title}</a></h1>
-            <h2>Author: <a href="user.php?id=${this.data.author_id}">${this.data.author_name}</a></h2>
+            <section class="story-card-info">
+                <div class="story-card-score">${this.data.score}</div>
+                <h1><a href="story.php?id=${this.data.story_id}">${this.data.title}</a></h1>
+                <h2>Author: <a href="user.php?id=${this.data.author_id}">${this.data.author_name}</a></h2>
+            </section>
             <section class="story-card-content">Loading...</section>
         `;
 
@@ -27,15 +30,32 @@ export class Story {
         return article;
     }
 
-    toggleCardOpen() {
+    // growDiv() {
+    //     var growDiv = document.getElementById('grow');
+    //     if (growDiv.clientHeight) {
+    //         growDiv.style.height = 0;
+    //     } else {
+    //         growDiv.style.height = growDiv.scrollHeight+'px';
+    //     }
+    // }
+
+    async toggleCardOpen() {
         if(!this.content_loaded) {
-            this.addCardContent();
+            this.element.classList.add("loading");
+            await this.addCardContent();
+            this.element.classList.remove("loading");
         }
 
-        if (this.element.classList.contains("open")) {
+        let card_content = this.element.getElementsByClassName('story-card-content')[0];
+
+        if (this.isOpen) {
             this.element.classList.remove("open");
+            card_content.style.height = 0;
+            this.isOpen = false;
         } else {
             this.element.classList.add("open");
+            card_content.style.height = card_content.scrollHeight+"px";
+            this.isOpen = true;
         }
     }
 

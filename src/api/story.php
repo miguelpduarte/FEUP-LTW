@@ -29,7 +29,20 @@
                 }
             }
         }
-        echo json_encode($data);
+
+        //Detecting database fetching errors (TODO: use try catch? -> Guilherme ;)
+        if($data === false) {
+            echo json_encode([
+                'success' => false,
+                'reason' => 'Database fetching failed'
+            ]);
+            exit;
+        }
+
+        echo json_encode([
+            'success' => true,
+            'data' => $data
+            ]);
         exit;
     }
     
@@ -81,5 +94,6 @@
 
     function handle_error() {
         echo "Invalid request method for this route";
+        exit;
     }
 ?>
