@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     user_id INTEGER PRIMARY KEY,
-    points INTEGER NOT NULL,
     username VARCHAR UNIQUE NOT NULL,
     password VARCHAR NOT NULL,
     name VARCHAR NOT NULL
@@ -11,6 +10,7 @@ DROP TABLE IF EXISTS stories;
 CREATE TABLE stories (
     story_id INTEGER PRIMARY KEY AUTOINCREMENT,
     author INTEGER REFERENCES users NOT NULL,
+    score INTEGER DEFAULT 0,
     title VARCHAR NOT NULL,
     content VARCHAR NOT NULL,
     channel INTEGER REFERENCES channels NOT NULL,
@@ -29,6 +29,7 @@ CREATE TABLE comments (
     comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
     content VARCHAR NOT NULL,
     author INTEGER  REFERENCES users NOT NULL,
+    score INTEGER DEFAULT 0,
     story INTEGER REFERENCES stories,
     parent_comment INTEGER REFERENCES comments,
     CHECK(
@@ -43,7 +44,7 @@ DROP TABLE IF EXISTS commentVotes;
 CREATE TABLE commentVotes(
     user_id INTEGER REFERENCES users NOT NULL,
     comment_id INTEGER REFERENCES comments NOT NULL,
-    is_up INTEGER CHECK(is_up = 1 OR is_up = 0),
+    rating INTEGER CHECK(rating = -1 OR rating = 1),
     PRIMARY KEY (user_id, comment_id)
 );
 
@@ -75,5 +76,65 @@ FOR EACH ROW
 BEGIN
     UPDATE stories
     SET updated_at = DATETIME('now')
-    WHERE id = NEW.id;
+    WHERE story_id = NEW.story_id;
+END;
+
+DROP TRIGGER IF EXISTS storyVotesInsert;
+CREATE TRIGGER IF NOT EXISTS storyVotesInsert
+AFTER INSERT ON storyVotes
+FOR EACH ROW
+BEGIN
+    UPDATE stories
+    SET score = score + NEW.rating
+    WHERE story_id = NEW.story_id;
+END;
+
+DROP TRIGGER IF EXISTS storyVotesUpdate;
+CREATE TRIGGER IF NOT EXISTS storyVotesUpdate
+AFTER UPDATE ON storyVotes
+FOR EACH ROW
+BEGIN
+    UPDATE stories
+    SET score = score + NEW.rating
+    WHERE story_id = NEW.story_id;
+END;
+
+DROP TRIGGER IF EXISTS storyVotesDelete;
+CREATE TRIGGER IF NOT EXISTS storyVotesDelete
+AFTER DELETE ON storyVotes
+FOR EACH ROW
+BEGIN
+    UPDATE stories
+    SET score = score - OLD.rating
+    WHERE story_id = NEW.story_id;
+END;
+
+DROP TRIGGER IF EXISTS commentVotesInsert;
+CREATE TRIGGER IF NOT EXISTS commentVotesInsert
+AFTER INSERT ON commentVotes
+FOR EACH ROW
+BEGIN
+    UPDATE comments
+    SET score = score + NEW.rating
+    WHERE comment_id = NEW.comment_id;
+END;
+
+DROP TRIGGER IF EXISTS commentVotesUpdate;
+CREATE TRIGGER IF NOT EXISTS commentVotesUpdate
+AFTER UPDATE ON commentVotes
+FOR EACH ROW
+BEGIN
+    UPDATE comments
+    SET score = score + NEW.rating
+    WHERE comment_id = NEW.comment_id;
+END;
+
+DROP TRIGGER IF EXISTS commentVotesDelete;
+CREATE TRIGGER IF NOT EXISTS commentVotesDelete
+AFTER DELETE ON commentVotes
+FOR EACH ROW
+BEGIN
+    UPDATE comments
+    SET score = score - OLD.rating
+    WHERE comment_id = NEW.comment_id;
 END;
