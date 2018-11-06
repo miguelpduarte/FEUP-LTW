@@ -4,14 +4,28 @@
     /**
      * Returns stories without content.
      */
-    function getStoriesNoContent() {
+    function getUser($user_id) {
         $db = Database::instance()->db();
         $stmt = $db->prepare(
-            'SELECT stories.story_id, author as author_id, title, channel, created_at, username as author_name, score
-            FROM stories 
-            JOIN users ON stories.author = users.user_id');
-        $stmt->execute();
-        return $stmt->fetchAll(); 
+            'SELECT user_id, username, name, storyScore, commentScore
+            FROM
+                (
+                    (SELECT users.user_id, users.username, users.name, SUM(stories.score) as storyScore
+                    FROM users
+                    JOIN stories ON stories.author = users.user_id
+                    WHERE users.user_id = ?
+                    GROUP BY users.user_id)
+                JOIN 
+                    (SELECT users.user_id as a, users.username as b, users.name as c, story as d, SUM(comments.score) as commentScore
+                    FROM users
+                    JOIN comments ON comments.author = users.user_id
+                    WHERE users.user_id = ?
+                    GROUP BY users.user_id)
+                ON user_id = a
+                )
+            ');
+        $stmt->execute(array($user_id, $user_id));
+        return $stmt->fetch(); 
     }
 
      /**
@@ -20,7 +34,7 @@
     function getFullStory($story_id) {
         $db = Database::instance()->db();
         $stmt = $db->prepare(
-            'SELECT story_id, author as author_id, title, content, channel, created_at, updated_at, username as author_name, score
+            'SELECT story_id, author as author_id, title, content, channel, created_at, updated_at, username as author_name
             FROM stories JOIN users ON stories.author = users.user_id
             WHERE story_id = ?');
         $stmt->execute(array($story_id));
