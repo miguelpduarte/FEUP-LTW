@@ -64,17 +64,13 @@ body {
 
 .line-container {
     display: flex;
-    /* flex-wrap: wrap; */
 }
 
 .line {
     /* Lets the line grow and shrink as needed and does not factor it in the initial size calculations */
     flex: 1 1 0;
-    /* max-width: 100%; */
 }
 
 .line-middle {
     flex: 0 0 auto;
-    /* width: auto;
-    max-width: none; */
 }
