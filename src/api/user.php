@@ -5,14 +5,16 @@
 
     switch ($method) {
         case 'POST':
-          handle_post();
-          break;
+            //register a new user
+            handle_post();
+            break;
         case 'GET':
-          handle_get();
-          break;
+            //get user info
+            handle_get();
+            break;
         default:
-          handle_error();  
-          break;
+            handle_error();  
+            break;
     }
     
     function handle_get() {
@@ -47,47 +49,47 @@
     function handle_post() {
         header('Content-Type: application/json');
         $data = json_decode(file_get_contents('php://input'), true);
-        //TODO: Add login validation - can only insert stories of own user, etc
-        // $author, $title, $content, $channel
 
-        if(!isset($data['author']) || $data['author'] === '' || !is_int($data['author'])) {
+        if(!isset($data['username']) || $data['username'] === '') {
             echo json_encode([
                 'success' => false,
-                'reason' => 'The author field is missing'
+                'reason' => 'Username is missing'
                 ]);
             exit;
         }
 
-        if(!isset($data['title']) || $data['title'] === '') {
+        if(!isset($data['password']) || $data['password'] === '') {
             echo json_encode([
                 'success' => false,
-                'reason' => 'The title field is missing'
+                'reason' => 'The password is missing'
                 ]);
             exit;
         }
 
-        if(!isset($data['content']) || $data['content'] === '') {
+        if(!isset($data['name']) || $data['name'] === '') {
             echo json_encode([
                 'success' => false,
-                'reason' => 'The content field is missing'
+                'reason' => 'The name field is missing'
                 ]);
             exit;
         }
 
-        if(!isset($data['channel']) || $data['channel'] === '' || !is_int($data['channel'])) {
+        $error = "";
+        insertUser($data['username'], $data['password'], $data['name'], $error);
+            
+        if($error) {
             echo json_encode([
                 'success' => false,
-                'reason' => 'The channel field is missing'
-                ]);
+                'reason' => $error
+            ]);
+            exit;
+        } else {
+            echo json_encode([
+                'success' => true
+            ]);
             exit;
         }
 
-        insertStory($data['author'], $data['title'], $data['content'], $data['channel']);
-
-        echo json_encode([
-            'success' => true
-        ]);
-        exit;
     }
 
     function handle_error() {
