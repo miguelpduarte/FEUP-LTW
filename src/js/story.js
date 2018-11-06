@@ -25,7 +25,11 @@ export class Story {
             <section class="story-card-content">Loading...</section>
         `;
 
-        article.onclick = () => {this.toggleCardOpen()};
+        article.onclick = (e) => {
+            if(e.target.tagName !== 'A') {
+                this.toggleCardOpen()
+            }
+        };
 
         return article;
     }
