@@ -1,7 +1,36 @@
 import { Story } from "./story.js";
 import { fetchStories } from "./fetch_actions.js";
 
+let trending_stories = [];
 let stories = [];
+
+const loadTrending = async () => {
+    console.log('TODO: Actually load trending stories');
+    const trending_stories_data = [{
+        score: 0,
+        story_id: -1,
+        author_id: -1,
+        title: "Oh boy! A trending story!",
+        content: "This is some content here! Lorem Lorem!!",
+        channel: -1,
+        created_at: "2018-11-05 19:20:33",
+        updated_at: null,
+        author_name: "influencer"
+    }];
+    populateTrendingStories(trending_stories_data);
+}
+
+const populateTrendingStories = (trending_stories_data) => {
+    const trending_stories_container = document.getElementById("trending_stories_container");
+    
+    for(const trending_story_data of trending_stories_data) {
+        const story = new Story(trending_story_data);
+        trending_stories.push(story);
+        let story_card = story.renderCard();
+        story.setDomElement(story_card);
+        trending_stories_container.appendChild(story_card);
+    }
+}
 
 const loadStories = async () => {
     const stories_data = await fetchStories();
@@ -39,4 +68,5 @@ const refreshStories = () => {
 
 document.getElementById('refresh_stories').onclick = refreshStories;
 
+loadTrending();
 loadStories();

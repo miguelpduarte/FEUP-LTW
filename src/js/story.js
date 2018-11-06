@@ -22,7 +22,7 @@ export class Story {
                 <h1><a href="story.php?id=${this.data.story_id}">${this.data.title}</a></h1>
                 <h2>Author: <a href="user.php?id=${this.data.author_id}">${this.data.author_name}</a></h2>
             </section>
-            <section class="story-card-content">Loading...</section>
+            <section class="story-card-content">${(this.content_loaded ? this.data.content : "Loading...")}</section>
         `;
 
         article.onclick = (e) => {
@@ -33,15 +33,6 @@ export class Story {
 
         return article;
     }
-
-    // growDiv() {
-    //     var growDiv = document.getElementById('grow');
-    //     if (growDiv.clientHeight) {
-    //         growDiv.style.height = 0;
-    //     } else {
-    //         growDiv.style.height = growDiv.scrollHeight+'px';
-    //     }
-    // }
 
     async toggleCardOpen() {
         if(!this.content_loaded) {

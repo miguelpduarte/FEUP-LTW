@@ -5,7 +5,7 @@ class Navbar {
 
     render() {
         this.element.innerHTML = `
-            <a href="/"><img src="" alt="GET logo"/></a>
+            <span class="logo"><a href="/"><img src="" alt="GET logo"/></a></span>
             <div class="hamburger">
                 <ul>
                     <li><a href="/">Stuff</a></li>
