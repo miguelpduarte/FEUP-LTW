@@ -1,4 +1,10 @@
+@import "palette.css";
+
 body {
+    margin: 0;
+}
+
+#content {
     margin: 1em auto;
     max-width: 60em;
 }
@@ -35,4 +41,40 @@ body {
 .full-story {
     border: 1px solid blue;
     margin-top: 1em;
+}
+
+#navbar {
+    background-color: var(--main-color);
+    height: 7em;
+}
+
+#navbar a {
+    color: white;
+}
+
+#navbar .logo {
+    color: white;
+}
+
+#navbar .hamburger {
+    display: none;
+}
+
+/* Line stuff */
+
+.line-container {
+    display: flex;
+    /* flex-wrap: wrap; */
+}
+
+.line {
+    /* Lets the line grow and shrink as needed and does not factor it in the initial size calculations */
+    flex: 1 1 0;
+    /* max-width: 100%; */
+}
+
+.line-middle {
+    flex: 0 0 auto;
+    /* width: auto;
+    max-width: none; */
 }
