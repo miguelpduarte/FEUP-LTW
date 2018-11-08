@@ -15,13 +15,15 @@ export class Comments {
             inner += `<section class="comment-container">
                         <section class="comment">
                         <h4>Author: <a href="user.php?id=${comment.author_id}">${comment.author_name}</a></h4>
+                        <div class="comment-score">Score: ${comment.score}</div>
                         <div class="md-content">${mdToHTML(comment.content)}</div>
                         </section>`;
                 for (const nComment of comment.nested_comments) {
-                    inner += `<section class="subcomment comment">`;
-                    inner += `<h4>Author: <a href="user.php?id=${nComment.author_id}">${nComment.author_name}</a></h4>`;
-                    inner += `<div class="md-content">${mdToHTML(nComment.content)}</div>`
-                    inner += `</section>`;
+                    inner += `<section class="subcomment comment">
+                                <h4>Author: <a href="user.php?id=${nComment.author_id}">${nComment.author_name}</a></h4>
+                                <div class="comment-score">Score: ${comment.score}</div>
+                                <div class="md-content">${mdToHTML(nComment.content)}</div>
+                            </section>`;
                 }
             inner += `</section>`;
         }
