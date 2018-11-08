@@ -15,8 +15,14 @@ body {
     margin-top: 1em;
 }
 
+.story-card:hover {
+    -moz-box-shadow:    0 0 8px var(--main-color-light);
+    -webkit-box-shadow: 0 0 8px var(--main-color-light);
+    box-shadow:         0 0 8px var(--main-color-light);
+}
+
 .story-card.loading {
-    background-color: purple;
+    background-color: palegreen;
 }
 
 .story-card.open .story-card-info {
@@ -101,12 +107,12 @@ body {
         margin: 0;
     }
     
-    #navbar .hamburger label:before {
+    #navbar .hamburger label::before {
         content: "[ ]";
         font-size: 16px;
     }
     
-    #navbar .hamburger input:checked ~ label:before {
+    #navbar .hamburger input:checked ~ label::before {
         content: "[X]";
     }
     
@@ -129,4 +135,15 @@ body {
 
 .line-middle {
     flex: 0 0 auto;
+    padding: 0 1em;
 }
+
+hr {
+    border: 0;
+    height: 2px;
+    background: rgb(167, 167, 167);
+}
+
+/* hr::before {
+    opacity: 0.2;
+} */
