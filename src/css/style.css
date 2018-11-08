@@ -48,6 +48,11 @@ body {
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
+    /* Para passar a ser xpto: */
+    position: absolute; /* Ou sticky que funciona sem o left e width */
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 
 #navbar a {
