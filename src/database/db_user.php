@@ -37,7 +37,8 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare('INSERT INTO users (username, password, name) VALUES(?, ?, ?)');
         try{
-            $stmt->execute(array($username, $password, $name));
+            $hashedPW = password_hash($password, PASSWORD_DEFAULT);
+            $stmt->execute(array($username, $hashedPW, $name));
         } catch(Exception $err) {
             $error = $err->getCode();
         }
