@@ -26,8 +26,9 @@ export class Story {
         `;
 
         article.onclick = (e) => {
+            //To ensure that clicking on the story or user link does not attempt to open or close the card
             if(e.target.tagName !== 'A') {
-                this.toggleCardOpen()
+                this.toggleCardOpen();
             }
         };
 
