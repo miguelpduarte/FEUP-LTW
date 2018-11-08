@@ -23,6 +23,7 @@
             $data = getUser($_GET['id']);
 
             //Detecting database fetching errors (TODO: use try catch? -> Guilherme ;)
+            http_response_code(404);
             if($data === false) {
                 echo json_encode([
                     'success' => false,
@@ -30,6 +31,7 @@
                 ]);
             } else {
 
+                http_response_code(200);
                 echo json_encode([
                     'success' => true,
                     'data' => $data
@@ -37,6 +39,7 @@
             }
 
         } else {
+            http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'No User ID Specified'
@@ -50,7 +53,8 @@
         header('Content-Type: application/json');
         $data = json_decode(file_get_contents('php://input'), true);
 
-        if(!isset($data['username']) || $data['username'] === '') {
+        if(empty($data['username'])) {
+            http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'Username is missing'
@@ -58,7 +62,8 @@
             exit;
         }
 
-        if(!isset($data['password']) || $data['password'] === '') {
+        if(empty($data['password'])) {
+            http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'The password is missing'
@@ -66,7 +71,8 @@
             exit;
         }
 
-        if(!isset($data['name']) || $data['name'] === '') {
+        if(empty($data['name'])) {
+            http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'The name field is missing'
@@ -74,16 +80,27 @@
             exit;
         }
 
+        if(!preg_match("/^[a-zA-Z0-9]*$/", $data[username])) {
+            http_response_code(400);
+            echo json_encode([
+                'success' => false,
+                'reason' => 'The username should only contain letters and numbers'
+                ]);
+            exit; 
+        }
+
         $error = "";
         insertUser($data['username'], $data['password'], $data['name'], $error);
             
         if($error) {
+            http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => $error
             ]);
             exit;
         } else {
+            http_response_code(200);
             echo json_encode([
                 'success' => true
             ]);
@@ -93,6 +110,7 @@
     }
 
     function handle_error() {
+        http_response_code(400);
         echo "Invalid request method for this route";
         exit;
     }
