@@ -70,6 +70,15 @@
                 ]);
             exit;
         }
+        
+        if(empty($data['password-confirmation'])) {
+            http_response_code(400);
+            echo json_encode([
+                'success' => false,
+                'reason' => 'The password confirmation field is missing'
+                ]);
+            exit;
+        }
 
         if(empty($data['name'])) {
             http_response_code(400);
@@ -80,11 +89,20 @@
             exit;
         }
 
-        if(!preg_match("/^[a-zA-Z0-9]*$/", $data[username])) {
+        if(!preg_match("/^[a-zA-Z0-9]*$/", $data['username'])) {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'The username should only contain letters and numbers'
+                ]);
+            exit; 
+        }
+
+        if($data['password'] !== $data['password-confirmation']) {
+            http_response_code(400);
+            echo json_encode([
+                'success' => false,
+                'reason' => 'The passwords do not match'
                 ]);
             exit; 
         }
