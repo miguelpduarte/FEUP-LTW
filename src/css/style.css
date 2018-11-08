@@ -32,7 +32,11 @@ body {
     background-color: grey;
 }
 
-.full-story {
+.full-story,.comment {
     border: 1px solid blue;
     margin-top: 1em;
+}
+
+.subcomment {
+    margin-left: 2em;
 }

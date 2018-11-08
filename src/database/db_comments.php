@@ -6,7 +6,7 @@
      */
     function getComments($story_id) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT author, content FROM comments WHERE story = ?');
+        $stmt = $db->prepare('SELECT author, content, users.username as author_name FROM comments JOIN users ON comments.author=users.user_id WHERE story = ?');
         $stmt->execute(array($story_id));
         return $stmt->fetchAll(); 
     }
@@ -16,12 +16,12 @@
      */
     function getNestedComments($story_id) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT comment_id, author, content FROM comments WHERE story = ?');
+        $stmt = $db->prepare('SELECT comment_id, author, content, users.username as author_name FROM comments JOIN users ON comments.author=users.user_id WHERE story = ?');
         $stmt->execute(array($story_id));
         $comments = $stmt->fetchAll();
         foreach ($comments as $key => $comment) {
             $comment_id = $comment['comment_id'];
-            $substmt = $db->prepare('SELECT comment_id, author, content FROM comments WHERE parent_comment = ?');
+            $substmt = $db->prepare('SELECT comment_id, author, content, users.username as author_name FROM comments JOIN users ON comments.author=users.user_id WHERE parent_comment = ?');
             $substmt->execute(array($comment_id));
             $comments[$key]['nested_comments'] = $substmt->fetchAll();
         }
