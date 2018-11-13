@@ -13,7 +13,7 @@ body {
     padding: 1em;
     border: 1px solid black;
     margin-top: 1em;
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .story-card:hover:not(.open) {
@@ -21,9 +21,9 @@ body {
 }
 
 .story-card:hover {
-    -moz-box-shadow:    0 0 8px var(--main-color-light);
-    -webkit-box-shadow: 0 0 8px var(--main-color-light);
-    box-shadow:         0 0 8px var(--main-color-light);
+    -moz-box-shadow:    0 0 12px var(--main-color-light);
+    -webkit-box-shadow: 0 0 12px var(--main-color-light);
+    box-shadow:         0 0 12px var(--main-color-light);
 }
 
 .story-card.loading {
