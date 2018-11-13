@@ -107,3 +107,11 @@
     transform: translate(-50%, -50%);
     width: 100%;
 }
+
+.story-card.upvoted .voting-wrapper .voting .vote-up {
+    color: orange;
+}
+
+.story-card.downvoted .voting-wrapper .voting .vote-down {
+    color: blue;
+}

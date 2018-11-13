@@ -28,9 +28,9 @@ export class Story {
                 <div class="voting-wrapper">
                     <div class="score">${this.data.score}</div>                    
                     <div class="voting">
-                        <div class="vote-up">VoteUP</div>
+                        <div class="vote-up">^</div>
                         <div class="score">${this.data.score}</div>
-                        <div class="vote-down">VoteDOWN</div>
+                        <div class="vote-down">v</div>
                     </div>
                 </div>
             </section>
