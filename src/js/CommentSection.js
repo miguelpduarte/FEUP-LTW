@@ -1,6 +1,5 @@
 import {Comment} from './Comment.js';
-import { fetchComments } from "./fetch_actions.js";
-import {mdToHTML} from './utils.js';
+import {fetchComments} from './fetch_actions.js';
 
 export class CommentSection {
   constructor(comments_data, story_id) {
@@ -10,6 +9,7 @@ export class CommentSection {
       return new Comment(comment);
     });
     this.section = null;
+    this.loading = false;
   }
 
   render() {
@@ -17,38 +17,39 @@ export class CommentSection {
     this.section.classList.add('comment-section');
     this.section.innerHTML = `<h3>Comments</h3>`;
     for (const comment of this.comments) {
-        this.section.appendChild(comment.render());
+      this.section.appendChild(comment.render());
     }
 
-    this.appendButton();
+    document.addEventListener('scroll', this.scrollListener.bind(this));
     return this.section;
   }
 
-  appendButton() {
-      if(this.section === null)
-        return;
-      let button = document.createElement('button');
-      button.id = 'expand-comments';
-      button.innerText = 'Expand Comments';
-      button.addEventListener(`click`, this.loadMoreComments.bind(this));
-      this.section.appendChild(button);
-    
+  scrollListener(event) {
+    if (this.section === null) return;
 
+    if (document.body.scrollHeight <=
+            document.documentElement.scrollTop + window.innerHeight &&
+        !this.loading) {
+      this.loadMoreComments()
+    }
   }
 
   async loadMoreComments(event) {
-    if(this.section === null)
-       return;
-    
-    this.section.removeChild(this.section.lastChild);
-    const comment_data = await fetchComments(this.story_id, 10, this.n_comments_loaded, 1, 0);
+      //Todo add spinner and remove timeout
+    if (this.section === null) return;
+
+    const comment_data =
+        await fetchComments(this.story_id, 10, this.n_comments_loaded, 1, 0);
+    if (comment_data == null || comment_data.length == 0) return;
     this.n_comments_loaded += comment_data.length;
-    for (const comment of comment_data) {
+    this.loading = true;
+    setTimeout(() => {
+      for (const comment of comment_data) {
         const comment_object = new Comment(comment);
         this.comments.push(comment_object);
         this.section.appendChild(comment_object.render());
-    }
-    this.appendButton();
-
+      }
+      this.loading = false;
+    }, 1000)
   }
 }
