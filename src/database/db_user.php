@@ -28,6 +28,26 @@
         return $stmt->fetch(); 
     }
 
+    /**
+     * Validates Username/Password and returns the matching user if it exists.
+     */
+    function verifyLoginCredentials($username, $password) {
+
+        
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT user_id, password FROM users WHERE username = ?');
+        $stmt->execute(array($username));
+        
+        $user = $stmt->fetch();
+        $pwdMatch = password_verify($password, $user['password']);
+
+        if($pwdMatch) {
+            return $user;
+        } else {
+            return null;
+        }
+    }
+
    
 
     /**
