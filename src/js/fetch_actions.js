@@ -35,11 +35,11 @@ export const fetchStory = id => {
     });
 };
 
-export const fetchComments = id => {
+export const fetchComments = (id, n, off, n_nested, n_off) => {
     let real_id = Number.parseInt(id);
 
     return new Promise((resolve, reject) => {
-        fetch(`/api/comment.php?id=${real_id}`)
+        fetch(`/api/comment.php?id=${real_id}&n=${n}&off=${off}&n_nested=${n_nested}&n_off=${n_off}`)
             .then(res => res.json())
             .then(data => {
                 
