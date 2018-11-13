@@ -1,14 +1,14 @@
 @import "./palette.css";
 
 .story-card {
-    padding: 1em;
     border: 1px solid black;
     margin-top: 1em;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    /* background-color: goldenrod; */
 }
 
-.story-card:hover:not(.open) {
-    transform: scale(1.02);
+.story-card-info {
+    padding: 1em;
 }
 
 .story-card:hover {
@@ -21,7 +21,7 @@
     background-color: palegreen;
 }
 
-.story-card.open .story-card-info {
+.story-card .story-card-header {
     background-color: white;
 }
 
@@ -36,52 +36,74 @@
     height: 0;
 }
 
-.story-card.open {
+/* .open */
+.story-card .story-card-content {
     background-color: grey;
 }
 
-.story-card a {
+.story-card-header a {
     text-decoration: none;
     color: inherit;
 }
 
-.story-card-details {
+.story-card-header .story-card-details {
     color: var(--grey);
     font-style: italic;
 }
 
-.story-card-info .author::before {
+.story-card-details .author::before {
     content: "by ";
 }
 
-.story-card-info .date::before {
+.story-card-details .date::before {
     content: "- ";
 }
 
 /* LAYOUT STUFF */
 
-.story-card-info {
+.story-card-header {
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 20%;
+    grid-template-rows: auto;
 }
 
-.story-card-info .story-card-details {
-    grid-row: 2 / span 1;
-    grid-column: 2 / span 1;
-}
-
-.story-card-info > .score {
-    grid-row: 1 / span 2;
+.story-card-header .story-card-info {
+    grid-row: 1 / span 1;
     grid-column: 1 / span 1;
-    align-self: center;
-    justify-self: center;
-    text-align: center;
-    width: 5em;
 }
 
-.story-card-info .voting {
+.story-card .story-card-header .voting-wrapper {
     grid-row: 1 / span 2;
-    grid-column: 3 / span 1;
-    align-self: center;
+    grid-column: 2 / span 1;
+    text-align: center;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.story-card .story-card-header .voting-wrapper .voting {
+    color: white;
+    background-color: var(--main-color);
+    transform: translate(50%, -50%);
+    transition: 0.7s transform ease-in-out;
+
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1px;
+}
+
+.story-card:hover .story-card-header .voting-wrapper .voting {
+    transform: translate(-50%, -50%);
+}
+
+.story-card .story-card-header .voting-wrapper > * {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
 }

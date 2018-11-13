@@ -17,17 +17,21 @@ export class Story {
         article.classList.add("story-card");
         article.id = `story_${this.data.story_id}`;
         article.innerHTML = `
-            <section class="story-card-info">
-                <div class="score">${this.data.score}</div>
-                <h1 class="title"><a href="story.php?id=${this.data.story_id}">${this.data.title}</a></h1>
-                <div class="story-card-details">
-                    <span class="author"><a href="user.php?id=${this.data.author_id}">${this.data.author_name}</a></span>
-                    <span class="date">${this.data.created_at}</span>
+            <section class="story-card-header">
+                <div class="story-card-info">
+                    <h1 class="title"><a href="story.php?id=${this.data.story_id}">${this.data.title}</a></h1>
+                    <div class="story-card-details">
+                        <span class="author"><a href="user.php?id=${this.data.author_id}">${this.data.author_name}</a></span>
+                        <span class="date">${moment(this.data.created_at).fromNow()}</span>
+                    </div>
                 </div>
-                <div class="voting">
-                    <div class="vote-up">VoteUP</div>
-                    <div class="score">${this.data.score}</div>
-                    <div class="vote-down">VoteDOWN</div>
+                <div class="voting-wrapper">
+                    <div class="score">${this.data.score}</div>                    
+                    <div class="voting">
+                        <div class="vote-up">VoteUP</div>
+                        <div class="score">${this.data.score}</div>
+                        <div class="vote-down">VoteDOWN</div>
+                    </div>
                 </div>
             </section>
             <section class="story-card-content">${(this.content_loaded ? this.data.content : "Loading...")}</section>
@@ -39,6 +43,8 @@ export class Story {
                 this.toggleCardOpen();
             }
         };
+
+        
 
         const card_content = article.getElementsByClassName("story-card-content")[0];
         card_content.addEventListener("transitionend", (event) => {
