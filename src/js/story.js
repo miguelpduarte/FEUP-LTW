@@ -18,9 +18,17 @@ export class Story {
         article.id = `story_${this.data.story_id}`;
         article.innerHTML = `
             <section class="story-card-info">
-                <div class="story-card-score">${this.data.score}</div>
-                <h1><a href="story.php?id=${this.data.story_id}">${this.data.title}</a></h1>
-                <h2>Author: <a href="user.php?id=${this.data.author_id}">${this.data.author_name}</a></h2>
+                <div class="score">${this.data.score}</div>
+                <h1 class="title"><a href="story.php?id=${this.data.story_id}">${this.data.title}</a></h1>
+                <div class="story-card-details">
+                    <span class="author"><a href="user.php?id=${this.data.author_id}">${this.data.author_name}</a></span>
+                    <span class="date">${this.data.created_at}</span>
+                </div>
+                <div class="voting">
+                    <div class="vote-up">VoteUP</div>
+                    <div class="score">${this.data.score}</div>
+                    <div class="vote-down">VoteDOWN</div>
+                </div>
             </section>
             <section class="story-card-content">${(this.content_loaded ? this.data.content : "Loading...")}</section>
         `;
