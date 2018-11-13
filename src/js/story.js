@@ -32,7 +32,19 @@ export class Story {
             }
         };
 
+        const card_content = article.getElementsByClassName("story-card-content")[0];
+        card_content.addEventListener("transitionend", (event) => {
+            this.resizeCardContent(card_content);
+        });
+
         return article;
+    }
+
+    resizeCardContent(card_content) {
+        if (this.isOpen && this.card_content_calc_height && this.card_content_calc_height !== card_content.scrollHeight) {
+            card_content.style.height = card_content.scrollHeight+"px";
+            this.card_content_calc_height = card_content.scrollHeight;
+        }
     }
 
     async toggleCardOpen() {
@@ -42,7 +54,7 @@ export class Story {
             this.element.classList.remove("loading");
         }
 
-        let card_content = this.element.getElementsByClassName('story-card-content')[0];
+        const card_content = this.element.getElementsByClassName("story-card-content")[0];
 
         if (this.isOpen) {
             this.element.classList.remove("open");
@@ -51,6 +63,7 @@ export class Story {
         } else {
             this.element.classList.add("open");
             card_content.style.height = card_content.scrollHeight+"px";
+            this.card_content_calc_height = card_content.scrollHeight;
             this.isOpen = true;
         }
     }
