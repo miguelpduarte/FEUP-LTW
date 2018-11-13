@@ -1,0 +1,24 @@
+.line-container {
+    display: flex;
+    margin: 1em 0;
+}
+
+.line {
+    /* Lets the line grow and shrink as needed and does not factor it in the initial size calculations */
+    flex: 1 1 0;
+}
+
+.line-middle {
+    flex: 0 0 auto;
+    padding: 0 1em;
+}
+
+hr {
+    border: 0;
+    height: 2px;
+    background: rgb(167, 167, 167);
+}
+
+/* hr::before {
+    opacity: 0.2;
+} */

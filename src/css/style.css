@@ -1,4 +1,7 @@
-@import "palette.css";
+@import "./palette.css";
+@import "./story_card.css";
+@import "./line.css";
+@import "./navbar.css";
 
 body {
     margin: 0;
@@ -9,147 +12,7 @@ body {
     max-width: 60em;
 }
 
-.story-card {
-    padding: 1em;
-    border: 1px solid black;
-    margin-top: 1em;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.story-card:hover:not(.open) {
-    transform: scale(1.02);
-}
-
-.story-card:hover {
-    -moz-box-shadow:    0 0 12px var(--main-color-light);
-    -webkit-box-shadow: 0 0 12px var(--main-color-light);
-    box-shadow:         0 0 12px var(--main-color-light);
-}
-
-.story-card.loading {
-    background-color: palegreen;
-}
-
-.story-card.open .story-card-info {
-    background-color: white;
-}
-
-.story-card .story-card-content {
-    overflow: hidden;
-
-    -moz-transition: height .5s;
-    -ms-transition: height .5s;
-    -o-transition: height .5s;
-    -webkit-transition: height .5s;
-    transition: height .5s;
-    height: 0;
-}
-
-.story-card.open {
-    background-color: grey;
-}
-
 .full-story {
     border: 1px solid blue;
     margin-top: 1em;
 }
-
-#navbar {
-    background-color: var(--main-color);
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    /* Para passar a ser xpto: */
-    position: sticky;
-    top: 0;
-    z-index: 5;
-}
-
-#navbar a {
-    color: white;
-    text-decoration: none;
-}
-
-#navbar .logo {
-    color: white;
-    background-color: goldenrod;
-    border-radius: 1em;
-    font-size: 20px;
-    padding: 0.3em;
-    margin: 0.5em;
-}
-
-/* Navbar hamburger menu */
-
-#navbar .hamburger input {
-    display: none;
-}
-
-#navbar .hamburger label {
-    font-size: 0;
-}
-
-#navbar .hamburger ul {
-    display: flex;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-}
-
-#navbar .hamburger ul li {
-    display: inline-block;
-    margin: 0 1em;
-}
-
-@media screen and (max-width: 30em) {
-    #navbar .hamburger ul {
-        max-height: 0;
-        flex-direction: column;
-        align-items: flex-start;
-        transition: max-height 0.5s;
-    }
-
-    #navbar .hamburger ul li {
-        margin: 0;
-    }
-    
-    #navbar .hamburger label::before {
-        content: "[ ]";
-        font-size: 16px;
-    }
-    
-    #navbar .hamburger input:checked ~ label::before {
-        content: "[X]";
-    }
-    
-    #navbar .hamburger input:checked ~ ul {
-        max-height: 4em;
-    }
-}
-
-/* Line stuff */
-
-.line-container {
-    display: flex;
-    margin: 1em 0;
-}
-
-.line {
-    /* Lets the line grow and shrink as needed and does not factor it in the initial size calculations */
-    flex: 1 1 0;
-}
-
-.line-middle {
-    flex: 0 0 auto;
-    padding: 0 1em;
-}
-
-hr {
-    border: 0;
-    height: 2px;
-    background: rgb(167, 167, 167);
-}
-
-/* hr::before {
-    opacity: 0.2;
-} */
