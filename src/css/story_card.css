@@ -36,7 +36,12 @@
     font-family: 'Autour One', cursive;
 }
 
-.story-card .story-card-content {
+.story-card .content {
+    padding: 1em;
+    font-family: 'Armata', sans-serif;
+}
+
+.story-card .content-wrapper {
     overflow: hidden;
 
     -moz-transition: height .5s;
@@ -46,12 +51,7 @@
     transition: height .5s;
     height: 0;
 
-    font-family: 'Armata', sans-serif;
-}
-
-/* .open */
-.story-card .story-card-content {
-    background-color: grey;
+    background-color: var(--grey);
 }
 
 .story-card-header a {

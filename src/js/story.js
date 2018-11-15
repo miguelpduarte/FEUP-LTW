@@ -34,7 +34,9 @@ export class Story {
                     </div>
                 </div>
             </section>
-            <section class="story-card-content">${(this.content_loaded ? this.data.content : "Loading...")}</section>
+            <div class="content-wrapper">
+                <section class="content">${(this.content_loaded ? this.data.content : "Loading...")}</section>
+            </div>
         `;
 
         article.onclick = (e) => {
@@ -46,18 +48,18 @@ export class Story {
 
         
 
-        const card_content = article.getElementsByClassName("story-card-content")[0];
-        card_content.addEventListener("transitionend", (_event) => {
-            this.resizeCardContent(card_content);
+        const card_content_wrapper = article.getElementsByClassName("content-wrapper")[0];
+        card_content_wrapper.addEventListener("transitionend", (_event) => {
+            this.resizeCardContentWrapper(card_content_wrapper);
         });
 
         return article;
     }
 
-    resizeCardContent(card_content) {
-        if (this.isOpen && this.card_content_calc_height && this.card_content_calc_height !== card_content.scrollHeight) {
-            card_content.style.height = card_content.scrollHeight+"px";
-            this.card_content_calc_height = card_content.scrollHeight;
+    resizeCardContentWrapper(card_content_wrapper) {
+        if (this.isOpen && this.card_content_wrapper_calc_height && this.card_content_wrapper_calc_height !== card_content_wrapper.scrollHeight) {
+            card_content_wrapper.style.height = card_content_wrapper.scrollHeight+"px";
+            this.card_content_wrapper_calc_height = card_content_wrapper.scrollHeight;
         }
     }
 
@@ -68,16 +70,16 @@ export class Story {
             this.element.classList.remove("loading");
         }
 
-        const card_content = this.element.getElementsByClassName("story-card-content")[0];
+        const card_content_wrapper = this.element.getElementsByClassName("content-wrapper")[0];
 
         if (this.isOpen) {
             this.element.classList.remove("open");
-            card_content.style.height = 0;
+            card_content_wrapper.style.height = 0;
             this.isOpen = false;
         } else {
             this.element.classList.add("open");
-            card_content.style.height = card_content.scrollHeight+"px";
-            this.card_content_calc_height = card_content.scrollHeight;
+            card_content_wrapper.style.height = card_content_wrapper.scrollHeight+"px";
+            this.card_content_wrapper_calc_height = card_content_wrapper.scrollHeight;
             this.isOpen = true;
         }
     }
@@ -86,7 +88,7 @@ export class Story {
         const story_data = await fetchStory(this.data.story_id);
         this.data = story_data;
 
-        this.element.getElementsByClassName('story-card-content')[0].innerHTML = mdToHTML(this.data.content);
+        this.element.getElementsByClassName('content')[0].innerHTML = mdToHTML(this.data.content);
         this.content_loaded = true;
     }
 
