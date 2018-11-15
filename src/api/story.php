@@ -50,8 +50,7 @@
     function handle_post() {
         header('Content-Type: application/json');
         $data = json_decode(file_get_contents('php://input'), true);
-        //TODO: Add login validation - can only insert stories of own user, etc
-        // $author, $title, $content, $channel
+        
         $currentUser = getLoggedUser();
 
         if(!$currentUser) {
