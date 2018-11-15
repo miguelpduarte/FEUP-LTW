@@ -97,9 +97,9 @@ export class Story {
         section.id = `story_${this.data.story_id}`;
         section.className = "full-story";
         section.innerHTML = `
-            <h1>${this.data.title}</h1>
+            <h1 class="title">${this.data.title}</h1>
             <hr/>
-            <div class="md-content">${mdToHTML(this.data.content)}</div>
+            <div class="content">${mdToHTML(this.data.content)}</div>
         `;
 
         return section;
