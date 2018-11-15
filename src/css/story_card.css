@@ -32,6 +32,10 @@
     background-color: white;
 }
 
+.story-card .title {
+    font-family: 'Autour One', cursive;
+}
+
 .story-card .story-card-content {
     overflow: hidden;
 
@@ -41,6 +45,8 @@
     -webkit-transition: height .5s;
     transition: height .5s;
     height: 0;
+
+    font-family: 'Armata', sans-serif;
 }
 
 /* .open */
@@ -65,8 +71,6 @@
 .story-card-details .date::before {
     content: "- ";
 }
-
-/* LAYOUT STUFF */
 
 .story-card-header {
     display: grid;
