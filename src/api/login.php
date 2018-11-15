@@ -22,7 +22,8 @@ function handle_post() {
     header('Content-Type: application/json');
     $data = json_decode(file_get_contents('php://input'), true);
 
-    if($_SESSION && $_SESSION['user_id']) {
+    $currentUser = getLoggedUser();
+    if($currentUser) {
         http_response_code(400);
         echo json_encode([
             'success' => false,
@@ -75,7 +76,9 @@ function handle_post() {
 function handle_delete() {
     header('Content-Type: application/json');
 
-    if($_SESSION && $_SESSION['user_id']) {
+    $currentUser = getLoggedUser();
+
+    if($currentUser) {
         session_unset();
         session_destroy();
         http_response_code(200);
