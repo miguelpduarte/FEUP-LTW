@@ -1,5 +1,6 @@
 :root {
     --main-color: rgb(102, 0, 0);
-    --main-color-light: rgba(162, 0, 0, 0.4);
+    --main-color-light: rgba(102, 0, 0, 0.6);
+    --main-color-lighter: rgba(102, 0, 0, 0.3);
     --grey: #8f8f8f;
 }

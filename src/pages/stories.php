@@ -13,6 +13,7 @@
         </div>
         <div id="top">
             <div class="line-container">
+                <div class="line-starter">Cenas</div>
                 <div class="line"><hr/></div>
                 <div class="line-middle">Top HatEmoji</div>
                 <div class="line"><hr/></div>

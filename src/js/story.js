@@ -47,7 +47,7 @@ export class Story {
         
 
         const card_content = article.getElementsByClassName("story-card-content")[0];
-        card_content.addEventListener("transitionend", (event) => {
+        card_content.addEventListener("transitionend", (_event) => {
             this.resizeCardContent(card_content);
         });
 

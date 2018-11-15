@@ -3,6 +3,11 @@
     margin: 1em 0;
 }
 
+.line-starter {
+    flex: 0 0 auto;
+    padding: 0 1em 0 0;
+}
+
 .line {
     /* Lets the line grow and shrink as needed and does not factor it in the initial size calculations */
     flex: 1 1 0;
