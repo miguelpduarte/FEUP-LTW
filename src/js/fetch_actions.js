@@ -54,7 +54,7 @@ export const fetchComments = (story_id, n_comments, off, n_nested, n_off) => {
     });
 };
 
-export const fetchSubComments = (comment_id, n_comments, off, n_nested, n_off) => {
+export const fetchSubComments = (comment_id, n_comments, off) => {
     let real_id = Number.parseInt(comment_id);
 
     return new Promise((resolve, reject) => {
