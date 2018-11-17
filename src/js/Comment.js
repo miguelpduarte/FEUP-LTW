@@ -1,5 +1,5 @@
-import {mdToHTML} from './utils.js';
 import {fetchSubComments} from './fetch_actions.js';
+import {mdToHTML} from './utils.js';
 
 export class Comment {
   constructor(data) {
@@ -33,7 +33,7 @@ export class Comment {
     }
     if (this.data.nested_comments.length != 0) {
       section.innerHTML += `<button class="expand-comments" data-id=${
-          this.data.comment_id}>Expand Comments</button>`
+          this.data.comment_id}>Expand Comments</button>`;
       section.lastChild.addEventListener(
           `click`, this.loadMoreComments.bind(this));
     }
@@ -57,9 +57,11 @@ export class Comment {
                               </section>`;
     }
 
-    if(this.data.nested_comments.length != 0) {
-        this.section.innerHTML += `<button class="expand-comments" data-id=${this.data.comment_id}>Expand Comments</button>`
-        this.section.lastChild.addEventListener(`click`, this.loadMoreComments.bind(this));
+    if (this.data.nested_comments.length != 0) {
+      this.section.innerHTML += `<button class="expand-comments" data-id=${
+          this.data.comment_id}>Expand Comments</button>`;
+      this.section.lastChild.addEventListener(
+          `click`, this.loadMoreComments.bind(this));
     }
   }
 }
