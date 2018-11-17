@@ -45,6 +45,7 @@ export class Comment {
     const comment_data =
         await fetchSubComments(this.comment_id, 10, this.n_comments_loaded);
     this.section.removeChild(this.section.lastChild);
+    this.n_comments_loaded += comment_data.length;
     for (const nComment of comment_data) {
       this.section.innerHTML += `<section class="subcomment comment">
                                   <h4>Author: <a href="user.php?id=${
