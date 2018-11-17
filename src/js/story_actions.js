@@ -28,6 +28,12 @@ const clearCurrentStory = () => {
     while (story_container.firstChild) {
         story_container.removeChild(story_container.firstChild);
     }
+
+    const comments_container = document.getElementById("comments_container");
+
+    while (comments_container.firstChild) {
+        comments_container.removeChild(comments_container.firstChild);
+    }
 };
 
 const reloadCurrentStory = () => {
