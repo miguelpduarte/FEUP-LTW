@@ -17,13 +17,17 @@
     
     function handle_get() {
         header('Content-Type: application/json');
-        $n_comments = (isset($_GET['n']) && $_GET['n'] !== '' ? intval($_GET['n']) : 0);
+        $data = false;
+        
+        $n_comments = (isset($_GET['n_comments']) && $_GET['n_comments'] !== '' ? intval($_GET['n_comments']) : 0);
         $offset = (isset($_GET['off']) && $_GET['off'] !== '' ? intval($_GET['off']) : 0);
         $n_nested = (isset($_GET['n_nested']) && $_GET['n_nested'] !== ''? intval($_GET['n_nested']) : 0);
         $nested_off = (isset($_GET['n_off']) && $_GET['n_off'] !== '' ? intval($_GET['n_off']) : 0);
 
-        if(isset($_GET['id']) && $_GET['id'] !== '') {
-            $data = getNestedComments($_GET['id'], $n_comments, $offset, $n_nested, $nested_off);
+        if(isset($_GET['story_id']) && $_GET['story_id'] !== '') {
+            $data = getNestedComments($_GET['story_id'], $n_comments, $offset, $n_nested, $nested_off);
+        } elseif (isset($_GET['comment_id']) && $_GET['comment_id'] !== '') {
+            $data = getSubComments($_GET['comment_id'], $n_comments, $offset);
         }
 
         //Detecting database fetching errors (TODO: use try catch? -> Guilherme ;)

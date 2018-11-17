@@ -35,11 +35,30 @@ export const fetchStory = id => {
     });
 };
 
-export const fetchComments = (id, n, off, n_nested, n_off) => {
-    let real_id = Number.parseInt(id);
+export const fetchComments = (story_id, n_comments, off, n_nested, n_off) => {
+    let real_id = Number.parseInt(story_id);
 
     return new Promise((resolve, reject) => {
-        fetch(`/api/comment.php?id=${real_id}&n=${n}&off=${off}&n_nested=${n_nested}&n_off=${n_off}`)
+        fetch(`/api/comment.php?story_id=${real_id}&n_comments=${n_comments}&off=${off}&n_nested=${n_nested}&n_off=${n_off}`)
+            .then(res => res.json())
+            .then(data => {
+                
+            //Check for data errors
+            if(data.success) {
+                return resolve(data.data);
+            } else {
+                return reject(new Exception("Fetching not successful, reason: " + data.reason));
+            }
+        })
+        .catch(err => console.error('Fetch error:', err));;
+    });
+};
+
+export const fetchSubComments = (comment_id, n_comments, off, n_nested, n_off) => {
+    let real_id = Number.parseInt(comment_id);
+
+    return new Promise((resolve, reject) => {
+        fetch(`/api/comment.php?comment_id=${comment_id}&n_comments=${n_comments}&off=${off}`)
             .then(res => res.json())
             .then(data => {
                 
