@@ -4,12 +4,12 @@
     font-family: 'Autour One';
     font-style: normal;
     font-weight: 400;
-    src: local('Autour One Regular'), local('AutourOne-Regular'), url('../fonts/AutourOne-Regular.ttf');
+    src: local('Autour One Regular'), local('AutourOne-Regular'), url('../assets/fonts/AutourOne-Regular.ttf');
 }
 
 @font-face {
     font-family: 'Armata';
     font-style: normal;
     font-weight: 400;
-    src: local('Armata Regular'), local('Armata-Regular'), url('../fonts/Armata-Regular.ttf');
+    src: local('Armata Regular'), local('Armata-Regular'), url('../assets/fonts/Armata-Regular.ttf');
 }

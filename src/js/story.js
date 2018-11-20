@@ -32,9 +32,9 @@ export class Story {
                 <div class="voting-wrapper">
                     <div class="score">${this.data.score}</div>                    
                     <div class="voting">
-                        <div class="vote-up">^</div>
+                        <i class="vote-up fas fa-chevron-up"></i>
                         <div class="score">${this.data.score}</div>
-                        <div class="vote-down">v</div>
+                        <i class="vote-down fas fa-chevron-down"></i>
                     </div>
                 </div>
             </section>
