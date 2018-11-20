@@ -1,5 +1,6 @@
 <?php
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_story.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
 
     $method = $_SERVER['REQUEST_METHOD'];
 
@@ -49,13 +50,13 @@
     function handle_post() {
         header('Content-Type: application/json');
         $data = json_decode(file_get_contents('php://input'), true);
-        //TODO: Add login validation - can only insert stories of own user, etc
-        // $author, $title, $content, $channel
+        
+        $currentUser = getLoggedUser();
 
-        if(!isset($data['author']) || $data['author'] === '' || !is_int($data['author'])) {
+        if(!$currentUser) {
             echo json_encode([
                 'success' => false,
-                'reason' => 'The author field is missing'
+                'reason' => "Anonimous User can't post a Story"
                 ]);
             exit;
         }
@@ -84,7 +85,7 @@
             exit;
         }
 
-        insertStory($data['author'], $data['title'], $data['content'], $data['channel']);
+        insertStory($currentUser['user_id'], $data['title'], $data['content'], $data['channel']);
 
         echo json_encode([
             'success' => true
