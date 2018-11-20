@@ -7,6 +7,7 @@ export class Comment {
     this.comment_id = data.comment_id;
     this.data = data;
     this.section = null;
+    this.loading = false;
   }
 
   render() {
@@ -42,9 +43,32 @@ export class Comment {
   }
 
   async loadMoreComments(event) {
+    if (this.loading) return;
+
+    this.loading = true;
+    this.section.removeChild(this.section.lastChild);
+
+    // Append loading message
+    let loadingWheel = document.createElement('p');
+    loadingWheel.innerHTML = 'Loading comments...';
+    this.section.appendChild(loadingWheel);
+
     const comment_data =
         await fetchSubComments(this.comment_id, 10, this.n_comments_loaded);
+
+    this.addComments(comment_data);
+
+    if (this.data.nested_comments.length != 0) {
+      this.section.innerHTML += `<button class="expand-comments" data-id=${
+          this.data.comment_id}>Expand Comments</button>`;
+    }
+
+    this.loading = false;
+  }
+
+  addComments(comment_data) {
     this.section.removeChild(this.section.lastChild);
+
     this.n_comments_loaded += comment_data.length;
     for (const nComment of comment_data) {
       this.section.innerHTML += `<section class="subcomment comment">
@@ -55,13 +79,6 @@ export class Comment {
                                   <div class="md-content">${
           mdToHTML(nComment.content)}</div>
                               </section>`;
-    }
-
-    if (this.data.nested_comments.length != 0) {
-      this.section.innerHTML += `<button class="expand-comments" data-id=${
-          this.data.comment_id}>Expand Comments</button>`;
-      this.section.lastChild.addEventListener(
-          `click`, this.loadMoreComments.bind(this));
     }
   }
 }

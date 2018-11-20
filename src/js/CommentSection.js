@@ -35,21 +35,36 @@ export class CommentSection {
   }
 
   async loadMoreComments(event) {
-      //Todo add spinner and remove timeout
-    if (this.section === null) return;
+    if (this.section === null || this.loading) return;
 
+    this.loading = true;
+
+    // Append loading message
+    let loadingWheel = document.createElement('p');
+    loadingWheel.innerHTML = 'Loading comments...';
+    this.section.appendChild(loadingWheel);
+
+    // Retrive new comments
     const comment_data =
         await fetchComments(this.story_id, 10, this.n_comments_loaded, 1, 0);
+
+    let load = this.addComments.bind(this, comment_data);
+    // TODO: Remove Timeout
+    window.setTimeout(load, 2000);
+  }
+
+  addComments(comment_data) {
+    // Remove loading message
+    this.section.removeChild(this.section.lastChild);
+
+    // Append comments
     if (comment_data == null || comment_data.length == 0) return;
     this.n_comments_loaded += comment_data.length;
-    this.loading = true;
-    setTimeout(() => {
-      for (const comment of comment_data) {
-        const comment_object = new Comment(comment);
-        this.comments.push(comment_object);
-        this.section.appendChild(comment_object.render());
-      }
-      this.loading = false;
-    }, 1000)
+    for (const comment of comment_data) {
+      const comment_object = new Comment(comment);
+      this.comments.push(comment_object);
+      this.section.appendChild(comment_object.render());
+    }
+    this.loading = false;
   }
 }
