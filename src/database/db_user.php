@@ -16,7 +16,7 @@
                     WHERE users.user_id = ?
                     GROUP BY users.user_id)
                 JOIN 
-                    (SELECT users.user_id as a, users.username as b, users.name as c, story as d, SUM(comments.score) as commentScore
+                    (SELECT users.user_id as a, SUM(comments.score) as commentScore
                     FROM users
                     JOIN comments ON comments.author = users.user_id
                     WHERE users.user_id = ?
