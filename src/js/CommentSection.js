@@ -48,8 +48,8 @@ export class CommentSection {
     const comment_data =
         await fetchComments(this.story_id, 10, this.n_comments_loaded, 1, 0);
 
-    let load = this.addComments.bind(this, comment_data);
     // TODO: Remove Timeout
+    let load = this.addComments.bind(this, comment_data);
     window.setTimeout(load, 2000);
   }
 
@@ -58,10 +58,14 @@ export class CommentSection {
     this.section.removeChild(this.section.lastChild);
 
     // Append comments
-    if (comment_data == null || comment_data.length == 0) return;
+    if (comment_data == null || comment_data.length == 0) {
+      this.loading = false;
+      return;
+    }
+
     this.n_comments_loaded += comment_data.length;
     for (const comment of comment_data) {
-      const comment_object = new Comment(comment);
+      let comment_object = new Comment(comment);
       this.comments.push(comment_object);
       this.section.appendChild(comment_object.render());
     }
