@@ -33,6 +33,7 @@
 
         //Detecting database fetching errors (TODO: use try catch? -> Guilherme ;)
         if($data === false) {
+            http_response_code(404);
             echo json_encode([
                 'success' => false,
                 'reason' => 'Database fetching failed'
@@ -40,6 +41,7 @@
             exit;
         }
 
+        http_response_code(200);
         echo json_encode([
             'success' => true,
             'data' => $data
@@ -54,6 +56,7 @@
         $currentUser = getLoggedUser();
 
         if(!$currentUser) {
+            http_response_code(401);
             echo json_encode([
                 'success' => false,
                 'reason' => "Anonimous User can't post a Story"
@@ -62,6 +65,7 @@
         }
 
         if(!isset($data['title']) || $data['title'] === '') {
+            http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'The title field is missing'
@@ -70,6 +74,7 @@
         }
 
         if(!isset($data['content']) || $data['content'] === '') {
+            http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'The content field is missing'
@@ -78,6 +83,7 @@
         }
 
         if(!isset($data['channel']) || $data['channel'] === '' || !is_int($data['channel'])) {
+            http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'The channel field is missing'
@@ -87,6 +93,7 @@
 
         insertStory($currentUser['user_id'], $data['title'], $data['content'], $data['channel']);
 
+        http_response_code(200);
         echo json_encode([
             'success' => true
         ]);

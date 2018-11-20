@@ -24,7 +24,7 @@ function handle_post() {
 
     $currentUser = getLoggedUser();
     if($currentUser) {
-        http_response_code(400);
+        http_response_code(409);
         echo json_encode([
             'success' => false,
             'reason' => 'Already logged in.'
@@ -87,7 +87,7 @@ function handle_delete() {
             ]);
         exit;
     } else {
-        http_response_code(200);
+        http_response_code(409);
         echo json_encode([
             'success' => false,
             'reason' => 'Currently not logged in.'
