@@ -77,11 +77,9 @@ export class Comment {
     }
 
     this.n_comments_loaded += comment_data.length;
-    console.log(comment_data);
     for (const nComment of comment_data) {
       let newComment = new Comment(nComment);
       this.subComments.push(newComment);
-      console.log(this.section.getElementsByClassName('subcomment-container'));
       this.section.getElementsByClassName('subcomment-container')[0].appendChild(newComment.render());
     }
   }
