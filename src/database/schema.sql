@@ -13,7 +13,7 @@ CREATE TABLE stories (
     score INTEGER DEFAULT 0,
     title VARCHAR NOT NULL,
     content VARCHAR NOT NULL,
-    channel INTEGER REFERENCES channels NOT NULL,
+    channel INTEGER REFERENCES channels,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME
 );
