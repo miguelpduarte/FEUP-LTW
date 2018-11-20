@@ -89,7 +89,7 @@
             exit;
         }
 
-        if(!preg_match("/^[a-zA-Z0-9]*$/", $data['username'])) {
+        if(!preg_match("/^[a-z0-9]*$/", $data['username'])) {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
