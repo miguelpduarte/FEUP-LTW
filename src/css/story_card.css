@@ -51,7 +51,7 @@
     transition: height .5s;
     height: 0;
 
-    background-color: var(--grey);
+    background-color: var(--very-light-grey);
 }
 
 .story-card-header a {
@@ -97,7 +97,7 @@
     color: white;
     background-color: var(--main-color);
     transform: translate(50%, -50%);
-    transition: 0.7s transform ease-in-out;
+    transition: 0.3s transform ease-in-out;
 
     text-align: center;
     height: 100%;
@@ -117,6 +117,21 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
+}
+
+/* The actually displayed score */
+.story-card .voting-wrapper > .score {
+    z-index: 1;
+    transition: 0.3s color ease-in-out;
+}
+
+.story-card:hover .voting-wrapper > .score {
+    color: white;
+}
+
+/* Using score as just a spacer */
+.story-card .voting-wrapper .voting .score {
+    opacity: 0;
 }
 
 .story-card.upvoted .voting-wrapper .voting .vote-up {

@@ -3,4 +3,5 @@
     --main-color-light: rgba(102, 0, 0, 0.6);
     --main-color-lighter: rgba(102, 0, 0, 0.3);
     --grey: #8f8f8f;
+    --very-light-grey: lightgrey;
 }

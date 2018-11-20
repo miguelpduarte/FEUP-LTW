@@ -12,6 +12,10 @@ export class Story {
         this.element = dom_element;
     }
 
+    renderTopCard() {
+        return null;
+    }
+
     renderCard() {
         let article = document.createElement("article");
         article.classList.add("story-card");
