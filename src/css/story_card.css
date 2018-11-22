@@ -172,9 +172,9 @@
 }
 
 .story-card.upvoted .voting-wrapper .voting .vote-up {
-    color: orange;
+    color: chocolate;
 }
 
 .story-card.downvoted .voting-wrapper .voting .vote-down {
-    color: blue;
+    color: deepskyblue;
 }

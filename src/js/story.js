@@ -1,11 +1,19 @@
 import { fetchStory } from "./fetch_actions.js";
 import { mdToHTML } from "./utils.js";
 
+const VoteStatus = Object.freeze({
+    none: 1,
+    upvoted: 2,
+    downvoted: 3,
+});
+
 export class Story {
     constructor(story_data) {
         this.content_loaded = !!story_data.content;
         this.data = story_data;
-        this.isOpen = false;
+        this.is_open = false;
+
+        this.vote_status = VoteStatus.none;
     }
 
     setDomElement(dom_element) {
@@ -57,7 +65,7 @@ export class Story {
         // Adding on clicks
 
         // Article opening
-        article.addEventListener('click', (e) => {
+        article.addEventListener('click', e => {
             //To ensure that clicking on the story or user link does not attempt to open or close the card
             if(e.target.tagName !== 'A') {
                 this.toggleCardOpen();
@@ -65,10 +73,16 @@ export class Story {
         });
 
         // Upvoting
-        //TODO
+        article.querySelector('.vote-up').addEventListener('click', e => {
+            e.stopPropagation();
+            this.upvote();
+        });
 
         // Downvoting
-        //TODO
+        article.querySelector('.vote-down').addEventListener('click', e => {
+            e.stopPropagation();
+            this.downvote();
+        });
 
         // Transition fix because of image loading
         const card_content_wrapper = article.getElementsByClassName("content-wrapper")[0];
@@ -80,10 +94,86 @@ export class Story {
     }
 
     resizeCardContentWrapper(card_content_wrapper) {
-        if (this.isOpen && this.card_content_wrapper_calc_height && this.card_content_wrapper_calc_height !== card_content_wrapper.scrollHeight) {
+        if (this.is_open && this.card_content_wrapper_calc_height && this.card_content_wrapper_calc_height !== card_content_wrapper.scrollHeight) {
             card_content_wrapper.style.height = card_content_wrapper.scrollHeight+"px";
             this.card_content_wrapper_calc_height = card_content_wrapper.scrollHeight;
         }
+    }
+
+    //TODO - use setUpvoted
+    /**
+     * For setting of the initial story state, after getting the user upvotes from the back-end when the user is logged in
+     * Should only be called for the user upvotes - if a story was not upvoted nor downvoted then there is no reason to call this method
+     * @param {*} isUpvoted If the story was upvoted or not
+     */
+    setUpvoted(is_upvoted) {
+        if (is_upvoted) {
+            this.vote_status = VoteStatus.upvoted;
+        } else {
+            this.vote_status = VoteStatus.downvoted;
+        }
+    }
+
+    async upvote() {
+        // TODO: Dont forget to check if it is upvoted or not (will have to get from backend the list of upvotes and set it dynamically)
+
+        if(this.vote_status === VoteStatus.upvoted) {
+            // Unvote
+            console.log('Unvoting... TODO: Actually hit endpoint');
+            // Remove upvoted class
+            this.element.classList.remove("upvoted");
+            // Updating state
+            this.vote_status = VoteStatus.none;
+        } else {
+            // Upvote
+            console.log('Upvoting! TODO: Actually hit endpoint');
+            // Apply upvoted class
+            this.element.classList.add("upvoted");
+            // Ensuring we are not in two states at the same time (visually)
+            if (this.vote_status === VoteStatus.downvoted) {
+                this.element.classList.remove("downvoted");
+            }
+            
+            // Updating state
+            this.vote_status = VoteStatus.upvoted;
+        }
+
+        console.log('Dont forget to update score in front-end after as well');
+
+        // Loading
+        // Invoke action
+        // Finish loading
+        // Do stuff
+    }
+
+    async downvote() {
+        // TODO: Dont forget to check if it is upvoted or not (will have to get from backend the list of upvotes and set it dynamically)
+
+        if(this.vote_status === VoteStatus.downvoted) {
+            // Unvote
+            console.log('Unvoting... TODO: Actually hit endpoint');
+            // Remove upvoted class
+            this.element.classList.remove("downvoted");
+        } else {
+            // Upvote
+            console.log('Downvoting! TODO: Actually hit endpoint');
+            // Apply downvoted class
+            this.element.classList.add("downvoted");
+            // Ensuring we are not in two states at the same time (visually)
+            if (this.vote_status === VoteStatus.upvoted) {
+                this.element.classList.remove("upvoted");
+            }
+            
+            // Updating state
+            this.vote_status = VoteStatus.downvoted;
+        }
+
+        console.log('Dont forget to update score in front-end after as well');
+
+        // Loading
+        // Invoke action
+        // Finish loading
+        // Do stuff
     }
 
     async toggleCardOpen() {
@@ -95,15 +185,15 @@ export class Story {
 
         const card_content_wrapper = this.element.getElementsByClassName("content-wrapper")[0];
 
-        if (this.isOpen) {
+        if (this.is_open) {
             this.element.classList.remove("open");
             card_content_wrapper.style.height = 0;
-            this.isOpen = false;
+            this.is_open = false;
         } else {
             this.element.classList.add("open");
             card_content_wrapper.style.height = card_content_wrapper.scrollHeight+"px";
             this.card_content_wrapper_calc_height = card_content_wrapper.scrollHeight;
-            this.isOpen = true;
+            this.is_open = true;
         }
     }
 
