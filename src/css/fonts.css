@@ -1,15 +1,22 @@
 /* @import url('https://fonts.googleapis.com/css?family=Autour+One'); */
 
 @font-face {
-    font-family: 'Autour One';
+    font-family: 'NeoTech';
     font-style: normal;
     font-weight: 400;
-    src: local('Autour One Regular'), local('AutourOne-Regular'), url('../assets/fonts/AutourOne-Regular.ttf');
+    src: local('NeoTech'), url('../assets/fonts/NeoTech.otf');
 }
 
 @font-face {
-    font-family: 'Armata';
+    font-family: 'NeoSans Light';
     font-style: normal;
     font-weight: 400;
-    src: local('Armata Regular'), local('Armata-Regular'), url('../assets/fonts/Armata-Regular.ttf');
+    src: local('NeoSans Light'), local('NeoSans-Light'), url('../assets/fonts/NeoSansStd-Light.otf');
+}
+
+@font-face {
+    font-family: 'Abel Regular';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Abel Regular'), local('Abel-Regular'), url('../assets/fonts/abel-regular.ttf');
 }

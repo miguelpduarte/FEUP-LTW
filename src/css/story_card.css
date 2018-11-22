@@ -33,12 +33,17 @@
 }
 
 .story-card .title {
-    font-family: 'Autour One', cursive;
+    font-family: 'NeoTech', sans-serif;
+    font-weight: normal;
+    font-size: 1.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .story-card .content {
     padding: 1em;
-    font-family: 'Armata', sans-serif;
+    font-family: 'NeoSans Light', sans-serif;
+    font-size: 1.2em;
 }
 
 .story-card .content-wrapper {
@@ -62,10 +67,7 @@
 .story-card-header .story-card-details {
     color: var(--grey);
     font-style: italic;
-}
-
-.story-card-details .author::before {
-    content: "by ";
+    font-family: 'NeoTech', sans-serif;
 }
 
 .story-card-details .date::before {
