@@ -23,9 +23,9 @@ export class Story {
         article.innerHTML = `
             <section class="story-card-header">
                 <div class="story-card-info">
-                    <h1 class="title"><a href="story.php?id=${this.data.story_id}">${this.data.title}</a></h1>
+                    <h1 class="title"><a href="story.php?id=${this.data.story_id}"></a></h1>
                     <div class="story-card-details">
-                        <span class="author"><a href="user.php?id=${this.data.author_id}">${this.data.author_name}</a></span>
+                        <span class="author"><a href="user.php?id=${this.data.author_id}"></a></span>
                         <i class="fas fa-user-clock"></i>
                         <span class="date">${moment(this.data.created_at).fromNow()}</span>
                     </div>
@@ -41,11 +41,18 @@ export class Story {
             </section>
             <div class="content-wrapper">
                 <hr/>
-                <section class="content">${(this.content_loaded ? this.data.content : "Loading...")}</section>
+                <section class="content"></section>
             </div>
         `;
 
         // Adding textContent
+
+        // Article title
+        article.querySelector('.title a').textContent = this.data.title;
+        // Author name
+        article.querySelector('.story-card-details .author a').textContent = this.data.author_name;
+        // Article content
+        article.querySelector('.content').textContent = this.content_loaded ? mdToHTML(this.data.content) : "Loading...";
 
         // Adding on clicks
 
@@ -113,10 +120,12 @@ export class Story {
         section.id = `story_${this.data.story_id}`;
         section.className = "full-story";
         section.innerHTML = `
-            <h1 class="title">${this.data.title}</h1>
+            <h1 class="title"></h1>
             <hr/>
             <div class="content">${mdToHTML(this.data.content)}</div>
         `;
+
+        section.querySelector('.title').textContent = this.data.title;
 
         return section;
     }
