@@ -164,6 +164,7 @@
 
 .story-card .voting .vote-up, .story-card .voting .vote-down {
     font-size: 2em;
+    cursor: pointer;
 }
 
 /* Using score as just a spacer */
