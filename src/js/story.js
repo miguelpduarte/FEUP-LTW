@@ -26,6 +26,7 @@ export class Story {
                     <h1 class="title"><a href="story.php?id=${this.data.story_id}">${this.data.title}</a></h1>
                     <div class="story-card-details">
                         <span class="author"><a href="user.php?id=${this.data.author_id}">${this.data.author_name}</a></span>
+                        <i class="fas fa-user-clock"></i>
                         <span class="date">${moment(this.data.created_at).fromNow()}</span>
                     </div>
                 </div>
@@ -39,19 +40,30 @@ export class Story {
                 </div>
             </section>
             <div class="content-wrapper">
+                <hr/>
                 <section class="content">${(this.content_loaded ? this.data.content : "Loading...")}</section>
             </div>
         `;
 
-        article.onclick = (e) => {
+        // Adding textContent
+
+        // Adding on clicks
+
+        // Article opening
+        article.addEventListener('click', (e) => {
             //To ensure that clicking on the story or user link does not attempt to open or close the card
             if(e.target.tagName !== 'A') {
                 this.toggleCardOpen();
             }
-        };
+        });
 
-        
+        // Upvoting
+        //TODO
 
+        // Downvoting
+        //TODO
+
+        // Transition fix because of image loading
         const card_content_wrapper = article.getElementsByClassName("content-wrapper")[0];
         card_content_wrapper.addEventListener("transitionend", (_event) => {
             this.resizeCardContentWrapper(card_content_wrapper);

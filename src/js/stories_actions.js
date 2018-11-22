@@ -66,7 +66,7 @@ const refreshStories = () => {
 
 // This runs as the file is loaded from here down
 
-document.getElementById('refresh_stories').onclick = refreshStories;
+document.getElementById('refresh_stories').addEventListener('click', refreshStories);
 
 loadTrending();
 loadStories();

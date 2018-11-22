@@ -6,19 +6,26 @@
         <div id="trending">
             <div class="line-container">
                 <div class="line"><hr/></div>
-                <div class="line-middle">Trending FireEmoji</div>
+                <div class="line-middle">
+                    Trending
+                    <i class="fas fa-fire"></i>
+                </div>
                 <div class="line"><hr/></div>
             </div>
             <div id="trending_stories_container"></div>
         </div>
         <div id="top">
             <div class="line-container">
-                <div class="line-starter">Cenas</div>
+                <div class="line-starter">
+                    <i id="refresh_stories" class="fas fa-redo"></i>
+                </div>
                 <div class="line"><hr/></div>
-                <div class="line-middle">Top HatEmoji</div>
+                <div class="line-middle">
+                    Top
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
                 <div class="line"><hr/></div>
             </div>
-            <button id="refresh_stories">Refresh here!</button>
             <div id="stories_container"></div>
         </div>
         <script type="module" src="/js/stories_actions.js"></script>

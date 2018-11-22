@@ -10,10 +10,19 @@ body {
 
 #content {
     margin: 0 auto 2em auto;
-    max-width: 60em;
+    max-width: 80em;
 }
 
 .full-story {
     border: 1px solid blue;
     margin-top: 1em;
+}
+
+#refresh_stories {
+    cursor: pointer;
+    transition: transform 1.5s ease-in-out;
+}
+
+#refresh_stories:hover {
+    transform: rotate(720deg);
 }
