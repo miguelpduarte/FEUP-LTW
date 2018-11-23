@@ -56,7 +56,7 @@ export class CommentSection {
   addComments(comment_data) {
     // Remove loading message
     this.section.removeChild(this.section.lastChild);
-
+    let needFullReload = false;
     // Append comments
     if (comment_data == null || comment_data.length == 0) {
       this.loading = false;
@@ -65,10 +65,32 @@ export class CommentSection {
 
     this.n_comments_loaded += comment_data.length;
     for (const comment of comment_data) {
+      if(this.comment_loaded(comment))
+          needFullReload = true;
+
       let comment_object = new Comment(comment);
       this.comments.push(comment_object);
-      this.section.appendChild(comment_object.render());
+      
+      if(!needFullReload)
+        this.section.appendChild(comment_object.render());
+
     }
+
+    if(needFullReload)
+      reloadCommentsFromMemory();
+
     this.loading = false;
   }
+
+
+  comment_loaded(new_comment) {
+    for (const comment of this.comments) {
+      if(comment.comment_id ===  new_comment.comment_id) {
+        comment.score = new_comment.score;
+        return true;
+      }
+    }
+    return false;
+  }
+
 }

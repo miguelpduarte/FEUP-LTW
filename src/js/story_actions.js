@@ -15,6 +15,14 @@ const createStory = (story_data, comment_data) => {
     comments_container.appendChild(comments.render());
 }
 
+export const reloadCommentsFromMemory = () => {
+    const comments_container = document.getElementById("comments_container");
+    while (comments_container.firstChild) {
+        comments_container.removeChild(comments_container.firstChild);
+    }
+    comments_container.appendChild(comments.render());
+}
+
 const loadCurrentStory = async () => {
     let params = getParams();
     const story_data = await fetchStory(params.id);
