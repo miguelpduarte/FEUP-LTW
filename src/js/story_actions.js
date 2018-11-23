@@ -26,7 +26,7 @@ export const reloadCommentsFromMemory = () => {
 const loadCurrentStory = async () => {
     let params = getParams();
     const story_data = await fetchStory(params.id);
-    const comment_data = await fetchComments(params.id, 2, 0, 1, 0);
+    const comment_data = await fetchComments(params.id, 2, 0, 2, 0);
     createStory(story_data, comment_data);
 };
 

@@ -21,12 +21,65 @@ Oh look! A penguin! ![penguin](https://cdn.pixabay.com/photo/2013/07/13/11/44/pe
 
 
 -- comments
-INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(1,
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
 'This comments has *markdown*!
 > This is some sort of a quote
 And this is not!',
 2, 3, NULL);
-INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(2, 'This is a sub-level _reply_ to the **parent** comment!', 1, NULL, 1);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
+'This comments has *markdown*!
+> This is some sort of a quote
+And this is not!',
+2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
+'This comments has *markdown*!
+> This is some sort of a quote
+And this is not!',
+2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
+'This comments has *markdown*!
+> This is some sort of a quote
+And this is not!',
+2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
+'This comments has *markdown*!
+> This is some sort of a quote
+And this is not!',
+2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
+'This comments has *markdown*!
+> This is some sort of a quote
+And this is not!',
+2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
+'This comments has *markdown*!
+> This is some sort of a quote
+And this is not!',
+2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
+'This comments has *markdown*!
+> This is some sort of a quote
+And this is not!',
+2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
+'This comments has *markdown*!
+> This is some sort of a quote
+And this is not!',
+2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
+'This comments has *markdown*!
+> This is some sort of a quote
+And this is not!',
+2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
+'This comments has *markdown*!
+> This is some sort of a quote
+And this is not!',
+2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
+'This comments has *markdown*!
+> This is some sort of a quote
+And this is not!',
+2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
+'This comments has *markdown*!
+> This is some sort of a quote
+And this is not!',
+2, 3, NULL);
+
+INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(NULL, 'This is a sub-level _reply_ to the **parent** comment!', 1, NULL, 1);
+INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(NULL, 'This is a sub-level _reply_ to the **parent** comment!', 1, NULL, 1);
+INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(NULL, 'This is a sub-level _reply_ to the **parent** comment!', 1, NULL, 1);
+INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(NULL, 'This is a sub-level _reply_ to the **parent** comment!', 1, NULL, 1);
 
 -- comment votes
 INSERT INTO commentVotes VALUES(1, 1, 1);

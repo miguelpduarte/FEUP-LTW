@@ -58,7 +58,7 @@ export class Comment {
     this.section.appendChild(loadingWheel);
 
     const comment_data =
-        await fetchSubComments(this.comment_id, 10, this.n_comments_loaded);
+        await fetchSubComments(this.comment_id, 5, this.n_comments_loaded);
 
     this.addComments(comment_data);
 

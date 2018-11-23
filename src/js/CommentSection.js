@@ -46,11 +46,10 @@ export class CommentSection {
 
     // Retrive new comments
     const comment_data =
-        await fetchComments(this.story_id, 10, this.n_comments_loaded, 1, 0);
+        await fetchComments(this.story_id, 10, this.n_comments_loaded, 2, 0);
 
-    // TODO: Remove Timeout
-    let load = this.addComments.bind(this, comment_data);
-    window.setTimeout(load, 2000);
+
+    this.addComments(comment_data);
   }
 
   addComments(comment_data) {
