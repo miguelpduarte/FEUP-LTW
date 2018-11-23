@@ -91,11 +91,12 @@
             exit;
         }
 
-        insertStory($currentUser['user_id'], $data['title'], $data['content'], $data['channel']);
+        $id = insertStory($currentUser['user_id'], $data['title'], $data['content'], $data['channel']);
 
         http_response_code(200);
         echo json_encode([
-            'success' => true
+            'success' => true,
+            'story_id' => $id
         ]);
         exit;
     }

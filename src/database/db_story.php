@@ -44,5 +44,6 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare('INSERT INTO stories (author, title, content, channel) VALUES(?, ?, ?, ?)');
         $stmt->execute(array($author, $title, $content, $channel));
+        return $db->lastInsertId();
     }
 ?>

@@ -50,7 +50,7 @@ export const fetchPostStory = (body) => {
         .then(data => {  
             //Check for data errors
             if(data.success) {
-                return resolve(data.data);
+                return resolve(data);
             } else {
                 return reject("Fetching not successful, reason: " + data.reason);
             }

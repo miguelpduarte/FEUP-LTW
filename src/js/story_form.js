@@ -32,8 +32,14 @@ export class StoryForm {
     async submit() {
         let postBody = this.markdown_editor.getData();
         postBody['title'] = this.form.getElementsByTagName('input')[0].value;
-        let response = await fetchPostStory(postBody);
-        console.log(response);
+        let response;
+        try {
+            response = await fetchPostStory(postBody);
+        } catch (error) {
+            // TODO: Add error message.
+            return ;
+        }
+        window.location.href = `/pages/story.php?id=${response.story_id}`;
 
     }
 
