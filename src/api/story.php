@@ -1,5 +1,6 @@
 <?php
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_story.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
 
     $method = $_SERVER['REQUEST_METHOD'];
 
@@ -32,6 +33,7 @@
 
         //Detecting database fetching errors (TODO: use try catch? -> Guilherme ;)
         if($data === false) {
+            http_response_code(404);
             echo json_encode([
                 'success' => false,
                 'reason' => 'Database fetching failed'
@@ -39,6 +41,7 @@
             exit;
         }
 
+        http_response_code(200);
         echo json_encode([
             'success' => true,
             'data' => $data
@@ -49,18 +52,20 @@
     function handle_post() {
         header('Content-Type: application/json');
         $data = json_decode(file_get_contents('php://input'), true);
-        //TODO: Add login validation - can only insert stories of own user, etc
-        // $author, $title, $content, $channel
+        
+        $currentUser = getLoggedUser();
 
-        if(!isset($data['author']) || $data['author'] === '' || !is_int($data['author'])) {
+        if(!$currentUser) {
+            http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => 'The author field is missing'
+                'reason' => "Anonimous User can't post a Story"
                 ]);
             exit;
         }
 
         if(!isset($data['title']) || $data['title'] === '') {
+            http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'The title field is missing'
@@ -69,6 +74,7 @@
         }
 
         if(!isset($data['content']) || $data['content'] === '') {
+            http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'The content field is missing'
@@ -77,6 +83,7 @@
         }
 
         if(!isset($data['channel']) || $data['channel'] === '' || !is_int($data['channel'])) {
+            http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'The channel field is missing'
@@ -84,8 +91,9 @@
             exit;
         }
 
-        insertStory($data['author'], $data['title'], $data['content'], $data['channel']);
+        insertStory($currentUser['user_id'], $data['title'], $data['content'], $data['channel']);
 
+        http_response_code(200);
         echo json_encode([
             'success' => true
         ]);
