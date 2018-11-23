@@ -16,10 +16,6 @@ export class Story {
         this.vote_status = VoteStatus.none;
     }
 
-    setDomElement(dom_element) {
-        this.element = dom_element;
-    }
-
     renderTopCard() {
         return null;
     }
@@ -89,6 +85,9 @@ export class Story {
         card_content_wrapper.addEventListener("transitionend", (_event) => {
             this.resizeCardContentWrapper(card_content_wrapper);
         });
+
+        // Storing attached DOM element for further use
+        this.element = article;
 
         return article;
     }

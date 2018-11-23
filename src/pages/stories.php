@@ -5,6 +5,9 @@
     <div id="content">
         <div id="trending">
             <div class="line-container">
+                <div class="line-starter">
+                    <i id="refresh_trending_stories" class="refresh-btn fas fa-redo"></i>
+                </div>
                 <div class="line"><hr/></div>
                 <div class="line-middle">
                     Trending
@@ -17,7 +20,7 @@
         <div id="top">
             <div class="line-container">
                 <div class="line-starter">
-                    <i id="refresh_stories" class="fas fa-redo"></i>
+                    <i id="refresh_top_stories" class="refresh-btn fas fa-redo"></i>
                 </div>
                 <div class="line"><hr/></div>
                 <div class="line-middle">
@@ -26,7 +29,7 @@
                 </div>
                 <div class="line"><hr/></div>
             </div>
-            <div id="stories_container"></div>
+            <div id="top_stories_container"></div>
         </div>
         <script type="module" src="/js/stories_actions.js"></script>
     </div>

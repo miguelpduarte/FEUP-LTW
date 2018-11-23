@@ -1,4 +1,4 @@
-export const fetchStories = () => {
+export const fetchTopStories = () => {
     return new Promise((resolve, reject) => {
         fetch("/api/story.php")
             .then(res => res.json())

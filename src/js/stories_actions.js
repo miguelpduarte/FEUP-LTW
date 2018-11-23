@@ -1,10 +1,12 @@
+"use strict";
+
 import { Story } from "./story.js";
-import { fetchStories } from "./fetch_actions.js";
+import { fetchTopStories } from "./fetch_actions.js";
 
 let trending_stories = [];
-let stories = [];
+let top_stories = [];
 
-const loadTrending = async () => {
+const loadTrendingStories = async () => {
     console.log('TODO: Actually load trending stories');
     const trending_stories_data = [{
         score: 0,
@@ -18,7 +20,7 @@ const loadTrending = async () => {
         author_name: "influencer"
     }];
     populateTrendingStories(trending_stories_data);
-}
+};
 
 const populateTrendingStories = (trending_stories_data) => {
     const trending_stories_container = document.getElementById("trending_stories_container");
@@ -26,47 +28,61 @@ const populateTrendingStories = (trending_stories_data) => {
     for(const trending_story_data of trending_stories_data) {
         const story = new Story(trending_story_data);
         trending_stories.push(story);
-        let story_card = story.renderCard();
-        story.setDomElement(story_card);
+        const story_card = story.renderCard();
         trending_stories_container.appendChild(story_card);
     }
-}
-
-const loadStories = async () => {
-    const stories_data = await fetchStories();
-    populateStories(stories_data);
-}
-
-const populateStories = (stories_data) => {
-    const stories_container = document.getElementById("stories_container");
-    
-    for(const story_data of stories_data) {
-        const story = new Story(story_data);
-        stories.push(story);
-        let story_card = story.renderCard();
-        story.setDomElement(story_card);
-        stories_container.appendChild(story_card);
-    }
-}
-
-const clearStories = () => {
-    const stories_container = document.getElementById("stories_container");
-
-    while (stories_container.firstChild) {
-        stories_container.removeChild(stories_container.firstChild);
-    }
-
-    stories = [];
 };
 
-const refreshStories = () => {
-    clearStories();
-    loadStories();
+const clearTrendingStories = () => {
+    const trending_stories_container = document.getElementById("trending_stories_container");
+
+    while (trending_stories_container.firstChild) {
+        trending_stories_container.removeChild(trending_stories_container.firstChild);
+    }
+
+    trending_stories = [];
+};
+
+const loadTopStories = async () => {
+    const top_stories_data = await fetchTopStories();
+    populateTopStories(top_stories_data);
+};
+
+const populateTopStories = (top_stories_data) => {
+    const top_stories_container = document.getElementById("top_stories_container");
+    
+    for(const top_story_data of top_stories_data) {
+        const story = new Story(top_story_data);
+        top_stories.push(story);
+        const story_card = story.renderCard();
+        top_stories_container.appendChild(story_card);
+    }
+};
+
+const clearTopStories = () => {
+    const top_stories_container = document.getElementById("top_stories_container");
+
+    while (top_stories_container.firstChild) {
+        top_stories_container.removeChild(top_stories_container.firstChild);
+    }
+
+    top_stories = [];
+};
+
+const refreshTopStories = () => {
+    clearTopStories();
+    loadTopStories();
+};
+
+const refreshTrendingStories = () => {
+    clearTrendingStories();
+    loadTrendingStories();
 };
 
 // This runs as the file is loaded from here down
 
-document.getElementById('refresh_stories').addEventListener('click', refreshStories);
+document.getElementById('refresh_top_stories').addEventListener('click', refreshTopStories);
+document.getElementById('refresh_trending_stories').addEventListener('click', refreshTrendingStories);
 
-loadTrending();
-loadStories();
+loadTrendingStories();
+loadTopStories();

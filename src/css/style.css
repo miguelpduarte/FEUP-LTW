@@ -18,11 +18,11 @@ body {
     margin-top: 1em;
 }
 
-#refresh_stories {
+.refresh-btn {
     cursor: pointer;
     transition: transform 0.8s ease-in-out;
 }
 
-#refresh_stories:hover {
+.refresh-btn:hover {
     transform: rotate(720deg);
 }
