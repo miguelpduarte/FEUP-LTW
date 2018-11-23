@@ -32,12 +32,8 @@ export class StoryForm {
     submit() {
         let postBody = this.markdown_editor.getData();
         postBody['title'] = this.form.getElementsByTagName('input')[0].value;
-        console.log(postBody);
-        try {
-            fetchPostStory(postBody);
-        } catch (err) {
-            console.dir(err);
-        }
+        fetchPostStory(postBody);
+
     }
 
     createForm() {
