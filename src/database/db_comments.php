@@ -21,17 +21,19 @@
         $n_comments = ($n_comments == 0 ? 999999999999999 : $n_comments);
         
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT comment_id, author, content, users.username as author_name, score 
+        $stmt = $db->prepare('SELECT comment_id, author, content, users.username as author_name, score, created_at
                               FROM comments JOIN users ON comments.author=users.user_id 
                               WHERE story = ?
+                              ORDER BY score DESC
                               LIMIT ? OFFSET ?');
         $stmt->execute(array($story_id, $n_comments, $offset));
         $comments = $stmt->fetchAll();
         foreach ($comments as $key => $comment) {
             $comment_id = $comment['comment_id'];
-            $substmt = $db->prepare('SELECT comment_id, author, content, users.username as author_name, score 
+            $substmt = $db->prepare('SELECT comment_id, author, content, users.username as author_name, score, created_at
                                      FROM comments JOIN users ON comments.author=users.user_id 
                                      WHERE parent_comment = ?
+                                     ORDER BY created_at
                                      LIMIT ? OFFSET ?');
             $substmt->execute(array($comment_id, $n_nested, $nested_offset));
             $comments[$key]['nested_comments'] = $substmt->fetchAll();
@@ -46,7 +48,7 @@
         $n_comments = ($n_comments == 0 ? 999999999999999 : $n_comments);
         
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT comment_id, author, content, users.username as author_name, score 
+        $stmt = $db->prepare('SELECT comment_id, author, content, users.username as author_name, score, created_at
                               FROM comments JOIN users ON comments.author=users.user_id 
                               WHERE parent_comment = ?
                               LIMIT ? OFFSET ?');

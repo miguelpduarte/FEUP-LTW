@@ -8,6 +8,7 @@ export class Comment {
     this.author_name = data.author_name;
     this.score = data.score;
     this.content = data.content;
+    this.created_at = data.created_at;
     this.n_comments_loaded = 0;
     this.subComments = [];
     if(typeof data.nested_comments !== "undefined") {
@@ -26,6 +27,7 @@ export class Comment {
     this.section.id = `story_${this.comment_id}`;
     this.section.innerHTML += `<section class="comment">
                             <h4>Author: <a href="user.php?id=${this.author_id}">${this.author_name}</a></h4>
+                            <div>${this.created_at}</div>
                             <div class="comment-score">Score: ${this.score}</div>
                             <div class="md-content">${mdToHTML(this.content)}</div>
                           </section>`;
