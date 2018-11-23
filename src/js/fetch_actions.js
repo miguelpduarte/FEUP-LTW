@@ -7,8 +7,7 @@ export const fetchStories = () => {
           if (data.success) {
             return resolve(data.data);
           } else {
-            return reject(new Exception(
-                'Fetching not successful, reason: ' + data.reason));
+            return reject('Fetching not successful, reason: ' + data.reason);
           }
         })
         .catch(err => console.error('Fetch error:', err));
@@ -26,8 +25,7 @@ export const fetchStory = id => {
           if (data.success) {
             return resolve(data.data);
           } else {
-            return reject(new Exception(
-                'Fetching not successful, reason: ' + data.reason));
+            return reject('Fetching not successful, reason: ' + data.reason);
           }
         })
         .catch(err => console.error('Fetch error:', err));
@@ -46,8 +44,7 @@ export const fetchComments = (story_id, n_comments, off, n_nested, n_off) => {
           if (data.success) {
             return resolve(data.data);
           } else {
-            return reject(new Exception(
-                'Fetching not successful, reason: ' + data.reason));
+            return reject('Fetching not successful, reason: ' + data.reason);
           }
         })
         .catch(err => console.error('Fetch error:', err));
@@ -66,8 +63,7 @@ export const fetchSubComments = (comment_id, n_comments, off) => {
           if (data.success) {
             return resolve(data.data);
           } else {
-            return reject(new Exception(
-                'Fetching not successful, reason: ' + data.reason));
+            return reject('Fetching not successful, reason: ' + data.reason);
           }
         })
         .catch(err => console.error('Fetch error:', err));
