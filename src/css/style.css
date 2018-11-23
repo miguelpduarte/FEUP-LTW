@@ -20,7 +20,7 @@ body {
 
 #refresh_stories {
     cursor: pointer;
-    transition: transform 1.5s ease-in-out;
+    transition: transform 0.8s ease-in-out;
 }
 
 #refresh_stories:hover {
