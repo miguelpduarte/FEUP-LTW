@@ -7,7 +7,7 @@ export const fetchStories = () => {
                 if(data.success) {
                     return resolve(data.data);
                 } else {
-                    return reject(new Exception("Fetching not successful, reason: " + data.reason));
+                    return reject("Fetching not successful, reason: " + data.reason);
                 }
             })
             .catch(err => console.error('Fetch error:', err));
@@ -28,7 +28,7 @@ export const fetchStory = id => {
             if(data.success) {
                 return resolve(data.data);
             } else {
-                return reject(new Exception("Fetching not successful, reason: " + data.reason));
+                return reject("Fetching not successful, reason: " + data.reason);
             }
         })
         .catch(err => console.error('Fetch error:', err));;
@@ -52,7 +52,7 @@ export const fetchPostStory = (body) => {
             if(data.success) {
                 return resolve(data.data);
             } else {
-                return reject(new Exception("Fetching not successful, reason: " + data.reason));
+                return reject("Fetching not successful, reason: " + data.reason);
             }
         }).catch(err => console.error('Fetch error:', err));
     });

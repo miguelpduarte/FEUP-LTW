@@ -29,10 +29,11 @@ export class StoryForm {
         this.button.addEventListener('click', submit);
     }
 
-    submit() {
+    async submit() {
         let postBody = this.markdown_editor.getData();
         postBody['title'] = this.form.getElementsByTagName('input')[0].value;
-        fetchPostStory(postBody);
+        let response = await fetchPostStory(postBody);
+        console.log(response);
 
     }
 
