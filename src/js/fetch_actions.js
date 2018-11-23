@@ -34,3 +34,26 @@ export const fetchStory = id => {
         .catch(err => console.error('Fetch error:', err));;
     });
 };
+
+export const fetchPostStory = (body) => {
+    
+    return new Promise((resolve, reject) => {
+        fetch('/api/story.php', {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            body: JSON.stringify(body),
+        })
+        .then(res => res.json())
+        .then(data => {  
+            //Check for data errors
+            if(data.success) {
+                return resolve(data.data);
+            } else {
+                return reject(new Exception("Fetching not successful, reason: " + data.reason));
+            }
+        }).catch(err => console.error('Fetch error:', err));
+    });
+}

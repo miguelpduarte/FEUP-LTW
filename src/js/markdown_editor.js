@@ -20,4 +20,10 @@ export class MarkdownEditor {
         let mardown = this.editor.getElementsByTagName('textarea')[0].value;
         this.editor.getElementsByClassName('preview')[0].innerHTML = `${mdToHTML(mardown)}`;
     }
+
+    getData() {
+        return {
+            content: this.editor.getElementsByTagName('textarea')[0].value
+        };
+    }
 }
