@@ -32,6 +32,7 @@
 
         //Detecting database fetching errors (TODO: use try catch? -> Guilherme ;)
         if($data === false) {
+            http_response_code(400);       
             echo json_encode([
                 'success' => false,
                 'reason' => 'Database fetching failed',
@@ -40,6 +41,7 @@
             exit;
         }
 
+        http_response_code(200);       
         echo json_encode([
             'success' => true,
             'data' => $data
@@ -49,20 +51,21 @@
     
     function handle_post() {
         header('Content-Type: application/json');
-        $data = json_decode(file_get_contents('php://input'), true);
-        //TODO: Add login validation - can only insert comments of own user, etc
-        // $author, $content, $story_id or $comment_id
+        $data = json_decode(file_get_contents('php://input'), true);        
+        $currentUser = getLoggedUser();
 
-        if(!isset($data['author']) || $data['author'] === '' || !is_int($data['author'])) {
+        if(!$currentUser) {
+            http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => 'The author field is missing',
-                'html_response_code' => 400
+                'reason' => "Anonimous User can't post a Story"
                 ]);
             exit;
         }
 
+
         if(!isset($data['content']) || $data['content'] === '') {
+            http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'The content field is missing',
@@ -73,6 +76,8 @@
 
         if((!isset($data['story_id']) || $data['story_id'] === '' || !is_int($data['story_id'])) &&
              (!isset($data['comment_id']) || $data['comment_id'] === '' || !is_int($data['comment_id']))) {
+            
+            http_response_code(400);            
             echo json_encode([
                 'success' => false,
                 'reason' => 'There is no story_id nor comment_id',
@@ -83,11 +88,12 @@
 
         try {
             if(isset($data['story_id'])) {
-                insertComment($data['author'], $data['content'], $data['story_id']);
+                insertComment($currentUser['user_id'], $data['content'], $data['story_id']);
             } else if (isset($data['comment_id'])){
-                insertNestedComment($data['author'], $data['content'], $data['comment_id']);
+                insertNestedComment($currentUser['user_id'], $data['content'], $data['comment_id']);
             }
         } catch(Exception $e) {
+            http_response_code(400);            
             echo json_encode([
                 'success' => false,
                 'reason' => 'Database exception thrown',
@@ -96,6 +102,8 @@
             ]);
             exit;
         }
+        
+        http_response_code(200);       
         echo json_encode([
             'success' => true,
             'html_response_code' => 200
