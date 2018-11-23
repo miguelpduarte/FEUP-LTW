@@ -3,6 +3,7 @@
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
+    font-family: var(--title-font);
     /* Para passar a ser xpto: */
     position: sticky;
     top: 0;
@@ -21,11 +22,6 @@
     font-size: 20px;
     padding: 0.3em;
     margin: 0.5em;
-}
-
-#navbar .logo:hover::after {
-    content: " - GET Entertaining Stories";
-    background-color: palegoldenrod;
 }
 
 /* Navbar hamburger menu */

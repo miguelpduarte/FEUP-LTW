@@ -60,7 +60,7 @@ export class Story {
         // Author name
         article.querySelector('.story-card-details .author a').textContent = this.data.author_name;
         // Article content
-        article.querySelector('.content').textContent = this.content_loaded ? mdToHTML(this.data.content) : "Loading...";
+        article.querySelector('.content').innerHTML = this.content_loaded ? mdToHTML(this.data.content) : "Loading...";
 
         // Adding on clicks
 

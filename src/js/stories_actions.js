@@ -11,7 +11,7 @@ const loadTrending = async () => {
         story_id: -1,
         author_id: -1,
         title: "Oh boy! A trending story!",
-        content: "<p>This is some content here! Lorem Lorem!!</p>",
+        content: "This is some content here! *Lorem* __Lorem__!!",
         channel: -1,
         created_at: "2018-11-05 19:20:33",
         updated_at: null,

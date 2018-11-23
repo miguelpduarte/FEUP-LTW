@@ -14,6 +14,7 @@ class Navbar {
                     <li><a href="/">Stuff</a></li>
                     <li><a href="/pages/channels.php">Channels</a></li>
                     <li><a href="/ipsum.php">Lorem</a></li>
+                    <li><a href="/pages/new_story.php">Add Story</a></li>
                 </ul>
             </div>
         `;
