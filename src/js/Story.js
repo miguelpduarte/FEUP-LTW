@@ -1,6 +1,6 @@
 "use strict";
 
-import { fetchStory } from "./fetch_actions.js";
+import { fetchStory } from "./stories_fetch_actions.js";
 import { mdToHTML } from "./utils.js";
 
 const VoteStatus = Object.freeze({
@@ -60,7 +60,7 @@ export class Story {
         // Article content
         article.querySelector('.content').innerHTML = this.content_loaded ? mdToHTML(this.data.content) : "Loading...";
 
-        // Adding on clicks
+        // Adding event listeners
 
         // Article opening
         article.addEventListener('click', e => {

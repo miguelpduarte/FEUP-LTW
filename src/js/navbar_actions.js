@@ -2,12 +2,12 @@
 
 import { Navbar } from "./Navbar.js";
 
-let navbar_obj = null;
+let navbar = null;
 
 const initNavbar = () => {
     const navbar_container = document.getElementById("navbar_container");
-    navbar_obj = new Navbar();
-    const rendered_navbar = navbar_obj.render();
+    navbar = new Navbar();
+    const rendered_navbar = navbar.render();
     navbar_container.appendChild(rendered_navbar);
 };
 

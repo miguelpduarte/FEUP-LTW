@@ -1,7 +1,7 @@
 "use strict";
 
 import { Story } from "./Story.js";
-import { fetchTopStories } from "./fetch_actions.js";
+import { fetchTopStories } from "./stories_fetch_actions.js";
 
 let trending_stories = [];
 let top_stories = [];

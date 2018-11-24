@@ -23,12 +23,13 @@
             $data = getUser($_GET['id']);
 
             //Detecting database fetching errors (TODO: use try catch? -> Guilherme ;)
-            http_response_code(404);
             if($data === false) {
+                http_response_code(404);
                 echo json_encode([
                     'success' => false,
                     'reason' => 'Database fetching failed'
                 ]);
+                exit;
             } else {
 
                 http_response_code(200);
@@ -36,6 +37,7 @@
                     'success' => true,
                     'data' => $data
                 ]);
+                exit;
             }
 
         } else {
@@ -44,9 +46,8 @@
                 'success' => false,
                 'reason' => 'No User ID Specified'
             ]);
+            exit;
         }
-
-        exit;
     }
     
     function handle_post() {

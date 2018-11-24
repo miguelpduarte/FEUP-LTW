@@ -71,3 +71,35 @@
         max-height: 4em;
     }
 }
+
+/* Register/Login section */
+
+/* Hiding section if logged in */
+#navbar.logged-in .login-register {
+    display: none;
+}
+
+/* User info/logout section */
+
+/* Hiding section if not logged in */
+#navbar:not(.logged-in) .user-details {
+    display: none;
+}
+
+/* Common to both register/login section and user info/logout section */
+
+#navbar .login-register, #navbar .user-details {
+    /* Move to right side pls */
+}
+
+#navbar .login-register ul, #navbar .user-details ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#navbar .login-register ul li, #navbar .user-details ul li {
+    display: inline-block;
+    margin: 0 1em;
+}
