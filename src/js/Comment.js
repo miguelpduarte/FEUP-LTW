@@ -82,7 +82,7 @@ export class Comment {
     for (const nComment of comment_data) {
       let newComment = new Comment(nComment);
       this.subComments.push(newComment);
-      this.section.getElementsByClassName('subcomment-container')[0].appendChild(newComment.render());
+      this.section.querySelector('.subcomment-container').appendChild(newComment.render());
     }
   }
 }
