@@ -58,7 +58,7 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "Anonimous User can't post a Story"
+                'reason' => "Anonymous User can't post a Comment"
             ]);
             exit;
         }
