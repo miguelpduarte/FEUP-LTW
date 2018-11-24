@@ -27,10 +27,6 @@ body {
     transform: rotate(720deg);
 }
 
-.story-card.open {
-    background-color: grey;
-}
-
 .full-story,.comment {
     border: 1px solid blue;
     margin-top: 1em;
