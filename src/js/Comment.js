@@ -4,7 +4,7 @@ import {mdToHTML} from './utils.js';
 export class Comment {
   constructor(data) {
     this.comment_id = data.comment_id;
-    this.author_id = data.author_id;
+    this.author_id = data.author;
     this.author_name = data.author_name;
     this.score = data.score;
     this.content = data.content;
@@ -26,11 +26,13 @@ export class Comment {
     this.section.classList.add('comment-container');
     this.section.id = `comment_${this.comment_id}`;
     this.section.innerHTML += `<section class="comment">
-                            <h4>Author: <a href="user.php?id=${this.author_id}">${this.author_name}</a></h4>
+                            <h4>Author: <a href="user.php?id=${this.author_id}"></a></h4>
                             <div>${this.created_at}</div>
                             <div class="comment-score">Score: ${this.score}</div>
                             <div class="md-content">${mdToHTML(this.content)}</div>
                           </section>`;
+    
+    this.section.querySelector('h4 > a').textContent += this.author_name;
     if (this.subComments.length != 0) {
       let subcomment_section = document.createElement('section');
       subcomment_section.classList.add('subcomment-container');
