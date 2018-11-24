@@ -59,7 +59,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => "Anonimous User can't post a Story"
-                ]);
+            ]);
             exit;
         }
 
