@@ -20,7 +20,7 @@ export class CommentSection {
       this.section.appendChild(comment.render());
     }
 
-    document.addEventListener('scroll', this.scrollListener.bind(this));
+    document.addEventListener('scroll', () => this.scrollListener());
     return this.section;
   }
 
