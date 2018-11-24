@@ -26,3 +26,12 @@ body {
 .refresh-btn:hover {
     transform: rotate(720deg);
 }
+
+.full-story,.comment {
+    border: 1px solid blue;
+    margin-top: 1em;
+}
+
+.subcomment-container{
+    margin-left: 2em;
+}
