@@ -79,7 +79,6 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'There is no story_id nor comment_id',
-                'html_response_code' => 400
             ]);
             exit;
         }
