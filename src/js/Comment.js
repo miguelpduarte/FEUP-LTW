@@ -24,7 +24,7 @@ export class Comment {
   render() {
     this.section = document.createElement('section');
     this.section.classList.add('comment-container');
-    this.section.id = `story_${this.comment_id}`;
+    this.section.id = `comment_${this.comment_id}`;
     this.section.innerHTML += `<section class="comment">
                             <h4>Author: <a href="user.php?id=${this.author_id}">${this.author_name}</a></h4>
                             <div>${this.created_at}</div>
