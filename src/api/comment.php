@@ -94,7 +94,6 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'Database exception thrown'
-                
             ]);
             exit;
         }
