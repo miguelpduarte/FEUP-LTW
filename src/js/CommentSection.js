@@ -24,7 +24,7 @@ export class CommentSection {
     return this.section;
   }
 
-  scrollListener(event) {
+  scrollListener() {
     if (this.section === null) return;
 
     if (document.body.scrollHeight <=
