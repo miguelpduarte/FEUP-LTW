@@ -67,7 +67,7 @@
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'The content field is missing',
+                'reason' => 'The content field is missing'
             ]);
             exit;
         }
@@ -78,7 +78,7 @@
             http_response_code(400);            
             echo json_encode([
                 'success' => false,
-                'reason' => 'There is no story_id nor comment_id',
+                'reason' => 'There is no story_id nor comment_id'
             ]);
             exit;
         }

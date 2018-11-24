@@ -1,31 +1,30 @@
+@import "./palette.css";
+@import "./fonts.css";
+@import "./line.css";
+@import "./navbar.css";
+@import "./story_card.css";
+
 body {
-    margin: 1em auto;
-    max-width: 60em;
+    margin: 0;
 }
 
-.story-card {
-    padding: 1em;
-    border: 1px solid black;
+#content {
+    margin: 0 auto 2em auto;
+    max-width: 80em;
+}
+
+.full-story {
+    border: 1px solid blue;
     margin-top: 1em;
 }
 
-.story-card.loading {
-    background-color: purple;
+.refresh-btn {
+    cursor: pointer;
+    transition: transform 0.8s ease-in-out;
 }
 
-.story-card.open .story-card-info {
-    background-color: white;
-}
-
-.story-card .story-card-content {
-    overflow: hidden;
-
-    -moz-transition: height .5s;
-    -ms-transition: height .5s;
-    -o-transition: height .5s;
-    -webkit-transition: height .5s;
-    transition: height .5s;
-    height: 0;
+.refresh-btn:hover {
+    transform: rotate(720deg);
 }
 
 .story-card.open {
