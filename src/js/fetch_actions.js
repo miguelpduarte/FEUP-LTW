@@ -1,3 +1,5 @@
+"use strict";
+
 export const fetchTopStories = () => {
   return new Promise((resolve, reject) => {
     fetch('/api/story.php')

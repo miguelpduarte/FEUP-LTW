@@ -1,10 +1,14 @@
-class Navbar {
-    constructor(navbar_elem) {
-        this.element = navbar_elem;
+"use strict";
+
+export class Navbar {
+    constructor() {
     }
 
     render() {
-        this.element.innerHTML = `
+        let navbar_elem = document.createElement('div');
+        navbar_elem.id = "navbar";
+
+        navbar_elem.innerHTML = `
             <span class="logo"><a href="/">GET</a></span>
             <div class="hamburger">
                 <input type="checkbox" id="hamburger"/>
@@ -18,9 +22,16 @@ class Navbar {
                 </ul>
             </div>
         `;
+
+        // Storing associated element
+        this.element = navbar_elem;
+
+        return navbar_elem;
+    }
+
+    updateWithUserInfo(user_info) {
+        this.user_info = user_info;
+
+
     }
 }
-
-let navbar_elem = document.getElementById('navbar');
-let navbar = new Navbar(navbar_elem);
-navbar.render();

@@ -1,3 +1,5 @@
+"use strict";
+
 import { Comment } from "./Comment.js";
 import { fetchComments } from "./fetch_actions.js";
 

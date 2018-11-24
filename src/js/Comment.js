@@ -1,3 +1,5 @@
+"use strict";
+
 import {fetchSubComments} from './fetch_actions.js';
 import {mdToHTML} from './utils.js';
 

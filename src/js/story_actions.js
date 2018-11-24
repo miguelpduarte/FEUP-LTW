@@ -1,4 +1,6 @@
-import { Story } from "./story.js";
+"use strict";
+
+import { Story } from "./Story.js";
 import { CommentSection } from "./CommentSection.js";
 import { getParams } from "./utils.js";
 import { fetchStory, fetchComments } from "./fetch_actions.js";

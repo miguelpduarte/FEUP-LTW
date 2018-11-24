@@ -1,6 +1,6 @@
 <?php
     require_once(realpath( dirname( __FILE__ ) ) . '/../templates/common.php');
-    draw_header('GET Homepage');
+    draw_header('Login');
 ?>
     <div id="content">
         <div id="trending">
