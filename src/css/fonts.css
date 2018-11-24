@@ -1,0 +1,22 @@
+/* @import url('https://fonts.googleapis.com/css?family=Autour+One'); */
+
+@font-face {
+    font-family: 'NeoTech';
+    font-style: normal;
+    font-weight: 400;
+    src: local('NeoTech'), url('../assets/fonts/NeoTech.otf');
+}
+
+@font-face {
+    font-family: 'NeoSans Light';
+    font-style: normal;
+    font-weight: 400;
+    src: local('NeoSans Light'), local('NeoSans-Light'), url('../assets/fonts/NeoSansStd-Light.otf');
+}
+
+@font-face {
+    font-family: 'Abel Regular';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Abel Regular'), local('Abel-Regular'), url('../assets/fonts/abel-regular.ttf');
+}
