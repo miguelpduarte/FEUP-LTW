@@ -41,7 +41,7 @@ export class CommentSection {
 
     // Append loading message
     let loadingWheel = document.createElement('p');
-    loadingWheel.innerHTML = 'Loading comments...';
+    loadingWheel.textContent = 'Loading comments...';
     this.section.appendChild(loadingWheel);
 
     // Retrive new comments
