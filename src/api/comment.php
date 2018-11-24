@@ -36,7 +36,6 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'Database fetching failed',
-                'html_response_code' => 400
             ]);
             exit;
         }
