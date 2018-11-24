@@ -70,7 +70,7 @@
                 'success' => false,
                 'reason' => 'The content field is missing',
                 'html_response_code' => 400
-                ]);
+            ]);
             exit;
         }
 
