@@ -5,7 +5,7 @@ export class CommentSection {
   constructor(comments_data, story_id) {
     this.story_id = story_id;
     this.n_comments_loaded = comments_data.length;
-    this.comments = comments_data.map(function(comment) {
+    this.comments = comments_data.map(comment => {
       return new Comment(comment);
     });
     this.section = null;
