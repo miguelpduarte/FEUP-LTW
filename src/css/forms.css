@@ -92,18 +92,18 @@ form.fancy-form .feedback {
     margin-top: 1em;
 }
 
-form.fancy-form input.valid {
+form.fancy-form input.valid, form.fancy-form.was-checked input:valid {
     border-color: green;
 }
 
-form.fancy-form input.valid ~ .feedback {
+form.fancy-form input.valid ~ .feedback, form.fancy-form.was-checked input:valid ~ .feedback {
     color: green;
 }
 
-form.fancy-form input.invalid {
+form.fancy-form input.invalid, form.fancy-form.was-checked input:invalid {
     border-color: red;
 }
 
-form.fancy-form input.invalid ~ .feedback {
+form.fancy-form input.invalid ~ .feedback, form.fancy-form.was-checked input:invalid ~ .feedback {
     color: red;
 }

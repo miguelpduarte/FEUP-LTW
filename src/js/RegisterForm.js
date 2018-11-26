@@ -12,6 +12,7 @@ export class RegisterForm {
         let register_form_elem = document.createElement("form");
         register_form_elem.id = "register_form"
         register_form_elem.classList.add("fancy-form");
+        register_form_elem.setAttribute("novalidate", "");
         register_form_elem.method = "";
         register_form_elem.action = "";
 
@@ -71,10 +72,27 @@ export class RegisterForm {
     fieldsAreValid() {
         let fields_are_valid = true;
 
+        // Name field
+        const name_input = this.element.querySelector("input[name='name']");
+
+        if (name_input.value.length === 0) {
+            name_input.classList.add("invalid");
+            name_input.nextElementSibling.textContent = "Name must not be empty!";
+            fields_are_valid = false;
+        } else {
+            name_input.classList.remove("invalid");
+            name_input.classList.add("valid");
+            name_input.nextElementSibling.textContent = "";
+        }
+
         // Username should only contain letters, numbers and an underscore
         const username_input = this.element.querySelector("input[name='username']");
 
-        if (!this.username_validator.test(username_input.value)) {
+        if (username_input.value.length === 0) {
+            username_input.classList.add("invalid");
+            username_input.nextElementSibling.textContent = "Username must not be empty!";
+            fields_are_valid = false;
+        } else if (!this.username_validator.test(username_input.value)) {
             // Username does not pass the regex test
             username_input.classList.add("invalid");
             username_input.nextElementSibling.textContent = "Username can only contain letters, numbers and underscores";
@@ -89,7 +107,15 @@ export class RegisterForm {
         const password_input = this.element.querySelector("input[name='password']");
         const password_confirmation_input = this.element.querySelector("input[name='password-confirmation']");
 
-        if (password_input.value !== password_confirmation_input.value) {
+        if (password_input.value.length === 0) {
+            password_input.classList.add("invalid");
+            password_input.nextElementSibling.textContent = "Password must not be empty!";
+            fields_are_valid = false;
+        } else if (password_input.value.length < 8) {
+            password_input.classList.add("invalid");
+            password_input.nextElementSibling.textContent = "Password must have at least 8 characters!";
+            fields_are_valid = false;
+        } else if (password_input.value !== password_confirmation_input.value) {
             // Fields are not equal
             password_confirmation_input.classList.add("invalid");
             password_confirmation_input.nextElementSibling.textContent = "The fields do not match";
@@ -104,6 +130,9 @@ export class RegisterForm {
             password_input.classList.add("valid");
             password_input.nextElementSibling.textContent = "";
         }
+
+        // Idea taken from bootstrap, to avoid input results showing straight away (when using :valid and :invalid)
+        this.element.classList.add("was-validated");
 
         return fields_are_valid;
     }
