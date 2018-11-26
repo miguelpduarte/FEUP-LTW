@@ -82,7 +82,7 @@
             exit;
         }
 
-        if(!isset($data['channel']) || $data['channel'] === '' || !is_int($data['channel'])) {
+        if(!isset($data['channel']) || $data['channel'] === '') {
             http_response_code(400);
             echo json_encode([
                 'success' => false,

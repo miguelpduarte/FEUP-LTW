@@ -14,10 +14,35 @@
     /**
      * Insert channel. 
      */
-    function insertChannel($name) {
+    function insertChannel($name, &$error) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO channels (name) values(?)');
-        $stmt->execute(array($name));
-        return $stmt->fetchAll(); 
+    
+        $fetch_stmt = $db->prepare('SELECT channel_id FROM channels WHERE name = ?');
+        
+        $fetch_stmt->execute(array($name));
+        $id = $fetch_stmt->fetch();
+        
+        if(!$id) { //channel doesn't exist yet -> must be created
+            $insert_stmt = $db->prepare('INSERT INTO channels (name) values(?)');
+    
+            try{
+                $insert_stmt->execute(array($name));
+                $id = $db->lastInsertId();
+            } catch(Exception $err) {
+                $error = $err->getCode();
+            }
+        } else {
+            $id = $id['channel_id'];
+        }
+
+        return $id;
+    
     }
+        
+        
+
+
+        
+
+    
 ?>

@@ -1,5 +1,6 @@
 <?php
     require_once(realpath( dirname( __FILE__ ) ) . '/../utils/database.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/db_channel.php');
 
     /**
      * Returns stories without content.
@@ -42,7 +43,16 @@
      */
     function insertStory($author, $title, $content, $channel) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO stories (author, title, content, channel) VALUES(?, ?, ?, ?)');
-        $stmt->execute(array($author, $title, $content, $channel));
+
+        $insertChannelError = '';
+        $channel_id = insertChannel($channel, $insertChannelError);
+
+        if($insertChannelError) {
+            throw new Exception("Error Assigning Channel");
+        } else {
+            $stmt = $db->prepare('INSERT INTO stories (author, title, content, channel) VALUES(?, ?, ?, ?)');
+            $stmt->execute(array($author, $title, $content, $channel_id));
+        }
+
     }
 ?>
