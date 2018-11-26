@@ -77,11 +77,14 @@ form.fancy-form .result {
     font-family: var(--title-font);
 }
 
-form.fancy-form:valid .result {
+/* Data validation */
+/* (was-validated class is applied because otherwise the styling would be applied straight away - idea from bootstrap data validation) */
+
+form.fancy-form.valid .result {
     color: green;
 }
 
-form.fancy-form:invalid .result {
+form.fancy-form.invalid .result {
     color: red;
 }
 
@@ -89,18 +92,18 @@ form.fancy-form .feedback {
     margin-top: 1em;
 }
 
-form.fancy-form input:valid {
+form.fancy-form input.valid {
     border-color: green;
 }
 
-form.fancy-form input:valid ~ .feedback {
+form.fancy-form input.valid ~ .feedback {
     color: green;
 }
 
-form.fancy-form input:invalid {
+form.fancy-form input.invalid {
     border-color: red;
 }
 
-form.fancy-form input:invalid ~ .feedback {
+form.fancy-form input.invalid ~ .feedback {
     color: red;
 }

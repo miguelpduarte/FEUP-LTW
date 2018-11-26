@@ -1,5 +1,7 @@
 "use strict";
 
+import { createUser } from "./user_fetch_actions.js";
+
 export class RegisterForm {
     constructor() {
         // Username should only contain letters, numbers and an underscore
@@ -15,19 +17,19 @@ export class RegisterForm {
 
         register_form_elem.innerHTML = `
             <label>Name
-                <input type="text" name="name">
+                <input type="text" name="name" required>
                 <div class="feedback"></div>
             </label>
             <label>Username
-                <input type="text" name="username" placeholder="Used for your login">
+                <input type="text" name="username" placeholder="Used for your login" required>
                 <div class="feedback"></div>
             </label>
             <label>Password
-                <input type="password" name="password" minlength="8">
+                <input type="password" name="password" minlength="8" required>
                 <div class="feedback"></div>
             </label>
             <label>Confirm Password
-                <input type="password" name="password-confirmation" minlength="8" placeholder="Third time's the charm!">
+                <input type="password" name="password-confirmation" minlength="8" placeholder="Third time's the charm!" required>
                 <div class="feedback"></div>
             </label>
             <button>Register</button>
@@ -48,14 +50,20 @@ export class RegisterForm {
         return register_form_elem;
     }
 
-    registerUser() {
+    async registerUser() {
+        // Verify form fields
         if (!this.fieldsAreValid()) {
+            // Mark form as invalid
             return;
         }
 
-        // Verify form fields
-
         // Make request
+        const name = this.element.querySelector("input[name='name']").value;
+        const username = this.element.querySelector("input[name='username']").value;
+        const password = this.element.querySelector("input[name='password']").value;
+        const password_confirmation = this.element.querySelector("input[name='password-confirmation']").value;
+
+        const response = await createUser(name, username, password, password_confirmation);
 
         // Handle response
     }
@@ -68,10 +76,13 @@ export class RegisterForm {
 
         if (!this.username_validator.test(username_input.value)) {
             // Username does not pass the regex test
-            username_input.setAttribute("valid", false);
-            console.log(username_input);
+            username_input.classList.add("invalid");
             username_input.nextElementSibling.textContent = "Username can only contain letters, numbers and underscores";
             fields_are_valid = false;
+        } else {
+            username_input.classList.remove("invalid");
+            username_input.classList.add("valid");
+            username_input.nextElementSibling.textContent = "";
         }
 
         // Password confirmation and passsword must match
@@ -80,11 +91,18 @@ export class RegisterForm {
 
         if (password_input.value !== password_confirmation_input.value) {
             // Fields are not equal
-            password_confirmation_input.setAttribute("valid", false);
+            password_confirmation_input.classList.add("invalid");
             password_confirmation_input.nextElementSibling.textContent = "The fields do not match";
-            password_input.setAttribute("valid", false);
+            password_input.classList.add("invalid");
             password_input.nextElementSibling.textContent = "The fields do not match";
             fields_are_valid = false;
+        } else {
+            password_confirmation_input.classList.remove("invalid");
+            password_confirmation_input.classList.add("valid");
+            password_confirmation_input.nextElementSibling.textContent = "";
+            password_input.classList.remove("invalid");
+            password_input.classList.add("valid");
+            password_input.nextElementSibling.textContent = "";
         }
 
         return fields_are_valid;
