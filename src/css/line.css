@@ -1,0 +1,41 @@
+.line-container {
+    display: flex;
+    margin: 1em 0;
+    align-items: center;
+}
+
+.line-starter {
+    flex: 0 0 auto;
+    padding: 0 1em 0 0;
+    font-family: var(--title-font), sans-serif;
+    color: var(--very-light-grey);
+    font-size: 1.5em;
+}
+
+.line {
+    /* Lets the line grow and shrink as needed and does not factor it in the initial size calculations */
+    flex: 1 1 0;
+}
+
+.line-middle {
+    flex: 0 0 auto;
+    padding: 0 1em;
+    font-family: var(--title-font), sans-serif;
+    color: var(--very-light-grey);
+    font-size: 1.5em;
+}
+
+
+.line-middle > i {
+    margin-left: 0.5em;
+}
+
+.line-container hr {
+    border: 0;
+    height: 2px;
+    background: var(--very-light-grey);
+}
+
+/* hr::before {
+    opacity: 0.2;
+} */

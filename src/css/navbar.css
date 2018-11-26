@@ -1,0 +1,73 @@
+#navbar {
+    background-color: var(--main-color);
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    font-family: var(--title-font);
+    /* Para passar a ser xpto: */
+    position: sticky;
+    top: 0;
+    z-index: 25;
+}
+
+#navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+#navbar .logo {
+    color: white;
+    background-color: goldenrod;
+    border-radius: 1em;
+    font-size: 20px;
+    padding: 0.3em;
+    margin: 0.5em;
+}
+
+/* Navbar hamburger menu */
+
+#navbar .hamburger input {
+    display: none;
+}
+
+#navbar .hamburger label {
+    font-size: 0;
+}
+
+#navbar .hamburger ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#navbar .hamburger ul li {
+    display: inline-block;
+    margin: 0 1em;
+}
+
+@media screen and (max-width: 30em) {
+    #navbar .hamburger ul {
+        max-height: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        transition: max-height 0.5s;
+    }
+
+    #navbar .hamburger ul li {
+        margin: 0;
+    }
+    
+    #navbar .hamburger label::before {
+        content: "[ ]";
+        font-size: 16px;
+    }
+    
+    #navbar .hamburger input:checked ~ label::before {
+        content: "[X]";
+    }
+    
+    #navbar .hamburger input:checked ~ ul {
+        max-height: 4em;
+    }
+}
