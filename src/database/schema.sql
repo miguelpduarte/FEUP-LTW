@@ -139,9 +139,18 @@ BEGIN
     WHERE comment_id = NEW.comment_id;
 END;
 
-DROP TRIGGER IF EXISTS deleteChannelIfItHasNoStories;
-CREATE TRIGGER IF NOT EXISTS deleteChannelIfItHasNoStories
+DROP TRIGGER IF EXISTS deleteChannelIfItHasNoStories_ondeletestory;
+CREATE TRIGGER IF NOT EXISTS deleteChannelIfItHasNoStories_ondeletestory
 AFTER DELETE ON stories
+FOR EACH ROW
+WHEN NOT EXISTS (SELECT * FROM stories WHERE channel_id = Old.channel_id)
+BEGIN
+    DELETE FROM channel WHERE channel_id = Old.channel;
+END;
+
+DROP TRIGGER IF EXISTS deleteChannelIfItHasNoStories_onupdatestory;
+CREATE TRIGGER IF NOT EXISTS deleteChannelIfItHasNoStories_onupdatestory
+AFTER UPDATE ON stories
 FOR EACH ROW
 WHEN NOT EXISTS (SELECT * FROM stories WHERE channel_id = Old.channel_id)
 BEGIN

@@ -38,21 +38,46 @@
         return $stmt->fetchAll(); 
     }
 
+    
     /**
      * Inserts a story into the database.
      */
     function insertStory($author, $title, $content, $channel) {
         $db = Database::instance()->db();
-
+        
         $insertChannelError = '';
         $channel_id = insertChannel($channel, $insertChannelError);
-
+        
         if($insertChannelError) {
             throw new Exception("Error Assigning Channel");
         } else {
             $stmt = $db->prepare('INSERT INTO stories (author, title, content, channel) VALUES(?, ?, ?, ?)');
             $stmt->execute(array($author, $title, $content, $channel_id));
         }
+        
+    }
+    
+    function changeChannel($story_id, $newChannel) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('UPDATE stories SET channel_id = ? WHERE story_id = ?' );
 
+        try {
+            $stmt->execute(array($newChannel, $story_id));
+
+        } catch(Exception $err) {
+            throw new Exception("Error changing Channel");
+        }
+    }
+
+    function removeFromChannel($story_id) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('UPDATE stories SET channel_id = NULL WHERE story_id = ?' );
+
+        try {
+            $stmt->execute(array($story_id));
+
+        } catch(Exception $err) {
+            throw new Exception("Error removing Channel");
+        }
     }
 ?>
