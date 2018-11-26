@@ -8,7 +8,14 @@ export class MarkdownEditor {
     render() {
         this.editor = document.createElement('section');
         this.editor.classList.add('editor');
-        this.editor.innerHTML = `<textarea id="title" name="title" rows="32" cols="64"></textarea>
+        this.editor.innerHTML = ` 
+                                <input id="editor-tab" type="radio" name="tabs" checked>
+                                <label for="editor-tab">Editor</label>
+                                
+                                <input id="preview-tab" type="radio" name="tabs">
+                                <label for="preview-tab">Preview</label>
+                                
+                                <textarea id="title" name="title" rows="32" cols="64"></textarea>
                                 <section class="preview"></section>`;
 
         let reload = this.updatePreview.bind(this);
