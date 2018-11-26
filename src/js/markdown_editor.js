@@ -7,25 +7,27 @@ export class MarkdownEditor {
 
     render() {
         this.editor = document.createElement('section');
-        this.editor.classList.add('editor');
+        this.editor.classList.add('md-editor');
         this.editor.innerHTML = ` 
-                                <input id="editor-tab" type="radio" name="tabs" checked>
-                                <label for="editor-tab">Editor</label>
+                                <input id="editor_tab" type="radio" name="tab-selector" class="tab-selector" checked>
+                                <label for="editor_tab" class="tab-label">Editor</label>
                                 
-                                <input id="preview-tab" type="radio" name="tabs">
-                                <label for="preview-tab">Preview</label>
+                                <input id="preview_tab" type="radio" name="tab-selector" class="tab-selector">
+                                <label for="preview_tab"class="tab-label">Preview</label>
                                 
-                                <textarea id="title" name="title" rows="32" cols="64"></textarea>
-                                <section class="preview"></section>`;
+                                <textarea id="editor" name="editor-tab" class="editor tab"></textarea>
+                                <section id="preview" class="preview tab"></section>
+                                `;
 
         let reload = this.updatePreview.bind(this);
+        this.updatePreview();
         this.editor.getElementsByTagName('textarea')[0].addEventListener('input', reload);
         return this.editor;
     }
 
     updatePreview() {
         let mardown = this.editor.getElementsByTagName('textarea')[0].value;
-        this.editor.getElementsByClassName('preview')[0].innerHTML = `${mdToHTML(mardown)}`;
+        this.editor.getElementsByClassName('preview')[0].innerHTML = mdToHTML(mardown);
     }
 
     getData() {

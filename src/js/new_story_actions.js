@@ -15,11 +15,4 @@ const clearStoryForm = () => {
     }
 };
 
-const clearForm = () => {
-    clearStoryForm();
-    createStoryForm();
-}
-
 createStoryForm();
-
-document.getElementById('clear_button').onclick = clearForm;

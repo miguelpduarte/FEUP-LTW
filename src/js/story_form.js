@@ -14,29 +14,34 @@ export class StoryForm {
         this.section.classList.add('story-form');
         this.createForm();
         this.createButton();
+        this.form.appendChild(this.button);
         this.section.appendChild(this.form);
-        this.section.appendChild(this.button);
 
         return this.section;
     }
 
     createButton() {
         this.button = document.createElement('button');
+        this.button.classList.add("submit-button");
         this.button.value = 'submit';
         this.button.innerHTML = 'Post';
 
-        const submit = this.submit.bind(this);
-        this.button.addEventListener('click', submit);
+        this.button.addEventListener('click', (e) => {
+            e.preventDefault(); 
+            this.submit()
+        });
     }
 
     async submit() {
+
         let postBody = this.markdown_editor.getData();
         postBody['title'] = this.form.getElementsByTagName('input')[0].value;
         let response;
         try {
             response = await fetchPostStory(postBody);
         } catch (error) {
-            // TODO: Add error message.
+            // TODO: Check error.
+            console.log(error);
             return ;
         }
         window.location.href = `/pages/story.php?id=${response.story_id}`;
@@ -45,15 +50,15 @@ export class StoryForm {
 
     createForm() {
         this.form = document.createElement('form');
-        this.form.id = `new_strory`;
+        this.form.classList.add("new-story")
         this.form.method = `post`;
         this.form.action = `/api/story.php`;
         this.form.innerHTML = `<section class="title-area">
-                                    <input type="text" id="title" name="title" rows="1" cols="64"></textarea>
+                                    <input type="text" id="title" name="title" placeholder="Insert your title here"></textarea>
                                 </section>
-                                <section class="markdown-editor"></section>`;
+                                <section class="editor"></section>`;
 
         this.markdown_editor = new MarkdownEditor();
-        this.form.getElementsByClassName('markdown-editor')[0].appendChild(this.markdown_editor.render());
+        this.form.getElementsByClassName('editor')[0].appendChild(this.markdown_editor.render());
     }
 }

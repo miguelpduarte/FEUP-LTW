@@ -3,9 +3,14 @@
 @import "./line.css";
 @import "./navbar.css";
 @import "./story_card.css";
+@import "./tabs.css";
 
 body {
     margin: 0;
+}
+
+img {
+    max-width: 100%;
 }
 
 #content {

@@ -6,7 +6,10 @@ export const getParams = () => {
     return queryDict;
 }
 
-var mdParser = new Remarkable();
+var mdParser = new Remarkable({
+    html: true,
+    linkify: true
+});
 
 export const mdToHTML = (md) => {
     return mdParser.render(md);
