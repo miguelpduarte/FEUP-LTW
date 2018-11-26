@@ -13,7 +13,7 @@ CREATE TABLE stories (
     score INTEGER DEFAULT 0,
     title VARCHAR NOT NULL,
     content VARCHAR NOT NULL,
-    channel INTEGER REFERENCES channels,
+    channel INTEGER REFERENCES channels ON DELETE SET NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME
 );
@@ -137,4 +137,13 @@ BEGIN
     UPDATE comments
     SET score = score - OLD.rating
     WHERE comment_id = NEW.comment_id;
+END;
+
+DROP TRIGGER IF EXISTS deleteChannelIfItHasNoStories;
+CREATE TRIGGER IF NOT EXISTS deleteChannelIfItHasNoStories
+AFTER DELETE ON stories
+FOR EACH ROW
+WHEN NOT EXISTS (SELECT * FROM stories WHERE channel_id = Old.channel_id)
+BEGIN
+    DELETE FROM channel WHERE channel_id = Old.channel;
 END;

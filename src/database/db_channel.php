@@ -4,10 +4,21 @@
     /**
      * Returns all channels.
      */
-    function getChannels() {
+    function getAllChannels() {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT channel_id, name FROM channels');
         $stmt->execute();
+        return $stmt->fetchAll(); 
+    }
+
+
+    /**
+     * Returns all stories from given channel.
+     */
+    function getStoriesByChannel($id) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT story_id, title FROM stories WHERE channel = ?');
+        $stmt->execute(array($id));
         return $stmt->fetchAll(); 
     }
 
