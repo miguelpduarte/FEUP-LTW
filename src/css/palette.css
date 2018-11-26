@@ -1,4 +1,5 @@
 :root {
+    --main-color-dark: rgb(85, 0, 0);
     --main-color: rgb(102, 0, 0);
     --main-color-light: rgba(102, 0, 0, 0.6);
     --main-color-lighter: rgba(102, 0, 0, 0.3);
@@ -6,6 +7,7 @@
 
     --grey: #8f8f8f;
     --very-light-grey: lightgrey;
+    --even-lighter-grey: rgba(211, 211, 211, 0.5);
 
     --title-font: 'NeoTech';
     --content-font: 'NeoSans Light';

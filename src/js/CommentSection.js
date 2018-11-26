@@ -1,7 +1,7 @@
 "use strict";
 
 import { Comment } from "./Comment.js";
-import { fetchComments } from "./fetch_actions.js";
+import { fetchComments } from "./stories_fetch_actions.js";
 
 export class CommentSection {
     constructor(comments_data, story_id) {

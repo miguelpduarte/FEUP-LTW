@@ -1,16 +1,12 @@
 "use strict";
 
 import { LoginForm } from "./LoginForm.js";
+import { isLoggedIn } from "./user_fetch_actions.js";
 
 let login_form = null;
 
-// ONLY FOR MOCKING, WILL NOT BE HERE NOR DO ONLY THIS
-const userIsLoggedIn = () => {
-    return false;
-}
-
 const initLoginForm = () => {
-    if (userIsLoggedIn()) {
+    if (isLoggedIn()) {
         window.location.href = "/pages/stories.php?logged_in";
         return;
     }
