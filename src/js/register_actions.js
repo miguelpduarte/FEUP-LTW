@@ -17,6 +17,10 @@ const initRegisterForm = () => {
     register_form_container.appendChild(rendered_register_form);
 };
 
+const changeToLoginOrHomepageView = () => {
+    
+}
+
 // This runs as the file is loaded from here down
 
 initRegisterForm();

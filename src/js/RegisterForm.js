@@ -1,6 +1,7 @@
 "use strict";
 
 import { createUser } from "./user_fetch_actions.js";
+import { changeToLoginOrHomepageView } from "./register_actions.js";
 
 export class RegisterForm {
     constructor() {
@@ -64,9 +65,19 @@ export class RegisterForm {
         const password = this.element.querySelector("input[name='password']").value;
         const password_confirmation = this.element.querySelector("input[name='password-confirmation']").value;
 
-        const response = await createUser(name, username, password, password_confirmation);
-
         // Handle response
+        try {
+            // Errors are sent to catch block instead of returning directly
+            await createUser(name, username, password, password_confirmation);
+            changeToLoginOrHomepageView();
+        } catch (err_msg) {
+            this.showErrorMessage(err_msg);
+        }
+    }
+
+    showErrorMessage(err_msg) {
+        this.element.querySelector(".result").textContent = "Error: " + err_msg + " (se for erro de SQL direto é esparguete do ângelo)";
+        this.element.classList.add("invalid");
     }
 
     fieldsAreValid() {

@@ -25,7 +25,11 @@ export const createUser = (name, username, password, password_confirmation) => {
         .then(res => res.json())
         .then(data => {
             console.log("wow", data);
-            resolve(data);
+            if (data.success) {
+                return resolve();
+            } else {
+                return reject(data.reason);
+            }
         })
         .catch(err => reject(err));
     });
