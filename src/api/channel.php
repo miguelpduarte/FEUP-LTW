@@ -11,9 +11,9 @@
             // Get Stories from Channel (if id is specified)
             handle_get();
             break;
-        case 'DELETE':
+        case 'PATCH':
             // Delete Channel
-            handle_delete();
+            handle_patch();
             break;
         default:
             handle_error();  
@@ -96,11 +96,54 @@
         }
     }
 
-    function handle_delete() {
+    function handle_patch() {
         header('Content-Type: application/json');
-        $data = json_decode(file_get_contents('php://input'), true);
 
-        
+        $story_id = $data['story_id'];
+
+        if(empty($story_id)) {
+            http_response_code(400);
+                echo json_encode([
+                    'success' => false,
+                    'reason' => "Must specify story_id"
+                ]);
+            exit;
+        }
+
+        if(!empty($data['channel_id'])) { // Change channel
+            try {
+                changeChannel($story_id, $newChannel);
+                http_response_code(200);
+                echo json_encode([
+                    'success' => true,
+                ]);
+                exit;
+            } catch(Exception $err) {
+                http_response_code(400);
+                echo json_encode([
+                    'success' => false,
+                    'reason' => $err->getMessage()
+                ]);
+                exit;
+            }
+        } else { //Remove from channel
+            try {
+                removeFromChannel($story_id);
+                http_response_code(200);
+                echo json_encode([
+                    'success' => true,
+                ]);
+                exit;
+            } catch(Exception $err) {
+                http_response_code(400);
+                echo json_encode([
+                    'success' => false,
+                    'reason' => $err->getMessage()
+                ]);
+                exit;
+            }
+        }
+
     }
 
     function handle_error() {

@@ -49,6 +49,30 @@
         return $id;
     
     }
+
+    function changeChannel($story_id, $newChannel) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('UPDATE stories SET channel_id = ? WHERE story_id = ?' );
+
+        try {
+            $stmt->execute(array($newChannel, $story_id));
+
+        } catch(Exception $err) {
+            throw new Exception("Error changing Channel");
+        }
+    }
+
+    function removeFromChannel($story_id) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('UPDATE stories SET channel_id = NULL WHERE story_id = ?' );
+
+        try {
+            $stmt->execute(array($story_id));
+
+        } catch(Exception $err) {
+            throw new Exception("Error removing Channel");
+        }
+    }
         
         
 
