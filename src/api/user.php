@@ -72,7 +72,7 @@
             exit;
         }
         
-        if(empty($data['password-confirmation'])) {
+        if(empty($data['password_confirmation'])) {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
@@ -99,7 +99,7 @@
             exit; 
         }
 
-        if($data['password'] !== $data['password-confirmation']) {
+        if($data['password'] !== $data['password_confirmation']) {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
