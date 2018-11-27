@@ -3,6 +3,7 @@
 @import "./line.css";
 @import "./navbar.css";
 @import "./story_card.css";
+@import "./story.css";
 
 body {
     margin: 0;
@@ -13,11 +14,6 @@ body {
     max-width: 80em;
 }
 
-.full-story {
-    border: 1px solid blue;
-    margin-top: 1em;
-}
-
 .refresh-btn {
     cursor: pointer;
     transition: transform 0.8s ease-in-out;
@@ -25,13 +21,4 @@ body {
 
 .refresh-btn:hover {
     transform: rotate(720deg);
-}
-
-.full-story,.comment {
-    border: 1px solid blue;
-    margin-top: 1em;
-}
-
-.subcomment-container{
-    margin-left: 2em;
 }
