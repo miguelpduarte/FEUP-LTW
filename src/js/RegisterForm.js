@@ -55,7 +55,6 @@ export class RegisterForm {
     async registerUser() {
         // Verify form fields
         if (!this.fieldsAreValid()) {
-            // Mark form as invalid
             return;
         }
 
@@ -67,7 +66,7 @@ export class RegisterForm {
 
         // Handle response
         try {
-            // Errors are sent to catch block instead of returning directly
+            // (Errors are sent to catch block instead of returning directly)
             await createUser(name, username, password, password_confirmation);
             changeToLoginOrHomepageView();
         } catch (err_msg) {
@@ -114,7 +113,7 @@ export class RegisterForm {
             username_input.nextElementSibling.textContent = "";
         }
 
-        // Password confirmation and passsword must match
+        // Password confirmation and passsword fields
         const password_input = this.element.querySelector("input[name='password']");
         const password_confirmation_input = this.element.querySelector("input[name='password-confirmation']");
 

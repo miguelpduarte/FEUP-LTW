@@ -75,6 +75,9 @@ form.fancy-form .extra-info {
 form.fancy-form .result {
     align-self: center;
     font-family: var(--title-font);
+    margin-bottom: 1em;
+    text-align: center;
+    /* Increase font size? */
 }
 
 /* Data validation */

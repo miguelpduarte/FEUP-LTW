@@ -1,10 +1,10 @@
 @import "./palette.css";
 
-#login_or_homepage {
+#simple_success_message {
     max-width: 40em;
     margin: 6em auto;
 
-    padding: 2em 1.5em 1.5em 1.5em;
+    padding: 1.5em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,23 +16,23 @@
     box-shadow:         0 0 8px rgba(0, 0, 0, 0.2);
 }
 
-#login_or_homepage h1, #login_or_homepage h2 {
+#simple_success_message h1, #simple_success_message h2 {
     font-family: var(--title-font);
-    margin: 0;
+    margin: 1em;
 }
 
-#login_or_homepage h2 {
-    margin: 1.5em 0 1em 0;
+#simple_success_message h2 {
+    margin: 0.4em 0 1em 0;
 }
 
-#login_or_homepage a {
+#simple_success_message a {
     text-decoration: none;
     color: var(--main-color);
     font-family: var(--content-font);
     font-size: 1.1em;
 }
 
-#login_or_homepage ul {
+#simple_success_message ul {
     list-style: none;
     padding: 0;
     display: flex;

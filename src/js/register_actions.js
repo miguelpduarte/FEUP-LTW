@@ -2,7 +2,7 @@
 
 import { RegisterForm } from "./RegisterForm.js";
 import { isLoggedIn } from "./user_fetch_actions.js";
-import { LoginOrHomepage } from "./LoginOrHomepage.js";
+import { SimpleSuccessMessage } from "./SimpleSuccessMessage.js";
 
 let register_form = null;
 let login_or_homepage = null;
@@ -31,12 +31,15 @@ const clearRegisterForm = () => {
 export const changeToLoginOrHomepageView = () => {
     clearRegisterForm();
     const content_container = document.getElementById("content");
-    login_or_homepage = new LoginOrHomepage();
+    login_or_homepage = new SimpleSuccessMessage(
+        "Account registered successfully!",
+        "You may now login with your account!",
+        [{href: "/pages/stories.php", text: "Homepage"}, {href: "/pages/login.php", text: "Login"}]
+    );
     const rendered_login_or_homepage = login_or_homepage.render();
     content_container.appendChild(rendered_login_or_homepage);
 };
 
 // This runs as the file is loaded from here down
 
-// initRegisterForm();
-changeToLoginOrHomepageView();
+initRegisterForm();

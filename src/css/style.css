@@ -4,7 +4,7 @@
 @import "./navbar.css";
 @import "./story_card.css";
 @import "./forms.css";
-@import "./login_or_homepage.css";
+@import "./simple_success_message.css";
 
 body {
     margin: 0;

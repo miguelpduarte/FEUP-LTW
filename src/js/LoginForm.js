@@ -1,5 +1,8 @@
 "use strict";
 
+import { loginUser } from "./user_fetch_actions.js";
+import { changeToSuccessfulLoginView } from "./login_actions.js";
+
 export class LoginForm {
     constructor() {
     }
@@ -8,6 +11,7 @@ export class LoginForm {
         let login_form_elem = document.createElement("form");
         login_form_elem.id = "login_form"
         login_form_elem.classList.add("fancy-form");
+        login_form_elem.setAttribute("novalidate", "");
         login_form_elem.method = "";
         login_form_elem.action = "";
 
@@ -38,19 +42,62 @@ export class LoginForm {
         return login_form_elem;
     }
 
-    loginUser() {
+    async loginUser() {
+        // Verify form fields
         if (!this.fieldsAreValid()) {
             return;
         }
 
-        // Verify form fields
-
         // Make request
+        const username = this.element.querySelector("input[name='username']").value;
+        const password = this.element.querySelector("input[name='password']").value;
 
         // Handle response
+        try {
+            await loginUser(username, password);
+            changeToSuccessfulLoginView();
+        } catch (err_msg) {
+            this.showErrorMessage(err_msg);
+        }
+    }
+
+    showErrorMessage(err_msg) {
+        this.element.querySelector(".result").textContent = "Error: " + err_msg + " (se for erro de SQL direto é esparguete do ângelo)";
+        this.element.classList.add("invalid");
     }
 
     fieldsAreValid() {
-        return true;
+        let fields_are_valid = true;
+
+        // Username field
+        const username_input = this.element.querySelector("input[name='username']");
+
+        if (username_input.value.length === 0) {
+            username_input.classList.add("invalid");
+            username_input.nextElementSibling.textContent = "Username must not be empty!";
+            fields_are_valid = false;
+        } else {
+            username_input.classList.remove("invalid");
+            username_input.classList.add("valid");
+            username_input.nextElementSibling.textContent = "";
+        }
+
+        // Password field
+        const password_input = this.element.querySelector("input[name='password']");
+
+        if (password_input.value.length === 0) {
+            password_input.classList.add("invalid");
+            password_input.nextElementSibling.textContent = "Password must not be empty!";
+            fields_are_valid = false;
+        } else {
+            password_input.classList.remove("invalid");
+            password_input.classList.add("valid");
+            password_input.nextElementSibling.textContent = "";
+        }
+
+        // Idea taken from bootstrap, to avoid input results showing straight away (when using :valid and :invalid)
+        this.element.classList.add("was-validated");
+
+        return fields_are_valid;
     }
 }

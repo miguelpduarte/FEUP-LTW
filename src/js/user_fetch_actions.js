@@ -12,8 +12,6 @@ export const createUser = (name, username, password, password_confirmation) => {
         password_confirmation,
     });
 
-    console.log("kek", body);
-
     return new Promise((resolve, reject) => {
         fetch("/api/user.php", {
             method: "POST",
@@ -26,6 +24,33 @@ export const createUser = (name, username, password, password_confirmation) => {
         .then(data => {
             console.log("wow", data);
             if (data.success) {
+                return resolve();
+            } else {
+                return reject(data.reason);
+            }
+        })
+        .catch(err => reject(err));
+    });
+};
+
+export const loginUser = (username, password) => {
+    const body = JSON.stringify({
+        username,
+        password
+    });
+
+    return new Promise((resolve, reject) => {
+        fetch("/api/login.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: body,
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("wow2", data);
+            if(data.success) {
                 return resolve();
             } else {
                 return reject(data.reason);
