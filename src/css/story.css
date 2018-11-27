@@ -1,6 +1,6 @@
 @import "./palette.css";
 
-.story-container {
+.full-story {
     margin: 0 auto;
     width: 60%;
     display: flex;
