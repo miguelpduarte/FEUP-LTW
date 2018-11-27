@@ -104,10 +104,30 @@ function handle_post() {
 
 function handle_delete() {
     header('Content-Type: application/json');
+    $data = json_decode(file_get_contents('php://input'), true);
 
     $currentUser = getLoggedUser();
 
     if($currentUser) {
+
+        if(empty($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF was not provided."
+                ]);
+            exit;
+        }
+
+        if(!verifyCSRF($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF did not match. SHOW YOUR ID SIR!"
+                ]);
+            exit;
+        }
+        
         session_unset();
         session_destroy();
         http_response_code(200);
