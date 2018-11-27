@@ -26,6 +26,10 @@
 
 /* Navbar hamburger menu */
 
+#navbar .hamburger {
+    flex: 1;
+}
+
 #navbar .hamburger input {
     display: none;
 }
@@ -87,10 +91,6 @@
 }
 
 /* Common to both register/login section and user info/logout section */
-
-#navbar .login-register, #navbar .user-details {
-    /* Move to right side pls */
-}
 
 #navbar .login-register ul, #navbar .user-details ul {
     display: flex;
