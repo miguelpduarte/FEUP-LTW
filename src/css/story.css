@@ -1,6 +1,18 @@
 @import "./palette.css";
 
-.full-story {
+.story-container {
     margin: 0 auto;
     width: 60%;
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    -moz-box-shadow:    0 0 8px var(--main-color-lighter);
+    -webkit-box-shadow: 0 0 8px var(--main-color-lighter);
+    box-shadow:         0 0 8px var(--main-color-lighter);
+}
+
+
+.full-story .title {
+    font-size: 2.5em;
+    font-family: var(--title-font);
 }
