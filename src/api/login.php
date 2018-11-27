@@ -5,6 +5,10 @@ require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
+    case 'GET':
+        // get logged in user info
+        handle_get();
+        break;
     case 'POST':
         //login
         handle_post();
@@ -16,6 +20,29 @@ switch ($method) {
     default:
         handle_error();  
         break;
+}
+
+function handle_get() {
+    header('Content-Type: application/json');
+
+    $currentUser = getLoggedUser();
+    if (!$currentUser) {
+        http_response_code(401);
+        echo json_encode([
+            'success' => false,
+            'reason' => 'User not logged in'
+        ]);
+        exit;
+    }
+
+    http_response_code(200);
+    echo json_encode([
+        'success' => true,
+        'data' => [
+            'username' => $currentUser['username'],
+        ],
+    ]);
+    exit;
 }
 
 function handle_post() {
@@ -97,7 +124,7 @@ function handle_delete() {
 }
 
 function handle_error() {
-    http_response_code(400);
+    http_response_code(405);
     echo "Invalid request method for this route";
     exit;
 }

@@ -129,7 +129,7 @@
     }
 
     function handle_error() {
-        http_response_code(400);
+        http_response_code(405);
         echo "Invalid request method for this route";
         exit;
     }
