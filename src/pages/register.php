@@ -4,8 +4,8 @@
 ?>
     <div id="content">
         <div id="register_form_container"></div>
-        <script type="module" src="/js/register_actions.js"></script>
     </div>
+    <script type="module" src="/js/register_actions.js"></script>
 <?php
     draw_footer();
 ?>

@@ -4,6 +4,7 @@
 @import "./navbar.css";
 @import "./story_card.css";
 @import "./forms.css";
+@import "./login_or_homepage.css";
 
 body {
     margin: 0;
