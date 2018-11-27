@@ -7,7 +7,6 @@ export const getParams = () => {
 }
 
 var mdParser = new Remarkable({
-    html: true,
     linkify: true,
     highlight: function (str, lang) {
         if (lang && hljs.getLanguage(lang)) {
