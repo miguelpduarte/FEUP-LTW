@@ -1,5 +1,7 @@
 "use strict";
 
+import { logoutUser } from "./user_fetch_actions.js";
+
 export class Navbar {
     constructor() {
     }
@@ -30,12 +32,21 @@ export class Navbar {
             </div>
             <div class="user-details">
                 <ul>
-                    <li><a href="/pages/user.php?username=">loading_username</a></li>
+                    <li><a class="username" href="/pages/user.php?username=">loading_username</a></li>
                     <li><a href="/pages/settings.php">Settings</a></li>
-                    <li><a href="/pages/logout.php">Logout</a></li>
+                    <li><a class="logout">Logout</a></li>
                 </ul>
             </div>
         `;
+
+        // Adding event handlers
+
+        navbar_elem.querySelector(".logout").addEventListener("click", () => {
+            logoutUser()
+                // Going to the homepage after logout
+                .then(() => {window.location.href = "/pages/stories.php"})
+                .catch();
+        });
 
         // Storing associated element
         this.element = navbar_elem;
@@ -44,8 +55,9 @@ export class Navbar {
     }
 
     updateWithUserInfo(user_info) {
-        this.user_info = user_info;
-
+        const username_elem = this.element.querySelector(".user-details .username");
+        username_elem.textContent = user_info.username;
+        username_elem.href = `/pages/user.php?username=${user_info.username}`;
         this.element.classList.add("logged-in");
     }
 }

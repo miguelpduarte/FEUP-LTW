@@ -1,9 +1,5 @@
 "use strict";
 
-export const isLoggedIn = () => {
-    return false;
-};
-
 export const createUser = (name, username, password, password_confirmation) => {
     const body = JSON.stringify({
         name,
@@ -22,7 +18,6 @@ export const createUser = (name, username, password, password_confirmation) => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log("wow", data);
             if (data.success) {
                 return resolve();
             } else {
@@ -49,7 +44,6 @@ export const loginUser = (username, password) => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log("wow2", data);
             if(data.success) {
                 return resolve();
             } else {
@@ -57,5 +51,36 @@ export const loginUser = (username, password) => {
             }
         })
         .catch(err => reject(err));
+    });
+};
+
+export const getUserLoginInfo = () => {
+    return new Promise((resolve, reject) => {
+        fetch("/api/login.php")
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                return resolve(data.data);
+            } else {
+                return reject(data.reason);
+            }
+        })
+        .catch(err => reject(err));
+    });
+};
+
+export const logoutUser = () => {
+    return new Promise((resolve, reject) => {
+        fetch("/api/login.php", {
+            method: "DELETE"
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                return resolve();
+            } else {
+                return reject(data.reason);
+            }
+        });
     });
 };

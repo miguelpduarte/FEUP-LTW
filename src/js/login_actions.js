@@ -1,14 +1,14 @@
 "use strict";
 
 import { LoginForm } from "./LoginForm.js";
-import { isLoggedIn } from "./user_fetch_actions.js";
+import { isUserLoggedIn } from "./store.js";
 import { SimpleSuccessMessage } from "./SimpleSuccessMessage.js";
 
 let login_form = null;
 let login_success_msg = null;
 
-const initLoginForm = () => {
-    if (isLoggedIn()) {
+const initLoginForm = async () => {
+    if (await isUserLoggedIn()) {
         window.location.href = "/pages/stories.php?logged_in";
         return;
     }
