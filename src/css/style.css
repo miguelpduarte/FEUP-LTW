@@ -4,6 +4,7 @@
 @import "./navbar.css";
 @import "./story_card.css";
 @import "./story.css";
+@import "./comments.css";
 
 body {
     margin: 0;
@@ -11,7 +12,7 @@ body {
 
 #content {
     margin: 0 auto 2em auto;
-    max-width: 80em;
+    max-width: 80%;
 }
 
 .refresh-btn {
@@ -21,4 +22,8 @@ body {
 
 .refresh-btn:hover {
     transform: rotate(720deg);
+}
+
+img {
+    max-width: 100%;
 }

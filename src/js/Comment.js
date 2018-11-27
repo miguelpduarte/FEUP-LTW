@@ -26,13 +26,22 @@ export class Comment {
     this.section.classList.add('comment-container');
     this.section.id = `comment_${this.comment_id}`;
     this.section.innerHTML += `<section class="comment">
-                            <h4>Author: <a href="user.php?id=${this.author_id}"></a></h4>
-                            <div>${this.created_at}</div>
-                            <div class="comment-score">Score: ${this.score}</div>
-                            <div class="md-content">${mdToHTML(this.content)}</div>
+                            <div class="comment-card-info">
+                              <div class="md-content">${mdToHTML(this.content)}</div>
+                              <div class="comment-card-details">
+                                  <span class="author"><a href="user.php?id=${this.author_id}"></a></span>
+                                  <i class="fas fa-user-clock"></i>
+                                  <span class="date">${moment(this.created_at).fromNow()}</span>
+                              </div>
+                            </div>
+                            <div class="voting-wrapper">
+                                  <i class="vote-up fas fa-chevron-up"></i>
+                                  <div class="score">${this.score}</div>
+                                  <i class="vote-down fas fa-chevron-down"></i>
+                            </div>
                           </section>`;
     
-    this.section.querySelector('h4 > a').textContent += this.author_name;
+    this.section.querySelector('.author > a').textContent += this.author_name;
     if (this.subComments.length != 0) {
       let subcomment_section = document.createElement('section');
       subcomment_section.classList.add('subcomment-container');
@@ -42,7 +51,7 @@ export class Comment {
       }
 
       this.section.appendChild(subcomment_section);
-      this.section.innerHTML += `<button class="expand-comments" data-id=${this.comment_id}>Expand Comments</button>`;
+      this.section.innerHTML += `<a class="expand-comments" data-id=${this.comment_id}>Expand Comments</a>`;
       this.section.lastChild.addEventListener(`click`, this.loadMoreComments.bind(this));
     }
     return this.section;
@@ -64,8 +73,9 @@ export class Comment {
 
     this.addComments(comment_data);
 
-    if (this.subComments.length != 0) {
-      this.section.innerHTML += `<button class="expand-comments" data-id=${this.comment_id}>Expand Comments</button>`;
+    if (comment_data.length != 0) {
+      this.section.innerHTML += `<a class="expand-comments" data-id=${this.comment_id}>Expand Comments</a>`;
+      this.section.lastChild.addEventListener(`click`, this.loadMoreComments.bind(this));
     }
 
     this.loading = false;

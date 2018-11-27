@@ -1,18 +1,50 @@
 @import "./palette.css";
 
 .full-story {
-    margin: 0 auto;
-    width: 60%;
+    margin: 2em auto;
+    width: 80%;
     display: flex;
+    padding: 0 2em;
+    box-sizing: border-box;
     flex-direction: column;
-    padding: 2em;
     -moz-box-shadow:    0 0 8px var(--main-color-lighter);
     -webkit-box-shadow: 0 0 8px var(--main-color-lighter);
     box-shadow:         0 0 8px var(--main-color-lighter);
-}
 
+    font-family: var(--content-font);
+}
 
 .full-story .title {
     font-size: 2.5em;
     font-family: var(--title-font);
+    align-self: center;
+}
+
+.full-story .content{
+    font-family: inherit;
+}
+
+.full-story h1 {
+    font-family: var(--title-font);
+    font-size: 2em;
+}
+
+.full-story h2 {
+    font-family: var(--title-font);
+    font-size: 1.75em;
+}
+
+.full-story h3 {
+    font-family: var(--title-font);
+    font-size: 1.5em;
+}
+
+.full-story h4 {
+    font-family: var(--title-font);
+    font-size: 1.25em;
+}
+
+.full-story h5 {
+    font-family: var(--title-font);
+    font-size: 1em;
 }
