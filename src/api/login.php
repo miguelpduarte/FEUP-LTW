@@ -2,6 +2,7 @@
 require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_user.php');
 require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
 
+
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
@@ -84,6 +85,7 @@ function handle_post() {
         http_response_code(200);
         session_start();
 
+        $_SESSION['csrf'] = generate_random_token();
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['username'] = $username;
         echo json_encode([
