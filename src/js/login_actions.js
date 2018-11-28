@@ -9,7 +9,7 @@ let login_success_msg = null;
 
 const initLoginForm = async () => {
     if (await isUserLoggedIn()) {
-        window.location.href = "/pages/stories.php?logged_in";
+        showAlreadyLoggedIn();
         return;
     }
 
@@ -17,6 +17,17 @@ const initLoginForm = async () => {
     login_form = new LoginForm();
     const rendered_login_form = login_form.render();
     login_form_container.appendChild(rendered_login_form);
+};
+
+const showAlreadyLoggedIn = () => {
+    const content_container = document.getElementById("content");
+    const already_logged_in = new SimpleSuccessMessage(
+        "You are already logged in!",
+        "You must first logout to login with another account!",
+        [{href: "/pages/stories.php", text: "Homepage"}]
+    );
+    const rendered_already_logged_in = already_logged_in.render();
+    content_container.appendChild(rendered_already_logged_in);
 };
 
 const clearLoginForm = () => {

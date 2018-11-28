@@ -5,11 +5,10 @@ import { isUserLoggedIn } from "./store.js";
 import { SimpleSuccessMessage } from "./SimpleSuccessMessage.js";
 
 let register_form = null;
-let login_or_homepage = null;
 
 const initRegisterForm = async () => {
     if (await isUserLoggedIn()) {
-        window.location.href = "/pages/stories.php?logged_in";
+        showAlreadyLoggedIn();
         return;
     }
 
@@ -17,6 +16,17 @@ const initRegisterForm = async () => {
     register_form = new RegisterForm();
     const rendered_register_form = register_form.render();
     register_form_container.appendChild(rendered_register_form);
+};
+
+const showAlreadyLoggedIn = () => {
+    const content_container = document.getElementById("content");
+    const already_logged_in = new SimpleSuccessMessage(
+        "You are already logged in!",
+        "You must first logout to create an account!",
+        [{href: "/pages/stories.php", text: "Homepage"}]
+    );
+    const rendered_already_logged_in = already_logged_in.render();
+    content_container.appendChild(rendered_already_logged_in);
 };
 
 const clearRegisterForm = () => {
@@ -31,7 +41,7 @@ const clearRegisterForm = () => {
 export const changeToLoginOrHomepageView = () => {
     clearRegisterForm();
     const content_container = document.getElementById("content");
-    login_or_homepage = new SimpleSuccessMessage(
+    const login_or_homepage = new SimpleSuccessMessage(
         "Account registered successfully!",
         "You may now login with your account!",
         [{href: "/pages/stories.php", text: "Homepage"}, {href: "/pages/login.php", text: "Login"}]
