@@ -26,7 +26,7 @@ form.fancy-form label:first-of-type {
 }
 
 form.fancy-form label {
-    margin-bottom: 2em;
+    margin-bottom: 1em;
     font-weight: 600;
     font-family: var(--title-font);
     font-size: 1.2em;
@@ -74,9 +74,11 @@ form.fancy-form .extra-info {
 
 form.fancy-form .result {
     align-self: center;
-    font-family: var(--title-font);
-    margin-bottom: 1em;
     text-align: center;
+    margin-bottom: 1em;
+    font-family: var(--content-font);
+    font-weight: normal;
+    font-size: 0.9em;
     /* Increase font size? */
 }
 
@@ -92,7 +94,10 @@ form.fancy-form.invalid .result {
 }
 
 form.fancy-form .feedback {
-    margin-top: 1em;
+    margin-top: 0.5em;
+    font-family: var(--content-font);
+    font-weight: normal;
+    font-size: 0.8em;
 }
 
 form.fancy-form input.valid, form.fancy-form.was-checked input:valid {
