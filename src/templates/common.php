@@ -17,7 +17,12 @@ function draw_header($page_title) { ?>
             <script src="/libs/highlight.min.js"></script>
         </head>
         <body>
-            <nav id="navbar"></nav>
+            <nav id="navbar_container"></nav>
+            <?php if(isset($_GET['logged_in'])) { ?>
+                <div id="already_logged_in">
+                    You are already logged in!
+                </div>
+            <?php } ?>
 <?php } ?>
 
 <?php
@@ -25,7 +30,7 @@ function draw_header($page_title) { ?>
  * Draws the footer for all pages.
  */
 function draw_footer() { ?>
-    <script type="module" src="/js/navbar.js"></script>
+    <script type="module" src="/js/navbar_actions.js"></script>
     </body>
 </html>
 <?php } ?>

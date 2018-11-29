@@ -102,7 +102,11 @@
     }
 
     function handle_error() {
-        echo "Invalid request method for this route";
+        http_response_code(405);
+        echo json_encode([
+            'success' => false,
+            'reason' => 'Invalid request method for this route'
+        ]);
         exit;
     }
 ?>

@@ -1,0 +1,117 @@
+@import "./palette.css";
+
+form.fancy-form#login_form {
+    max-width: 25em;
+}
+
+form.fancy-form#register_form {
+    max-width: 30em;
+}
+
+form.fancy-form {
+    margin: 3em auto;
+    padding: 1em 1.5em 1.5em 1.5em;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+
+    /* Tasty Shadow */
+    -moz-box-shadow:    0 0 8px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    box-shadow:         0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+form.fancy-form label:first-of-type {
+    margin-top: 1.5em;
+}
+
+form.fancy-form label {
+    margin-bottom: 1em;
+    font-weight: 600;
+    font-family: var(--title-font);
+    font-size: 1.2em;
+}
+
+form.fancy-form input {
+    display: block;
+    border: 2px solid var(--even-lighter-grey);
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 1em;
+    font-family: var(--content-font);
+    font-size: 1em;
+    padding: 0.5em;
+    padding-top: 0.7em;
+    box-sizing: border-box;
+}
+
+form.fancy-form input::placeholder {
+    opacity: 0.5;
+}
+
+form.fancy-form button {
+    border-radius: 10px;
+    margin-top: 1em;
+    align-self: center;
+    width: 60%;
+    background-color: var(--main-color);
+    color: white;
+    font-family: var(--title-font);
+    padding: 0.5em;
+    font-size: 1.2em;
+    border: 1px solid black;
+    margin-bottom: 1.5em;
+}
+
+form.fancy-form button:active {
+    background-color: var(--main-color-dark);
+}
+
+form.fancy-form .extra-info {
+    align-self: center;
+    font-family: var(--title-font);
+}
+
+form.fancy-form .result {
+    align-self: center;
+    text-align: center;
+    margin-bottom: 1em;
+    font-family: var(--content-font);
+    font-weight: normal;
+    font-size: 0.9em;
+    /* Increase font size? */
+}
+
+/* Data validation */
+/* (was-validated class is applied because otherwise the styling would be applied straight away - idea from bootstrap data validation) */
+
+form.fancy-form.valid .result {
+    color: green;
+}
+
+form.fancy-form.invalid .result {
+    color: red;
+}
+
+form.fancy-form .feedback {
+    margin-top: 0.5em;
+    font-family: var(--content-font);
+    font-weight: normal;
+    font-size: 0.8em;
+}
+
+form.fancy-form input.valid, form.fancy-form.was-checked input:valid {
+    border-color: green;
+}
+
+form.fancy-form input.valid ~ .feedback, form.fancy-form.was-checked input:valid ~ .feedback {
+    color: green;
+}
+
+form.fancy-form input.invalid, form.fancy-form.was-checked input:invalid {
+    border-color: red;
+}
+
+form.fancy-form input.invalid ~ .feedback, form.fancy-form.was-checked input:invalid ~ .feedback {
+    color: red;
+}

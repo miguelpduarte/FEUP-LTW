@@ -1,3 +1,5 @@
+"use strict";
+
 export const getParams = () => {
     let queryDict = {};
     location.search.substr(1).split("&").forEach(item => {
