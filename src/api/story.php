@@ -82,16 +82,10 @@
             exit;
         }
 
-        if(!isset($data['channel']) || $data['channel'] === '' || !is_int($data['channel'])) {
-            http_response_code(400);
-            echo json_encode([
-                'success' => false,
-                'reason' => 'The channel field is missing'
-                ]);
-            exit;
-        }
-
-        $id = insertStory($currentUser['user_id'], $data['title'], $data['content'], $data['channel']);
+        if(empty($data['channel']))
+            $id = insertStoryDC($currentUser['user_id'], $data['title'], $data['content']);
+        else
+            $id = insertStory($currentUser['user_id'], $data['title'], $data['content'], $data['channel']);
 
         http_response_code(200);
         echo json_encode([

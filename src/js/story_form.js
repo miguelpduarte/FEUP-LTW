@@ -40,8 +40,6 @@ export class StoryForm {
         try {
             response = await fetchPostStory(postBody);
         } catch (error) {
-            // TODO: Check error.
-            console.log(error);
             return ;
         }
         window.location.href = `/pages/story.php?id=${response.story_id}`;

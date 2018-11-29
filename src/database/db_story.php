@@ -46,4 +46,15 @@
         $stmt->execute(array($author, $title, $content, $channel));
         return $db->lastInsertId();
     }
+
+
+    /**
+     * Inserts a story into the database with default channel.
+     */
+    function insertStoryDC($author, $title, $content) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('INSERT INTO stories (author, title, content, channel) VALUES(?, ?, ?, 0)');
+        $stmt->execute(array($author, $title, $content));
+        return $db->lastInsertId();
+    }
 ?>
