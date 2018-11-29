@@ -4,8 +4,6 @@ const store = {
     user_loading_promise: undefined,
 };
 
-// export default store;
-
 // State actions
 
 import { getUserLoginInfo } from "./user_fetch_actions.js";

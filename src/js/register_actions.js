@@ -2,7 +2,7 @@
 
 import { RegisterForm } from "./RegisterForm.js";
 import { isUserLoggedIn } from "./store.js";
-import { SimpleSuccessMessage } from "./SimpleSuccessMessage.js";
+import { SimpleMessage } from "./SimpleMessage.js";
 
 let register_form = null;
 
@@ -20,7 +20,7 @@ const initRegisterForm = async () => {
 
 const showAlreadyLoggedIn = () => {
     const content_container = document.getElementById("content");
-    const already_logged_in = new SimpleSuccessMessage(
+    const already_logged_in = new SimpleMessage(
         "You are already logged in!",
         "You must first logout to create an account!",
         [{href: "/pages/stories.php", text: "Homepage"}]
@@ -41,7 +41,7 @@ const clearRegisterForm = () => {
 export const changeToLoginOrHomepageView = () => {
     clearRegisterForm();
     const content_container = document.getElementById("content");
-    const login_or_homepage = new SimpleSuccessMessage(
+    const login_or_homepage = new SimpleMessage(
         "Account registered successfully!",
         "You may now login with your account!",
         [{href: "/pages/stories.php", text: "Homepage"}, {href: "/pages/login.php", text: "Login"}]

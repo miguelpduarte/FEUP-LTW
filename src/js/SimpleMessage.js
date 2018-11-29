@@ -1,4 +1,4 @@
-export class SimpleSuccessMessage {
+export class SimpleMessage {
     constructor(title, subtitle, links) {
         this.title = title;
         this.subtitle = subtitle;
