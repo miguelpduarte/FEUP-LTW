@@ -1,5 +1,5 @@
 import { MarkdownEditor } from "./markdown_editor.js";
-import { fetchPostStory }  from "./fetch_actions.js";
+import { fetchPostStory }  from "./stories_fetch_actions.js";
 
 export class StoryForm {
     constructor() {
