@@ -3,6 +3,8 @@
 @import "./line.css";
 @import "./navbar.css";
 @import "./story_card.css";
+@import "./forms.css";
+@import "./simple_success_message.css";
 
 body {
     margin: 0;
