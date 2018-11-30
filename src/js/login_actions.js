@@ -1,15 +1,15 @@
 "use strict";
 
 import { LoginForm } from "./LoginForm.js";
-import { isLoggedIn } from "./user_fetch_actions.js";
-import { SimpleSuccessMessage } from "./SimpleSuccessMessage.js";
+import { isUserLoggedIn } from "./store.js";
+import { SimpleMessage } from "./SimpleMessage.js";
 
 let login_form = null;
 let login_success_msg = null;
 
-const initLoginForm = () => {
-    if (isLoggedIn()) {
-        window.location.href = "/pages/stories.php?logged_in";
+const initLoginForm = async () => {
+    if (await isUserLoggedIn()) {
+        showAlreadyLoggedIn();
         return;
     }
 
@@ -17,6 +17,17 @@ const initLoginForm = () => {
     login_form = new LoginForm();
     const rendered_login_form = login_form.render();
     login_form_container.appendChild(rendered_login_form);
+};
+
+const showAlreadyLoggedIn = () => {
+    const content_container = document.getElementById("content");
+    const already_logged_in = new SimpleMessage(
+        "You are already logged in!",
+        "You must first logout to login with another account!",
+        [{href: "/pages/stories.php", text: "Homepage"}]
+    );
+    const rendered_already_logged_in = already_logged_in.render();
+    content_container.appendChild(rendered_already_logged_in);
 };
 
 const clearLoginForm = () => {
@@ -31,7 +42,7 @@ const clearLoginForm = () => {
 export const changeToSuccessfulLoginView = () => {
     clearLoginForm();
     const content_container = document.getElementById("content");
-    login_success_msg = new SimpleSuccessMessage(
+    login_success_msg = new SimpleMessage(
         "Login successful!",
         "",
         [{href: "/pages/stories.php", text: "Homepage"}]

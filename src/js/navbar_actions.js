@@ -1,6 +1,7 @@
 "use strict";
 
 import { Navbar } from "./Navbar.js";
+import { getUserInfo, isUserLoggedIn } from "./store.js";
 
 let navbar = null;
 
@@ -11,8 +12,10 @@ const initNavbar = () => {
     navbar_container.appendChild(rendered_navbar);
 };
 
-const checkForUserLogin = () => {
-    console.log("TODO: Check for user login on navbar controller load");
+const checkForUserLogin = async () => {
+    if (await isUserLoggedIn()) {
+        navbar.updateWithUserInfo(await getUserInfo());
+    }
 };
 
 // This runs as the file is loaded from here down

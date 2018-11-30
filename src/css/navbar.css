@@ -24,6 +24,10 @@
     margin: 0.5em;
 }
 
+#navbar .logout {
+    cursor: pointer;
+}
+
 /* Navbar hamburger menu */
 
 #navbar .hamburger {

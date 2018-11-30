@@ -133,21 +133,24 @@ function handle_delete() {
         http_response_code(200);
         echo json_encode([
             'success' => true
-            ]);
+        ]);
         exit;
     } else {
         http_response_code(409);
         echo json_encode([
             'success' => false,
             'reason' => 'Currently not logged in.'
-            ]);
+        ]);
         exit;
     }
 }
 
 function handle_error() {
     http_response_code(405);
-    echo "Invalid request method for this route";
+    echo json_encode([
+        'success' => false,
+        'reason' => 'Invalid request method for this route'
+    ]);
     exit;
 }
 

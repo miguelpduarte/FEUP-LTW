@@ -10,7 +10,7 @@
 
     
 
-    session_set_cookie_params(0, '/', $_SERVER['SERVER_NAME'], true, false);
+    // session_set_cookie_params(0, '/', $_SERVER['SERVER_NAME'], false, false);
     session_start();
 
     function getLoggedUser() {
