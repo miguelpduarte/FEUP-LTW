@@ -12,55 +12,12 @@
             handle_get();
             break;
         case 'PATCH':
-            // Delete Channel
+            // Edit Channel
             handle_patch();
             break;
         default:
             handle_error();  
             break;
-    }
-    
-    function handle_post() {
-        header('Content-Type: application/json');
-        $data = json_decode(file_get_contents('php://input'), true);
-        
-        $currentUser = getLoggedUser();
-
-        if(!$currentUser) {
-            http_response_code(401);
-            echo json_encode([
-                'success' => false,
-                'reason' => "Anonimous User can't create a channel"
-                ]);
-            exit;
-        }
-
-        if(empty($data['name'])) {
-            http_response_code(400);
-            echo json_encode([
-                'success' => false,
-                'reason' => 'The name field is missing'
-                ]);
-            exit;
-        }
-
-        $error = "";
-        insertChannel($data['name']);
-            
-        if($error) {
-            http_response_code(400);
-            echo json_encode([
-                'success' => false,
-                'reason' => $error
-            ]);
-            exit;
-        } else {
-            http_response_code(200);
-            echo json_encode([
-                'success' => true
-            ]);
-            exit;
-        }
     }
 
     function handle_get() {
@@ -126,7 +83,7 @@
                 ]);
                 exit;
             }
-        } else { //Remove from channel
+        } else { // Remove from channel
             try {
                 removeFromChannel($story_id);
                 http_response_code(200);
