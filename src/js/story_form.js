@@ -1,5 +1,7 @@
 import { MarkdownEditor } from "./markdown_editor.js";
 import { fetchPostStory }  from "./stories_fetch_actions.js";
+import { errorHandler } from "./ErrorHandler.js"
+import { whitespaceString } from "./utils.js"
 
 export class StoryForm {
     constructor() {
@@ -14,10 +16,18 @@ export class StoryForm {
         this.section.classList.add('story-form');
         this.createForm();
         this.createButton();
+        this.createMsgUser();
+        this.form.appendChild(this.msgSection);
         this.form.appendChild(this.button);
         this.section.appendChild(this.form);
 
         return this.section;
+    }
+
+    createMsgUser() {
+        this.msgSection = document.createElement('div');
+        this.msgSection.classList.add('msg-field');
+
     }
 
     createButton() {
@@ -33,22 +43,45 @@ export class StoryForm {
     }
 
     async submit() {
-
+        let response;
         let postBody = this.markdown_editor.getData();
         postBody['title'] = this.form.getElementsByTagName('input')[0].value;
-        let response;
-        try {
+
+        if(!this.fieldsAreValid(postBody))
+            return;
+        
+        try {                
             response = await fetchPostStory(postBody);
         } catch (error) {
+            errorHandler.getError(error).defaultAction();
             return ;
         }
         window.location.href = `/pages/story.php?id=${response.story_id}`;
 
     }
 
+    fieldsAreValid(fieldValues) {
+        if (whitespaceString(fieldValues['content'])) {
+            this.showErrorMessage("The story's content is empty");
+            return false;
+        }
+
+        if (whitespaceString(fieldValues['title'])) {
+            this.showErrorMessage("The story's title is empty");
+            return false;
+        }
+        
+        return true;
+    }
+
+    showErrorMessage(err_msg) {
+        this.section.querySelector(".msg-field").textContent = "Error: " + err_msg;
+        this.section.classList.add("invalid");
+    }
+
     createForm() {
         this.form = document.createElement('form');
-        this.form.classList.add("new-story")
+        this.form.classList.add("new-story");
         this.form.method = `post`;
         this.form.action = `/api/story.php`;
         this.form.innerHTML = `<section class="title-area">

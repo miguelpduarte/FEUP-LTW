@@ -130,3 +130,12 @@ input:checked + .tab-label {
 .new-story button:active {
     background-color: var(--main-color-dark);
 }
+
+.new-story .msg-field {
+    margin-top: 1em;
+    font-family: var(--content-font);
+    font-weight: normal;
+    font-size: 1em;
+    color: red;
+    align-self: center;
+}

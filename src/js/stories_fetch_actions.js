@@ -90,7 +90,7 @@ export const fetchPostStory = (body) => {
             if(data.success) {
                 return resolve(data);
             } else {
-                return reject("Fetching not successful, reason: " + data.reason);
+                return reject(data.code);
             }
         }).catch(err => console.error('Fetch error:', err));
     });

@@ -28,3 +28,7 @@ var mdParser = new Remarkable({
 export const mdToHTML = (md) => {
     return mdParser.render(md);
 }
+
+export const whitespaceString = (str) => {
+    return !str.replace(/\s/g, '').length
+}
