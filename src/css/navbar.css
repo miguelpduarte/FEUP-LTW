@@ -1,0 +1,109 @@
+#navbar {
+    background-color: var(--main-color);
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    font-family: var(--title-font);
+    /* Para passar a ser xpto: */
+    position: sticky;
+    top: 0;
+    z-index: 25;
+}
+
+#navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+#navbar .logo {
+    color: white;
+    background-color: goldenrod;
+    border-radius: 1em;
+    font-size: 20px;
+    padding: 0.5em;
+    margin: 0.5em;
+}
+
+#navbar .logout {
+    cursor: pointer;
+}
+
+/* Navbar hamburger menu */
+
+#navbar .hamburger {
+    flex: 1;
+}
+
+#navbar .hamburger input {
+    display: none;
+}
+
+#navbar .hamburger label {
+    font-size: 0;
+}
+
+#navbar .hamburger ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#navbar .hamburger ul li {
+    display: inline-block;
+    margin: 0 1em;
+}
+
+@media screen and (max-width: 30em) {
+    #navbar .hamburger ul {
+        max-height: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        transition: max-height 0.5s;
+    }
+
+    #navbar .hamburger ul li {
+        margin: 0;
+    }
+    
+    #navbar .hamburger label::before {
+        content: "[ ]";
+        font-size: 16px;
+    }
+    
+    #navbar .hamburger input:checked ~ label::before {
+        content: "[X]";
+    }
+    
+    #navbar .hamburger input:checked ~ ul {
+        max-height: 4em;
+    }
+}
+
+/* Register/Login section */
+
+/* Hiding section if logged in */
+#navbar.logged-in .login-register {
+    display: none;
+}
+
+/* User info/logout section */
+
+/* Hiding section if not logged in */
+#navbar:not(.logged-in) .user-details {
+    display: none;
+}
+
+/* Common to both register/login section and user info/logout section */
+
+#navbar .login-register ul, #navbar .user-details ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+#navbar .login-register ul li, #navbar .user-details ul li {
+    display: inline-block;
+    margin: 0 1em;
+}

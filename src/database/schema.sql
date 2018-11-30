@@ -31,6 +31,7 @@ CREATE TABLE comments (
     author INTEGER  REFERENCES users NOT NULL,
     score INTEGER DEFAULT 0,
     story INTEGER REFERENCES stories,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     parent_comment INTEGER REFERENCES comments,
     CHECK(
             (story is NULL 
