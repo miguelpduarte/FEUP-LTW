@@ -17,9 +17,13 @@
 }
 
 .subcomment-container > .comment-container {
-    margin-left: 2em;
+    margin-left: 1em;
 }
 
+.subcomment-container {
+    margin-left: 1em;
+    border-left: 2px solid var(--main-color);
+}
 
 .comment-section > .comment-container:hover {
     border: 2px solid var(--very-light-grey);
@@ -54,6 +58,7 @@
 .comment .comment-card-info {
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
+    text-align: justify;
 }
 
 
@@ -63,6 +68,7 @@
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: 2em 1em 1em auto;
+    padding: 0 1em 0 2em;
     max-height: 100%;
 }
 
