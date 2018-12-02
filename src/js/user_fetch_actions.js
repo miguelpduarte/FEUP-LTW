@@ -1,5 +1,7 @@
 "use strict";
 
+import { getUserInfo } from "./store.js";
+
 export const createUser = (name, username, password, password_confirmation) => {
     const body = JSON.stringify({
         name,
@@ -70,9 +72,12 @@ export const getUserLoginInfo = () => {
 };
 
 export const logoutUser = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         fetch("/api/login.php", {
-            method: "DELETE"
+            method: "DELETE",
+            body: JSON.stringify({
+                csrf: (await getUserInfo()).csrf
+            })
         })
         .then(res => res.json())
         .then(data => {
