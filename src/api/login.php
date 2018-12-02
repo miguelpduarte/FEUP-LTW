@@ -41,6 +41,7 @@ function handle_get() {
         'success' => true,
         'data' => [
             'username' => $currentUser['username'],
+            'csrf' => $currentUser['csrf'],
         ],
     ]);
     exit;
