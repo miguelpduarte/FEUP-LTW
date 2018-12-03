@@ -1,5 +1,6 @@
 <?php
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_story.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_channel.php');
 
     $method = $_SERVER['REQUEST_METHOD'];
 
@@ -20,8 +21,9 @@
             'success' => 'false',
             'data' => 'This is a test endpoint'
         ];
-        header('Content-Type: application/json');
-        echo json_encode($stuff);
+        // header('Content-Type: application/json');
+        // echo json_encode($stuff);
+        echo verifyStoryOwnership(1, 1) ? "true" : "false";
         exit;
     }
     

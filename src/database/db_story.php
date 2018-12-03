@@ -1,5 +1,6 @@
 <?php
     require_once(realpath( dirname( __FILE__ ) ) . '/../utils/database.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/db_channel.php');
 
     /**
      * Returns stories without content.
@@ -37,24 +38,41 @@
         return $stmt->fetchAll(); 
     }
 
+    
     /**
      * Inserts a story into the database.
      */
     function insertStory($author, $title, $content, $channel) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO stories (author, title, content, channel) VALUES(?, ?, ?, ?)');
-        $stmt->execute(array($author, $title, $content, $channel));
-        return $db->lastInsertId();
+        
+        $insertChannelError = '';
+        $channel_id = insertChannel($channel, $insertChannelError);
+        
+        if($insertChannelError) {
+            throw new Exception("Error Assigning Channel");
+        } else {
+            $stmt = $db->prepare('INSERT INTO stories (author, title, content, channel) VALUES(?, ?, ?, ?)');
+            $stmt->execute(array($author, $title, $content, $channel_id));
+        }
+        
     }
-
 
     /**
-     * Inserts a story into the database with default channel.
+     * Returns true if story with <story_id> has author with <$user_id>
      */
-    function insertStoryDC($author, $title, $content) {
+    function verifyStoryOwnership($story_id, $user_id) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('INSERT INTO stories (author, title, content, channel) VALUES(?, ?, ?, 0)');
-        $stmt->execute(array($author, $title, $content));
-        return $db->lastInsertId();
+        
+        $stmt = $db->prepare('SELECT story_id, author FROM stories WHERE story_id = ?');
+        $stmt->execute(array($story_id));
+
+        $story = $stmt->fetch();
+
+        if(!$story) {
+            throw new Exception("There is no story with given id: $story_id");
+        } else {
+            return $story['author'] === $user_id;
+        }
     }
+    
 ?>
