@@ -82,12 +82,7 @@
                 ]);
             exit;
         }
-
-        if(empty($data['channel']))
-            $id = insertStoryDC($currentUser['user_id'], $data['title'], $data['content']);
-        else
-            $id = insertStory($currentUser['user_id'], $data['title'], $data['content'], $data['channel']);
-
+        
         if(empty($data['csrf'])) {
             http_response_code(401);
             echo json_encode([
@@ -105,6 +100,12 @@
                 ]);
             exit;
         }
+
+        if(empty($data['channel']))
+            $id = insertStoryDC($currentUser['user_id'], $data['title'], $data['content']);
+        else
+            $id = insertStory($currentUser['user_id'], $data['title'], $data['content'], $data['channel']);
+
         http_response_code(200);
         echo json_encode([
             'success' => true,

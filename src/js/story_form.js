@@ -1,7 +1,8 @@
 import { MarkdownEditor } from "./markdown_editor.js";
 import { fetchPostStory }  from "./stories_fetch_actions.js";
-import { errorHandler } from "./ErrorHandler.js"
-import { whitespaceString } from "./utils.js"
+import { errorHandler } from "./ErrorHandler.js";
+import { whitespaceString } from "./utils.js";
+
 
 export class StoryForm {
     constructor() {
@@ -44,29 +45,32 @@ export class StoryForm {
 
     async submit() {
         let response;
-        let postBody = this.markdown_editor.getData();
-        postBody['title'] = this.form.getElementsByTagName('input')[0].value;
+        let content = this.markdown_editor.getData().content;
+        let title  = this.form.getElementsByTagName('input')[0].value;
 
-        if(!this.fieldsAreValid(postBody))
+        if(!this.fieldsAreValid(content, title))
             return;
         
         try {                
-            response = await fetchPostStory(postBody);
+            response = await fetchPostStory(content, title);
         } catch (error) {
-            errorHandler.getError(error).defaultAction();
+            console.log(error)
+            const err = errorHandler.getError(error);
+            this.showErrorMessage(err.msg)
+            err.defaultAction();
             return ;
         }
         window.location.href = `/pages/story.php?id=${response.story_id}`;
 
     }
 
-    fieldsAreValid(fieldValues) {
-        if (whitespaceString(fieldValues['content'])) {
+    fieldsAreValid(content, title) {
+        if (whitespaceString(content)) {
             this.showErrorMessage("The story's content is empty");
             return false;
         }
 
-        if (whitespaceString(fieldValues['title'])) {
+        if (whitespaceString(title)) {
             this.showErrorMessage("The story's title is empty");
             return false;
         }

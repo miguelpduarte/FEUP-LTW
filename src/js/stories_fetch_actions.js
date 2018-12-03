@@ -1,4 +1,5 @@
 "use strict";
+import { getUserInfo } from "./store.js";
 
 export const fetchTopStories = () => {
     return new Promise((resolve, reject) => {
@@ -73,8 +74,13 @@ export const fetchSubComments = (comment_id, n_comments, off) => {
 };
 
 
-export const fetchPostStory = (body) => {
-    
+export const fetchPostStory = async (content, title) => {
+    let body = {
+        content,
+        title,
+        csrf: (await getUserInfo()).csrf
+    }
+
     return new Promise((resolve, reject) => {
         fetch('/api/story.php', {
             method: "POST",
@@ -87,6 +93,7 @@ export const fetchPostStory = (body) => {
         .then(res => res.json())
         .then(data => {  
             //Check for data errors
+            console.log(data)
             if(data.success) {
                 return resolve(data);
             } else {

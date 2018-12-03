@@ -1,6 +1,12 @@
 
 class ErrorHandler {
-    constructor(){
+    constructor() {
+        this.defaultError = {
+            msg: 'Unknown Error',
+            defaultAction: () => {
+                
+            }
+        }
         this.errorMap = {
             1: {
                 msg: 'Not logged in',
@@ -11,10 +17,10 @@ class ErrorHandler {
         }
     }
 
-    getError(code){
+    getError(code) {
         let error = this.errorMap[code];
-        if(typeof error === "undefined")
-            throw `Error with ${code} is not defined`;
+        if (typeof error === "undefined")
+            return this.defaultError
         return error;
     }
 }
