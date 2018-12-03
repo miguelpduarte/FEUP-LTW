@@ -54,7 +54,6 @@ export class StoryForm {
         try {                
             response = await fetchPostStory(content, title);
         } catch (error) {
-            console.log(error)
             const err = errorHandler.getError(error);
             this.showErrorMessage(err.msg)
             err.defaultAction();
