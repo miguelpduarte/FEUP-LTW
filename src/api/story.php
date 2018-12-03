@@ -88,6 +88,23 @@
         else
             $id = insertStory($currentUser['user_id'], $data['title'], $data['content'], $data['channel']);
 
+        if(empty($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF was not provided."
+                ]);
+            exit;
+        }
+
+        if(!verifyCSRF($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF did not match. SHOW YOUR ID SIR!"
+                ]);
+            exit;
+        }
         http_response_code(200);
         echo json_encode([
             'success' => true,
