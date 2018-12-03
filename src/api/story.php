@@ -93,7 +93,8 @@
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'The channel should only contain letters and numbers'
+                'reason' => 'The channel should only contain letters and numbers',
+                'code' => 2
                 ]);
             exit;
         }

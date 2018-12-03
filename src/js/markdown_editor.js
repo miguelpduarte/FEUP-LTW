@@ -19,9 +19,8 @@ export class MarkdownEditor {
                                 <section id="preview" class="preview tab"></section>
                                 `;
 
-        let reload = this.updatePreview.bind(this);
         this.updatePreview();
-        this.editor.getElementsByTagName('textarea')[0].addEventListener('input', reload);
+        this.editor.getElementsByTagName('textarea')[0].addEventListener('input', () => this.updatePreview());
         return this.editor;
     }
 

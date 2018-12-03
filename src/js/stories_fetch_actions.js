@@ -74,10 +74,11 @@ export const fetchSubComments = (comment_id, n_comments, off) => {
 };
 
 
-export const fetchPostStory = async (content, title) => {
+export const fetchPostStory = async (content, title, channel) => {
     let body = {
         content,
         title,
+        channel,
         csrf: (await getUserInfo()).csrf
     }
 

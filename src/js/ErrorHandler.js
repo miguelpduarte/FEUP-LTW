@@ -13,6 +13,12 @@ class ErrorHandler {
                 defaultAction: () => {
                     window.location.href = `/pages/login.php`;
                 }
+            },
+
+            2: {
+                msg: 'Channel name can only contain lowercase letters and numbers',
+                defaultAction: () => {
+                }
             }
         }
     }

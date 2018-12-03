@@ -2,6 +2,8 @@ import { MarkdownEditor } from "./markdown_editor.js";
 import { fetchPostStory }  from "./stories_fetch_actions.js";
 import { errorHandler } from "./ErrorHandler.js";
 import { whitespaceString } from "./utils.js";
+import { fetchChannel } from "./channel_fetch_actions.js";
+
 
 
 export class StoryForm {
@@ -46,13 +48,14 @@ export class StoryForm {
     async submit() {
         let response;
         let content = this.markdown_editor.getData().content;
-        let title  = this.form.getElementsByTagName('input')[0].value;
+        let title  = this.form.getElementsByClassName('title-input')[0].value;
+        let channel = this.form.getElementsByClassName('channel-selector')[0].value;
 
         if(!this.fieldsAreValid(content, title))
             return;
         
         try {                
-            response = await fetchPostStory(content, title);
+            response = await fetchPostStory(content, title, channel);
         } catch (error) {
             const err = errorHandler.getError(error);
             this.showErrorMessage(err.msg)
@@ -88,11 +91,35 @@ export class StoryForm {
         this.form.method = `post`;
         this.form.action = `/api/story.php`;
         this.form.innerHTML = `<section class="title-area">
-                                    <input type="text" id="title" name="title" placeholder="Insert your title here"></textarea>
+                                    <input type="text" id="title" class="title-input" name="title" placeholder="Insert your title here"></textarea>
                                 </section>
+
+                                <section class="channel-area">
+                                    <input type="text" name="channel-selector" class="channel-selector" 
+                                        list="channel-suggestions" autocomplete="off" placeholder="Insert the channel here">
+                                    <datalist id="channel-suggestions"></datalist>
+                                </section>
+                                
                                 <section class="editor"></section>`;
 
         this.markdown_editor = new MarkdownEditor();
         this.form.getElementsByClassName('editor')[0].appendChild(this.markdown_editor.render());
+        window.setInterval(() => this.updateSugestions(), 1000);
+    }
+
+    async updateSugestions() {
+        const prefix = this.form.getElementsByClassName('channel-selector')[0].value;
+        let channels = await fetchChannel(prefix);
+
+        let datalist = document.getElementById('channel-suggestions');
+        while (datalist.firstChild) {
+            datalist.removeChild(datalist.firstChild);
+        }
+
+        for (const channel of channels) {
+            let elemet = document.createElement('option');
+            elemet.value = channel.name;
+            datalist.appendChild(elemet);
+        }
     }
 }
