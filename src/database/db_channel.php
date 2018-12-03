@@ -52,7 +52,7 @@
 
     function changeChannel($story_id, $newChannel) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('UPDATE stories SET channel_id = ? WHERE story_id = ?' );
+        $stmt = $db->prepare('UPDATE stories SET channel = ? WHERE story_id = ?' );
 
         try {
             $stmt->execute(array($newChannel, $story_id));
@@ -64,7 +64,7 @@
 
     function removeFromChannel($story_id) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('UPDATE stories SET channel_id = NULL WHERE story_id = ?' );
+        $stmt = $db->prepare('UPDATE stories SET channel = NULL WHERE story_id = ?' );
 
         try {
             $stmt->execute(array($story_id));

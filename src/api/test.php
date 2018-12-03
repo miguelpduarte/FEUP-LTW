@@ -23,7 +23,7 @@
         ];
         // header('Content-Type: application/json');
         // echo json_encode($stuff);
-        $a = insertStory(1, "asdjasllll", "kkkkkkkkkkkkkkkkkkkkkk", "newchannel");
+        echo verifyStoryOwnership(1, 1) ? "true" : "false";
         exit;
     }
     

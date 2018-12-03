@@ -56,5 +56,23 @@
         }
         
     }
+
+    /**
+     * Returns true if story with <story_id> has author with <$user_id>
+     */
+    function verifyStoryOwnership($story_id, $user_id) {
+        $db = Database::instance()->db();
+        
+        $stmt = $db->prepare('SELECT story_id, author FROM stories WHERE story_id = ?');
+        $stmt->execute(array($story_id));
+
+        $story = $stmt->fetch();
+
+        if(!$story) {
+            throw new Exception("There is no story with given id: $story_id");
+        } else {
+            return $story['author'] === $user_id;
+        }
+    }
     
 ?>

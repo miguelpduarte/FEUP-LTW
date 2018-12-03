@@ -1,5 +1,6 @@
 <?php
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_channel.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_story.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
 
     $method = $_SERVER['REQUEST_METHOD'];
@@ -55,8 +56,10 @@
 
     function handle_patch() {
         header('Content-Type: application/json');
+        $data = json_decode(file_get_contents('php://input'), true);
 
         $story_id = $data['story_id'];
+        $csrf = $data['csrf'];
 
         if(empty($story_id)) {
             http_response_code(400);
@@ -67,14 +70,63 @@
             exit;
         }
 
+        $currentUser = getLoggedUser();
+        if($currentUser) {
+            if(empty($data['csrf'])) {
+                http_response_code(401);
+                echo json_encode([
+                    'success' => false,
+                    'reason' => "CSRF was not provided."
+                    ]);
+                exit;
+            }
+    
+            if(!verifyCSRF($data['csrf'])) {
+                http_response_code(401);
+                echo json_encode([
+                    'success' => false,
+                    'reason' => "CSRF did not match. SHOW YOUR ID SIR!"
+                    ]);
+                exit;
+            }
+        } else {
+            http_response_code(401);
+                echo json_encode([
+                    'success' => false,
+                    'reason' => "Must be logged in."
+                    ]);
+                exit;
+            }
+        }
+
+        try {
+            if(!verifyStoryOwnership($story_id, $currentUser['user_id'])) {
+                http_response_code(401);
+                echo json_encode([
+                    'success' => false,
+                    'reason' => "The story you are trying to change does not belong to you!",
+                    ]);
+                exit;
+            }
+        } catch(Exception $e) {
+            http_response_code(400);
+                echo json_encode([
+                    'success' => false,
+                    'reason' => $e->getMessage(),
+                    ]);
+                exit;
+        }
+
         if(!empty($data['channel_id'])) { // Change channel
             try {
+
                 changeChannel($story_id, $newChannel);
                 http_response_code(200);
                 echo json_encode([
                     'success' => true,
                 ]);
                 exit;
+                
             } catch(Exception $err) {
                 http_response_code(400);
                 echo json_encode([
