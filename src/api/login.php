@@ -2,6 +2,7 @@
 require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_user.php');
 require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
 
+
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
@@ -40,6 +41,7 @@ function handle_get() {
         'success' => true,
         'data' => [
             'username' => $currentUser['username'],
+            'csrf' => $currentUser['csrf'],
         ],
     ]);
     exit;
@@ -84,6 +86,7 @@ function handle_post() {
         http_response_code(200);
         session_start();
 
+        $_SESSION['csrf'] = generate_random_token();
         $_SESSION['user_id'] = $user['user_id'];
         $_SESSION['username'] = $username;
         echo json_encode([
@@ -102,10 +105,30 @@ function handle_post() {
 
 function handle_delete() {
     header('Content-Type: application/json');
+    $data = json_decode(file_get_contents('php://input'), true);
 
     $currentUser = getLoggedUser();
 
     if($currentUser) {
+
+        if(empty($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF was not provided."
+                ]);
+            exit;
+        }
+
+        if(!verifyCSRF($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF did not match. SHOW YOUR ID SIR!"
+                ]);
+            exit;
+        }
+        
         session_unset();
         session_destroy();
         http_response_code(200);

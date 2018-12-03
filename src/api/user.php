@@ -19,8 +19,8 @@
     
     function handle_get() {
         header('Content-Type: application/json');
-        if(isset($_GET['id']) && $_GET['id'] !== '') {
-            $data = getUser($_GET['id']);
+        if(!empty($_GET['username'])) {
+            $data = getUser($_GET['username']);
 
             //Detecting database fetching errors (TODO: use try catch? -> Guilherme ;)
             if($data === false) {
@@ -44,7 +44,7 @@
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'No User ID Specified'
+                'reason' => 'No Username Specified'
             ]);
             exit;
         }

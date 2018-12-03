@@ -91,6 +91,7 @@
             exit;
         }
 
+
         if(!preg_match("/^[a-z0-9]*$/", $data['channel'])) {
             http_response_code(400);
             echo json_encode([
@@ -98,6 +99,24 @@
                 'reason' => 'The channel should only contain letters and numbers'
                 ]);
             exit; 
+
+        if(empty($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF was not provided."
+                ]);
+            exit;
+        }
+
+        if(!verifyCSRF($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF did not match. SHOW YOUR ID SIR!"
+                ]);
+            exit;
+
         }
 
         insertStory($currentUser['user_id'], $data['title'], $data['content'], $data['channel']);
