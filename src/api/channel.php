@@ -42,9 +42,9 @@
                 exit;
             }
 
-        } else if (isset($_GET['prefix'])) {
+        } else if (isset($_GET['query'])) {
 
-            $channels = getChannelsLike($_GET['prefix']); 
+            $channels = getChannelsLike($_GET['query']); 
 
             http_response_code(200);
             echo json_encode([

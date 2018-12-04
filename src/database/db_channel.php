@@ -12,12 +12,12 @@
     }
 
     /**
-     * Returns all channels with a given prefix
+     * Returns all channels with a given query
      */
-    function getChannelsLike($prefix) {
+    function getChannelsLike($query) {
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT channel_id, name FROM channels WHERE name LIKE ?');
-        $stmt->execute(array("$prefix%"));
+        $stmt->execute(array("%$query%"));
         return $stmt->fetchAll(); 
     }
 

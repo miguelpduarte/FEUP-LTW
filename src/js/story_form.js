@@ -12,6 +12,7 @@ export class StoryForm {
         this.form = null;
         this.markdown_editor = null;
         this.button = null;
+        this.channelUpdated = false;
     }
 
     render() {
@@ -104,11 +105,16 @@ export class StoryForm {
 
         this.markdown_editor = new MarkdownEditor();
         this.form.getElementsByClassName('editor')[0].appendChild(this.markdown_editor.render());
+        this.form.getElementsByClassName('channel-selector')[0].addEventListener('input', () => this.channelUpdated = true)
         window.setInterval(() => this.updateSugestions(), 1000);
     }
 
     async updateSugestions() {
+        if(!this.channelUpdated)
+            return;
+
         const prefix = this.form.getElementsByClassName('channel-selector')[0].value;
+        this.channelUpdated = false;
         let channels = await fetchChannel(prefix);
 
         let datalist = document.getElementById('channel-suggestions');
@@ -121,5 +127,6 @@ export class StoryForm {
             elemet.value = channel.name;
             datalist.appendChild(elemet);
         }
+
     }
 }

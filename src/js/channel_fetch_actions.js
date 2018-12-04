@@ -1,8 +1,8 @@
 "use strict"
 
-export const fetchChannel = prefix => {
+export const fetchChannel = query => {
     return new Promise((resolve, reject) => {
-        fetch(`/api/channel.php?prefix=${prefix}`)
+        fetch(`/api/channel.php?query=${query}`)
             .then(res => res.json())
             .then(data => {
                 // Check for data errors
