@@ -1,4 +1,4 @@
-import { MarkdownEditor } from "./MarkdownEditor";
+import { MarkdownEditor } from "./MarkdownEditor.js";
 import { fetchPostStory }  from "../fetch_actions/stories_fetch_actions.js";
 import { errorHandler } from "../ErrorHandler.js";
 import { whitespaceString } from "../utils.js";
