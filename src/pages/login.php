@@ -4,7 +4,7 @@
 ?>
     <div id="content">
         <div id="login_form_container"></div>
-        <script type="module" src="/js/login_actions.js"></script>
+        <script type="module" src="/js/page_actions/login_actions.js"></script>
     </div>
 <?php
     draw_footer();
