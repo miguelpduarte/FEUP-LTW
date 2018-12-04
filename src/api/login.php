@@ -1,7 +1,7 @@
 <?php 
+require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
 require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_user.php');
 require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
-require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
 
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -33,7 +33,7 @@ function handle_get() {
         echo json_encode([
             'success' => false,
             'reason' => 'User not logged in',
-            'code' => Error::UNAUTHORIZED
+            'code' => Error("UNAUTHORIZED")
         ]);
         exit;
     }
@@ -59,7 +59,7 @@ function handle_post() {
         echo json_encode([
             'success' => false,
             'reason' => 'Already logged in.',
-            'code' => Error::ALREADY_LOGGED
+            'code' => Error("ALREADY_LOGGED")
             ]);
         exit;
     }
@@ -72,7 +72,7 @@ function handle_post() {
         echo json_encode([
             'success' => false,
             'reason' => 'The username field is missing',
-            'code' => Error::MISSING_PARAM
+            'code' => Error("MISSING_PARAM")
             ]);
         exit;
     }
@@ -81,7 +81,7 @@ function handle_post() {
         echo json_encode([
             'success' => false,
             'reason' => 'The password field is missing',
-            'code' => Error::MISSING_PARAM
+            'code' => Error("MISSING_PARAM")
             ]);
         exit;
     }
@@ -103,7 +103,7 @@ function handle_post() {
         echo json_encode([
             'success' => false,
             'reason' => 'Invalid Username/Password Combination',
-            'code' => Error::UNAUTHORIZED
+            'code' => Error("UNAUTHORIZED")
             ]);
         exit;
     }
@@ -122,7 +122,7 @@ function handle_delete() {
             echo json_encode([
                 'success' => false,
                 'reason' => "CSRF was not provided.",
-                'code' => Error::MISSING_CSRF
+                'code' => Error("MISSING_CSRF")
                 ]);
             exit;
         }
@@ -132,7 +132,7 @@ function handle_delete() {
             echo json_encode([
                 'success' => false,
                 'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
-                'code' => Error::WRONG_CSRF
+                'code' => Error("WRONG_CSRF")
                 ]);
             exit;
         }
@@ -149,7 +149,7 @@ function handle_delete() {
         echo json_encode([
             'success' => false,
             'reason' => 'Currently not logged in.',
-            'code' => Error::UNAUTHORIZED
+            'code' => Error("UNAUTHORIZED")
         ]);
         exit;
     }
@@ -160,7 +160,7 @@ function handle_error() {
     echo json_encode([
         'success' => false,
         'reason' => 'Invalid request method for this route',
-        'code' => Error::INVALID_ROUTE
+        'code' => Error("INVALID_ROUTE")
     ]);
     exit;
 }

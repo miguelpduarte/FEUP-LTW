@@ -1,18 +1,22 @@
 <?php
 
-abstract class Error {
-    const OTHER = 0;
-    const UNAUTHORIZED = 1;
-    const FIELD_FORMAT = 2;
-    const MISSING_PARAM = 3;
-    const MISSING_CSRF = 4;
-    const WRONG_CSRF = 5;
-    const NOT_OWNER = 6;
-    const INVALID_ROUTE = 7;
-    const ALREADY_LOGGED = 8;
-    const PASSWORD_NO_CONFIRMATION = 9;
-    const DUPLICATED_USERNAME = 10;
-    
+
+
+function Error($ERR) {
+
+    switch($ERR) {
+        case "UNAUTHORIZED":return 1;
+        case "FIELD_FORMAT":return 2;
+        case "MISSING_PARAM":return 3;
+        case "MISSING_CSRF":return 4;
+        case "WRONG_CSRF":return 5;
+        case "NOT_OWNER":return 6;
+        case "INVALID_ROUTE":return 7;
+        case "ALREADY_LOGGED":return 8;
+        case "PASSWORD_NO_CONFIRMATION":return 9;
+        case "DUPLICATED_USERNAME":return 10;
+        default: return 0;
+    }
 }
 
 ?>
