@@ -19,16 +19,17 @@
     
     function handle_get() {
         header('Content-Type: application/json');
-        if(isset($_GET['id']) && $_GET['id'] !== '') {
-            $data = getUser($_GET['id']);
+        if(!empty($_GET['username'])) {
+            $data = getUser($_GET['username']);
 
             //Detecting database fetching errors (TODO: use try catch? -> Guilherme ;)
-            http_response_code(404);
             if($data === false) {
+                http_response_code(404);
                 echo json_encode([
                     'success' => false,
                     'reason' => 'Database fetching failed'
                 ]);
+                exit;
             } else {
 
                 http_response_code(200);
@@ -36,17 +37,17 @@
                     'success' => true,
                     'data' => $data
                 ]);
+                exit;
             }
 
         } else {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'No User ID Specified'
+                'reason' => 'No Username Specified'
             ]);
+            exit;
         }
-
-        exit;
     }
     
     function handle_post() {
@@ -71,7 +72,7 @@
             exit;
         }
         
-        if(empty($data['password-confirmation'])) {
+        if(empty($data['password_confirmation'])) {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
@@ -89,7 +90,7 @@
             exit;
         }
 
-        if(!preg_match("/^[a-z0-9]*$/", $data['username'])) {
+        if(!preg_match("/^[a-zA-Z_0-9]+$/", $data['username'])) {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
@@ -98,7 +99,7 @@
             exit; 
         }
 
-        if($data['password'] !== $data['password-confirmation']) {
+        if($data['password'] !== $data['password_confirmation']) {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
@@ -128,8 +129,11 @@
     }
 
     function handle_error() {
-        http_response_code(400);
-        echo "Invalid request method for this route";
+        http_response_code(405);
+        echo json_encode([
+            'success' => false,
+            'reason' => 'Invalid request method for this route'
+        ]);
         exit;
     }
 ?>

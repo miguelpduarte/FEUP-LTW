@@ -1,4 +1,6 @@
-import {fetchSubComments} from './fetch_actions.js';
+"use strict";
+
+import {fetchSubComments} from './stories_fetch_actions.js';
 import {mdToHTML} from './utils.js';
 
 export class Comment {

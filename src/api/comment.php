@@ -83,6 +83,24 @@
             exit;
         }
 
+        if(empty($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF was not provided."
+                ]);
+            exit;
+        }
+
+        if(!verifyCSRF($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF did not match. SHOW YOUR ID SIR!"
+                ]);
+            exit;
+        }
+
         try {
             if(isset($data['story_id'])) {
                 insertComment($currentUser['user_id'], $data['content'], $data['story_id']);
@@ -106,7 +124,11 @@
     }
 
     function handle_error() {
-        echo "Invalid request method for this route";
+        http_response_code(405);
+        echo json_encode([
+            'success' => false,
+            'reason' => 'Invalid request method for this route'
+        ]);
         exit;
     }
 ?>

@@ -59,7 +59,8 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "Anonimous User can't post a Story"
+                'reason' => "Anonymous user can't post a Story",
+                'code' => 1
                 ]);
             exit;
         }
@@ -82,26 +83,57 @@
             exit;
         }
 
-        if(!isset($data['channel']) || $data['channel'] === '' || !is_int($data['channel'])) {
+        $channel = $data['channel'];
+        if(!isset($data['channel']) || $data['channel'] === '') {
+            $channel = 'default';
+        }
+
+
+        if(!preg_match("/^[a-z0-9]*$/", $data['channel'])) {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'The channel field is missing'
+                'reason' => 'The channel should only contain letters and numbers',
+                'code' => 2
                 ]);
             exit;
         }
 
-        insertStory($currentUser['user_id'], $data['title'], $data['content'], $data['channel']);
+        if(empty($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF was not provided."
+                ]);
+            exit;
+        }
+
+        if(!verifyCSRF($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF did not match. SHOW YOUR ID SIR!"
+                ]);
+            exit;
+
+        }
+
+        $id = insertStory($currentUser['user_id'], $data['title'], $data['content'], $channel);
 
         http_response_code(200);
         echo json_encode([
-            'success' => true
+            'success' => true,
+            'story_id' => $id
         ]);
         exit;
     }
 
     function handle_error() {
-        echo "Invalid request method for this route";
+        http_response_code(405);
+        echo json_encode([
+            'success' => false,
+            'reason' => 'Invalid request method for this route'
+        ]);
         exit;
     }
 ?>
