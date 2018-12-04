@@ -97,7 +97,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'The channel should only contain letters and numbers',
-                'code' => Error::STRING_FORMAT
+                'code' => Error::FIELD_FORMAT
                 ]);
             exit;
         }

@@ -1,5 +1,6 @@
 <?php
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_user.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
 
     $method = $_SERVER['REQUEST_METHOD'];
 
@@ -22,12 +23,13 @@
         if(!empty($_GET['username'])) {
             $data = getUser($_GET['username']);
 
-            //Detecting database fetching errors (TODO: use try catch? -> Guilherme ;)
             if($data === false) {
                 http_response_code(404);
                 echo json_encode([
                     'success' => false,
-                    'reason' => 'Database fetching failed'
+                    'reason' => 'Database fetching failed',
+                    'code' => Error::OTHER
+
                 ]);
                 exit;
             } else {
@@ -44,7 +46,8 @@
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'No Username Specified'
+                'reason' => 'No Username Specified',
+                'code' => Error::MISSING_PARAM
             ]);
             exit;
         }
@@ -58,7 +61,8 @@
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'Username is missing'
+                'reason' => 'Username is missing',
+                'code' => Error::MISSING_PARAM
                 ]);
             exit;
         }
@@ -67,7 +71,8 @@
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'The password is missing'
+                'reason' => 'The password is missing',
+                'code' => Error::MISSING_PARAM
                 ]);
             exit;
         }
@@ -76,7 +81,8 @@
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'The password confirmation field is missing'
+                'reason' => 'The password confirmation field is missing',
+                'code' => Error::MISSING_PARAM
                 ]);
             exit;
         }
@@ -85,7 +91,8 @@
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'The name field is missing'
+                'reason' => 'The name field is missing',
+                'code' => Error::MISSING_PARAM
                 ]);
             exit;
         }
@@ -94,7 +101,8 @@
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'The username should only contain letters and numbers'
+                'reason' => 'The username should only contain letters and numbers',
+                'code' => Error::FIELD_FORMAT
                 ]);
             exit; 
         }
@@ -103,7 +111,8 @@
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'The passwords do not match'
+                'reason' => 'The passwords do not match',
+                'code' => Error::PASSWORD_NO_CONFIRMATION
                 ]);
             exit; 
         }
@@ -112,10 +121,16 @@
         insertUser($data['username'], $data['password'], $data['name'], $error);
             
         if($error) {
+
+            if($error === 23000) {
+                $parsed_err_code = Error::DUPLICATED_USERNAME;
+            }
+
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => $error
+                'reason' => $parsed_error,
+
             ]);
             exit;
         } else {
@@ -132,7 +147,8 @@
         http_response_code(405);
         echo json_encode([
             'success' => false,
-            'reason' => 'Invalid request method for this route'
+            'reason' => 'Invalid request method for this route',
+            'code' => Error::INVALID_ROUTE
         ]);
         exit;
     }
