@@ -1,5 +1,6 @@
 <?php
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_story.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
 
     $method = $_SERVER['REQUEST_METHOD'];
@@ -18,7 +19,7 @@
     
     function handle_get() {
         header('Content-Type: application/json');
-        if(isset($_GET['id']) && $_GET['id'] !== '') {
+        if(!empty($_GET['id'])) {
             $data = getFullStory($_GET['id']);
         } else {
             $data = getStoriesNoContent();
@@ -31,12 +32,12 @@
             }
         }
 
-        //Detecting database fetching errors (TODO: use try catch? -> Guilherme ;)
         if($data === false) {
             http_response_code(404);
             echo json_encode([
                 'success' => false,
-                'reason' => 'Database fetching failed'
+                'reason' => 'Database fetching failed',
+                'code' => Error::OTHER
             ]);
             exit;
         }
@@ -60,7 +61,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => "Anonymous user can't post a Story",
-                'code' => 1
+                'code' => Error::UNAUTHORIZED
                 ]);
             exit;
         }
@@ -69,16 +70,18 @@
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'The title field is missing'
+                'reason' => 'The title field is missing',
+                'code' => Error::MISSING_PARAM
                 ]);
-            exit;
-        }
-
-        if(!isset($data['content']) || $data['content'] === '') {
-            http_response_code(400);
-            echo json_encode([
-                'success' => false,
-                'reason' => 'The content field is missing'
+                exit;
+            }
+            
+            if(!isset($data['content']) || $data['content'] === '') {
+                http_response_code(400);
+                echo json_encode([
+                    'success' => false,
+                    'reason' => 'The content field is missing',
+                    'code' => Error::MISSING_PARAM
                 ]);
             exit;
         }
@@ -94,7 +97,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'The channel should only contain letters and numbers',
-                'code' => 2
+                'code' => Error::FIELD_FORMAT
                 ]);
             exit;
         }
@@ -103,7 +106,8 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "CSRF was not provided."
+                'reason' => "CSRF was not provided.",
+                'code' => Error::MISSING_CSRF
                 ]);
             exit;
         }
@@ -112,7 +116,8 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "CSRF did not match. SHOW YOUR ID SIR!"
+                'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
+                'code' => Error::WRONG_CSRF
                 ]);
             exit;
 
@@ -132,7 +137,8 @@
         http_response_code(405);
         echo json_encode([
             'success' => false,
-            'reason' => 'Invalid request method for this route'
+            'reason' => 'Invalid request method for this route',
+            'code' => Error::INVALID_ROUTE
         ]);
         exit;
     }

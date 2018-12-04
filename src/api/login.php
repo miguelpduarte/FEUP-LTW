@@ -1,6 +1,7 @@
 <?php 
 require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_user.php');
 require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
+require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
 
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -31,7 +32,8 @@ function handle_get() {
         http_response_code(401);
         echo json_encode([
             'success' => false,
-            'reason' => 'User not logged in'
+            'reason' => 'User not logged in',
+            'code' => Error::UNAUTHORIZED
         ]);
         exit;
     }
@@ -56,7 +58,8 @@ function handle_post() {
         http_response_code(409);
         echo json_encode([
             'success' => false,
-            'reason' => 'Already logged in.'
+            'reason' => 'Already logged in.',
+            'code' => Error::ALREADY_LOGGED
             ]);
         exit;
     }
@@ -68,7 +71,8 @@ function handle_post() {
         http_response_code(400);
         echo json_encode([
             'success' => false,
-            'reason' => 'The username field is missing'
+            'reason' => 'The username field is missing',
+            'code' => Error::MISSING_PARAM
             ]);
         exit;
     }
@@ -76,7 +80,8 @@ function handle_post() {
         http_response_code(400);
         echo json_encode([
             'success' => false,
-            'reason' => 'The password field is missing'
+            'reason' => 'The password field is missing',
+            'code' => Error::MISSING_PARAM
             ]);
         exit;
     }
@@ -97,7 +102,8 @@ function handle_post() {
         http_response_code(401);
         echo json_encode([
             'success' => false,
-            'reason' => 'Invalid Username/Password Combination'
+            'reason' => 'Invalid Username/Password Combination',
+            'code' => Error::UNAUTHORIZED
             ]);
         exit;
     }
@@ -115,7 +121,8 @@ function handle_delete() {
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "CSRF was not provided."
+                'reason' => "CSRF was not provided.",
+                'code' => Error::MISSING_CSRF
                 ]);
             exit;
         }
@@ -124,7 +131,8 @@ function handle_delete() {
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "CSRF did not match. SHOW YOUR ID SIR!"
+                'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
+                'code' => Error::WRONG_CSRF
                 ]);
             exit;
         }
@@ -140,7 +148,8 @@ function handle_delete() {
         http_response_code(409);
         echo json_encode([
             'success' => false,
-            'reason' => 'Currently not logged in.'
+            'reason' => 'Currently not logged in.',
+            'code' => Error::UNAUTHORIZED
         ]);
         exit;
     }
@@ -150,7 +159,8 @@ function handle_error() {
     http_response_code(405);
     echo json_encode([
         'success' => false,
-        'reason' => 'Invalid request method for this route'
+        'reason' => 'Invalid request method for this route',
+        'code' => Error::INVALID_ROUTE
     ]);
     exit;
 }
