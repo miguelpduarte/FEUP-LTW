@@ -1,7 +1,7 @@
 <?php
+    require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_channel.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_story.php');
-    require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
 
     $method = $_SERVER['REQUEST_METHOD'];
@@ -32,7 +32,7 @@
                 echo json_encode([
                     'success' => false,
                     'reason' => "There's no channel with id (" . $_GET['id'] . ")",
-                    'code' => Error::NOT_FOUND
+                    'code' => Error("NOT_FOUND")
                 ]);
             exit;
             } else {
@@ -79,7 +79,7 @@
                 echo json_encode([
                     'success' => false,
                     'reason' => "Must specify story_id",
-                    'code' => Error::MISSING_PARAM
+                    'code' => Error("MISSING_PARAM")
                 ]);
             exit;
         }
@@ -91,7 +91,7 @@
                 echo json_encode([
                     'success' => false,
                     'reason' => "CSRF was not provided.",
-                    'code' => Error::MISSING_CSRF
+                    'code' => Error("MISSING_CSRF")
                     ]);
                 exit;
             }
@@ -101,7 +101,7 @@
                 echo json_encode([
                     'success' => false,
                     'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
-                    'code' => Error::WRONG_CSRF
+                    'code' => Error("WRONG_CSRF")
                     ]);
                 exit;
             }
@@ -110,7 +110,7 @@
                 echo json_encode([
                     'success' => false,
                     'reason' => "Must be logged in.",
-                    'code' => Error::UNAUTHORIZED
+                    'code' => Error("UNAUTHORIZED")
                     ]);
                 exit;
         }
@@ -121,18 +121,18 @@
                 echo json_encode([
                     'success' => false,
                     'reason' => "The story you are trying to change does not belong to you!",
-                    'code' => Error::NOT_OWNER
+                    'code' => Error("NOT_OWNER")
                     ]);
                 exit;
             }
         } catch(Exception $e) {
             http_response_code(400);
-                echo json_encode([
-                    'success' => false,
-                    'reason' => $e->getMessage(),
-                    'code' => Error::OTHER
-                    ]);
-                exit;
+            echo json_encode([
+                'success' => false,
+                'reason' => $e->getMessage(),
+                'code' => Error("OTHER")
+                ]);
+            exit;
         }
 
         if(!empty($data['channel_id'])) { // Change channel
@@ -150,7 +150,7 @@
                 echo json_encode([
                     'success' => false,
                     'reason' => $err->getMessage(),
-                    'code' => Error::OTHER
+                    'code' => Error("OTHER")
                 ]);
                 exit;
             }
@@ -167,7 +167,7 @@
                 echo json_encode([
                     'success' => false,
                     'reason' => $err->getMessage(),
-                    'code' => Error::OTHER
+                    'code' => Error("OTHER")
                 ]);
                 exit;
             }
@@ -180,7 +180,7 @@
         echo json_encode([
             'success' => false,
             'reason' => 'Invalid request method for this route',
-            'code' => Error::INVALID_ROUTE
+            'code' => Error("INVALID_ROUTE")
         ]);
         exit;
     }
