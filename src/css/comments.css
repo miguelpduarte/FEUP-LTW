@@ -12,7 +12,10 @@
 
 
 .comment-section > .comment-container {
-    padding: 6px 22px;
+    -moz-box-shadow:    0 0 8px var(--main-color-lighter);
+    -webkit-box-shadow: 0 0 8px var(--main-color-lighter);
+    box-shadow:         0 0 8px var(--main-color-lighter);
+    padding: 1em 2em;
     margin: 1em 0em;
 }
 
@@ -23,11 +26,6 @@
 .subcomment-container {
     margin-left: 1em;
     border-left: 2px solid var(--main-color);
-}
-
-.comment-section > .comment-container:hover {
-    border: 2px solid var(--very-light-grey);
-    padding: 4px 20px;
 }
 
 .comment a {
@@ -109,6 +107,6 @@
     color: var(--grey);
     cursor: pointer;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 0.9em;
     margin-left: 2em;
 }

@@ -6,6 +6,7 @@
 
     --grey: #8f8f8f;
     --very-light-grey: lightgrey;
+    --even-lighter-grey: rgba(211, 211, 211, 0.5);
 
     --title-font: 'NeoTech';
     --content-font: 'NeoSans Light';
