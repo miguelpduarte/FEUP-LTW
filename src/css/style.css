@@ -8,9 +8,11 @@
 @import "./forms.css";
 @import "./simple_success_message.css";
 @import "./tabs.css";
+@import "./404.css";
 
 body {
     margin: 0;
+    height: 100vh;
 }
 
 img {
