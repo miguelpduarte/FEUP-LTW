@@ -1,0 +1,112 @@
+@import "./palette.css";
+
+.comment-section {
+    margin: 2em auto;
+    width: 80%;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+
+    font-family: var(--content-font);
+}
+
+
+.comment-section > .comment-container {
+    -moz-box-shadow:    0 0 8px var(--main-color-lighter);
+    -webkit-box-shadow: 0 0 8px var(--main-color-lighter);
+    box-shadow:         0 0 8px var(--main-color-lighter);
+    padding: 1em 2em;
+    margin: 1em 0em;
+}
+
+.subcomment-container > .comment-container {
+    margin-left: 1em;
+}
+
+.subcomment-container {
+    margin-left: 1em;
+    border-left: 2px solid var(--main-color);
+}
+
+.comment a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Comment Details */
+.comment-section .comment-card-details {
+    color: var(--grey);
+    font-style: italic;
+    font-size: 0.8em;
+    font-family: var(--title-font), sans-serif;
+}
+
+.comment-card-details i {
+    margin-left: 0.5em;
+}
+
+
+.comment {
+    margin-bottom: 1em;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto;
+}
+
+.comment .comment-card-info {
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    text-align: justify;
+}
+
+
+/* Voting */
+
+.comment .voting-wrapper {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 2em 1em 1em auto;
+    padding: 0 1em 0 2em;
+    max-height: 100%;
+}
+
+.comment .voting-wrapper {
+    margin: 0 auto;
+}
+
+.comment .voting-wrapper .vote-up {
+    padding-top: 1em;
+    grid-row: 1 / span 1;
+}
+
+.comment .voting-wrapper .score {
+    grid-row: 2 / span 1;
+}
+
+.comment .voting-wrapper .vote-down {
+    grid-row: 3 / span 1;
+}
+
+.comment .voting-wrapper .vote-up, .comment .voting-wrapper .vote-down {
+    cursor: pointer;
+}
+
+.comment.upvoted .voting-wrapper .voting .vote-up {
+    color: chocolate;
+}
+
+.comment.downvoted .voting-wrapper .voting .vote-down {
+    color: deepskyblue;
+}
+
+.comment .voting-wrapper .score{
+    padding-left: 2px;
+}
+
+.expand-comments {
+    color: var(--grey);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-left: 2em;
+}
