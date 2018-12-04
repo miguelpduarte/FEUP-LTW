@@ -3,6 +3,8 @@
 @import "./line.css";
 @import "./navbar.css";
 @import "./story_card.css";
+@import "./story.css";
+@import "./comments.css";
 @import "./forms.css";
 @import "./simple_success_message.css";
 @import "./tabs.css";
@@ -17,12 +19,7 @@ img {
 
 #content {
     margin: 0 auto 2em auto;
-    max-width: 80em;
-}
-
-.full-story {
-    border: 1px solid blue;
-    margin-top: 1em;
+    max-width: 80%;
 }
 
 .refresh-btn {
@@ -34,11 +31,6 @@ img {
     transform: rotate(720deg);
 }
 
-.full-story,.comment {
-    border: 1px solid blue;
-    margin-top: 1em;
-}
-
-.subcomment-container{
-    margin-left: 2em;
+img {
+    max-width: 100%;
 }

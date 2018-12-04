@@ -19,7 +19,14 @@ export class CommentSection {
     render() {
         this.section = document.createElement("section");
         this.section.classList.add("comment-section");
-        this.section.innerHTML = `<h3>Comments</h3>`;
+        this.section.innerHTML = `  <div class="line-container">
+                                        <div class="line"><hr/></div>
+                                        <div class="line-middle">
+                                            Comments
+                                            <i class="far fa-comments"></i>
+                                        </div>
+                                        <div class="line"><hr/></div>
+                                    </div>`;
         for (const comment of this.comments) {
             this.section.appendChild(comment.render());
         }

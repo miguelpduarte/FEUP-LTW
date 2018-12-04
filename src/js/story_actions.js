@@ -52,5 +52,3 @@ const reloadCurrentStory = () => {
 }
 
 loadCurrentStory();
-
-document.getElementById('refresh_story').onclick = reloadCurrentStory;

@@ -211,12 +211,28 @@ export class Story {
         section.id = `story_${this.data.story_id}`;
         section.className = "full-story";
         section.innerHTML = `
-            <h1 class="title"></h1>
+            <section class="story-header">
+                <div class="story-info">
+                    <h1 class="title"><a href="story.php?id=${this.data.story_id}"></a></h1>
+                    <div class="story-details">
+                        <span class="author"><a href="user.php?id=${this.data.author_id}"></a></span>
+                        <i class="fas fa-user-clock"></i>
+                        <span class="date">${moment(this.data.created_at).fromNow()}</span>
+                    </div>
+                </div>
+                <div class="voting-wrapper">
+                    <i class="vote-up fas fa-chevron-up"></i>
+                    <div class="score">${this.data.score}</div>
+                    <i class="vote-down fas fa-chevron-down"></i>
+                </div>
+            </section>
             <hr/>
             <div class="content">${mdToHTML(this.data.content)}</div>
         `;
 
         section.querySelector('.title').textContent = this.data.title;
+        // Author name
+        section.querySelector('.story-details .author a').textContent = this.data.author_name;
 
         return section;
     }
