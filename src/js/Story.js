@@ -67,6 +67,12 @@ export class Story {
             //To ensure that clicking on the story or user link does not attempt to open or close the card
             if(e.target.tagName !== 'A') {
                 this.toggleCardOpen();
+                if(this.is_open)
+                    this.element.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start", 
+                        inline: "start"
+                    });
             }
         });
 
