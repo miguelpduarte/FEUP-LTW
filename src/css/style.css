@@ -5,9 +5,14 @@
 @import "./story_card.css";
 @import "./forms.css";
 @import "./simple_success_message.css";
+@import "./tabs.css";
 
 body {
     margin: 0;
+}
+
+img {
+    max-width: 100%;
 }
 
 #content {

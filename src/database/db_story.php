@@ -44,7 +44,7 @@
      */
     function insertStory($author, $title, $content, $channel) {
         $db = Database::instance()->db();
-        
+    
         $insertChannelError = '';
         $channel_id = insertChannel($channel, $insertChannelError);
         
@@ -53,6 +53,7 @@
         } else {
             $stmt = $db->prepare('INSERT INTO stories (author, title, content, channel) VALUES(?, ?, ?, ?)');
             $stmt->execute(array($author, $title, $content, $channel_id));
+            return $db->lastInsertId();
         }
         
     }

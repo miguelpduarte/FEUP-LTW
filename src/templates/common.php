@@ -10,9 +10,11 @@ function draw_header($page_title) { ?>
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title><?=$page_title?></title>
             <link rel="stylesheet" type="text/css" href="/css/style.css">
+            <link rel="stylesheet" type="text/css" href="/css/hljs.css">
             <link rel="stylesheet" type="text/css" href="/css/fontawesome-all.min.css">
             <script src="/libs/remarkable.min.js"></script>
             <script src="/libs/moment.min.js"></script>
+            <script src="/libs/highlight.min.js"></script>
         </head>
         <body>
             <nav id="navbar_container"></nav>

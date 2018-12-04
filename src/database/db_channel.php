@@ -11,6 +11,16 @@
         return $stmt->fetchAll(); 
     }
 
+    /**
+     * Returns all channels with a given query
+     */
+    function getChannelsLike($query) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT channel_id, name FROM channels WHERE name LIKE ?');
+        $stmt->execute(array("%$query%"));
+        return $stmt->fetchAll(); 
+    }
+
 
     /**
      * Returns all stories from given channel.

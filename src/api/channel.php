@@ -42,6 +42,17 @@
                 exit;
             }
 
+        } else if (isset($_GET['query'])) {
+
+            $channels = getChannelsLike($_GET['query']); 
+
+            http_response_code(200);
+            echo json_encode([
+                'success' => true,
+                'data' => $channels
+            ]);
+            exit;
+
         } else { // Get existent channels
             $channels = getAllChannels();
 
@@ -96,7 +107,6 @@
                     'reason' => "Must be logged in."
                     ]);
                 exit;
-            }
         }
 
         try {

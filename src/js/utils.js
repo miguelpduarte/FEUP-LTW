@@ -8,8 +8,27 @@ export const getParams = () => {
     return queryDict;
 }
 
-var mdParser = new Remarkable();
+var mdParser = new Remarkable({
+    linkify: true,
+    highlight: function (str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return hljs.highlight(lang, str).value;
+          } catch (err) {}
+        }
+    
+        try {
+          return hljs.highlightAuto(str).value;
+        } catch (err) {}
+    
+        return ''; // use external default escaping
+      }
+});
 
 export const mdToHTML = (md) => {
     return mdParser.render(md);
+}
+
+export const whitespaceString = (str) => {
+    return !str.replace(/\s/g, '').length
 }
