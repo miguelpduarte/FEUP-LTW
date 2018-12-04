@@ -1,10 +1,11 @@
 -- users
-INSERT INTO users values(1, 'testuser', 'password123', 'Test User');
-INSERT INTO users values(2, 'testuser2', 'password123', 'Test User 2');
+INSERT INTO users values(1, 'testuser', '$2y$10$7UAmhAXfqbt9aA/TFE3XHez3p/KU9jj1bmNTD2R2V7M0jCuqfCXbG', 'Test User');
+INSERT INTO users values(2, 'testuser2', '$2y$10$7UAmhAXfqbt9aA/TFE3XHez3p/KU9jj1bmNTD2R2V7M0jCuqfCXbG', 'Test User 2');
 INSERT INTO users values(3, '<script>alert(1)</script>', '<script>alert(1)</script>', 'Unsuccessful XSSer <script>alert(1)</script>');
 INSERT INTO users values(4, '<img src="" onerror="alert(1)" />', '<img src="" onerror="alert(1)" />', 'Unsuccessful XSSer2 <img src="" onerror="alert(1)" />');
 
 -- channels
+INSERT INTO channels values(0, 'default');
 INSERT INTO channels values(1, '1234chan');
 INSERT INTO channels values(2, 'definitelynotreddit');
 
@@ -20,7 +21,7 @@ This now has a lot of content that goes on and on and on and on and on and on an
 Oh look! A penguin! ![penguin](https://cdn.pixabay.com/photo/2013/07/13/11/44/penguin-158551__340.png)',
 2);
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(4, 3, '<script>alert(1)</script>', '<script>alert(this); alert(1)</script>', 2);
-INSERT INTO stories(story_id, author, title, content, channel) VALUES(5, 4, '<img src="" onerror="alert(1)" />', '<img src="" onerror="alert(1)" />', 1);
+INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 4, '<img src="" onerror="alert(1)" />', '<img src="" onerror="alert(1)" />', 0);
 
 
 

@@ -4,7 +4,7 @@
     /**
      * Returns stories without content.
      */
-    function getUser($user_id) {
+    function getUser($username) {
         $db = Database::instance()->db();
         $stmt = $db->prepare(
             'SELECT user_id, username, name, storyScore, commentScore
@@ -24,7 +24,7 @@
                 ON user_id = a
                 )
             ');
-        $stmt->execute(array($user_id, $user_id));
+        $stmt->execute(array($username, $username));
         return $stmt->fetch(); 
     }
 
