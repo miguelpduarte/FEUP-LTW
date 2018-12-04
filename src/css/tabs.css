@@ -15,9 +15,7 @@
     
 }
 
-.title-area input, .channel-area input {
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+.new-story input {
     width: 100%;
     padding: 0.5em 1em;
     border-radius: 5px;
@@ -26,6 +24,15 @@
     border: 2px solid var(--very-light-grey);
     box-sizing: border-box;
     font-family: var(--content-font);
+}
+.title-area input{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+
+}
+
+.channel-area input {
+    margin-bottom: 1em;
 }
 
 .title-area {
