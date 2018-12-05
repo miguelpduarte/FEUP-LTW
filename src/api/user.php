@@ -122,14 +122,16 @@
             
         if($error) {
 
+            $parsed_err_code =  Error("OTHER");
+
             if($error === 23000) {
-                $parsed_err_code = Error("DUPLICATED_USERNAME;")
+                $parsed_err_code = Error("DUPLICATED_USERNAME");
             }
 
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => $parsed_error,
+                'reason' => $parsed_err_code,
 
             ]);
             exit;
