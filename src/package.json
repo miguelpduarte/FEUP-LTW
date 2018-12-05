@@ -1,0 +1,10 @@
+{
+  "main": "index.js",
+  "dependencies": {
+    "eslint": "^5.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "lint": "eslint --ext .js ."
+  }
+}
