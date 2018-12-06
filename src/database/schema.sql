@@ -107,7 +107,7 @@ FOR EACH ROW
 BEGIN
     UPDATE stories
     SET score = score - OLD.rating
-    WHERE story_id = NEW.story_id;
+    WHERE story_id = OLD.story_id;
 END;
 
 DROP TRIGGER IF EXISTS commentVotesInsert;
