@@ -30,7 +30,7 @@ function draw_header($page_title) { ?>
  * Draws the footer for all pages.
  */
 function draw_footer() { ?>
-    <script type="module" src="/js/navbar_actions.js"></script>
+    <script type="module" src="/js/page_actions/navbar_actions.js"></script>
     </body>
 </html>
 <?php } ?>
