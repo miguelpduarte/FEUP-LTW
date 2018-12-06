@@ -123,7 +123,7 @@
         if($error) {
 
             if($error === 23000) {
-                $parsed_err_code = Error("DUPLICATED_USERNAME;")
+                $parsed_err_code = Error("DUPLICATED_USERNAME");
             }
 
             http_response_code(400);

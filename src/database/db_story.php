@@ -75,5 +75,51 @@
             return $story['author'] === $user_id;
         }
     }
+
+
+    class CustomException extends \Exception {
+        protected $details;
+      
+        public function __construct($msg, $code) {
+            parent::__construct($msg);
+            $this->code = $code;
+        }
+      
+        public function __getCode() {
+          return $this->code;
+        }
+    }
+
+
+    /**
+     * Vote on a story
+     */
+    function voteStory($story_id, $user_id, $vote) {
+
+        $db = Database::instance()->db();
+        
+        $stmt = $db->prepare('SELECT story_id FROM stories WHERE story_id = ?');
+        $stmt->execute(array($story_id));
+
+        if(!$stmt->fetch()) {
+            throw new Exception("No story with id $story_id");
+        }
+
+        $stmt = $db->prepare('SELECT user_id FROM users WHERE user_id = ?');
+        $stmt->execute(array($user_id));
+
+        if(!$stmt->fetch()) {
+            throw new Exception("No user with id $user_id");
+        }
+
+        $stmt = $db->prepare('REPLACE INTO story_votes(story_id, user_id, rating) VALUES(?, ?, ?)');
+
+        $rating = $vote ? 1 : -1;
+
+        if(!$stmt->execute(array($story_id, $user_id, $rating))) {
+            throw new Exception("Error while voting");
+        }
+
+    }
     
 ?>
