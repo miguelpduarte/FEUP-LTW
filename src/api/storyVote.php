@@ -1,11 +1,15 @@
 <?php
     require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_story.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_user.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
 
     $method = $_SERVER['REQUEST_METHOD'];
 
     switch ($method) {
+        case 'GET':
+            handle_get();
+            break;
         case 'PUT':
             //Upvote/Downvote
             handle_put();
@@ -19,6 +23,40 @@
             break;
     }
 
+    function handle_get() {
+        header('Content-Type: application/json');
+        
+        $currentUser = getLoggedUser();
+
+        if(!$currentUser) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "Not Logged in",
+                'code' => Error("UNAUTHORIZED")
+                ]);
+            exit;
+        }
+
+        try {
+            $votes_list = getStoryVotes($currentUser['user_id']);
+            http_response_code(200);
+            echo json_encode([
+                'success' => true,
+                'data' => $votes_list
+                ]);
+            exit;
+        } catch(Exception $e) {
+            http_response_code(400);
+            echo json_encode([
+                'success' => false,
+                'reason' => $e->getMessage(),
+                'code' => Error("VOTE_ERROR")
+                ]);
+            exit;
+        }  
+
+    }
 
     function handle_put() {
         header('Content-Type: application/json');

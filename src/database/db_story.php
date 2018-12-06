@@ -127,6 +127,9 @@
 
     }
 
+    /**
+     * Remove the vote from user_id to story_id
+     */
     function removeVote($story_id, $user_id) {
         $db = Database::instance()->db();
         
