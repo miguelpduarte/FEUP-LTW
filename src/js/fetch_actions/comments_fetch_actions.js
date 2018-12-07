@@ -76,7 +76,7 @@ export const fetchPostSubComment = async (comment_id, content) => {
     if(user === null)
         throw 1;
 	let body = {
-		comment_id,
+		comment_id: Number.parseInt(comment_id),
         content,
         csrf: user.csrf
 	};

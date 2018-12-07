@@ -5,18 +5,22 @@
     max-width: 50em;
 }
 
-.new-story, .new-comment {
+.new-story, .new-comment, .new-subcomment {
     display: flex;
     flex-direction: column;
     margin: 1em auto;
     padding: 1em 2em 0 2em;
+ 
+}
+
+.new-story, .new-comment {
 
     -moz-box-shadow:    0 0 8px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-    box-shadow:         0 0 8px rgba(0, 0, 0, 0.2);   
+    box-shadow:         0 0 8px rgba(0, 0, 0, 0.2);  
 }
 
-.new-story input, .new-comment input {
+.new-story input, .new-comment input, .new-subcomment input {
     width: 100%;
     padding: 0.5em 1em;
     border-radius: 5px;
@@ -27,7 +31,7 @@
     font-family: var(--content-font);
 }
 
-.new-comment .editor {
+.new-comment .editor, .new-subcomment .editor {
     display: flex;
     flex-direction: column;
 }
@@ -138,13 +142,26 @@ input:checked + .tab-label {
     font-size: 1em;
 }
 
-.new-story button, .new-comment button {
+.new-subcomment button {
+    padding: 0.5em;
+    font-size: 1em;
+    border: 1px solid black;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+
+.new-story button, .new-comment button, .new-subcomment button {
     width: 60%;
     align-self: center;
     border-radius: 10px;
     background-color: var(--main-color);
     color: white;
     font-family: var(--title-font);
+
+}
+
+
+.new-story button, .new-comment button {
     padding: 0.5em;
     font-size: 1.2em;
     border: 1px solid black;
@@ -152,7 +169,7 @@ input:checked + .tab-label {
     margin-top: 1.5em;
 }
 
-.new-story button:active, .new-comment button:active {
+.new-story button:active, .new-comment button:active, .new-subcomment button:active {
     background-color: var(--main-color-dark);
 }
 

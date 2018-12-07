@@ -12,7 +12,7 @@ export class CommentSection {
 		this.ids = new Set();
 		this.comments = comments_data.map(comment => {
 			this.ids.add(comment.comment_id);
-			return new Comment(comment);
+			return new Comment(comment, true);
 		});
 		this.section = null;
 		this.loading = false;
@@ -95,7 +95,7 @@ export class CommentSection {
 			}
 
 			this.ids.add(comment.comment_id);
-			let comment_object = new Comment(comment);
+			let comment_object = new Comment(comment, true);
 			this.comments.push(comment_object);
 
 			if (!needFullReload) {
