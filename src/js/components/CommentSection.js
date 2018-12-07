@@ -1,8 +1,9 @@
 "use strict";
 
 import { Comment } from "./Comment.js";
-import { fetchComments } from "../fetch_actions/stories_fetch_actions.js";
+import { fetchComments } from "../fetch_actions/comments_fetch_actions.js";
 import { reloadCommentsFromMemory } from "../page_actions/story_actions.js";
+import { CommentForm } from "./CommentForm.js";
 
 export class CommentSection {
 	constructor(comments_data, story_id) {
@@ -28,13 +29,16 @@ export class CommentSection {
                 <i class="far fa-comments"></i>
             </div>
             <div class="line"><hr/></div>
-        </div>`;
+		</div>
+		<div class="new-comment"></div>`;
 
 		for (const comment of this.comments) {
 			this.section.appendChild(comment.render());
 		}
 
 		document.addEventListener("scroll", () => this.scrollListener());
+		this.comment_form = new CommentForm(this.story_id);
+		this.section.querySelector(".new-comment").appendChild(this.comment_form.render());
 		return this.section;
 	}
 

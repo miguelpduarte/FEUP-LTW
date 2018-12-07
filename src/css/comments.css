@@ -10,6 +10,11 @@
     font-family: var(--content-font);
 }
 
+.comment-section > .new-comment {
+    width: 100%;
+    box-sizing: border-box;
+}
+
 
 .comment-section > .comment-container {
     -moz-box-shadow:    0 0 8px var(--main-color-lighter);

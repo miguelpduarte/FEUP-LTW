@@ -3,7 +3,8 @@
 import { Story } from "../components/Story.js";
 import { CommentSection } from "../components/CommentSection.js";
 import { getParams } from "../utils.js";
-import { fetchStory, fetchComments } from "../fetch_actions/stories_fetch_actions.js";
+import { fetchStory } from "../fetch_actions/stories_fetch_actions.js";
+import { fetchComments } from "../fetch_actions/comments_fetch_actions.js";
 
 let story = null;
 let comments = null;

@@ -1,6 +1,11 @@
 @import "./palette.css";
 
 .new-story {
+    min-width: 15em;
+    max-width: 50em;
+}
+
+.new-story, .new-comment {
     display: flex;
     flex-direction: column;
     margin: 1em auto;
@@ -8,14 +13,10 @@
 
     -moz-box-shadow:    0 0 8px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-    box-shadow:         0 0 8px rgba(0, 0, 0, 0.2);
-
-    min-width: 15em;
-    max-width: 50em;
-    
+    box-shadow:         0 0 8px rgba(0, 0, 0, 0.2);   
 }
 
-.new-story input {
+.new-story input, .new-comment input {
     width: 100%;
     padding: 0.5em 1em;
     border-radius: 5px;
@@ -25,6 +26,16 @@
     box-sizing: border-box;
     font-family: var(--content-font);
 }
+
+.new-comment .editor {
+    display: flex;
+    flex-direction: column;
+}
+
+.new-comment {
+    padding-top: 3em;
+}
+
 .title-area input{
     margin-top: 0.5em;
     margin-bottom: 0.5em;
@@ -43,9 +54,16 @@
     font-family: var(--content-font);
 }
 
+.new-story .md-editor > textarea,.new-story .preview {
+    height: 30rem;
+}
+
+.new-comment .md-editor > textarea,.new-comment .preview {
+    height: 15rem;
+}
+
 .md-editor > textarea,.preview {
     width: 100%;
-    height: 30rem;
     overflow-y: scroll;
 }
 
@@ -53,7 +71,7 @@
     display: none;
 }
 
-.tab {
+.editor .md-editor .tab {
     display: none;
     border: 1px solid var(--grey);
     box-sizing: border-box;
@@ -120,7 +138,7 @@ input:checked + .tab-label {
     font-size: 1em;
 }
 
-.new-story button {
+.new-story button, .new-comment button {
     width: 60%;
     align-self: center;
     border-radius: 10px;
@@ -134,11 +152,11 @@ input:checked + .tab-label {
     margin-top: 1.5em;
 }
 
-.new-story button:active {
+.new-story button:active, .new-comment button:active {
     background-color: var(--main-color-dark);
 }
 
-.new-story .msg-field {
+.msg-field {
     margin-top: 1em;
     font-family: var(--content-font);
     font-weight: normal;
