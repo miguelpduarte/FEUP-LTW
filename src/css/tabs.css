@@ -75,7 +75,7 @@
     display: none;
 }
 
-.editor .md-editor .tab {
+.tab {
     display: none;
     border: 1px solid var(--grey);
     box-sizing: border-box;
@@ -83,9 +83,19 @@
     padding-top: 2em;
 }
 
-#editor_tab:checked ~ #editor,
-#preview_tab:checked ~ #preview{
+.tab.visible{
     display: block;
+}
+
+.tab-label.visible {
+    color: var(--main-color);
+}
+
+.tab-label.visible {
+    color: var(--main-color);
+    border: 1px solid var(--grey);
+    border-top: 2px solid var(--main-color);
+    border-bottom: 2px solid #fff;
 }
 
 .tab-label {
@@ -100,17 +110,6 @@
     color: var(--main-color-light);
 }
 
-#editor_tab:checked + .tab-label,
-#preview_tab:checked + .tab-label {
-    color: var(--main-color);
-}
-
-input:checked + .tab-label {
-    color: var(--main-color);
-    border: 1px solid var(--grey);
-    border-top: 2px solid var(--main-color);
-    border-bottom: 2px solid #fff;
-}
 
 .editor {
     resize: none;
