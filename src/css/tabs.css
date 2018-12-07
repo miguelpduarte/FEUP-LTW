@@ -58,15 +58,19 @@
     font-family: var(--content-font);
 }
 
-.new-story .md-editor > textarea,.new-story .preview {
+.new-story .md-editor > textarea,.new-story .preview-selector.tab {
     height: 30rem;
 }
 
-.new-comment .md-editor > textarea,.new-comment .preview {
+.new-comment .md-editor > textarea,.new-comment .preview-selector.tab {
     height: 15rem;
 }
 
-.md-editor > textarea,.preview {
+.new-subcomment .md-editor > textarea,.new-subcomment .preview-selector.tab {
+    height: 10rem;
+}
+
+.md-editor > textarea,.preview-selector.tab {
     width: 100%;
     overflow-y: scroll;
 }
@@ -111,7 +115,7 @@
 }
 
 
-.editor {
+.editor-selector {
     resize: none;
     font-family: inherit;
 }

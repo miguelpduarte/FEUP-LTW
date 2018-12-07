@@ -65,6 +65,32 @@
 }
 
 
+.comment h1 {
+    font-family: var(--title-font);
+    font-size: 2em;
+}
+
+.comment h2 {
+    font-family: var(--title-font);
+    font-size: 1.75em;
+}
+
+.comment h3 {
+    font-family: var(--title-font);
+    font-size: 1.5em;
+}
+
+.comment h4 {
+    font-family: var(--title-font);
+    font-size: 1.25em;
+}
+
+.comment h5 {
+    font-family: var(--title-font);
+    font-size: 1em;
+}
+
+
 /* Voting */
 
 .comment .voting-wrapper {
