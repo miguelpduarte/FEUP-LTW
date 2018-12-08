@@ -134,10 +134,14 @@
     padding-left: 2px;
 }
 
-.expand-comments {
+.expand-comments, .show-repply {
     color: var(--grey);
     cursor: pointer;
     font-weight: bold;
     font-size: 0.9em;
     margin-left: 2em;
+} 
+
+.show-repply {
+    margin: 0 auto;
 }

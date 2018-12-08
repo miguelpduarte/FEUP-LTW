@@ -79,7 +79,7 @@ export class Comment {
 	create_form_area() {
 		this.form_area = document.createElement("section");
 		this.form_area.classList.add("new-subcomment");
-		this.form_area.innerHTML =`<a class="show-repply">Reply</a>`;
+		this.form_area.innerHTML =`<a class="show-repply">Reply  <i class="fas fa-comments"></i></a>`;
 	}
 
 	showForm() {
