@@ -2,9 +2,29 @@
 
 import { Story } from "../components/Story.js";
 import { fetchTopStories } from "../fetch_actions/stories_fetch_actions.js";
+import { isUserLoggedIn, getUserVotes } from "../store.js";
 
-let trending_stories = [];
-let top_stories = [];
+const trending_stories = new Map();
+const top_stories = new Map();
+
+const loadStories = async () => {
+	loadTrendingStories();
+	loadTopStories();
+
+	if (await isUserLoggedIn()) {
+		const user_votes = await getUserVotes();
+		updateStoriesVoting(user_votes);
+	}
+};
+
+const updateStoriesVoting = user_votes => {
+	//story_id, rating
+	for (const user_vote of user_votes) {
+		trending_stories.get(user_vote.story_id).setUpvoted(user_vote.rating);
+		// These are not yet done but this is here so it will work later as well
+		top_stories.get(user_vote.story_id).setUpvoted(user_vote.rating);
+	}
+};
 
 const loadTrendingStories = async () => {
 	console.log("TODO: Actually load trending stories");
@@ -25,9 +45,9 @@ const loadTrendingStories = async () => {
 const populateTrendingStories = (trending_stories_data) => {
 	const trending_stories_container = document.getElementById("trending_stories_container");
     
-	for(const trending_story_data of trending_stories_data) {
+	for (const trending_story_data of trending_stories_data) {
 		const story = new Story(trending_story_data);
-		trending_stories.push(story);
+		trending_stories.set(trending_story_data.story_id, story);
 		const story_card = story.renderCard();
 		trending_stories_container.appendChild(story_card);
 	}
@@ -40,7 +60,7 @@ const clearTrendingStories = () => {
 		trending_stories_container.removeChild(trending_stories_container.firstChild);
 	}
 
-	trending_stories = [];
+	trending_stories.clear();
 };
 
 const loadTopStories = async () => {
@@ -51,9 +71,9 @@ const loadTopStories = async () => {
 const populateTopStories = (top_stories_data) => {
 	const top_stories_container = document.getElementById("top_stories_container");
     
-	for(const top_story_data of top_stories_data) {
+	for (const top_story_data of top_stories_data) {
 		const story = new Story(top_story_data);
-		top_stories.push(story);
+		top_stories.set(top_story_data.story_id, story);
 		const story_card = story.renderCard();
 		top_stories_container.appendChild(story_card);
 	}
@@ -66,7 +86,7 @@ const clearTopStories = () => {
 		top_stories_container.removeChild(top_stories_container.firstChild);
 	}
 
-	top_stories = [];
+	top_stories.clear();
 };
 
 const refreshTopStories = () => {
@@ -84,5 +104,4 @@ const refreshTrendingStories = () => {
 document.getElementById("refresh_top_stories").addEventListener("click", refreshTopStories);
 document.getElementById("refresh_trending_stories").addEventListener("click", refreshTrendingStories);
 
-loadTrendingStories();
-loadTopStories();
+loadStories();

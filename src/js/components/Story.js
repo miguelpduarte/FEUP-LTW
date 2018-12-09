@@ -1,6 +1,6 @@
 "use strict";
 
-import { fetchStory } from "../fetch_actions/stories_fetch_actions.js";
+import { fetchStory, fetchVoteStory, fetchUnvoteStory } from "../fetch_actions/stories_fetch_actions.js";
 import { mdToHTML } from "../utils.js";
 
 const VoteStatus = Object.freeze({
@@ -13,6 +13,7 @@ export class Story {
 	constructor(story_data) {
 		this.content_loaded = !!story_data.content;
 		this.data = story_data;
+		//TODO: Cast ids and score and etc to int if BE can't do it
 		this.is_open = false;
 
 		this.vote_status = VoteStatus.none;
@@ -65,7 +66,7 @@ export class Story {
 		// Article opening
 		article.addEventListener("click", e => {
 			//To ensure that clicking on the story or user link does not attempt to open or close the card
-			if(e.target.tagName !== "A") {
+			if (e.target.tagName !== "A") {
 				this.toggleCardOpen();
 			}
 		});
@@ -105,80 +106,119 @@ export class Story {
 	/**
      * For setting of the initial story state, after getting the user upvotes from the back-end when the user is logged in
      * Should only be called for the user upvotes - if a story was not upvoted nor downvoted then there is no reason to call this method
-     * @param {*} isUpvoted If the story was upvoted or not
+     * @param {*} isUpvoted If the story was upvoted or downvoted (-1 for downvoted, 1 for upvoted)
      */
 	setUpvoted(is_upvoted) {
-		if (is_upvoted) {
-			this.vote_status = VoteStatus.upvoted;
+		if (is_upvoted === 1) {
+			this.setVoteStatus(VoteStatus.upvoted);
 		} else {
-			this.vote_status = VoteStatus.downvoted;
+			this.setVoteStatus(VoteStatus.downvoted);
 		}
 	}
 
+	// Should only be called internally
+	setVoteStatus(new_vote_status) {
+		this.vote_status = new_vote_status;
+
+		// Switching classes
+		switch (new_vote_status) {
+			case VoteStatus.upvoted:
+				this.element.classList.add("upvoted");
+				this.element.classList.remove("downvoted");
+				break;
+			case VoteStatus.downvoted:
+				this.element.classList.remove("upvoted");
+				this.element.classList.add("downvoted");
+				break;
+			case VoteStatus.none:
+				this.element.classList.remove("upvoted");
+				this.element.classList.remove("downvoted");
+				break;
+			default:
+				console.warn("Wrong call to Story.setVoteStatus!");
+				break;
+		}
+	}
+
+	updateScore(new_score) {
+		this.data.score = new_score;
+		this.element.querySelectorAll(".score").forEach(el => el.textContent = this.data.score);
+	}
+
 	async upvote() {
+		// TODO: Check for user login to redirect to login page if not logged in
+
 		// TODO: Dont forget to check if it is upvoted or not (will have to get from backend the list of upvotes and set it dynamically)
 
-		if(this.vote_status === VoteStatus.upvoted) {
+		if (this.vote_status === VoteStatus.upvoted) {
 			// Unvote
-			console.log("Unvoting... TODO: Actually hit endpoint");
-			// Remove upvoted class
-			this.element.classList.remove("upvoted");
-			// Updating state
-			this.vote_status = VoteStatus.none;
+			try {
+				await fetchUnvoteStory(this.data.story_id);
+				console.log("Story remove upvote successful");
+				// Updating state
+				this.setVoteStatus(VoteStatus.none);
+				// Updating score
+				this.updateScore(this.data.score - 1);
+			} catch (err) {
+				// TODO: Use ErrorHandler
+				// const error = errorHandler.getError(err);
+				// this.showErrorMessage(error.msg);
+				// err.defaultAction();
+				// return;
+				console.error("Unvote error", err);
+			}
 		} else {
 			// Upvote
-			console.log("Upvoting! TODO: Actually hit endpoint");
-			// Apply upvoted class
-			this.element.classList.add("upvoted");
-			// Ensuring we are not in two states at the same time (visually)
-			if (this.vote_status === VoteStatus.downvoted) {
-				this.element.classList.remove("downvoted");
+			try {
+				await fetchVoteStory(this.data.story_id, true);
+				// Updating state
+				this.setVoteStatus(VoteStatus.upvoted);
+				// Updating score
+				this.updateScore(this.data.score + 1);
+			} catch (err) {
+				// TODO: Use ErrorHandler
+				console.error("Upvote error", err);
 			}
-            
-			// Updating state
-			this.vote_status = VoteStatus.upvoted;
 		}
-
-		console.log("Dont forget to update score in front-end after as well");
-
-		// Loading
-		// Invoke action
-		// Finish loading
-		// Do stuff
 	}
 
 	async downvote() {
 		// TODO: Dont forget to check if it is upvoted or not (will have to get from backend the list of upvotes and set it dynamically)
 
-		if(this.vote_status === VoteStatus.downvoted) {
+		if (this.vote_status === VoteStatus.downvoted) {
 			// Unvote
-			console.log("Unvoting... TODO: Actually hit endpoint");
-			// Remove upvoted class
-			this.element.classList.remove("downvoted");
-		} else {
-			// Upvote
-			console.log("Downvoting! TODO: Actually hit endpoint");
-			// Apply downvoted class
-			this.element.classList.add("downvoted");
-			// Ensuring we are not in two states at the same time (visually)
-			if (this.vote_status === VoteStatus.upvoted) {
-				this.element.classList.remove("upvoted");
+			try {
+				await fetchUnvoteStory(this.data.story_id);
+				console.log("Story remove downvote successful");
+				// Updating state
+				this.setVoteStatus(VoteStatus.none);
+				// Updating score
+				this.updateScore(this.data.score + 1);
+			} catch (err) {
+				// TODO: Use ErrorHandler
+				// const error = errorHandler.getError(err);
+				// this.showErrorMessage(error.msg);
+				// err.defaultAction();
+				// return;
+				console.error("Unvote error", err);
 			}
-            
-			// Updating state
-			this.vote_status = VoteStatus.downvoted;
+		} else {
+			// Downvote
+			try {
+				await fetchVoteStory(this.data.story_id, false);
+				// Updating state
+				this.setVoteStatus(VoteStatus.downvoted);
+				// Updating score
+				this.updateScore(this.data.score - 1);
+			} catch (err) {
+				// TODO: Use ErrorHandler
+				console.error("Upvote error", err);
+			}
 		}
-
-		console.log("Dont forget to update score in front-end after as well");
-
-		// Loading
-		// Invoke action
-		// Finish loading
-		// Do stuff
 	}
 
 	async toggleCardOpen() {
-		if(!this.content_loaded) {
+		if (!this.content_loaded) {
 			this.element.classList.add("loading");
 			await this.addCardContent();
 			this.element.classList.remove("loading");

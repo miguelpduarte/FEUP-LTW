@@ -44,7 +44,7 @@ export class StoryForm {
 		let title  = this.form.getElementsByClassName("title-input")[0].value;
 		let channel = this.form.getElementsByClassName("channel-selector")[0].value;
 
-		if(!this.fieldsAreValid(content, title))
+		if (!this.fieldsAreValid(content, title))
 			return;
         
 		try {                
@@ -53,7 +53,7 @@ export class StoryForm {
 			const err = errorHandler.getError(error);
 			this.showErrorMessage(err.msg);
 			err.defaultAction();
-			return ;
+			return;
 		}
 		window.location.href = `/pages/story.php?id=${response.story_id}`;
 

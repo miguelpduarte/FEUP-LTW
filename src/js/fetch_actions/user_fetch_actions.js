@@ -46,7 +46,7 @@ export const loginUser = (username, password) => {
 		})
 			.then(res => res.json())
 			.then(data => {
-				if(data.success) {
+				if (data.success) {
 					return resolve();
 				} else {
 					return reject(data.reason);
@@ -59,6 +59,21 @@ export const loginUser = (username, password) => {
 export const getUserLoginInfo = () => {
 	return new Promise((resolve, reject) => {
 		fetch("/api/login.php")
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					return resolve(data.data);
+				} else {
+					return reject(data.reason);
+				}
+			})
+			.catch(err => reject(err));
+	});
+};
+
+export const getLoggedUserVotes = () => {
+	return new Promise((resolve, reject) => {
+		fetch("/api/storyVote.php")
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
