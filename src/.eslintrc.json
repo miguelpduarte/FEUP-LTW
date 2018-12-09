@@ -12,7 +12,11 @@
         "indent": [
             "error",
             "tab",
-            {"SwitchCase": 1}
+            {
+                "SwitchCase": 1
+            }
+        ], "keyword-spacing": [
+            "error"
         ],
         "linebreak-style": [
             "error",
