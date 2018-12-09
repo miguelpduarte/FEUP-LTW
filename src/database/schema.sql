@@ -127,7 +127,7 @@ FOR EACH ROW
 BEGIN
     UPDATE comments
     SET score = score + NEW.rating
-    WHERE comment_id = NEW.comment_id;
+    WHERE comment_id = OLD.comment_id;
 END;
 
 DROP TRIGGER IF EXISTS commentVotesDelete;
@@ -137,7 +137,7 @@ FOR EACH ROW
 BEGIN
     UPDATE comments
     SET score = score - OLD.rating
-    WHERE comment_id = NEW.comment_id;
+    WHERE comment_id = OLD.comment_id;
 END;
 
 DROP TRIGGER IF EXISTS deleteChannelIfItHasNoStories_ondeletestory;

@@ -1,6 +1,6 @@
 <?php
     require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
-    require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_story.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_comments.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_user.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
 
@@ -39,7 +39,7 @@
         }
 
         try {
-            $votes_list = getStoryVotes($currentUser['user_id']);
+            $votes_list = getCommentVotes($currentUser['user_id']);
             http_response_code(200);
             echo json_encode([
                 'success' => true,
@@ -68,7 +68,7 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "Anonymous user can't vote a Story",
+                'reason' => "Anonymous user can't vote a Comment",
                 'code' => Error("UNAUTHORIZED")
                 ]);
             exit;
@@ -104,11 +104,11 @@
             exit;
         }
 
-        if(empty($data['story_id'])) {
+        if(empty($data['comment_id'])) {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => "Missing story_id",
+                'reason' => "Missing comment_id",
                 'code' => Error("MISSING_PARAM")
                 ]);
             exit;
@@ -116,7 +116,7 @@
 
 
         try{
-            voteStory($data['story_id'], $currentUser['user_id'], $data['upvote']);
+            voteComment($data['comment_id'], $currentUser['user_id'], $data['upvote']);
             http_response_code(200);
             echo json_encode([
                 'success' => true,
@@ -145,7 +145,7 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "Anonymous user can't remove vote from a Story",
+                'reason' => "Anonymous user can't remove vote from a Comment",
                 'code' => Error("UNAUTHORIZED")
                 ]);
             exit;
@@ -171,11 +171,11 @@
             exit;
         }
 
-        if(empty($data['story_id'])) {
+        if(empty($data['comment_id'])) {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => "Missing story_id",
+                'reason' => "Missing comment_id",
                 'code' => Error("MISSING_PARAM")
                 ]);
             exit;
@@ -183,7 +183,7 @@
 
 
         try{
-            removeStoryVote($data['story_id'], $currentUser['user_id']);
+            removeCommentVote($data['comment_id'], $currentUser['user_id']);
             http_response_code(200);
             echo json_encode([
                 'success' => true,

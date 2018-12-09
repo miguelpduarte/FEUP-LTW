@@ -75,4 +75,72 @@
         $stmt->execute(array($author, $content, $comment_id));
     }
 
+
+    /**
+     * Vote on a comment
+     */
+    function voteComment($comment_id, $user_id, $vote) {
+
+        $db = Database::instance()->db();
+        
+        $stmt = $db->prepare('SELECT comment_id FROM comments WHERE comment_id = ?');
+        $stmt->execute(array($comment_id));
+
+        if(!$stmt->fetch()) {
+            throw new Exception("No comment with id $comment_id");
+        }
+
+        $stmt = $db->prepare('SELECT user_id FROM users WHERE user_id = ?');
+        $stmt->execute(array($user_id));
+
+        if(!$stmt->fetch()) {
+            throw new Exception("No user with id $user_id");
+        }
+
+
+        try {
+            $stmt = $db->prepare('REPLACE INTO commentVotes(comment_id, user_id, rating) VALUES(?, ?, ?)');
+
+            $rating = $vote ? 1 : -1;
+
+            if(!$stmt->execute(array($comment_id, $user_id, $rating))) {
+                throw new Exception("Error while voting");
+            }
+        } catch(Exception $e) {
+            throw new Exception("Error while voting");
+        }
+
+    }
+
+    /**
+     * Remove the vote from user_id to comment_id
+     */
+    function removeCommentVote($comment_id, $user_id) {
+        $db = Database::instance()->db();
+        
+        $stmt = $db->prepare('SELECT comment_id FROM comments WHERE comment_id = ?');
+        $stmt->execute(array($comment_id));
+
+        if(!$stmt->fetch()) {
+            throw new Exception("No story with id $comment_id");
+        }
+
+        $stmt = $db->prepare('SELECT user_id FROM users WHERE user_id = ?');
+        $stmt->execute(array($user_id));
+
+        if(!$stmt->fetch()) {
+            throw new Exception("No user with id $user_id");
+        }
+        
+        try {
+            $stmt = $db->prepare('DELETE FROM commentVotes WHERE comment_id = ? AND user_id = ?');
+
+            if(!$stmt->execute(array($comment_id, $user_id))) {
+                throw new Exception("Error while removing vote");
+            }
+        } catch(Exception $e) {
+            // throw new Exception("Error while removing vote");
+            throw $e;
+        }
+    }
 ?>

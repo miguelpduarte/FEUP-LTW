@@ -77,20 +77,6 @@
     }
 
 
-    class CustomException extends \Exception {
-        protected $details;
-      
-        public function __construct($msg, $code) {
-            parent::__construct($msg);
-            $this->code = $code;
-        }
-      
-        public function __getCode() {
-          return $this->code;
-        }
-    }
-
-
     /**
      * Vote on a story
      */
@@ -130,7 +116,7 @@
     /**
      * Remove the vote from user_id to story_id
      */
-    function removeVote($story_id, $user_id) {
+    function removeStoryVote($story_id, $user_id) {
         $db = Database::instance()->db();
         
         $stmt = $db->prepare('SELECT story_id FROM stories WHERE story_id = ?');
