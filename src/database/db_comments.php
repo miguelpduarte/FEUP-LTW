@@ -139,8 +139,7 @@
                 throw new Exception("Error while removing vote");
             }
         } catch(Exception $e) {
-            // throw new Exception("Error while removing vote");
-            throw $e;
+            throw new Exception("Error while removing vote");
         }
     }
 ?>
