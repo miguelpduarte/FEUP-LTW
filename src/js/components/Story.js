@@ -2,6 +2,7 @@
 
 import { fetchStory, fetchVoteStory, fetchUnvoteStory } from "../fetch_actions/stories_fetch_actions.js";
 import { mdToHTML } from "../utils.js";
+import { isUserLoggedIn } from "../store.js";
 
 const VoteStatus = Object.freeze({
 	none: 1,
@@ -149,9 +150,11 @@ export class Story {
 	}
 
 	async upvote() {
-		// TODO: Check for user login to redirect to login page if not logged in
-
-		// TODO: Dont forget to check if it is upvoted or not (will have to get from backend the list of upvotes and set it dynamically)
+		// If user is not logged in, then redirect to login page
+		if (!await isUserLoggedIn()) {
+			window.location.href = "/pages/login.php";
+			return;
+		}
 
 		if (this.vote_status === VoteStatus.upvoted) {
 			// Unvote
@@ -186,7 +189,11 @@ export class Story {
 	}
 
 	async downvote() {
-		// TODO: Dont forget to check if it is upvoted or not (will have to get from backend the list of upvotes and set it dynamically)
+		// If user is not logged in, then redirect to login page
+		if (!await isUserLoggedIn()) {
+			window.location.href = "/pages/login.php";
+			return;
+		}
 
 		if (this.vote_status === VoteStatus.downvoted) {
 			// Unvote
