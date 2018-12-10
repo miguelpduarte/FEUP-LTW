@@ -1,4 +1,5 @@
 <?php
+    require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_comments.php');
 
     $method = $_SERVER['REQUEST_METHOD'];
@@ -28,14 +29,22 @@
             $data = getNestedComments($_GET['story_id'], $n_comments, $offset, $n_nested, $nested_off);
         } elseif (isset($_GET['comment_id']) && $_GET['comment_id'] !== '') {
             $data = getSubComments($_GET['comment_id'], $n_comments, $offset);
+        } else {
+            http_response_code(400);            
+            echo json_encode([
+                'success' => false,
+                'reason' => 'There is no story_id nor comment_id',
+                'code' => Error("MISSING_PARAM")
+            ]);
+            exit;
         }
 
-        //Detecting database fetching errors (TODO: use try catch? -> Guilherme ;)
         if($data === false) {
             http_response_code(400);       
             echo json_encode([
                 'success' => false,
-                'reason' => 'Database fetching failed',
+                'reason' => 'Database Error :v',
+                'code' => Error("OTHER")
             ]);
             exit;
         }
@@ -57,7 +66,8 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "Anonymous User can't post a Comment"
+                'reason' => "Anonymous User can't post a Comment",
+                'code' => Error("UNAUTHORIZED")
             ]);
             exit;
         }
@@ -67,7 +77,8 @@
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'The content field is missing'
+                'reason' => 'The content field is missing',
+                'code' => Error("MISSING_PARAM")
             ]);
             exit;
         }
@@ -78,7 +89,8 @@
             http_response_code(400);            
             echo json_encode([
                 'success' => false,
-                'reason' => 'There is no story_id nor comment_id'
+                'reason' => 'There is no story_id nor comment_id',
+                'code' => Error("MISSING_PARAM")
             ]);
             exit;
         }
@@ -87,7 +99,8 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "CSRF was not provided."
+                'reason' => "CSRF was not provided.",
+                'code' => Error("MISSING_CSRF")
                 ]);
             exit;
         }
@@ -96,7 +109,8 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "CSRF did not match. SHOW YOUR ID SIR!"
+                'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
+                'code' => Error("WRONG_CSRF")
                 ]);
             exit;
         }
@@ -111,7 +125,8 @@
             http_response_code(400);            
             echo json_encode([
                 'success' => false,
-                'reason' => 'Database exception thrown'
+                'reason' => 'Database exception thrown',
+                'code' => Error("OTHER")
             ]);
             exit;
         }
@@ -127,7 +142,8 @@
         http_response_code(405);
         echo json_encode([
             'success' => false,
-            'reason' => 'Invalid request method for this route'
+            'reason' => 'Invalid request method for this route',
+            'code' => Error("INVALID_ROUTE")
         ]);
         exit;
     }

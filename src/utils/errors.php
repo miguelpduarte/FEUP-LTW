@@ -1,0 +1,22 @@
+<?php
+
+
+
+function Error($ERR) {
+
+    switch($ERR) {
+        case "UNAUTHORIZED":return 1;
+        case "FIELD_FORMAT":return 2;
+        case "MISSING_PARAM":return 3;
+        case "MISSING_CSRF":return 4;
+        case "WRONG_CSRF":return 5;
+        case "NOT_OWNER":return 6;
+        case "INVALID_ROUTE":return 7;
+        case "ALREADY_LOGGED":return 8;
+        case "PASSWORD_NO_CONFIRMATION":return 9;
+        case "DUPLICATED_USERNAME":return 10;
+        default: return 0;
+    }
+}
+
+?>

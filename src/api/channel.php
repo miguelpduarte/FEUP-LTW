@@ -1,4 +1,5 @@
 <?php
+    require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_channel.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_story.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
@@ -30,7 +31,8 @@
                 http_response_code(404);
                 echo json_encode([
                     'success' => false,
-                    'reason' => "There's no channel with id (" . $_GET['id'] . ")"
+                    'reason' => "There's no channel with id (" . $_GET['id'] . ")",
+                    'code' => Error("NOT_FOUND")
                 ]);
             exit;
             } else {
@@ -76,7 +78,8 @@
             http_response_code(400);
                 echo json_encode([
                     'success' => false,
-                    'reason' => "Must specify story_id"
+                    'reason' => "Must specify story_id",
+                    'code' => Error("MISSING_PARAM")
                 ]);
             exit;
         }
@@ -87,7 +90,8 @@
                 http_response_code(401);
                 echo json_encode([
                     'success' => false,
-                    'reason' => "CSRF was not provided."
+                    'reason' => "CSRF was not provided.",
+                    'code' => Error("MISSING_CSRF")
                     ]);
                 exit;
             }
@@ -96,7 +100,8 @@
                 http_response_code(401);
                 echo json_encode([
                     'success' => false,
-                    'reason' => "CSRF did not match. SHOW YOUR ID SIR!"
+                    'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
+                    'code' => Error("WRONG_CSRF")
                     ]);
                 exit;
             }
@@ -104,7 +109,8 @@
             http_response_code(401);
                 echo json_encode([
                     'success' => false,
-                    'reason' => "Must be logged in."
+                    'reason' => "Must be logged in.",
+                    'code' => Error("UNAUTHORIZED")
                     ]);
                 exit;
         }
@@ -115,16 +121,18 @@
                 echo json_encode([
                     'success' => false,
                     'reason' => "The story you are trying to change does not belong to you!",
+                    'code' => Error("NOT_OWNER")
                     ]);
                 exit;
             }
         } catch(Exception $e) {
             http_response_code(400);
-                echo json_encode([
-                    'success' => false,
-                    'reason' => $e->getMessage(),
-                    ]);
-                exit;
+            echo json_encode([
+                'success' => false,
+                'reason' => $e->getMessage(),
+                'code' => Error("OTHER")
+                ]);
+            exit;
         }
 
         if(!empty($data['channel_id'])) { // Change channel
@@ -141,7 +149,8 @@
                 http_response_code(400);
                 echo json_encode([
                     'success' => false,
-                    'reason' => $err->getMessage()
+                    'reason' => $err->getMessage(),
+                    'code' => Error("OTHER")
                 ]);
                 exit;
             }
@@ -157,7 +166,8 @@
                 http_response_code(400);
                 echo json_encode([
                     'success' => false,
-                    'reason' => $err->getMessage()
+                    'reason' => $err->getMessage(),
+                    'code' => Error("OTHER")
                 ]);
                 exit;
             }
@@ -166,7 +176,12 @@
     }
 
     function handle_error() {
-        echo "Invalid request method for this route";
+        http_response_code(405);
+        echo json_encode([
+            'success' => false,
+            'reason' => 'Invalid request method for this route',
+            'code' => Error("INVALID_ROUTE")
+        ]);
         exit;
     }
 ?>
