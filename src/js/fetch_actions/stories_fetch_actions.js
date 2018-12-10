@@ -6,7 +6,6 @@ export const fetchTopStories = () => {
 		fetch("/api/story.php")
 			.then(res => res.json())
 			.then(data => {
-				console.log(data);
 				// Checking for data errors
 				if (data.success) {
 					return resolve(data.data);
@@ -125,8 +124,7 @@ export const fetchVoteStory = async (id, upvote) => {
 			.then(data => {
 				console.log("Voting response", data);
 				if (data.success) {
-					// There is no data, do not want to resolve with undefined explicitly as that would be useless
-					return resolve();
+					return resolve(data.data);
 				} else {
 					return reject(data.code);
 				}
@@ -155,8 +153,7 @@ export const fetchUnvoteStory = async id => {
 			.then(data => {
 				console.log("Unvoting response", data);
 				if (data.success) {
-					// There is no data, do not want to resolve with undefined explicitly since that would be useless
-					return resolve();
+					return resolve(data.data);
 				} else {
 					return reject(data.code);
 				}

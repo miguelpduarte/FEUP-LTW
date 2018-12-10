@@ -13,7 +13,9 @@ export class Story {
 	constructor(story_data) {
 		this.content_loaded = !!story_data.content;
 		this.data = story_data;
-		//TODO: Cast ids and score and etc to int if BE can't do it
+		// Cast score to int because BE can't do it - so it can be used with incrementing and decrementing
+		this.data.score = parseInt(story_data.score);
+
 		this.is_open = false;
 
 		this.vote_status = VoteStatus.none;
@@ -142,6 +144,7 @@ export class Story {
 
 	updateScore(new_score) {
 		this.data.score = new_score;
+		console.log("new score in this:", this.data.score);
 		this.element.querySelectorAll(".score").forEach(el => el.textContent = this.data.score);
 	}
 
@@ -153,12 +156,12 @@ export class Story {
 		if (this.vote_status === VoteStatus.upvoted) {
 			// Unvote
 			try {
-				await fetchUnvoteStory(this.data.story_id);
+				const res = await fetchUnvoteStory(this.data.story_id);
 				console.log("Story remove upvote successful");
 				// Updating state
 				this.setVoteStatus(VoteStatus.none);
 				// Updating score
-				this.updateScore(this.data.score - 1);
+				this.updateScore(parseInt(res.score));
 			} catch (err) {
 				// TODO: Use ErrorHandler
 				// const error = errorHandler.getError(err);
@@ -170,11 +173,11 @@ export class Story {
 		} else {
 			// Upvote
 			try {
-				await fetchVoteStory(this.data.story_id, true);
+				const res = await fetchVoteStory(this.data.story_id, true);
 				// Updating state
 				this.setVoteStatus(VoteStatus.upvoted);
 				// Updating score
-				this.updateScore(this.data.score + 1);
+				this.updateScore(parseInt(res.score));
 			} catch (err) {
 				// TODO: Use ErrorHandler
 				console.error("Upvote error", err);

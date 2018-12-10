@@ -13,6 +13,7 @@ const loadStories = async () => {
 
 	if (await isUserLoggedIn()) {
 		const user_votes = await getUserVotes();
+		console.log(user_votes);
 		updateStoriesVoting(user_votes);
 	}
 };
@@ -20,14 +21,16 @@ const loadStories = async () => {
 const updateStoriesVoting = user_votes => {
 	//story_id, rating
 	for (const user_vote of user_votes) {
+		const rating = parseInt(user_vote.rating);
+
 		const matching_top = top_stories.get(user_vote.story_id);
 		if (matching_top) {
-			matching_top.setUpvoted(user_vote.rating);
+			matching_top.setUpvoted(rating);
 		}
 		// These are not yet done but this is here so it will work later as well
 		const matching_trending = trending_stories.get(user_vote.story_id);
 		if (matching_trending) {
-			matching_trending.setUpvoted(user_vote.rating);
+			matching_trending.setUpvoted(rating);
 		}
 	}
 };
