@@ -6,6 +6,13 @@ const store = {
 	user_votes_loading_promise: undefined,
 };
 
+// Local state enum
+export const VoteStatus = Object.freeze({
+	none: 1,
+	upvoted: 2,
+	downvoted: 3,
+});
+
 // State actions
 
 import { getUserLoginInfo, getLoggedUserVotes } from "./fetch_actions/user_fetch_actions.js";

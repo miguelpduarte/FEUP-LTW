@@ -2,13 +2,7 @@
 
 import { fetchStory, fetchVoteStory, fetchUnvoteStory } from "../fetch_actions/stories_fetch_actions.js";
 import { mdToHTML } from "../utils.js";
-import { isUserLoggedIn } from "../store.js";
-
-const VoteStatus = Object.freeze({
-	none: 1,
-	upvoted: 2,
-	downvoted: 3,
-});
+import { isUserLoggedIn, VoteStatus } from "../store.js";
 
 export class Story {
 	constructor(story_data) {
@@ -35,7 +29,7 @@ export class Story {
                 <div class="story-card-info">
                     <h1 class="title"><a href="story.php?id=${this.data.story_id}"></a></h1>
                     <div class="story-card-details">
-                        <span class="author"><a href="user.php?id=${this.data.author_id}"></a></span>
+                        <span class="author"><a href="user.php?username=${this.data.author_name}"></a></span>
                         <i class="fas fa-user-clock"></i>
                         <span class="date">${moment(this.data.created_at).fromNow()}</span>
                     </div>
@@ -145,7 +139,6 @@ export class Story {
 
 	updateScore(new_score) {
 		this.data.score = new_score;
-		console.log("new score in this:", this.data.score);
 		this.element.querySelectorAll(".score").forEach(el => el.textContent = this.data.score);
 	}
 
@@ -260,12 +253,13 @@ export class Story {
 		let section = document.createElement("section");
 		section.id = `story_${this.data.story_id}`;
 		section.className = "full-story";
+		
 		section.innerHTML = `
             <section class="story-header">
                 <div class="story-info">
                     <h1 class="title"><a href="story.php?id=${this.data.story_id}"></a></h1>
                     <div class="story-details">
-                        <span class="author"><a href="user.php?id=${this.data.author_id}"></a></span>
+                        <span class="author"><a href="user.php?username=${this.data.author_name}"></a></span>
                         <i class="fas fa-user-clock"></i>
                         <span class="date">${moment(this.data.created_at).fromNow()}</span>
                     </div>
@@ -283,6 +277,20 @@ export class Story {
 		section.querySelector(".title").textContent = this.data.title;
 		// Author name
 		section.querySelector(".story-details .author a").textContent = this.data.author_name;
+
+		// Upvoting
+		section.querySelector(".vote-up").addEventListener("click", e => {
+			e.stopPropagation();
+			this.upvote();
+		});
+
+		// Downvoting
+		section.querySelector(".vote-down").addEventListener("click", e => {
+			e.stopPropagation();
+			this.downvote();
+		});
+
+		this.element = section;
 
 		return section;
 	}

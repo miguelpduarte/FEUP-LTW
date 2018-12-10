@@ -3,7 +3,9 @@
 import { Story } from "../components/Story.js";
 import { CommentSection } from "../components/CommentSection.js";
 import { getParams } from "../utils.js";
-import { fetchStory, fetchComments } from "../fetch_actions/stories_fetch_actions.js";
+import { fetchStory } from "../fetch_actions/stories_fetch_actions.js";
+import { fetchComments } from "../fetch_actions/comments_fetch_actions.js";
+import { isUserLoggedIn, getUserVotes } from "../store.js";
 
 let story = null;
 let comments = null;
@@ -30,6 +32,24 @@ const loadCurrentStory = async () => {
 	const story_data = await fetchStory(params.id);
 	const comment_data = await fetchComments(params.id, 2, 0, 2, 0);
 	createStory(story_data, comment_data);
+	updateStoryVoting(story_data.story_id);
+	updateCommentsVoting();
+};
+
+const updateStoryVoting = async story_id => {
+	if (await isUserLoggedIn()) {
+		const user_votes = await getUserVotes();
+		const this_vote = user_votes.find(vote => vote.story_id === story_id);
+		if (this_vote) {
+			story.setUpvoted(parseInt(this_vote.rating));
+		}
+	}
+};
+
+const updateCommentsVoting = async () => {
+	if (await isUserLoggedIn()) {
+		
+	}
 };
 
 ///Deprecated
