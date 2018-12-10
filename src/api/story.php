@@ -22,7 +22,10 @@
         if(!empty($_GET['id'])) {
             $data = getFullStory($_GET['id']);
         } else {
-            $data = getStoriesNoContent();
+            $n_stories = (isset($_GET['n_stories']) && $_GET['n_stories'] !== '' ? intval($_GET['n_stories']) : 0);
+            $offset = (isset($_GET['off']) && $_GET['off'] !== '' ? intval($_GET['off']) : 0);
+            
+            $data = getStoriesNoContent($offset, $n_stories);
 
             //Ensuring that no NULLs are left behind (when a story does not have any rating)
             foreach ($data as $key => $value) {

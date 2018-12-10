@@ -1,9 +1,28 @@
 "use strict";
 import { getUserInfo } from "../store.js";
 
+export const fetchNewestStories = (offset, n_stories) => {
+	const real_offset = Number.parseInt(offset);
+	const real_n_stories = Number.parseInt(n_stories);
+
+	return new Promise((resolve, reject) => {
+		fetch(`/api/story.php?off=${real_offset}&n_stories=${real_n_stories}`)
+			.then(res => res.json())
+			.then(data => {
+				// Checking for data errors
+				if (data.success) {
+					return resolve(data.data);
+				} else {
+					return reject("Fetching not successful, reason: " + data.reason);
+				}
+			})
+			.catch(err => console.error("Fetch error:", err));
+	});
+};
+
 export const fetchTopStories = () => {
 	return new Promise((resolve, reject) => {
-		fetch("/api/story.php")
+		fetch("/api/top_stories.php")
 			.then(res => res.json())
 			.then(data => {
 				// Checking for data errors
