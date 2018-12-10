@@ -97,3 +97,15 @@
     font-family: var(--title-font);
     font-size: 2em;
 }
+
+.full-story .voting-wrapper .vote-up, .full-story .voting-wrapper .vote-down {
+    cursor: pointer;
+}
+
+.full-story.upvoted .voting-wrapper .vote-up {
+    color: var(--main-color-light);
+}
+
+.full-story.downvoted .voting-wrapper .vote-down {
+    color: var(--main-color-light);
+}
