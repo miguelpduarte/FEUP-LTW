@@ -117,9 +117,13 @@
 
         try{
             voteComment($data['comment_id'], $currentUser['user_id'], $data['upvote']);
+
+            $new_score = getCommentScore($data['comment_id']);
+
             http_response_code(200);
             echo json_encode([
                 'success' => true,
+                'data' => $new_score
                 ]);
             exit;
         } catch(Exception $e) {
@@ -182,11 +186,15 @@
         }
 
 
-        try{
+        try {
             removeCommentVote($data['comment_id'], $currentUser['user_id']);
+
+            $new_score = getCommentScore($data['comment_id']);
+
             http_response_code(200);
             echo json_encode([
                 'success' => true,
+                'data' => $new_score
                 ]);
             exit;
         } catch(Exception $e) {

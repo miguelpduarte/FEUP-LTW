@@ -128,4 +128,13 @@
             throw new Exception("Error while removing vote");
         }
     }
+
+    function getCommentScore($comment_id) {
+        $db = Database::instance()->db();
+        
+        $stmt = $db->prepare('SELECT score FROM comments WHERE comment_id = ?');
+        $stmt->execute(array($comment_id));
+
+        return $stmt->fetch();
+    }
 ?>
