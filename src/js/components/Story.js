@@ -196,10 +196,10 @@ export class Story {
 			this.card_content_wrapper_calc_height = card_content_wrapper.scrollHeight;
 			this.is_open = true;
 			this.element.scrollIntoView({
-                behavior: "smooth",
-                block: "start", 
-                inline: "start"
-            });
+				behavior: "smooth",
+				block: "start", 
+				inline: "start"
+			});
 		}
 	}
 
