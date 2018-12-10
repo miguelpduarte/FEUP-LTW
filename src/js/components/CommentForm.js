@@ -1,6 +1,7 @@
 import { MarkdownEditor } from "./MarkdownEditor.js";
 import { whitespaceString } from "../utils.js";
 import { errorHandler } from "../ErrorHandler.js";
+import { Comment } from "./Comment.js";
 import { fetchPostComment, fetchPostSubComment } from "../fetch_actions/comments_fetch_actions.js"
 
 export class CommentForm {
@@ -50,10 +51,13 @@ export class CommentForm {
         
 		try {
             if(this.subComment !== undefined) {
-                response = await fetchPostSubComment(this.id, content);
+				
+				response = await fetchPostSubComment(this.id, content);
+				this.appendLocalSubComment(response);
             }
             else {
-                response = await fetchPostComment(this.id, content);
+				response = await fetchPostComment(this.id, content);
+				this.appendLocalComment(response);
             }
 		} catch (error) {
 			const err = errorHandler.getError(error);
@@ -61,7 +65,7 @@ export class CommentForm {
 			err.defaultAction();
 			return ;
 		}
-		window.location.reload();
+		this.form.reset();
 
 	}
 
@@ -87,4 +91,33 @@ export class CommentForm {
 		this.markdown_editor = new MarkdownEditor();
 		this.form.appendChild(this.markdown_editor.render());
 	}
+
+	appendLocalComment(response) {
+		const commentData = {
+			comment_id: response.data.comment_id,
+			author: response.data.author,
+			score: response.data.score,
+			content: response.data.content,
+			created_at: response.data.created_at,
+		}
+		const newComment = new Comment(commentData, false);
+		document.querySelector('.local-comments').prepend(newComment.render());
+		document.querySelector(`#comment_${response.data.comment_id}`).classList.add('local-comment');
+	}
+
+	appendLocalSubComment(response) {
+
+		const commentData = {
+			comment_id: response.data.comment_id,
+			author: response.data.author,
+			score: response.data.score,
+			content: response.data.content,
+			created_at: response.data.created_at,
+		}
+		const newComment = new Comment(commentData, false);
+		document.querySelector(`.local-subcomments#comment_${this.id}`).prepend(newComment.render());
+		document.querySelector(`#comment_${response.data.comment_id}`).classList.add('local-subcomment');
+
+	}
+
 }

@@ -48,7 +48,6 @@ export const fetchPostComment = async (story_id, content) => {
         content,
         csrf: user.csrf
     };
-    console.log(body)
 
     return new Promise((resolve, reject) => {
 		fetch("/api/comment.php", {
@@ -92,7 +91,6 @@ export const fetchPostSubComment = async (comment_id, content) => {
 		})
 			.then(res => res.json())
 			.then(data => {  
-                console.log(data)
 				//Check for data errors
 				if(data.success) {
 					return resolve(data);

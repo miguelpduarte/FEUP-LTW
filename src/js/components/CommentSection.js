@@ -30,7 +30,8 @@ export class CommentSection {
             </div>
             <div class="line"><hr/></div>
 		</div>
-		<div class="new-comment"></div>`;
+		<div class="new-comment"></div>
+		<div class="local-comments"></div>`;
 
 		for (const comment of this.comments) {
 			this.section.appendChild(comment.render());
@@ -47,9 +48,10 @@ export class CommentSection {
 
 		if (
 			document.body.scrollHeight <=
-            document.documentElement.scrollTop + window.innerHeight &&
+            document.documentElement.scrollTop + window.innerHeight +1 &&
             !this.loading
 		) {
+
 			this.loadMoreComments();
 		}
 	}
@@ -94,6 +96,8 @@ export class CommentSection {
 				needFullReload = true;
 			}
 
+			this.removeLocalCommentIfExists(comment.comment_id);
+
 			this.ids.add(comment.comment_id);
 			let comment_object = new Comment(comment, true);
 			this.comments.push(comment_object);
@@ -119,4 +123,13 @@ export class CommentSection {
 
 		return false;
 	}
+
+	removeLocalCommentIfExists(id) {
+		let comment = document.querySelector(`.local-comment#comment_${id}`);
+
+		if(comment) {
+			comment.remove();
+		}
+	}
+	
 }

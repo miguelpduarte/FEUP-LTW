@@ -8,8 +8,7 @@ export class Comment {
 	constructor(data, hasForm) {
 		this.hasForm = hasForm;
 		this.comment_id = data.comment_id;
-		this.author_id = data.author;
-		this.author_name = data.author_name;
+		this.author = data.author;
 		this.score = data.score;
 		this.content = data.content;
 		this.created_at = data.created_at;
@@ -38,7 +37,7 @@ export class Comment {
 			<div class="comment-card-info">
 				<div class="md-content">${mdToHTML(this.content)}</div>
 				<div class="comment-card-details">
-					<span class="author"><a href="user.php?id=${this.author_id}"></a></span>
+					<span class="author"><a href="user.php?username=${this.author}"></a></span>
 					<i class="fas fa-user-clock"></i>
 					<span class="date">${moment(this.created_at).fromNow()}</span>
 				</div>
@@ -50,10 +49,14 @@ export class Comment {
 			</div>
 		</section>`;
     
-		this.section.querySelector(".author > a").textContent += this.author_name;
+		this.section.querySelector(".author > a").textContent += this.author;
 		if (this.hasForm) {
 			this.create_form_area();
 			this.section.appendChild(this.form_area);
+			const localSubcomments = document.createElement('section');
+			localSubcomments.classList.add('local-subcomments');
+			localSubcomments.setAttribute('id', `comment_${this.comment_id}`);
+			this.section.appendChild(localSubcomments);
 		}
 
 		if (this.subComments.length) {
@@ -70,7 +73,7 @@ export class Comment {
 		}	
 
 		if(this.hasForm) {
-			this.section.querySelector('.show-repply').addEventListener("click", () => this.showForm());
+			this.section.querySelector('.show-reply').addEventListener("click", () => this.showForm());
 		}
 
 		return this.section;
@@ -79,12 +82,12 @@ export class Comment {
 	create_form_area() {
 		this.form_area = document.createElement("section");
 		this.form_area.classList.add("new-subcomment");
-		this.form_area.innerHTML =`<a class="show-repply">Reply  <i class="fas fa-comments"></i></a>`;
+		this.form_area.innerHTML =`<a class="show-reply">Reply  <i class="fas fa-comments"></i></a>`;
 	}
 
 	showForm() {
 		this.commentForm = new CommentForm(this.comment_id, true);
-		this.section.querySelector(".new-subcomment").removeChild(this.section.querySelector(".show-repply"));
+		this.section.querySelector(".new-subcomment").removeChild(this.section.querySelector(".show-reply"));
 		this.section.querySelector(".new-subcomment").append(this.commentForm.render());
 	}
 
@@ -132,6 +135,16 @@ export class Comment {
 			let newComment = new Comment(nComment);
 			this.subComments.push(newComment);
 			this.section.querySelector(".subcomment-container").appendChild(newComment.render());
+			this.removeLocalSubCommentIfExists(newComment.comment_id);
+		}
+
+	}
+
+	removeLocalSubCommentIfExists(id) {
+		let comment = document.querySelector(`.local-subcomment#comment_${id}`);
+
+		if(comment) {
+			comment.remove();
 		}
 	}
 }
