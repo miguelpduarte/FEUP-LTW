@@ -15,9 +15,8 @@
             {
                 "SwitchCase": 1
             }
-        ], "keyword-spacing": [
-            "error"
         ],
+        "keyword-spacing": 2,
         "linebreak-style": [
             "error",
             "unix"
