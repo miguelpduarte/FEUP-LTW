@@ -1,7 +1,7 @@
 <?php
 
 // Directory that contains error pages
-define("ERRORS", dirname(__FILE__) . "/errors");
+define("ERRORS", dirname(__FILE__) . "/../src/pages/");
 
 // Default index file
 define("DIRECTORY_INDEX", "index.php");

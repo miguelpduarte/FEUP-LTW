@@ -1,5 +1,5 @@
-DOCROOT="$(pwd)/src"
-ROUTER="$(pwd)/server/router.php"
+DOCROOT="src"
+ROUTER="server/router.php"
 HOST=localhost
 PORT=8080
 
