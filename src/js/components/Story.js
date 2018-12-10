@@ -191,12 +191,12 @@ export class Story {
 		if (this.vote_status === VoteStatus.downvoted) {
 			// Unvote
 			try {
-				await fetchUnvoteStory(this.data.story_id);
+				const res = await fetchUnvoteStory(this.data.story_id);
 				console.log("Story remove downvote successful");
 				// Updating state
 				this.setVoteStatus(VoteStatus.none);
 				// Updating score
-				this.updateScore(this.data.score + 1);
+				this.updateScore(parseInt(res.score));
 			} catch (err) {
 				// TODO: Use ErrorHandler
 				// const error = errorHandler.getError(err);
@@ -208,11 +208,11 @@ export class Story {
 		} else {
 			// Downvote
 			try {
-				await fetchVoteStory(this.data.story_id, false);
+				const res = await fetchVoteStory(this.data.story_id, false);
 				// Updating state
 				this.setVoteStatus(VoteStatus.downvoted);
 				// Updating score
-				this.updateScore(this.data.score - 1);
+				this.updateScore(parseInt(res.score));
 			} catch (err) {
 				// TODO: Use ErrorHandler
 				console.error("Upvote error", err);
