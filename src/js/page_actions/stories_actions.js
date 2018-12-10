@@ -81,7 +81,7 @@ const scrollListener = () => {
 	) {
 		loadNewestStories(newest_stories.length, 5);
 	}
-}
+};
 
 // This runs as the file is loaded from here down
 
