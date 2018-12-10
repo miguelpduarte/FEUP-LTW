@@ -96,13 +96,13 @@ AFTER UPDATE ON storyVotes
 FOR EACH ROW
 BEGIN
     UPDATE stories
-    SET score = score + NEW.rating
+    SET score = score - OLD.rating + NEW.rating
     WHERE story_id = NEW.story_id;
 END;
 
 DROP TRIGGER IF EXISTS storyVotesDelete;
 CREATE TRIGGER IF NOT EXISTS storyVotesDelete
-AFTER DELETE ON storyVotes
+BEFORE DELETE ON storyVotes
 FOR EACH ROW
 BEGIN
     UPDATE stories

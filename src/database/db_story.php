@@ -100,11 +100,13 @@
 
 
         try {
-            $stmt = $db->prepare('REPLACE INTO storyVotes(story_id, user_id, rating) VALUES(?, ?, ?)');
+            $stmt = $db->prepare('UPDATE storyVotes SET
+                                                    rating = ? 
+                                                    WHERE story_id = ? AND user_id = ?');
 
             $rating = $vote ? 1 : -1;
 
-            if(!$stmt->execute(array($story_id, $user_id, $rating))) {
+            if(!$stmt->execute(array($rating, $story_id, $user_id))) {
                 throw new Exception("Error while voting");
             }
         } catch(Exception $e) {
