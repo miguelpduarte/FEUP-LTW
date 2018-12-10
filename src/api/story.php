@@ -1,6 +1,6 @@
 <?php
-    require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_story.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_story.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
 
     $method = $_SERVER['REQUEST_METHOD'];
@@ -37,7 +37,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'Database fetching failed',
-                'code' => Error::OTHER
+                'code' => Error("OTHER")
             ]);
             exit;
         }
@@ -61,7 +61,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => "Anonymous user can't post a Story",
-                'code' => Error::UNAUTHORIZED
+                'code' => Error("UNAUTHORIZED")
                 ]);
             exit;
         }
@@ -71,7 +71,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'The title field is missing',
-                'code' => Error::MISSING_PARAM
+                'code' => Error("MISSING_PARAM")
                 ]);
                 exit;
             }
@@ -81,7 +81,7 @@
                 echo json_encode([
                     'success' => false,
                     'reason' => 'The content field is missing',
-                    'code' => Error::MISSING_PARAM
+                    'code' => Error("MISSING_PARAM")
                 ]);
             exit;
         }
@@ -97,7 +97,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'The channel should only contain letters and numbers',
-                'code' => Error::FIELD_FORMAT
+                'code' => Error("FIELD_FORMAT")
                 ]);
             exit;
         }
@@ -107,7 +107,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => "CSRF was not provided.",
-                'code' => Error::MISSING_CSRF
+                'code' => Error("MISSING_CSRF")
                 ]);
             exit;
         }
@@ -117,7 +117,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
-                'code' => Error::WRONG_CSRF
+                'code' => Error("WRONG_CSRF")
                 ]);
             exit;
 
@@ -138,7 +138,7 @@
         echo json_encode([
             'success' => false,
             'reason' => 'Invalid request method for this route',
-            'code' => Error::INVALID_ROUTE
+            'code' => Error("INVALID_ROUTE")
         ]);
         exit;
     }

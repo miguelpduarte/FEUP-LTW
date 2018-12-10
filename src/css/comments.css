@@ -10,8 +10,13 @@
     font-family: var(--content-font);
 }
 
+.comment-section > .new-comment {
+    width: 100%;
+    box-sizing: border-box;
+}
 
-.comment-section > .comment-container {
+
+.comment-section > .comment-container, .local-comments > .comment-container {
     -moz-box-shadow:    0 0 8px var(--main-color-lighter);
     -webkit-box-shadow: 0 0 8px var(--main-color-lighter);
     box-shadow:         0 0 8px var(--main-color-lighter);
@@ -19,11 +24,15 @@
     margin: 1em 0em;
 }
 
-.subcomment-container > .comment-container {
+.local-comments > .comment-container {
+    background-color: var(--even-lighter-grey);
+}
+
+.subcomment-container > .comment-container, .local-subcomments > .comment-container {
     margin-left: 1em;
 }
 
-.subcomment-container {
+.subcomment-container, .local-subcomments {
     margin-left: 1em;
     border-left: 2px solid var(--main-color);
 }
@@ -57,6 +66,32 @@
     grid-row: 1 / span 1;
     grid-column: 1 / span 1;
     text-align: justify;
+}
+
+
+.comment h1 {
+    font-family: var(--title-font);
+    font-size: 2em;
+}
+
+.comment h2 {
+    font-family: var(--title-font);
+    font-size: 1.75em;
+}
+
+.comment h3 {
+    font-family: var(--title-font);
+    font-size: 1.5em;
+}
+
+.comment h4 {
+    font-family: var(--title-font);
+    font-size: 1.25em;
+}
+
+.comment h5 {
+    font-family: var(--title-font);
+    font-size: 1em;
 }
 
 
@@ -103,10 +138,14 @@
     padding-left: 2px;
 }
 
-.expand-comments {
+.expand-comments, .show-reply {
     color: var(--grey);
     cursor: pointer;
     font-weight: bold;
     font-size: 0.9em;
     margin-left: 2em;
+} 
+
+.show-reply {
+    /* margin: 0 auto; */
 }

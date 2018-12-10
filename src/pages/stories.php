@@ -31,7 +31,7 @@
             </div>
             <div id="top_stories_container"></div>
         </div>
-        <script type="module" src="/js/stories_actions.js"></script>
+        <script type="module" src="/js/page_actions/stories_actions.js"></script>
     </div>
 <?php
     draw_footer();

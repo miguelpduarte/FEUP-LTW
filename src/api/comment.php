@@ -1,6 +1,8 @@
 <?php
-    require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_comments.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_comments.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
+
 
     $method = $_SERVER['REQUEST_METHOD'];
 
@@ -34,7 +36,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'There is no story_id nor comment_id',
-                'code' => Error::MISSING_PARAM
+                'code' => Error("MISSING_PARAM")
             ]);
             exit;
         }
@@ -44,7 +46,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'Database Error :v',
-                'code' => Error::OTHER
+                'code' => Error("OTHER")
             ]);
             exit;
         }
@@ -67,7 +69,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => "Anonymous User can't post a Comment",
-                'code' => Error::UNAUTHORIZED
+                'code' => Error("UNAUTHORIZED")
             ]);
             exit;
         }
@@ -78,7 +80,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'The content field is missing',
-                'code' => Error::MISSING_PARAM
+                'code' => Error("MISSING_PARAM")
             ]);
             exit;
         }
@@ -90,7 +92,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'There is no story_id nor comment_id',
-                'code' => Error::MISSING_PARAM
+                'code' => Error("MISSING_PARAM")
             ]);
             exit;
         }
@@ -100,7 +102,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => "CSRF was not provided.",
-                'code' => Error::MISSING_CSRF
+                'code' => Error("MISSING_CSRF")
                 ]);
             exit;
         }
@@ -110,30 +112,31 @@
             echo json_encode([
                 'success' => false,
                 'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
-                'code' => Error::WRONG_CSRF
+                'code' => Error("WRONG_CSRF")
                 ]);
             exit;
         }
 
         try {
             if(isset($data['story_id'])) {
-                insertComment($currentUser['user_id'], $data['content'], $data['story_id']);
+                $inserted_comment = insertComment($currentUser['user_id'], $data['content'], $data['story_id']);
             } else if (isset($data['comment_id'])){
-                insertNestedComment($currentUser['user_id'], $data['content'], $data['comment_id']);
+                $inserted_comment = insertNestedComment($currentUser['user_id'], $data['content'], $data['comment_id']);
             }
         } catch(Exception $e) {
             http_response_code(400);            
             echo json_encode([
                 'success' => false,
                 'reason' => 'Database exception thrown',
-                'code' => Error::OTHER
+                'code' => Error("OTHER")
             ]);
             exit;
         }
         
         http_response_code(200);       
         echo json_encode([
-            'success' => true
+            'success' => true,
+            'data' => $inserted_comment
         ]);
         exit;
     }
@@ -143,7 +146,7 @@
         echo json_encode([
             'success' => false,
             'reason' => 'Invalid request method for this route',
-            'code' => Error::INVALID_ROUTE
+            'code' => Error("INVALID_ROUTE")
         ]);
         exit;
     }
