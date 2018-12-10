@@ -46,11 +46,11 @@ const updateStoryVoting = async story_id => {
 	}
 };
 
-const updateCommentsVoting = async () => {
-	if (await isUserLoggedIn()) {
-		
-	}
-};
+// const updateCommentsVoting = async () => {
+// 	if (await isUserLoggedIn()) {
+
+// 	}
+// };
 
 ///Deprecated
 /* 

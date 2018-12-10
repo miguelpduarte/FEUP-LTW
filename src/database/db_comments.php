@@ -6,7 +6,7 @@
      */
     function getComments($story_id, $n_comments, $offset) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT author, content, users.username as author_name, score 
+        $stmt = $db->prepare('SELECT content, users.username as author, score 
                               FROM comments JOIN users ON comments.author=users.user_id 
                               WHERE story = ?
                               LIMIT ? OFFSET ?');
@@ -21,7 +21,7 @@
         $n_comments = ($n_comments == 0 ? 999999999999999 : $n_comments);
         
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT comment_id, author, content, users.username as author_name, score, created_at
+        $stmt = $db->prepare('SELECT comment_id, content, users.username as author, score, created_at
                               FROM comments JOIN users ON comments.author=users.user_id 
                               WHERE story = ?
                               ORDER BY score DESC
@@ -30,7 +30,7 @@
         $comments = $stmt->fetchAll();
         foreach ($comments as $key => $comment) {
             $comment_id = $comment['comment_id'];
-            $substmt = $db->prepare('SELECT comment_id, author, content, users.username as author_name, score, created_at
+            $substmt = $db->prepare('SELECT comment_id, content, users.username as author, score, created_at
                                      FROM comments JOIN users ON comments.author=users.user_id 
                                      WHERE parent_comment = ?
                                      ORDER BY created_at
@@ -48,7 +48,7 @@
         $n_comments = ($n_comments == 0 ? 999999999999999 : $n_comments);
         
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT comment_id, author, content, users.username as author_name, score, created_at
+        $stmt = $db->prepare('SELECT comment_id, content, users.username as author, score, created_at
                               FROM comments JOIN users ON comments.author=users.user_id 
                               WHERE parent_comment = ?
                               LIMIT ? OFFSET ?');
@@ -64,8 +64,19 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare("INSERT INTO comments (author, content, story) VALUES(?, ?, ?)");
         $stmt->execute(array($author, $content, $story_id));
-    }
 
+        $inserted_comment_id = $db->lastInsertId();
+
+        $stmt = $db->prepare("SELECT username as author, content, comment_id, score, created_at 
+        FROM comments 
+        JOIN users
+        ON comments.author = users.user_id
+        WHERE comment_id = ?");
+        $stmt->execute(array($inserted_comment_id));
+        return $stmt->fetch();
+        
+    }
+    
     /**
      * Insert comment on a comment.
      */
@@ -73,6 +84,16 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare("INSERT INTO comments (author, content, parent_comment) VALUES(?, ?, ?)");
         $stmt->execute(array($author, $content, $comment_id));
+        
+        $inserted_comment_id = $db->lastInsertId();
+        
+        $stmt = $db->prepare("SELECT username as author, content, comment_id, score, created_at 
+        FROM comments 
+        JOIN users
+        ON comments.author = users.user_id
+        WHERE comment_id = ?");
+        $stmt->execute(array($inserted_comment_id));
+        return $stmt->fetch();
     }
 
 

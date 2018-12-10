@@ -3,6 +3,7 @@
 import { Comment } from "./Comment.js";
 import { fetchComments } from "../fetch_actions/comments_fetch_actions.js";
 import { reloadCommentsFromMemory } from "../page_actions/story_actions.js";
+import { CommentForm } from "./CommentForm.js";
 
 export class CommentSection {
 	constructor(comments_data, story_id) {
@@ -30,13 +31,17 @@ export class CommentSection {
                 <i class="far fa-comments"></i>
             </div>
             <div class="line"><hr/></div>
-        </div>`;
+		</div>
+		<div class="new-comment"></div>
+		<div class="local-comments"></div>`;
 
 		for (const comment of this.comments.values()) {
 			this.section.appendChild(comment.render());
 		}
 
 		document.addEventListener("scroll", () => this.scrollListener());
+		this.comment_form = new CommentForm(this.story_id);
+		this.section.querySelector(".new-comment").appendChild(this.comment_form.render());
 		return this.section;
 	}
 
@@ -45,9 +50,10 @@ export class CommentSection {
 
 		if (
 			document.body.scrollHeight <=
-            document.documentElement.scrollTop + window.innerHeight &&
+            document.documentElement.scrollTop + window.innerHeight +1 &&
             !this.loading
 		) {
+
 			this.loadMoreComments();
 		}
 	}
@@ -97,6 +103,7 @@ export class CommentSection {
 				needFullReload = true;
 			}
 
+			this.removeLocalCommentIfExists(comment.comment_id);
 			const comment_object = new Comment(comment);
 			this.comments.set(comment.comment_id, comment_object);
 
@@ -121,4 +128,13 @@ export class CommentSection {
 
 		return false;
 	}
+
+	removeLocalCommentIfExists(id) {
+		let comment = document.querySelector(`.local-comment#comment_${id}`);
+
+		if (comment) {
+			comment.remove();
+		}
+	}
+	
 }

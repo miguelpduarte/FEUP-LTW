@@ -32,7 +32,7 @@ export const fetchSubComments = (comment_id, n_comments, off) => {
 				if (data.success) {
 					return resolve(data.data);
 				} else {
-					return reject("Fetching not successful, reason: " + data.reason);
+					return reject(data.reason);
 				}
 			})
 			.catch(err => console.error("Fetch error:", err));
@@ -95,5 +95,67 @@ export const fetchUnvoteComment = async id => {
 					return reject(data.code);
 				}
 			});
+	});
+};
+
+export const fetchPostComment = async (story_id, content) => {
+	let user = await getUserInfo();
+	if (user === null)
+		throw 1;
+	let body = {
+		story_id: Number.parseInt(story_id),
+		content,
+		csrf: user.csrf
+	};
+
+	return new Promise((resolve, reject) => {
+		fetch("/api/comment.php", {
+			method: "POST",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+			},
+			body: JSON.stringify(body),
+		})
+			.then(res => res.json())
+			.then(data => {  
+				//Check for data errors
+				if (data.success) {
+					return resolve(data);
+				} else {
+					return reject(data.code);
+				}
+			}).catch(err => console.error("Fetch error:", err));
+	});
+};
+
+export const fetchPostSubComment = async (comment_id, content) => {
+	let user = await getUserInfo();
+	if (user === null)
+		throw 1;
+	let body = {
+		comment_id: Number.parseInt(comment_id),
+		content,
+		csrf: user.csrf
+	};
+
+	return new Promise((resolve, reject) => {
+		fetch("/api/comment.php", {
+			method: "POST",
+			credentials: "include",
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+			},
+			body: JSON.stringify(body),
+		})
+			.then(res => res.json())
+			.then(data => {  
+				//Check for data errors
+				if (data.success) {
+					return resolve(data);
+				} else {
+					return reject(data.code);
+				}
+			}).catch(err => console.error("Fetch error:", err));
 	});
 };
