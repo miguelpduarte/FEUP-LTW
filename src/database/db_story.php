@@ -143,5 +143,14 @@
             throw new Exception("Error while removing vote");
         }
     }
+
+    function getStoryScore($story_id) {
+        $db = Database::instance()->db();
+        
+        $stmt = $db->prepare('SELECT score FROM stories WHERE story_id = ?');
+        $stmt->execute(array($story_id));
+
+        return $stmt->fetch();
+    }
     
 ?>

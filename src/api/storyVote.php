@@ -115,11 +115,15 @@
         }
 
 
-        try{
+        try {
             voteStory($data['story_id'], $currentUser['user_id'], $data['upvote']);
+
+            $new_score = getStoryScore($data['story_id']);
+
             http_response_code(200);
             echo json_encode([
                 'success' => true,
+                'data' => $new_score
                 ]);
             exit;
         } catch(Exception $e) {
@@ -182,11 +186,15 @@
         }
 
 
-        try{
+        try {
             removeStoryVote($data['story_id'], $currentUser['user_id']);
+
+            $new_score = getStoryScore($data['story_id']);
+
             http_response_code(200);
             echo json_encode([
                 'success' => true,
+                'data' => $new_score
                 ]);
             exit;
         } catch(Exception $e) {
