@@ -90,16 +90,6 @@ BEGIN
     WHERE story_id = NEW.story_id;
 END;
 
-DROP TRIGGER IF EXISTS storyVotesUpdate;
-CREATE TRIGGER IF NOT EXISTS storyVotesUpdate
-AFTER UPDATE ON storyVotes
-FOR EACH ROW
-BEGIN
-    UPDATE stories
-    SET score = score - OLD.rating + NEW.rating
-    WHERE story_id = NEW.story_id;
-END;
-
 DROP TRIGGER IF EXISTS storyVotesDelete;
 CREATE TRIGGER IF NOT EXISTS storyVotesDelete
 BEFORE DELETE ON storyVotes
@@ -118,16 +108,6 @@ BEGIN
     UPDATE comments
     SET score = score + NEW.rating
     WHERE comment_id = NEW.comment_id;
-END;
-
-DROP TRIGGER IF EXISTS commentVotesUpdate;
-CREATE TRIGGER IF NOT EXISTS commentVotesUpdate
-AFTER UPDATE ON commentVotes
-FOR EACH ROW
-BEGIN
-    UPDATE comments
-    SET score = score + NEW.rating
-    WHERE comment_id = OLD.comment_id;
 END;
 
 DROP TRIGGER IF EXISTS commentVotesDelete;

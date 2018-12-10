@@ -81,22 +81,8 @@
      */
     function voteComment($comment_id, $user_id, $vote) {
 
+        removeCommentVote($comment_id, $user_id, $vote);
         $db = Database::instance()->db();
-        
-        $stmt = $db->prepare('SELECT comment_id FROM comments WHERE comment_id = ?');
-        $stmt->execute(array($comment_id));
-
-        if(!$stmt->fetch()) {
-            throw new Exception("No comment with id $comment_id");
-        }
-
-        $stmt = $db->prepare('SELECT user_id FROM users WHERE user_id = ?');
-        $stmt->execute(array($user_id));
-
-        if(!$stmt->fetch()) {
-            throw new Exception("No user with id $user_id");
-        }
-
 
         try {
             $stmt = $db->prepare('REPLACE INTO commentVotes(comment_id, user_id, rating) VALUES(?, ?, ?)');
