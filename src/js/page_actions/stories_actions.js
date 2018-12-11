@@ -1,15 +1,16 @@
 "use strict";
 
 import { Story } from "../components/Story.js";
-import { fetchTopStories } from "../fetch_actions/stories_fetch_actions.js";
+import { fetchNewestStories, fetchTopStories } from "../fetch_actions/stories_fetch_actions.js";
 import { isUserLoggedIn, getUserStoryVotes } from "../store.js";
 
-const trending_stories = new Map();
+let loading = false;
+const newest_stories = new Map();
 const top_stories = new Map();
 
 const loadStories = async () => {
-	loadTrendingStories();
 	loadTopStories();
+	loadNewestStories(0, 5);
 
 	if (await isUserLoggedIn()) {
 		const user_votes = await getUserStoryVotes();
@@ -26,54 +27,17 @@ const updateStoriesVoting = user_votes => {
 		if (matching_top) {
 			matching_top.setUpvoted(rating);
 		}
-		// These are not yet done but this is here so it will work later as well
-		const matching_trending = trending_stories.get(user_vote.story_id);
-		if (matching_trending) {
-			matching_trending.setUpvoted(rating);
+
+		const matching_newest = newest_stories.get(user_vote.story_id);
+		if (matching_newest) {
+			matching_newest.setUpvoted(rating);
 		}
 	}
 };
 
-const loadTrendingStories = async () => {
-	console.log("TODO: Actually load trending stories");
-	const trending_stories_data = [{
-		score: 0,
-		story_id: -1,
-		author_id: -1,
-		title: "Oh boy! A trending story!",
-		content: "This is some content here! *Lorem* __Lorem__!!",
-		channel: -1,
-		created_at: "2018-11-05 19:20:33",
-		updated_at: null,
-		author_name: "influencer"
-	}];
-	populateTrendingStories(trending_stories_data);
-};
-
-const populateTrendingStories = (trending_stories_data) => {
-	const trending_stories_container = document.getElementById("trending_stories_container");
-    
-	for (const trending_story_data of trending_stories_data) {
-		const story = new Story(trending_story_data);
-		trending_stories.set(trending_story_data.story_id, story);
-		const story_card = story.renderCard();
-		trending_stories_container.appendChild(story_card);
-	}
-};
-
-const clearTrendingStories = () => {
-	const trending_stories_container = document.getElementById("trending_stories_container");
-
-	while (trending_stories_container.firstChild) {
-		trending_stories_container.removeChild(trending_stories_container.firstChild);
-	}
-
-	trending_stories.clear();
-};
-
 const loadTopStories = async () => {
-	const top_stories_data = await fetchTopStories();
-	populateTopStories(top_stories_data);
+	const trending_stories_data = await fetchTopStories();
+	populateTopStories(trending_stories_data);
 };
 
 const populateTopStories = (top_stories_data) => {
@@ -97,19 +61,62 @@ const clearTopStories = () => {
 	top_stories.clear();
 };
 
+const loadNewestStories = async (offset, n_stories) => {
+	loading = true;
+	const top_stories_data = await fetchNewestStories(offset, n_stories);
+	populateNewestStories(top_stories_data);
+};
+
+const populateNewestStories = (newest_stories_data) => {
+	const newest_stories_container = document.getElementById("newest_stories_container");
+    
+	for (const newest_story_data of newest_stories_data) {
+		const story = new Story(newest_story_data);
+		newest_stories.set(newest_story_data.story_id, story);
+		const story_card = story.renderCard();
+		newest_stories_container.appendChild(story_card);
+	}
+
+	loading = false;
+};
+
+const clearNewestStories = () => {
+	const newest_stories_container = document.getElementById("newest_stories_container");
+
+	while (newest_stories_container.firstChild) {
+		newest_stories_container.removeChild(newest_stories_container.firstChild);
+	}
+
+	top_stories.clear();
+};
+
 const refreshTopStories = () => {
 	clearTopStories();
 	loadTopStories();
 };
 
-const refreshTrendingStories = () => {
-	clearTrendingStories();
-	loadTrendingStories();
+const refreshNewestStories = () => {
+	clearNewestStories();
+	loadNewestStories(0, 5);
+};
+
+const scrollListener = () => {
+	if (document.getElementById("newest_stories_container") === null) return;
+
+	if (
+		document.body.scrollHeight <=
+		document.documentElement.scrollTop + window.innerHeight &&
+		!loading
+	) {
+		loadNewestStories(newest_stories.size, 5);
+	}
 };
 
 // This runs as the file is loaded from here down
 
+document.getElementById("refresh_newest_stories").addEventListener("click", refreshNewestStories);
 document.getElementById("refresh_top_stories").addEventListener("click", refreshTopStories);
-document.getElementById("refresh_trending_stories").addEventListener("click", refreshTrendingStories);
+document.addEventListener("scroll", () => scrollListener());
+
 
 loadStories();

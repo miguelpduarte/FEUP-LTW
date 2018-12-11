@@ -5,12 +5,31 @@
     /**
      * Returns stories without content.
      */
-    function getStoriesNoContent() {
+    function getStoriesNoContent($offset, $n_stories) {
+        $n_stories = ($n_stories == 0 ? 999999999999999 : $n_stories);
         $db = Database::instance()->db();
         $stmt = $db->prepare(
             'SELECT stories.story_id, author as author_id, title, channel, created_at, username as author_name, score
             FROM stories 
-            JOIN users ON stories.author = users.user_id');
+            JOIN users ON stories.author = users.user_id
+            ORDER BY  created_at DESC
+            LIMIT ? OFFSET ?
+            ');
+        $stmt->execute(array($n_stories, $offset));
+        return $stmt->fetchAll(); 
+    }
+
+        /**
+     * Returns stories without content.
+     */
+    function getTopStoriesNoContent() {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare(
+            'SELECT stories.story_id, author as author_id, title, channel, created_at, username as author_name, score
+            FROM stories 
+            JOIN users ON stories.author = users.user_id
+            ORDER BY score DESC
+            LIMIT 3');
         $stmt->execute();
         return $stmt->fetchAll(); 
     }
