@@ -1,6 +1,8 @@
 <?php
     require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_comments.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
+
 
     $method = $_SERVER['REQUEST_METHOD'];
 
@@ -117,9 +119,9 @@
 
         try {
             if(isset($data['story_id'])) {
-                insertComment($currentUser['user_id'], $data['content'], $data['story_id']);
+                $inserted_comment = insertComment($currentUser['user_id'], $data['content'], $data['story_id']);
             } else if (isset($data['comment_id'])){
-                insertNestedComment($currentUser['user_id'], $data['content'], $data['comment_id']);
+                $inserted_comment = insertNestedComment($currentUser['user_id'], $data['content'], $data['comment_id']);
             }
         } catch(Exception $e) {
             http_response_code(400);            
@@ -133,7 +135,8 @@
         
         http_response_code(200);       
         echo json_encode([
-            'success' => true
+            'success' => true,
+            'data' => $inserted_comment
         ]);
         exit;
     }
