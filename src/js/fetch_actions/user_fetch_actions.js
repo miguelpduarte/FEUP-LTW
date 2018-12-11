@@ -118,3 +118,18 @@ export const logoutUser = () => {
 			});
 	});
 };
+
+
+export const fetchUserStories = (username) => {
+	return new Promise((resolve, reject) => {
+		fetch(`/api/userStories.php?username=${username}`)
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					return resolve(data.data);
+				} else {
+					return reject(data.reason);
+				}
+			});
+	});
+};
