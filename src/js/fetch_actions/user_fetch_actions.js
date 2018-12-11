@@ -11,7 +11,7 @@ export const createUser = (name, username, password, password_confirmation) => {
 	});
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/user.php", {
+		fetch("../api/user.php", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -37,7 +37,7 @@ export const loginUser = (username, password) => {
 	});
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/login.php", {
+		fetch("../api/login.php", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -58,7 +58,7 @@ export const loginUser = (username, password) => {
 
 export const getUserLoginInfo = () => {
 	return new Promise((resolve, reject) => {
-		fetch("/api/login.php")
+		fetch("../api/login.php")
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
@@ -73,7 +73,7 @@ export const getUserLoginInfo = () => {
 
 export const logoutUser = () => {
 	return new Promise(async (resolve, reject) => {
-		fetch("/api/login.php", {
+		fetch("../api/login.php", {
 			method: "DELETE",
 			body: JSON.stringify({
 				csrf: (await getUserInfo()).csrf

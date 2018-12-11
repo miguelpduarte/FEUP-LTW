@@ -55,7 +55,7 @@ export class StoryForm {
 			err.defaultAction();
 			return ;
 		}
-		window.location.href = `/pages/story.php?id=${response.story_id}`;
+		window.location.href = `../pages/story.php?id=${response.story_id}`;
 
 	}
 
@@ -82,7 +82,7 @@ export class StoryForm {
 		this.form = document.createElement("form");
 		this.form.classList.add("new-story");
 		this.form.method = "post";
-		this.form.action = "/api/story.php";
+		this.form.action = "../api/story.php";
 		this.form.innerHTML = 
         `<section class="title-area">
             <input type="text" id="title" class="title-input" name="title" placeholder="Insert your title here">

@@ -3,7 +3,7 @@ import { getUserInfo } from "../store.js";
 
 export const fetchTopStories = () => {
 	return new Promise((resolve, reject) => {
-		fetch("/api/story.php")
+		fetch("../api/story.php")
 			.then(res => res.json())
 			.then(data => {
 				// Checking for data errors
@@ -21,7 +21,7 @@ export const fetchStory = id => {
 	const real_id = Number.parseInt(id);
 
 	return new Promise((resolve, reject) => {
-		fetch(`/api/story.php?id=${real_id}`)
+		fetch(`../api/story.php?id=${real_id}`)
 			.then(res => res.json())
 			.then(data => {
 				// Check for data errors
@@ -48,7 +48,7 @@ export const fetchPostStory = async (content, title, channel) => {
 	};
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/story.php", {
+		fetch("../api/story.php", {
 			method: "POST",
 			credentials: "include",
 			headers: {
