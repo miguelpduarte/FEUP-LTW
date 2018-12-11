@@ -90,39 +90,19 @@ BEGIN
     WHERE story_id = NEW.story_id;
 END;
 
-DROP TRIGGER IF EXISTS storyVotesUpdate;
-CREATE TRIGGER IF NOT EXISTS storyVotesUpdate
-AFTER UPDATE ON storyVotes
-FOR EACH ROW
-BEGIN
-    UPDATE stories
-    SET score = score + NEW.rating
-    WHERE story_id = NEW.story_id;
-END;
-
 DROP TRIGGER IF EXISTS storyVotesDelete;
 CREATE TRIGGER IF NOT EXISTS storyVotesDelete
-AFTER DELETE ON storyVotes
+BEFORE DELETE ON storyVotes
 FOR EACH ROW
 BEGIN
     UPDATE stories
     SET score = score - OLD.rating
-    WHERE story_id = NEW.story_id;
+    WHERE story_id = OLD.story_id;
 END;
 
 DROP TRIGGER IF EXISTS commentVotesInsert;
 CREATE TRIGGER IF NOT EXISTS commentVotesInsert
 AFTER INSERT ON commentVotes
-FOR EACH ROW
-BEGIN
-    UPDATE comments
-    SET score = score + NEW.rating
-    WHERE comment_id = NEW.comment_id;
-END;
-
-DROP TRIGGER IF EXISTS commentVotesUpdate;
-CREATE TRIGGER IF NOT EXISTS commentVotesUpdate
-AFTER UPDATE ON commentVotes
 FOR EACH ROW
 BEGIN
     UPDATE comments
@@ -137,7 +117,7 @@ FOR EACH ROW
 BEGIN
     UPDATE comments
     SET score = score - OLD.rating
-    WHERE comment_id = NEW.comment_id;
+    WHERE comment_id = OLD.comment_id;
 END;
 
 DROP TRIGGER IF EXISTS deleteChannelIfItHasNoStories_ondeletestory;

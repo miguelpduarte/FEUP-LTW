@@ -22,9 +22,9 @@
     box-shadow:         0 0 12px var(--main-color-light);
 }
 
-.story-card.loading {
+/* .story-card.loading {
     background-color: palegreen;
-}
+} */
 
 .story-card .story-card-header {
     background-color: white;
@@ -173,9 +173,9 @@
 }
 
 .story-card.upvoted .voting-wrapper .voting .vote-up {
-    color: chocolate;
+    color: var(--fullpage-upvote-color);
 }
 
 .story-card.downvoted .voting-wrapper .voting .vote-down {
-    color: deepskyblue;
+    color: var(--fullpage-downvote-color);
 }

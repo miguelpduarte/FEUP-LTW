@@ -1,18 +1,16 @@
 "use strict";
 
-import { fetchStory } from "../fetch_actions/stories_fetch_actions.js";
+import { fetchStory, fetchVoteStory, fetchUnvoteStory } from "../fetch_actions/stories_fetch_actions.js";
 import { mdToHTML } from "../utils.js";
-
-const VoteStatus = Object.freeze({
-	none: 1,
-	upvoted: 2,
-	downvoted: 3,
-});
+import { isUserLoggedIn, VoteStatus } from "../store.js";
 
 export class Story {
 	constructor(story_data) {
 		this.content_loaded = !!story_data.content;
 		this.data = story_data;
+		// Cast score to int because BE can't do it - so it can be used with incrementing and decrementing
+		this.data.score = parseInt(story_data.score);
+
 		this.is_open = false;
 
 		this.vote_status = VoteStatus.none;
@@ -31,7 +29,7 @@ export class Story {
                 <div class="story-card-info">
                     <h1 class="title"><a href="story.php?id=${this.data.story_id}"></a></h1>
                     <div class="story-card-details">
-                        <span class="author"><a href="user.php?id=${this.data.author_id}"></a></span>
+                        <span class="author"><a href="user.php?username=${this.data.author_name}"></a></span>
                         <i class="fas fa-user-clock"></i>
                         <span class="date">${moment(this.data.created_at).fromNow()}</span>
                     </div>
@@ -65,7 +63,7 @@ export class Story {
 		// Article opening
 		article.addEventListener("click", e => {
 			//To ensure that clicking on the story or user link does not attempt to open or close the card
-			if(e.target.tagName !== "A") {
+			if (e.target.tagName !== "A") {
 				this.toggleCardOpen();
 			}
 		});
@@ -101,84 +99,126 @@ export class Story {
 		}
 	}
 
-	//TODO - use setUpvoted
 	/**
      * For setting of the initial story state, after getting the user upvotes from the back-end when the user is logged in
      * Should only be called for the user upvotes - if a story was not upvoted nor downvoted then there is no reason to call this method
-     * @param {*} isUpvoted If the story was upvoted or not
+     * @param {*} isUpvoted If the story was upvoted or downvoted (-1 for downvoted, 1 for upvoted)
      */
 	setUpvoted(is_upvoted) {
-		if (is_upvoted) {
-			this.vote_status = VoteStatus.upvoted;
+		if (is_upvoted === 1) {
+			this.setVoteStatus(VoteStatus.upvoted);
 		} else {
-			this.vote_status = VoteStatus.downvoted;
+			this.setVoteStatus(VoteStatus.downvoted);
 		}
+	}
+
+	// Should only be called internally
+	setVoteStatus(new_vote_status) {
+		this.vote_status = new_vote_status;
+
+		// Switching classes
+		switch (new_vote_status) {
+			case VoteStatus.upvoted:
+				this.element.classList.add("upvoted");
+				this.element.classList.remove("downvoted");
+				break;
+			case VoteStatus.downvoted:
+				this.element.classList.remove("upvoted");
+				this.element.classList.add("downvoted");
+				break;
+			case VoteStatus.none:
+				this.element.classList.remove("upvoted");
+				this.element.classList.remove("downvoted");
+				break;
+			default:
+				console.warn("Wrong call to Story.setVoteStatus!");
+				break;
+		}
+	}
+
+	updateScore(new_score) {
+		this.data.score = new_score;
+		this.element.querySelectorAll(".score").forEach(el => el.textContent = this.data.score);
 	}
 
 	async upvote() {
-		// TODO: Dont forget to check if it is upvoted or not (will have to get from backend the list of upvotes and set it dynamically)
-
-		if(this.vote_status === VoteStatus.upvoted) {
-			// Unvote
-			console.log("Unvoting... TODO: Actually hit endpoint");
-			// Remove upvoted class
-			this.element.classList.remove("upvoted");
-			// Updating state
-			this.vote_status = VoteStatus.none;
-		} else {
-			// Upvote
-			console.log("Upvoting! TODO: Actually hit endpoint");
-			// Apply upvoted class
-			this.element.classList.add("upvoted");
-			// Ensuring we are not in two states at the same time (visually)
-			if (this.vote_status === VoteStatus.downvoted) {
-				this.element.classList.remove("downvoted");
-			}
-            
-			// Updating state
-			this.vote_status = VoteStatus.upvoted;
+		// If user is not logged in, then redirect to login page
+		if (!await isUserLoggedIn()) {
+			window.location.href = "./login.php";
+			return;
 		}
 
-		console.log("Dont forget to update score in front-end after as well");
-
-		// Loading
-		// Invoke action
-		// Finish loading
-		// Do stuff
+		if (this.vote_status === VoteStatus.upvoted) {
+			// Unvote
+			try {
+				const res = await fetchUnvoteStory(this.data.story_id);
+				// Updating state
+				this.setVoteStatus(VoteStatus.none);
+				// Updating score
+				this.updateScore(parseInt(res.score));
+			} catch (err) {
+				// TODO: Use ErrorHandler
+				// const error = errorHandler.getError(err);
+				// this.showErrorMessage(error.msg);
+				// err.defaultAction();
+				// return;
+				console.error("Unvote error", err);
+			}
+		} else {
+			// Upvote
+			try {
+				const res = await fetchVoteStory(this.data.story_id, true);
+				// Updating state
+				this.setVoteStatus(VoteStatus.upvoted);
+				// Updating score
+				this.updateScore(parseInt(res.score));
+			} catch (err) {
+				// TODO: Use ErrorHandler
+				console.error("Upvote error", err);
+			}
+		}
 	}
 
 	async downvote() {
-		// TODO: Dont forget to check if it is upvoted or not (will have to get from backend the list of upvotes and set it dynamically)
-
-		if(this.vote_status === VoteStatus.downvoted) {
-			// Unvote
-			console.log("Unvoting... TODO: Actually hit endpoint");
-			// Remove upvoted class
-			this.element.classList.remove("downvoted");
-		} else {
-			// Upvote
-			console.log("Downvoting! TODO: Actually hit endpoint");
-			// Apply downvoted class
-			this.element.classList.add("downvoted");
-			// Ensuring we are not in two states at the same time (visually)
-			if (this.vote_status === VoteStatus.upvoted) {
-				this.element.classList.remove("upvoted");
-			}
-            
-			// Updating state
-			this.vote_status = VoteStatus.downvoted;
+		// If user is not logged in, then redirect to login page
+		if (!await isUserLoggedIn()) {
+			window.location.href = "./login.php";
+			return;
 		}
 
-		console.log("Dont forget to update score in front-end after as well");
-
-		// Loading
-		// Invoke action
-		// Finish loading
-		// Do stuff
+		if (this.vote_status === VoteStatus.downvoted) {
+			// Unvote
+			try {
+				const res = await fetchUnvoteStory(this.data.story_id);
+				// Updating state
+				this.setVoteStatus(VoteStatus.none);
+				// Updating score
+				this.updateScore(parseInt(res.score));
+			} catch (err) {
+				// TODO: Use ErrorHandler
+				// const error = errorHandler.getError(err);
+				// this.showErrorMessage(error.msg);
+				// err.defaultAction();
+				// return;
+				console.error("Unvote error", err);
+			}
+		} else {
+			// Downvote
+			try {
+				const res = await fetchVoteStory(this.data.story_id, false);
+				// Updating state
+				this.setVoteStatus(VoteStatus.downvoted);
+				// Updating score
+				this.updateScore(parseInt(res.score));
+			} catch (err) {
+				// TODO: Use ErrorHandler
+				console.error("Upvote error", err);
+			}
+		}
 	}
 
 	async toggleCardOpen() {
-		if(!this.content_loaded) {
+		if (!this.content_loaded) {
 			this.element.classList.add("loading");
 			await this.addCardContent();
 			this.element.classList.remove("loading");
@@ -215,12 +255,13 @@ export class Story {
 		let section = document.createElement("section");
 		section.id = `story_${this.data.story_id}`;
 		section.className = "full-story";
+		
 		section.innerHTML = `
             <section class="story-header">
                 <div class="story-info">
                     <h1 class="title"><a href="story.php?id=${this.data.story_id}"></a></h1>
                     <div class="story-details">
-                        <span class="author"><a href="user.php?id=${this.data.author_id}"></a></span>
+                        <span class="author"><a href="user.php?username=${this.data.author_name}"></a></span>
                         <i class="fas fa-user-clock"></i>
                         <span class="date">${moment(this.data.created_at).fromNow()}</span>
                     </div>
@@ -238,6 +279,20 @@ export class Story {
 		section.querySelector(".title").textContent = this.data.title;
 		// Author name
 		section.querySelector(".story-details .author a").textContent = this.data.author_name;
+
+		// Upvoting
+		section.querySelector(".vote-up").addEventListener("click", e => {
+			e.stopPropagation();
+			this.upvote();
+		});
+
+		// Downvoting
+		section.querySelector(".vote-down").addEventListener("click", e => {
+			e.stopPropagation();
+			this.downvote();
+		});
+
+		this.element = section;
 
 		return section;
 	}

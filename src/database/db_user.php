@@ -107,4 +107,62 @@
     }
 
 
+
+    /**
+     * Get the story votes of user_id
+     */
+    function getStoryVotes($user_id) {
+        $db = Database::instance()->db();
+        
+        $stmt = $db->prepare('SELECT user_id FROM users WHERE user_id = ?');
+        $stmt->execute(array($user_id));
+
+        if(!$stmt->fetch()) {
+            throw new Exception("No user with id $user_id");
+        }
+
+        try {
+            $stmt = $db->prepare('SELECT story_id, rating FROM storyVotes WHERE user_id = ?');
+            $stmt->execute(array($user_id));
+
+            $results = $stmt->fetchAll();
+
+            if(!$results) {
+                return [];
+            } else {
+                return $results;
+            }
+        } catch(Exception $e) {
+            throw new Exception("Error fetching story votes for user $user_id");
+        }
+    }
+
+    /**
+     * Get the comment votes of user_id
+     */
+    function getCommentVotes($user_id) {
+        $db = Database::instance()->db();
+        
+        $stmt = $db->prepare('SELECT user_id FROM users WHERE user_id = ?');
+        $stmt->execute(array($user_id));
+
+        if(!$stmt->fetch()) {
+            throw new Exception("No user with id $user_id");
+        }
+
+        try {
+            $stmt = $db->prepare('SELECT comment_id, rating FROM commentVotes WHERE user_id = ?');
+            $stmt->execute(array($user_id));
+
+            $results = $stmt->fetchAll();
+
+            if(!$results) {
+                return [];
+            } else {
+                return $results;
+            }
+        } catch(Exception $e) {
+            throw new Exception("Error fetching comment votes for user $user_id");
+        }
+    }
 ?>
