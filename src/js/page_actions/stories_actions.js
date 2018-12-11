@@ -13,7 +13,6 @@ const loadStories = async () => {
 
 	if (await isUserLoggedIn()) {
 		const user_votes = await getUserStoryVotes();
-		console.log(user_votes);
 		updateStoriesVoting(user_votes);
 	}
 };

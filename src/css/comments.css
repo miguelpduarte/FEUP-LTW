@@ -115,14 +115,11 @@
 }
 
 .comment.upvoted .voting-wrapper .vote-up {
-    color: var(--fullpage-upvote-color);
-    /* color: var(--main-color); */
-    /* color: var(--main-color-lighter); */
+    color: var(--upvote-color);
 }
 
 .comment.downvoted .voting-wrapper .vote-down {
-    color: var(--fullpage-downvote-color);
-    /* color: var(--main-color); */
+    color: var(--downvote-color);
 }
 
 .expand-comments, .show-reply {

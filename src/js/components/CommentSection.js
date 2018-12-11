@@ -17,6 +17,8 @@ export class CommentSection {
 
 		this.section = null;
 		this.loading = false;
+
+		this.comment_votes = [];
 	}
 
 	updateVoting(comment_votes) {

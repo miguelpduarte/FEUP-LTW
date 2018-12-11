@@ -189,7 +189,7 @@ export class Comment {
 
 	updateScore(new_score) {
 		this.score = new_score;
-		this.element.querySelectorAll(`#comment_${this.comment_id} > .comment > .voting-wrapper > .score`).forEach(el => el.textContent = this.score);
+		this.element.querySelector(".score").textContent = this.score;
 	}
 
 	async upvote() {

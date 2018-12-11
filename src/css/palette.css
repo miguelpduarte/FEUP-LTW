@@ -9,11 +9,8 @@
     --very-light-grey: lightgrey;
     --even-lighter-grey: rgba(211, 211, 211, 0.5);
 
-    --upvote-color: rgb(177, 177, 177);
-    --downvote-color: rgb(177, 177, 177);
-
-    --fullpage-upvote-color: rgb(45, 170, 45);
-    --fullpage-downvote-color: rgb(201, 36, 36);
+    --upvote-color: rgb(45, 170, 45);
+    --downvote-color: rgb(201, 36, 36);
 
     --title-font: 'NeoTech';
     --content-font: 'NeoSans Light';
