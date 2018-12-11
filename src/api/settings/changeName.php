@@ -61,7 +61,7 @@
             exit;
         }
 
-        try{
+        try {
             changeName($currentUser['user_id'], $data['new_name']);
             http_response_code(200);
             echo json_encode([

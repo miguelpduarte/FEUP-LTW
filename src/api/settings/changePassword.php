@@ -40,11 +40,22 @@
                 ]);
             exit;
         }
+
         if(empty($data['new_password'])) {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'New Password is missing',
+                'code' => Error('MISSING_PARAM')
+                ]);
+            exit;
+        }
+
+        if(empty($data['new_password_confirmation'])) {
+            http_response_code(400);
+            echo json_encode([
+                'success' => false,
+                'reason' => 'New Password Confirmation is missing',
                 'code' => Error('MISSING_PARAM')
                 ]);
             exit;
@@ -78,6 +89,16 @@
                 'code' => Error('SHORT_PASSWORD')
                 ]);
             exit;
+        }
+
+        if ($data['new_password'] !== $data['new_password_confirmation']) {
+            http_response_code(400);
+            echo json_encode([
+                'success' => false,
+                'reason' => 'The new passwords do not match',
+                'code' => Error("PASSWORD_NO_CONFIRMATION")
+                ]);
+            exit; 
         }
 
         try {
