@@ -15,12 +15,12 @@ export class Comment {
 		this.created_at = data.created_at;
 
 		this.n_comments_loaded = 0;
-		this.subComments = [];
+		this.subComments = new Map();
 
 		if (data.nested_comments) {
 			this.n_comments_loaded = data.nested_comments.length;
-			this.subComments = data.nested_comments.map(comment => {
-				return new Comment(comment);
+			data.nested_comments.forEach(comment => {
+				this.subComments.set(comment.comment_id, new Comment(comment));
 			});
 		}
 
@@ -28,6 +28,30 @@ export class Comment {
 		this.loading = false;
 
 		this.vote_status = VoteStatus.none;
+	}
+
+	updateVoting(comment_votes) {
+		// For checking with comments loaded later on
+		this.comment_votes = comment_votes;
+
+		for (const comment_vote of comment_votes) {
+			// Check for this one
+			if (this.comment_id === comment_vote.comment_id) {
+				this.setUpvoted(comment_vote.rating);
+			}
+			// Check for children
+			if (this.subComments.has(comment_vote.comment_id)) {
+				this.subComments.get(comment_vote.comment_id).setUpvoted(comment_vote.rating);
+			}
+		}
+	}
+
+	setUpvoted(is_upvoted_rating) {
+		if (is_upvoted_rating === "1") {
+			this.setVoteStatus(VoteStatus.upvoted);
+		} else {
+			this.setVoteStatus(VoteStatus.downvoted);
+		}
 	}
 
 	render() {
@@ -65,25 +89,19 @@ export class Comment {
 			this.element.appendChild(localSubcomments);
 		}
 
-		if (this.subComments.length) {
+		if (this.subComments.size) {
 			const subcomment_section = document.createElement("section");
 			subcomment_section.classList.add("subcomment-container");
 
-			for (const nComment of this.subComments) {
+			for (const nComment of this.subComments.values()) {
 				subcomment_section.appendChild(nComment.render());
 			}
 
 			this.element.appendChild(subcomment_section);
 
-			const expand_comments = document.createElement("a");
-			expand_comments.classList.add("expand-comments");
-			expand_comments.textContent = "Expand Comments";
+			const expand_comments = this.createExpandComments();
 			this.element.appendChild(expand_comments);
-
-			this.element.querySelector(".expand-comments").addEventListener("click", () => this.loadMoreComments(5));
 		}
-
-		// console.log("id: ", this.comment_id);
 
 		// Upvoting
 		this.element.querySelector(".vote-up").addEventListener("click", () => {
@@ -111,7 +129,15 @@ export class Comment {
 		this.element.querySelector(".new-subcomment").append(this.commentForm.render());
 	}
 
-	async loadMoreComments(n_comments) {
+	createExpandComments() {
+		const expand_comments = document.createElement("a");
+		expand_comments.classList.add("expand-comments");
+		expand_comments.textContent = "Expand Comments";
+		expand_comments.addEventListener("click", () => this.loadMoreComments(5));
+		return expand_comments;
+	}
+
+	async loadMoreComments(n_comments = 5) {
 		if (this.loading) {
 			return;
 		}
@@ -129,8 +155,8 @@ export class Comment {
 		this.addComments(comment_data);
 
 		if (comment_data.length) {
-			this.element.innerHTML += `<a class="expand-comments" data-id=${this.comment_id}>Expand Comments</a>`;
-			this.element.lastChild.addEventListener("click", () => this.loadMoreComments());
+			const expand_comments = this.createExpandComments();
+			this.element.appendChild(expand_comments);
 		}
 
 		this.loading = false;
@@ -255,9 +281,13 @@ export class Comment {
 		
 		for (const nComment of comment_data) {
 			let newComment = new Comment(nComment);
-			this.subComments.push(newComment);
+			this.subComments.set(nComment.comment_id, newComment);
+			const vote = this.comment_votes.find(vote => vote.comment_id === nComment.comment_id);
 			this.element.querySelector(".subcomment-container").appendChild(newComment.render());
-			this.removeLocalSubCommentIfExists(newComment.comment_id);
+			if (vote) {
+				newComment.setUpvoted(vote.rating);
+			}
+			this.removeLocalSubCommentIfExists(nComment.comment_id);
 		}
 
 	}

@@ -173,9 +173,9 @@
 }
 
 .story-card.upvoted .voting-wrapper .voting .vote-up {
-    color: var(--upvote-color);
+    color: var(--fullpage-upvote-color);
 }
 
 .story-card.downvoted .voting-wrapper .voting .vote-down {
-    color: var(--downvote-color);
+    color: var(--fullpage-downvote-color);
 }

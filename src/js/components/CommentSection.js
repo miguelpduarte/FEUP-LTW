@@ -19,6 +19,15 @@ export class CommentSection {
 		this.loading = false;
 	}
 
+	updateVoting(comment_votes) {
+		// For checking with comments loaded later on
+		this.comment_votes = comment_votes;
+
+		for (const comment of this.comments.values()) {
+			comment.updateVoting(comment_votes);
+		}
+	}
+
 	render() {
 		this.section = document.createElement("section");
 		this.section.classList.add("comment-section");
@@ -109,6 +118,7 @@ export class CommentSection {
 
 			if (!needFullReload) {
 				this.section.appendChild(comment_object.render());
+				comment_object.updateVoting(this.comment_votes);
 			}
 		}
 

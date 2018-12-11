@@ -2,7 +2,7 @@
 
 import { Story } from "../components/Story.js";
 import { fetchTopStories } from "../fetch_actions/stories_fetch_actions.js";
-import { isUserLoggedIn, getUserVotes } from "../store.js";
+import { isUserLoggedIn, getUserStoryVotes } from "../store.js";
 
 const trending_stories = new Map();
 const top_stories = new Map();
@@ -12,7 +12,7 @@ const loadStories = async () => {
 	loadTopStories();
 
 	if (await isUserLoggedIn()) {
-		const user_votes = await getUserVotes();
+		const user_votes = await getUserStoryVotes();
 		console.log(user_votes);
 		updateStoriesVoting(user_votes);
 	}

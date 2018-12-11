@@ -2,16 +2,16 @@ import { MarkdownEditor } from "./MarkdownEditor.js";
 import { whitespaceString } from "../utils.js";
 import { errorHandler } from "../ErrorHandler.js";
 import { Comment } from "./Comment.js";
-import { fetchPostComment, fetchPostSubComment } from "../fetch_actions/comments_fetch_actions.js"
+import { fetchPostComment, fetchPostSubComment } from "../fetch_actions/comments_fetch_actions.js";
 
 export class CommentForm {
-    constructor(id, subComment) {
-        this.subComment = subComment;
-        this.id = id;
-    }
+	constructor(id, subComment) {
+		this.subComment = subComment;
+		this.id = id;
+	}
 
-    render() {
-        this.section = document.createElement("section");
+	render() {
+		this.section = document.createElement("section");
 		this.section.classList.add("comment-form");
         
 		this.createForm();
@@ -23,9 +23,9 @@ export class CommentForm {
 		this.section.appendChild(this.form);
 
 		return this.section;
-    }
+	}
 
-    createMsgUser() {
+	createMsgUser() {
 		this.msgSection = document.createElement("div");
 		this.msgSection.classList.add("msg-field");
 	}
@@ -46,19 +46,19 @@ export class CommentForm {
 		let response;
 		let content = this.markdown_editor.getContent();
 
-		if(!this.fieldsAreValid(content))
+		if (!this.fieldsAreValid(content))
 			return;
         
 		try {
-            if(this.subComment !== undefined) {
+			if (this.subComment !== undefined) {
 				
 				response = await fetchPostSubComment(this.id, content);
 				this.appendLocalSubComment(response);
-            }
-            else {
+			}
+			else {
 				response = await fetchPostComment(this.id, content);
 				this.appendLocalComment(response);
-            }
+			}
 		} catch (error) {
 			const err = errorHandler.getError(error);
 			this.showErrorMessage(err.msg);
@@ -99,10 +99,10 @@ export class CommentForm {
 			score: response.data.score,
 			content: response.data.content,
 			created_at: response.data.created_at,
-		}
+		};
 		const newComment = new Comment(commentData, false);
-		document.querySelector('.local-comments').prepend(newComment.render());
-		document.querySelector(`#comment_${response.data.comment_id}`).classList.add('local-comment');
+		document.querySelector(".local-comments").prepend(newComment.render());
+		document.querySelector(`#comment_${response.data.comment_id}`).classList.add("local-comment");
 	}
 
 	appendLocalSubComment(response) {
@@ -113,10 +113,10 @@ export class CommentForm {
 			score: response.data.score,
 			content: response.data.content,
 			created_at: response.data.created_at,
-		}
+		};
 		const newComment = new Comment(commentData, false);
 		document.querySelector(`.local-subcomments#comment_${this.id}`).prepend(newComment.render());
-		document.querySelector(`#comment_${response.data.comment_id}`).classList.add('local-subcomment');
+		document.querySelector(`#comment_${response.data.comment_id}`).classList.add("local-subcomment");
 
 	}
 

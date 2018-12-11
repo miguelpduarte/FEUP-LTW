@@ -71,7 +71,7 @@ export const getUserLoginInfo = () => {
 	});
 };
 
-export const getLoggedUserVotes = () => {
+export const getLoggedUserStoryVotes = () => {
 	return new Promise((resolve, reject) => {
 		fetch("/api/storyVote.php")
 			.then(res => res.json())
@@ -83,6 +83,20 @@ export const getLoggedUserVotes = () => {
 				}
 			})
 			.catch(err => reject(err));
+	});
+};
+
+export const getLoggedUserCommentVotes = () => {
+	return new Promise((resolve, reject) => {
+		fetch("/api/commentVote.php")
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					return resolve(data.data);
+				} else {
+					return reject(data.reason);
+				}
+			});
 	});
 };
 

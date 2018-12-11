@@ -99,7 +99,6 @@ export class Story {
 		}
 	}
 
-	//TODO - use setUpvoted
 	/**
      * For setting of the initial story state, after getting the user upvotes from the back-end when the user is logged in
      * Should only be called for the user upvotes - if a story was not upvoted nor downvoted then there is no reason to call this method
