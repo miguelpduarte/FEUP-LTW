@@ -145,7 +145,7 @@ export class Story {
 	async upvote() {
 		// If user is not logged in, then redirect to login page
 		if (!await isUserLoggedIn()) {
-			window.location.href = "/pages/login.php";
+			window.location.href = "./login.php";
 			return;
 		}
 
@@ -183,7 +183,7 @@ export class Story {
 	async downvote() {
 		// If user is not logged in, then redirect to login page
 		if (!await isUserLoggedIn()) {
-			window.location.href = "/pages/login.php";
+			window.location.href = "./login.php";
 			return;
 		}
 
