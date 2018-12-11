@@ -25,8 +25,8 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "Anonymous User can't change his name",
-                'code' => Error("UNAUTHORIZED")
+                'reason' => 'Anonymous User can\'t change his name',
+                'code' => Error('UNAUTHORIZED')
             ]);
             exit;
         }
@@ -36,7 +36,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'New Name is missing',
-                'code' => Error("MISSING_PARAM")
+                'code' => Error('MISSING_PARAM')
                 ]);
             exit;
         }
@@ -45,8 +45,8 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "CSRF was not provided.",
-                'code' => Error("MISSING_CSRF")
+                'reason' => 'CSRF was not provided.',
+                'code' => Error('MISSING_CSRF')
                 ]);
             exit;
         }
@@ -55,8 +55,8 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
-                'code' => Error("WRONG_CSRF")
+                'reason' => 'CSRF did not match. SHOW YOUR ID SIR!',
+                'code' => Error('WRONG_CSRF')
                 ]);
             exit;
         }
@@ -72,8 +72,8 @@
             http_response_code(500);
             echo json_encode([
                 'success' => false,
-                'reason' => "Error changing current user's name",
-                'code' => Error("CHANGE_NAME"),
+                'reason' => 'Error changing current user\'s name',
+                'code' => Error('CHANGE_NAME'),
             ]);
             exit;
         }
@@ -85,7 +85,7 @@
         echo json_encode([
             'success' => false,
             'reason' => 'Invalid request method for this route',
-            'code' => Error("INVALID_ROUTE")
+            'code' => Error('INVALID_ROUTE')
         ]);
         exit;
     }
