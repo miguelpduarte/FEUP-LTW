@@ -153,7 +153,6 @@ export class Story {
 			// Unvote
 			try {
 				const res = await fetchUnvoteStory(this.data.story_id);
-				console.log("Story remove upvote successful");
 				// Updating state
 				this.setVoteStatus(VoteStatus.none);
 				// Updating score
@@ -192,7 +191,6 @@ export class Story {
 			// Unvote
 			try {
 				const res = await fetchUnvoteStory(this.data.story_id);
-				console.log("Story remove downvote successful");
 				// Updating state
 				this.setVoteStatus(VoteStatus.none);
 				// Updating score

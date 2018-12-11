@@ -12,7 +12,7 @@ export class CommentSection {
 
 		this.comments = new Map();
 		comments_data.forEach(comment => {
-			this.comments.set(comment.comment_id, new Comment(comment));
+			this.comments.set(comment.comment_id, new Comment(comment, true));
 		});
 
 		this.section = null;
@@ -82,7 +82,7 @@ export class CommentSection {
 
 			this.addComments(comment_data);
 		} catch (err) {
-			console.error(err);
+			console.error("Fetching comments error:", err);
 		}
 
 	}
@@ -104,7 +104,7 @@ export class CommentSection {
 			}
 
 			this.removeLocalCommentIfExists(comment.comment_id);
-			const comment_object = new Comment(comment);
+			const comment_object = new Comment(comment, true);
 			this.comments.set(comment.comment_id, comment_object);
 
 			if (!needFullReload) {

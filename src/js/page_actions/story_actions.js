@@ -33,7 +33,7 @@ const loadCurrentStory = async () => {
 	const comment_data = await fetchComments(params.id, 2, 0, 2, 0);
 	createStory(story_data, comment_data);
 	updateStoryVoting(story_data.story_id);
-	updateCommentsVoting();
+	// updateCommentsVoting();
 };
 
 const updateStoryVoting = async story_id => {

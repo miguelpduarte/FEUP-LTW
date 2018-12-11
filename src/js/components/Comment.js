@@ -24,7 +24,7 @@ export class Comment {
 			});
 		}
 
-		this.section = null;
+		this.element = null;
 		this.loading = false;
 
 		this.vote_status = VoteStatus.none;
@@ -40,7 +40,7 @@ export class Comment {
 			<div class="comment-card-info">
 				<div class="md-content">${mdToHTML(this.content)}</div>
 				<div class="comment-card-details">
-					<span class="author"><a href="user.php?username=${this.author}"></a></span>
+					<a class="author" href="user.php?username=${this.author}"></a>
 					<i class="fas fa-user-clock"></i>
 					<span class="date">${moment(this.created_at).fromNow()}</span>
 				</div>
@@ -52,15 +52,17 @@ export class Comment {
 			</div>
 		</section>`;
     
-		this.element.querySelector(".author > a").textContent = this.author_name;
+		this.element.querySelector(".author").textContent = this.author;
 		
 		if (this.hasForm) {
-			this.create_form_area();
-			this.section.appendChild(this.form_area);
+			const form_area = this.createFormArea();
+			this.element.appendChild(form_area);
+			this.element.querySelector(".show-reply").addEventListener("click", () => this.showForm());			
+
 			const localSubcomments = document.createElement("section");
 			localSubcomments.classList.add("local-subcomments");
 			localSubcomments.setAttribute("id", `comment_${this.comment_id}`);
-			this.section.appendChild(localSubcomments);
+			this.element.appendChild(localSubcomments);
 		}
 
 		if (this.subComments.length) {
@@ -71,40 +73,42 @@ export class Comment {
 				subcomment_section.appendChild(nComment.render());
 			}
 
-			this.section.appendChild(subcomment_section);
-			this.section.innerHTML += `<a class="expand-comments" data-id=${this.comment_id}>Expand Comments</a>`;
-			this.section.querySelector(".expand-comments").addEventListener("click", () => this.loadMoreComments(5));
-		}	
+			this.element.appendChild(subcomment_section);
 
-		if (this.hasForm) {
-			this.section.querySelector(".show-reply").addEventListener("click", () => this.showForm());
+			const expand_comments = document.createElement("a");
+			expand_comments.classList.add("expand-comments");
+			expand_comments.textContent = "Expand Comments";
+			this.element.appendChild(expand_comments);
+
+			this.element.querySelector(".expand-comments").addEventListener("click", () => this.loadMoreComments(5));
 		}
 
+		// console.log("id: ", this.comment_id);
+
 		// Upvoting
-		this.element.querySelector(`#comment_${this.comment_id} > .comment .vote-up`).addEventListener("click", e => {
-			e.stopPropagation();
+		this.element.querySelector(".vote-up").addEventListener("click", () => {
 			this.upvote();
 		});
 
 		// Downvoting
-		this.element.querySelector(`#comment_${this.comment_id} > .comment .vote-down`).addEventListener("click", e => {
-			e.stopPropagation();
+		this.element.querySelector(".vote-down").addEventListener("click", () => {
 			this.downvote();
 		});
 
 		return this.element;
 	}
 
-	create_form_area() {
-		this.form_area = document.createElement("section");
-		this.form_area.classList.add("new-subcomment");
-		this.form_area.innerHTML ="<a class=\"show-reply\">Reply  <i class=\"fas fa-comments\"></i></a>";
+	createFormArea() {
+		const form_area = document.createElement("section");
+		form_area.classList.add("new-subcomment");
+		form_area.innerHTML = "<a class=\"show-reply\">Reply  <i class=\"fas fa-comments\"></i></a>";
+		return form_area;
 	}
 
 	showForm() {
 		this.commentForm = new CommentForm(this.comment_id, true);
-		this.section.querySelector(".new-subcomment").removeChild(this.section.querySelector(".show-reply"));
-		this.section.querySelector(".new-subcomment").append(this.commentForm.render());
+		this.element.querySelector(".new-subcomment").removeChild(this.element.querySelector(".show-reply"));
+		this.element.querySelector(".new-subcomment").append(this.commentForm.render());
 	}
 
 	async loadMoreComments(n_comments) {
@@ -113,20 +117,20 @@ export class Comment {
 		}
 
 		this.loading = true;
-		this.section.removeChild(this.section.querySelector(".expand-comments"));
+		this.element.removeChild(this.element.querySelector(".expand-comments"));
 
 		// Append loading message
 		const loadingWheel = document.createElement("p");
-		loadingWheel.innerHTML = "Loading comments...";
-		this.section.appendChild(loadingWheel);
+		loadingWheel.textContent = "Loading comments...";
+		this.element.appendChild(loadingWheel);
 
 		const comment_data = await fetchSubComments(this.comment_id, n_comments, this.n_comments_loaded);
 
 		this.addComments(comment_data);
 
 		if (comment_data.length) {
-			this.section.innerHTML += `<a class="expand-comments" data-id=${this.comment_id}>Expand Comments</a>`;
-			this.section.lastChild.addEventListener("click", () => this.loadMoreComments());
+			this.element.innerHTML += `<a class="expand-comments" data-id=${this.comment_id}>Expand Comments</a>`;
+			this.element.lastChild.addEventListener("click", () => this.loadMoreComments());
 		}
 
 		this.loading = false;
@@ -135,20 +139,21 @@ export class Comment {
 	// Should only be called internally
 	setVoteStatus(new_vote_status) {
 		this.vote_status = new_vote_status;
+		const comment = this.element.querySelector(".comment");
 
 		// Switching classes
 		switch (new_vote_status) {
 			case VoteStatus.upvoted:
-				this.element.classList.add("upvoted");
-				this.element.classList.remove("downvoted");
+				comment.classList.add("upvoted");
+				comment.classList.remove("downvoted");
 				break;
 			case VoteStatus.downvoted:
-				this.element.classList.remove("upvoted");
-				this.element.classList.add("downvoted");
+				comment.classList.remove("upvoted");
+				comment.classList.add("downvoted");
 				break;
 			case VoteStatus.none:
-				this.element.classList.remove("upvoted");
-				this.element.classList.remove("downvoted");
+				comment.classList.remove("upvoted");
+				comment.classList.remove("downvoted");
 				break;
 			default:
 				console.warn("Wrong call to Story.setVoteStatus!");
@@ -158,7 +163,7 @@ export class Comment {
 
 	updateScore(new_score) {
 		this.score = new_score;
-		this.element.querySelectorAll(`#comment_${this.comment_id} > .comment .score`).forEach(el => el.textContent = this.score);
+		this.element.querySelectorAll(`#comment_${this.comment_id} > .comment > .voting-wrapper > .score`).forEach(el => el.textContent = this.score);
 	}
 
 	async upvote() {
@@ -172,7 +177,6 @@ export class Comment {
 			// Unvote
 			try {
 				const res = await fetchUnvoteComment(this.comment_id);
-				console.log("Comment remove upvote successful");
 				// Updating state
 				this.setVoteStatus(VoteStatus.none);
 				// Updating score
@@ -189,7 +193,6 @@ export class Comment {
 			// Upvote
 			try {
 				const res = await fetchVoteComment(this.comment_id, true);
-				console.log("Comment upvote successful");
 				// Updating state
 				this.setVoteStatus(VoteStatus.upvoted);
 				// Updating score
@@ -212,7 +215,6 @@ export class Comment {
 			// Unvote
 			try {
 				const res = await fetchUnvoteComment(this.comment_id);
-				console.log("Story remove downvote successful");
 				// Updating state
 				this.setVoteStatus(VoteStatus.none);
 				// Updating score
@@ -241,7 +243,7 @@ export class Comment {
 	}
 
 	addComments(comment_data) {
-		this.section.removeChild(this.section.lastChild);
+		this.element.removeChild(this.element.lastChild);
 
 		// Append comments
 		if (!comment_data || !comment_data.length) {
@@ -254,7 +256,7 @@ export class Comment {
 		for (const nComment of comment_data) {
 			let newComment = new Comment(nComment);
 			this.subComments.push(newComment);
-			this.section.querySelector(".subcomment-container").appendChild(newComment.render());
+			this.element.querySelector(".subcomment-container").appendChild(newComment.render());
 			this.removeLocalSubCommentIfExists(newComment.comment_id);
 		}
 

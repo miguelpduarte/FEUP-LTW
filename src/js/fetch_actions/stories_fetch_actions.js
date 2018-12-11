@@ -84,7 +84,6 @@ export const fetchVoteStory = async (id, upvote) => {
 		})
 			.then(res => res.json())
 			.then(data => {
-				console.log("Voting response", data);
 				if (data.success) {
 					return resolve(data.data);
 				} else {
@@ -113,7 +112,6 @@ export const fetchUnvoteStory = async id => {
 		})
 			.then(res => res.json())
 			.then(data => {
-				console.log("Unvoting response", data);
 				if (data.success) {
 					return resolve(data.data);
 				} else {

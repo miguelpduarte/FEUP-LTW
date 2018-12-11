@@ -59,7 +59,6 @@ export const fetchVoteComment = async (id, upvote) => {
 		})
 			.then(res => res.json())
 			.then(data => {
-				console.log("Com Voting response", data);
 				if (data.success) {
 					return resolve(data.data);
 				} else {
@@ -88,7 +87,6 @@ export const fetchUnvoteComment = async id => {
 		})
 			.then(res => res.json())
 			.then(data => {
-				console.log("Com Unvoting response", data);
 				if (data.success) {
 					return resolve(data.data);
 				} else {
