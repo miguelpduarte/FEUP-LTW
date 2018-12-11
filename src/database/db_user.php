@@ -7,10 +7,10 @@
     function getUser($username) {
         $db = Database::instance()->db();
         $stmt = $db->prepare(
-            'SELECT user_id, username, name, storyScore, commentScore
+            'SELECT user_id, username, name, bio, storyScore, commentScore
             FROM
                 (
-                    (SELECT users.user_id, users.username, users.name, SUM(stories.score) as storyScore
+                    (SELECT users.user_id, users.username, users.name, users.bio, SUM(stories.score) as storyScore
                     FROM users
                     JOIN stories ON stories.author = users.user_id
                     WHERE users.username = ?
