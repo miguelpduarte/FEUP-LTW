@@ -15,6 +15,9 @@ function Error($ERR) {
         case "ALREADY_LOGGED":return 8;
         case "PASSWORD_NO_CONFIRMATION":return 9;
         case "DUPLICATED_USERNAME":return 10;
+        case "CHANGE_NAME":return 11;
+        case "CHANGE_PASSWORD":return 12;
+        case "SHORT_PASSWORD":return 13;
         default: return 0;
     }
 }

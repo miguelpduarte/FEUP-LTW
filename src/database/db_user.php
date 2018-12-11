@@ -63,4 +63,43 @@
             $error = $err->getCode();
         }
     }
+
+    /**
+     * Change a user's name.
+     */
+    function changeName($user_id, $new_name) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('UPDATE users SET name = ? WHERE user_id = ?');
+        
+        $stmt->execute(array($new_name, $user_id));
+        
+    }
+    /**
+     * Change a user's password.
+     */
+    function changePassword($user_id, $old_password, $new_password) {
+        $db = Database::instance()->db();
+
+        $stmt = $db->prepare('SELECT user_id, password FROM users WHERE user_id = ?');
+        $fetched_user = $stmt->fetch();
+
+        $correct_password = password_verify($old_password, $fetched_user['password']);
+
+        if($correct_password) {
+            //change
+            $stmt = $db->prepare('UPDATE users SET password = ? WHERE user_id = ?');
+            try{
+                $hashedPW = password_hash($password, PASSWORD_DEFAULT);
+                $stmt->execute(array($username, $hashedPW));
+            } catch(Exception $err) {
+                throw new Exception("Error Changing password");
+            }
+        } else {
+            throw new Exception("Wrong password");
+        }
+
+        
+    }
+
+
 ?>
