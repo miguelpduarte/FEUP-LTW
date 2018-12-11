@@ -1,6 +1,7 @@
 <?php
-    require_once(realpath( dirname( __FILE__ ) ) . '../../utils/errors.php');
-    require_once(realpath( dirname( __FILE__ ) ) . '../../database/db_user.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../../utils/errors.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../../database/db_user.php');
+    require_once(realpath( dirname( __FILE__ ) ) . '/../inc.session.php');
 
     $method = $_SERVER['REQUEST_METHOD'];
 
@@ -30,6 +31,15 @@
             exit;
         }
 
+        if(empty($data['old_password'])) {
+            http_response_code(400);
+            echo json_encode([
+                'success' => false,
+                'reason' => 'Old Password is missing',
+                'code' => Error("MISSING_PARAM")
+                ]);
+            exit;
+        }
         if(empty($data['new_password'])) {
             http_response_code(400);
             echo json_encode([
@@ -71,7 +81,9 @@
         }
 
         try{
-            changePassword($currentUser['user_id'], $data['new_password']);
+            changePassword($currentUser['user_id'], $data['old_password'], $data['new_password']);
+            session_unset();
+            session_destroy();
             http_response_code(200);
             echo json_encode([
                 'success' => true
