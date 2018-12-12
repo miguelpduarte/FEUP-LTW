@@ -2,7 +2,8 @@
     background-color: var(--main-color);
     font-family: var(--title-font);
     /* Para passar a ser xpto: */
-    position: sticky;
+    position: fixed;
+    width: 80%;
     top: 0;
     margin-bottom: 4em;
     z-index: 25;

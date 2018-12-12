@@ -97,3 +97,16 @@
     font-family: var(--title-font);
     font-size: 2em;
 }
+
+
+@media screen and (max-width: 60em) {
+
+    .full-story .title {
+        font-size: 1.5em;
+        padding-right: 0.5em;
+    }
+
+    .full-story .voting-wrapper {
+        font-size: 1.5em;
+    }
+}

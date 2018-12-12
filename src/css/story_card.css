@@ -187,3 +187,13 @@
 .story-card.downvoted .voting-wrapper .voting .vote-down {
     color: deepskyblue;
 }
+
+@media screen and (max-width: 60em) {
+
+    .story-card .voting .vote-up, .story-card .voting .vote-down {
+        font-size: 1.5em;
+    }
+    .story-card .story-card-header .voting-wrapper .score {
+        font-size: 1.5em;
+    }
+}
