@@ -7,9 +7,9 @@ INSERT INTO users values(3, '<script>alert(1)</script>', '<script>alert(1)</scri
 INSERT INTO users values(4, '<img src="" onerror="alert(1)" />', '<img src="" onerror="alert(1)" />', 'Unsuccessful XSSer2 <img src="" onerror="alert(1)" />');
 
 -- channels
-INSERT INTO channels values(0, 'default');
-INSERT INTO channels values(1, '1234chan');
-INSERT INTO channels values(2, 'definitelynotreddit');
+INSERT INTO channels values(0, 'default', '#cc0055');
+INSERT INTO channels values(1, '1234chan', 'bb00ff');
+INSERT INTO channels values(2, 'definitelynotreddit', '#ff4500');
 
 -- stories
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(1, 1, 'This is a very existing title', 'This is a very existing story, not a test at all', 1);

@@ -23,7 +23,8 @@ export class Channel {
 		// Channel name
 		article.querySelector(".title a").textContent = this.data.name;
 
-		// Adding event listeners
+        // Channel color
+       article.style.borderColor = this.data.color
 
 		// Storing attached DOM element for further use
 		this.element = article;

@@ -9,7 +9,7 @@
         $n_channels = ($n_channels == 0 ? 999999999999999 : $n_channels);
 
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT channel_id, name FROM channels LIMIT ? OFFSET ?');
+        $stmt = $db->prepare('SELECT channel_id, name, color FROM channels LIMIT ? OFFSET ?');
         $stmt->execute(array($n_channels, $offset));
         return $stmt->fetchAll(); 
     }
@@ -19,7 +19,7 @@
      */
     function getChannelsLike($query) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT channel_id, name FROM channels WHERE name LIKE ?');
+        $stmt = $db->prepare('SELECT channel_id, name, color FROM channels WHERE name LIKE ?');
         $stmt->execute(array("%$query%"));
         return $stmt->fetchAll(); 
     }
@@ -47,10 +47,12 @@
         $id = $fetch_stmt->fetch();
         
         if(!$id) { //channel doesn't exist yet -> must be created
-            $insert_stmt = $db->prepare('INSERT INTO channels (name) values(?)');
+            $insert_stmt = $db->prepare('INSERT INTO channels (name, color) values(?, ?)');
     
+            $color = $rand_color();
+
             try{
-                $insert_stmt->execute(array($name));
+                $insert_stmt->execute(array($name, $color));
                 $id = $db->lastInsertId();
             } catch(Exception $err) {
                 $error = $err->getCode();
@@ -89,7 +91,12 @@
         
         
 
-
+    /**
+     * Generates a random color in HEX format
+     */
+    function rand_color() {
+        return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+    }
         
 
     
