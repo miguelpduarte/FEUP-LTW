@@ -2,7 +2,7 @@ import { MarkdownEditor } from "./MarkdownEditor.js";
 import { fetchPostStory }  from "../fetch_actions/stories_fetch_actions.js";
 import { errorHandler } from "../ErrorHandler.js";
 import { whitespaceString } from "../utils.js";
-import { fetchChannel } from "../fetch_actions/channel_fetch_actions.js";
+import { fetchChannel } from "../fetch_actions/channels_fetch_actions.js";
 
 
 export class StoryForm {
