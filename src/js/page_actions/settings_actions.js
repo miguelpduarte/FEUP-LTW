@@ -1,6 +1,6 @@
 "use strict";
 
-import { SettingsForm } from "../components/SettingsForm.js";
+import { SettingsForm } from "../components/SettingsForm/SettingsForm.js";
 import { isUserLoggedIn } from "../store.js";
 import { SimpleMessage } from "../components/SimpleMessage.js";
 
@@ -39,13 +39,13 @@ const clearSettingsForm = () => {
 	settings_form = null;
 };
 
-export const changeToSuccessfulSettingsChangedView = () => {
+export const changeToSuccessfulPasswordChangedView = () => {
 	clearSettingsForm();
 	const content_container = document.getElementById("content");
 	const settings_change_success_msg = new SimpleMessage(
-		"Settings changed successfully!",
-		"",
-		[{href: "/pages/stories.php", text: "Homepage"}]
+		"Password changed successfully!",
+		"Please login again!",
+		[{href: "/pages/stories.php", text: "Homepage"}, {href: "./login.php", text: "Login"}]
 	);
 	const rendered_settings_change_success_msg = settings_change_success_msg.render();
 	content_container.appendChild(rendered_settings_change_success_msg);
