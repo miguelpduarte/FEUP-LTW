@@ -22,7 +22,7 @@ export const fetchNewestStories = (offset, n_stories) => {
 
 export const fetchTopStories = () => {
 	return new Promise((resolve, reject) => {
-		fetch("/api/top_stories.php")
+		fetch("../api/top_stories.php")
 			.then(res => res.json())
 			.then(data => {
 				// Checking for data errors

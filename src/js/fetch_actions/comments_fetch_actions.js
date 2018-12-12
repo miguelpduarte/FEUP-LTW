@@ -50,7 +50,7 @@ export const fetchVoteComment = async (id, upvote) => {
 	};
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/commentVote.php", {
+		fetch("../api/commentVote.php", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json; charset=utf-8",
@@ -78,7 +78,7 @@ export const fetchUnvoteComment = async id => {
 	};
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/commentVote.php", {
+		fetch("../api/commentVote.php", {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",

@@ -73,7 +73,7 @@ export const getUserLoginInfo = () => {
 
 export const getLoggedUserStoryVotes = () => {
 	return new Promise((resolve, reject) => {
-		fetch("/api/storyVote.php")
+		fetch("../api/storyVote.php")
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
@@ -88,7 +88,7 @@ export const getLoggedUserStoryVotes = () => {
 
 export const getLoggedUserCommentVotes = () => {
 	return new Promise((resolve, reject) => {
-		fetch("/api/commentVote.php")
+		fetch("../api/commentVote.php")
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
