@@ -6,6 +6,10 @@
     $method = $_SERVER['REQUEST_METHOD'];
 
     switch ($method) {
+        case 'GET':
+            // get logged in user bio
+            handle_get();
+            break;
         case 'POST':
             //change the user's bio
             handle_post();
@@ -13,6 +17,39 @@
         default:
             handle_error();  
             break;
+    }
+
+    function handle_get() {
+        header('Content-Type: application/json');
+    
+        $currentUser = getLoggedUser();
+        if (!$currentUser) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => 'User not logged in',
+                'code' => Error('UNAUTHORIZED')
+            ]);
+            exit;
+        }
+
+        try {
+            $bio = getUserBio($currentUser['user_id']);
+            http_response_code(200);
+            echo json_encode([
+                'success' => true,
+                'data' => $bio
+            ]);
+            exit;
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'reason' => 'Error getting current user\'s bio',
+                'code' => Error('GET_BIO'),
+            ]);
+            exit;
+        }
     }
     
     function handle_post() {
