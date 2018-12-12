@@ -25,8 +25,8 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "Anonymous User can't change his name",
-                'code' => Error("UNAUTHORIZED")
+                'reason' => 'Anonymous User can\'t change his name',
+                'code' => Error('UNAUTHORIZED')
             ]);
             exit;
         }
@@ -36,16 +36,27 @@
             echo json_encode([
                 'success' => false,
                 'reason' => 'Old Password is missing',
-                'code' => Error("MISSING_PARAM")
+                'code' => Error('MISSING_PARAM')
                 ]);
             exit;
         }
+
         if(empty($data['new_password'])) {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
                 'reason' => 'New Password is missing',
-                'code' => Error("MISSING_PARAM")
+                'code' => Error('MISSING_PARAM')
+                ]);
+            exit;
+        }
+
+        if(empty($data['new_password_confirmation'])) {
+            http_response_code(400);
+            echo json_encode([
+                'success' => false,
+                'reason' => 'New Password Confirmation is missing',
+                'code' => Error('MISSING_PARAM')
                 ]);
             exit;
         }
@@ -54,8 +65,8 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "CSRF was not provided.",
-                'code' => Error("MISSING_CSRF")
+                'reason' => 'CSRF was not provided.',
+                'code' => Error('MISSING_CSRF')
                 ]);
             exit;
         }
@@ -64,8 +75,8 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
-                'code' => Error("WRONG_CSRF")
+                'reason' => 'CSRF did not match. SHOW YOUR ID SIR!',
+                'code' => Error('WRONG_CSRF')
                 ]);
             exit;
         }
@@ -74,13 +85,23 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => "Password is too short, must be at least 8 characters long",
-                'code' => Error("SHORT_PASSWORD")
+                'reason' => 'Password is too short, must be at least 8 characters long',
+                'code' => Error('SHORT_PASSWORD')
                 ]);
             exit;
         }
 
-        try{
+        if ($data['new_password'] !== $data['new_password_confirmation']) {
+            http_response_code(400);
+            echo json_encode([
+                'success' => false,
+                'reason' => 'The new passwords do not match',
+                'code' => Error("PASSWORD_NO_CONFIRMATION")
+                ]);
+            exit; 
+        }
+
+        try {
             changePassword($currentUser['user_id'], $data['old_password'], $data['new_password']);
             session_unset();
             session_destroy();
@@ -94,7 +115,7 @@
             echo json_encode([
                 'success' => false,
                 'reason' => $e->getMessage(),
-                'code' => Error("CHANGE_PASSWORD"),
+                'code' => Error('CHANGE_PASSWORD'),
             ]);
             exit;
         }
@@ -106,7 +127,7 @@
         echo json_encode([
             'success' => false,
             'reason' => 'Invalid request method for this route',
-            'code' => Error("INVALID_ROUTE")
+            'code' => Error('INVALID_ROUTE')
         ]);
         exit;
     }
