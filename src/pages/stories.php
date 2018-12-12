@@ -6,20 +6,6 @@
         <div id="trending">
             <div class="line-container">
                 <div class="line-starter">
-                    <i id="refresh_trending_stories" class="refresh-btn fas fa-redo"></i>
-                </div>
-                <div class="line"><hr/></div>
-                <div class="line-middle">
-                    Trending
-                    <i class="fas fa-fire"></i>
-                </div>
-                <div class="line"><hr/></div>
-            </div>
-            <div id="trending_stories_container"></div>
-        </div>
-        <div id="top">
-            <div class="line-container">
-                <div class="line-starter">
                     <i id="refresh_top_stories" class="refresh-btn fas fa-redo"></i>
                 </div>
                 <div class="line"><hr/></div>
@@ -30,6 +16,20 @@
                 <div class="line"><hr/></div>
             </div>
             <div id="top_stories_container"></div>
+        </div>
+        <div id="top">
+            <div class="line-container">
+                <div class="line-starter">
+                    <i id="refresh_newest_stories" class="refresh-btn fas fa-redo"></i>
+                </div>
+                <div class="line"><hr/></div>
+                <div class="line-middle">
+                    Newest
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="line"><hr/></div>
+            </div>
+            <div id="newest_stories_container"></div>
         </div>
         <script type="module" src="../js/page_actions/stories_actions.js"></script>
     </div>
