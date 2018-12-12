@@ -22,7 +22,7 @@ export class ChangePasswordForm {
                 <div class="feedback"></div>
             </label>
             <label>Confirm New Password
-                <input type="password" name="new_password_confirm" required>
+                <input type="password" name="new_password_confirmation" required>
                 <div class="feedback"></div>
             </label>
             <button>Change Password</button>
@@ -67,11 +67,11 @@ export class ChangePasswordForm {
 		// Make request
 		const old_password = this.element.querySelector("input[name='old_password']").value;
 		const new_password = this.element.querySelector("input[name='new_password']").value;
-		const new_password_confirm = this.element.querySelector("input[name='new_password_confirm']").value;
+		const new_password_confirmation = this.element.querySelector("input[name='new_password_confirmation']").value;
 
 		// Handle response
 		try {
-			await changePassword(old_password, new_password, new_password_confirm);
+			await changePassword(old_password, new_password, new_password_confirmation);
 			changeToSuccessfulPasswordChangedView();
 		} catch (err_msg) {
 			this.showErrorMessage(err_msg);
@@ -84,7 +84,6 @@ export class ChangePasswordForm {
 	}
 
 	fieldsAreValid() {
-		return true;
 		let fields_are_valid = true;
 
 		// Old password field

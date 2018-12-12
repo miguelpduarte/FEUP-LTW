@@ -146,17 +146,14 @@ export const changeName = new_name => {
 };
 
 export const changePassword = async (old_password, new_password, new_password_confirmation) => {
-	const body = JSON.stringify({
+	const body = {
 		old_password,
 		new_password,
 		new_password_confirmation,
 		csrf: (await getUserInfo()).csrf,
-	});
-
-	console.log(body);
+	};
 
 	return new Promise((resolve, reject) => {
-		console.log("b", JSON.stringify(body));
 		fetch("/api/settings/changePassword.php", {
 			method: "POST",
 			headers: {
@@ -164,9 +161,8 @@ export const changePassword = async (old_password, new_password, new_password_co
 			},
 			body: JSON.stringify(body)
 		})
-			.then(res => res.json())
+			.then(async res =>  res.json())
 			.then(data => {
-				console.log("d", data);
 				if (data.success) {
 					return resolve();
 				} else {
