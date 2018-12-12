@@ -20,6 +20,7 @@ function Error($ERR) {
         case 'CHANGE_PASSWORD':return 13;
         case 'SHORT_PASSWORD':return 14;
         case 'CHANGE_BIO':return 15;
+        case 'GET_BIO':return 16;
         default: return 0;
     }
 }
