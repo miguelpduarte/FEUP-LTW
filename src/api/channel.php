@@ -34,7 +34,7 @@
                     'reason' => "There's no channel with id (" . $_GET['id'] . ")",
                     'code' => Error("NOT_FOUND")
                 ]);
-            exit;
+                exit;
             } else {
                 http_response_code(200);
                 echo json_encode([
@@ -56,7 +56,11 @@
             exit;
 
         } else { // Get existent channels
-            $channels = getAllChannels();
+
+            $n_channels = (isset($_GET['n_channels']) && $_GET['n_channels'] !== '' ? intval($_GET['n_channels']) : 0);
+            $offset = (isset($_GET['off']) && $_GET['off'] !== '' ? intval($_GET['off']) : 0);
+            
+            $channels = getAllChannels($offset, $n_channels);
 
             http_response_code(200);
                 echo json_encode([

@@ -4,10 +4,13 @@
     /**
      * Returns all channels.
      */
-    function getAllChannels() {
+    
+    function getAllChannels($offset, $n_channels) {
+        $n_channels = ($n_channels == 0 ? 999999999999999 : $n_channels);
+
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT channel_id, name FROM channels');
-        $stmt->execute();
+        $stmt = $db->prepare('SELECT channel_id, name FROM channels LIMIT ? OFFSET ?');
+        $stmt->execute(array($n_channels, $offset));
         return $stmt->fetchAll(); 
     }
 
