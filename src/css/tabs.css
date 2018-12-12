@@ -17,7 +17,6 @@
 }
 
 .new-story, .new-comment {
-
     -moz-box-shadow:    0 0 8px rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
     box-shadow:         0 0 8px rgba(0, 0, 0, 0.2);  
@@ -61,19 +60,23 @@
     font-family: var(--content-font);
 }
 
-.new-story .md-editor > textarea,.new-story .preview-selector.tab {
+.new-story .md-editor > textarea, .new-story .preview-selector.tab {
     height: 30rem;
 }
 
-.new-comment .md-editor > textarea,.new-comment .preview-selector.tab {
+.new-comment .md-editor > textarea, .new-comment .preview-selector.tab {
     height: 15rem;
 }
 
-.new-subcomment .md-editor > textarea,.new-subcomment .preview-selector.tab {
+.new-subcomment .md-editor > textarea, .new-subcomment .preview-selector.tab {
     height: 10rem;
 }
 
-.md-editor > textarea,.preview-selector.tab {
+#settings_form .md-editor > textarea, #settings_form .preview-selector.tab {
+    height: 20rem;
+}
+
+.md-editor > textarea, .preview-selector.tab {
     width: 100%;
     overflow-y: scroll;
 }
@@ -124,29 +127,35 @@
     font-family: inherit;
 }
 
-.editor h1 {
+.md-editor h1 {
     font-family: var(--title-font);
     font-size: 2em;
 }
 
-.editor h2 {
+.md-editor h2 {
     font-family: var(--title-font);
     font-size: 1.75em;
 }
 
-.editor h3 {
+.md-editor h3 {
     font-family: var(--title-font);
     font-size: 1.5em;
 }
 
-.editor h4 {
+.md-editor h4 {
     font-family: var(--title-font);
     font-size: 1.25em;
 }
 
-.editor h5 {
+.md-editor h5 {
     font-family: var(--title-font);
     font-size: 1em;
+}
+
+/* Resetting overrides */
+.md-editor {
+    font-size: 16px !important;
+    font-weight: normal !important;
 }
 
 .new-subcomment button {
@@ -166,7 +175,6 @@
     font-family: var(--title-font);
 
 }
-
 
 .new-story button, .new-comment button {
     padding: 0.5em;

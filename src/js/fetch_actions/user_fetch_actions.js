@@ -100,6 +100,20 @@ export const getLoggedUserCommentVotes = () => {
 	});
 };
 
+export const getLoggedUserBio = () => {
+	return new Promise((resolve, reject) => {
+		fetch("/api/settings/changeBio.php")
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					return resolve(data.data);
+				} else {
+					return reject(data.reason);
+				}
+			});
+	});
+};
+
 export const logoutUser = () => {
 	return new Promise(async (resolve, reject) => {
 		fetch("/api/login.php", {
@@ -161,7 +175,32 @@ export const changePassword = async (old_password, new_password, new_password_co
 			},
 			body: JSON.stringify(body)
 		})
-			.then(async res =>  res.json())
+			.then(res =>  res.json())
+			.then(data => {
+				if (data.success) {
+					return resolve();
+				} else {
+					return reject(data.reason);
+				}
+			});
+	});
+};
+
+export const changeBio = async new_bio => {
+	const body = {
+		new_bio,
+		csrf: (await getUserInfo()).csrf,
+	};
+
+	return new Promise((resolve, reject) => {
+		fetch("/api/settings/changeBio.php", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(body)
+		})
+			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
 					return resolve();

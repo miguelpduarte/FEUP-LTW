@@ -122,3 +122,16 @@
 #settings_form form input.invalid ~ .feedback, #settings_form form.was-checked input:invalid ~ .feedback {
     color: red;
 }
+
+/* For bio editing form */
+#settings_form form .editor-wrapper.valid ~ .feedback {
+    color: green;
+}
+
+#settings_form form .editor-wrapper.invalid ~ .feedback {
+    color: red;
+}
+
+#settings_form .editor-wrapper {
+    margin-top: 1em;
+}
