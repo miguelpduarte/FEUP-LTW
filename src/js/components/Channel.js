@@ -24,7 +24,7 @@ export class Channel {
 		article.querySelector(".title a").textContent = this.data.name;
 
         // Channel color
-       article.style.borderColor = this.data.color
+        article.style.borderColor = this.data.color;
 
 		// Storing attached DOM element for further use
 		this.element = article;
