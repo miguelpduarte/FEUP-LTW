@@ -8,6 +8,7 @@
 @import "./forms.css";
 @import "./simple_success_message.css";
 @import "./tabs.css";
+@import "./user_info.css";
 
 body {
     margin: 0;

@@ -120,9 +120,9 @@ export const logoutUser = () => {
 };
 
 
-export const fetchUserStories = (username) => {
+export const fetchUserStories = (username, offset, n_stories) => {
 	return new Promise((resolve, reject) => {
-		fetch(`/api/userStories.php?username=${username}`)
+		fetch(`/api/userStories.php?username=${username}&n_stories=${n_stories}&off=${offset}`)
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
@@ -133,3 +133,18 @@ export const fetchUserStories = (username) => {
 			});
 	});
 };
+
+export const fetchUserData = (username) => {
+	return new Promise((resolve, reject) => {
+		fetch(`/api/user.php?username=${username}`)
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					return resolve(data.data);
+				} else {
+					return reject(data.reason);
+				}
+			});
+	});
+};
+

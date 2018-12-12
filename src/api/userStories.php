@@ -18,7 +18,9 @@
     function handle_get() {
         header('Content-Type: application/json');
         if(!empty($_GET['username'])) {
-            $data = getUserStories($_GET['username']);
+            $n_stories = (isset($_GET['n_stories']) && $_GET['n_stories'] !== '' ? intval($_GET['n_stories']) : 0);
+            $offset = (isset($_GET['off']) && $_GET['off'] !== '' ? intval($_GET['off']) : 0);
+            $data = getUserStories($_GET['username'], $offset, $n_stories);
 
             if($data === false) {
                 http_response_code(404);

@@ -3,6 +3,7 @@
     draw_header('User Page');
 ?>
     <div id="content">
+        <div id="user_info_container"></div>
         <div id="newest">
             <div class="line-container">
                 <div class="line-starter">
