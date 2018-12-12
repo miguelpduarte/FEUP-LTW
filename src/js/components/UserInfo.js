@@ -1,4 +1,5 @@
 "use strict"
+import { mdToHTML } from "../utils.js";
 
 export class UserInfo {
     constructor(data) {
@@ -6,6 +7,7 @@ export class UserInfo {
         this.username = data.username;
         this.storyScore = data.storyScore;
         this.commentScore = data.commentScore;
+        this.bio = data.bio;
     }
 
     render() {
@@ -25,7 +27,7 @@ export class UserInfo {
         this.element.querySelector('.info-username').textContent = this.username;
         this.element.querySelector('.info-storyScore').textContent = this.storyScore;
         this.element.querySelector('.info-commentScore').textContent = this.commentScore;
-        this.element.querySelector('.info-bio').textContent = "This is a biohishis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a bio is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a biohis is a bio";
+        this.element.querySelector('.info-bio').innerHTML = mdToHTML(this.bio);
         return this.element;
     }
 }
