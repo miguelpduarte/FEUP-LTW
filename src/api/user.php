@@ -107,6 +107,16 @@
             exit; 
         }
 
+        if(strlen($data['password']) < 8) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "Password is too short, must be at least 8 characters long",
+                'code' => Error("SHORT_PASSWORD")
+                ]);
+            exit;
+        }
+
         if($data['password'] !== $data['password_confirmation']) {
             http_response_code(400);
             echo json_encode([

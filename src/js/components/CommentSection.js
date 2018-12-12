@@ -9,20 +9,33 @@ export class CommentSection {
 	constructor(comments_data, story_id) {
 		this.story_id = story_id;
 		this.n_comments_loaded = comments_data.length;
-		this.ids = new Set();
-		this.comments = comments_data.map(comment => {
-			this.ids.add(comment.comment_id);
-			return new Comment(comment, true);
+
+		this.comments = new Map();
+		comments_data.forEach(comment => {
+			this.comments.set(comment.comment_id, new Comment(comment, true));
 		});
+
 		this.section = null;
 		this.loading = false;
+
+		this.comment_votes = [];
+	}
+
+	updateVoting(comment_votes) {
+		// For checking with comments loaded later on
+		this.comment_votes = comment_votes;
+
+		for (const comment of this.comments.values()) {
+			comment.updateVoting(comment_votes);
+		}
 	}
 
 	render() {
 		this.section = document.createElement("section");
 		this.section.classList.add("comment-section");
-		this.section.innerHTML = 
-        `<div class="line-container">
+		
+		this.section.innerHTML = `
+		<div class="line-container">
             <div class="line"><hr/></div>
             <div class="line-middle">
                 Comments
@@ -33,7 +46,7 @@ export class CommentSection {
 		<div class="new-comment"></div>
 		<div class="local-comments"></div>`;
 
-		for (const comment of this.comments) {
+		for (const comment of this.comments.values()) {
 			this.section.appendChild(comment.render());
 		}
 
@@ -69,15 +82,20 @@ export class CommentSection {
 		this.section.appendChild(loadingWheel);
 
 		// Retrive new comments
-		const comment_data = await fetchComments(
-			this.story_id,
-			10,
-			this.n_comments_loaded,
-			2,
-			0
-		);
+		try {
+			const comment_data = await fetchComments(
+				this.story_id,
+				10,
+				this.n_comments_loaded,
+				2,
+				0
+			);
 
-		this.addComments(comment_data);
+			this.addComments(comment_data);
+		} catch (err) {
+			console.error("Fetching comments error:", err);
+		}
+
 	}
 
 	addComments(comment_data) {
@@ -97,13 +115,12 @@ export class CommentSection {
 			}
 
 			this.removeLocalCommentIfExists(comment.comment_id);
-
-			this.ids.add(comment.comment_id);
-			let comment_object = new Comment(comment, true);
-			this.comments.push(comment_object);
+			const comment_object = new Comment(comment, true);
+			this.comments.set(comment.comment_id, comment_object);
 
 			if (!needFullReload) {
 				this.section.appendChild(comment_object.render());
+				comment_object.updateVoting(this.comment_votes);
 			}
 		}
 
@@ -115,9 +132,9 @@ export class CommentSection {
 	}
 
 	commentLoaded(new_comment) {
-		if (this.ids.has(new_comment.comment_id)) {
-			const comment = this.comments.find(com => com.comment_id === new_comment.comment_id);
-			comment.setScore(new_comment.score);
+		if (this.comments.has(new_comment.comment_id)) {
+			const comment = this.comments.get(new_comment.comment_id);
+			comment.updateScore(parseInt(new_comment.score));
 			return true;
 		}
 
@@ -127,7 +144,7 @@ export class CommentSection {
 	removeLocalCommentIfExists(id) {
 		let comment = document.querySelector(`.local-comment#comment_${id}`);
 
-		if(comment) {
+		if (comment) {
 			comment.remove();
 		}
 	}

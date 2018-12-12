@@ -11,8 +11,12 @@
     "rules": {
         "indent": [
             "error",
-            "tab"
+            "tab",
+            {
+                "SwitchCase": 1
+            }
         ],
+        "keyword-spacing": 2,
         "linebreak-style": [
             "error",
             "unix"
