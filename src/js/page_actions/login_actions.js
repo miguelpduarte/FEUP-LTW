@@ -24,7 +24,7 @@ const showAlreadyLoggedIn = () => {
 	const already_logged_in = new SimpleMessage(
 		"You are already logged in!",
 		"You must first logout to login with another account!",
-		[{href: "/pages/stories.php", text: "Homepage"}]
+		[{href: "../pages/stories.php", text: "Homepage"}]
 	);
 	const rendered_already_logged_in = already_logged_in.render();
 	content_container.appendChild(rendered_already_logged_in);
@@ -45,7 +45,7 @@ export const changeToSuccessfulLoginView = () => {
 	login_success_msg = new SimpleMessage(
 		"Login successful!",
 		"",
-		[{href: "/pages/stories.php", text: "Homepage"}]
+		[{href: "../pages/stories.php", text: "Homepage"}]
 	);
 	const rendered_login_success_msg = login_success_msg.render();
 	content_container.appendChild(rendered_login_success_msg);

@@ -23,7 +23,7 @@ export class LoginForm {
             </label>
             <button>Login</button>
             <div class="result"></div>
-            <div class="extra-info">Don't have an account yet? <a href="/pages/register.php">Register here!</a></div>
+            <div class="extra-info">Don't have an account yet? <a href="../pages/register.php">Register here!</a></div>
         `;
 
 		// Adding event listeners
