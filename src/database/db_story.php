@@ -136,14 +136,6 @@
         if(!$stmt->fetch()) {
             throw new Exception("No user with id $user_id");
         }
-
-
-        // $stmt = $db->prepare('SELECT * FROM storyVotes WHERE story_id = ?  AND user_id = ?');
-        // $stmt->execute(array($story_id, $user_id));
-
-        // if(!$stmt->fetch()) {
-        //     return;
-        // }
         
         try {
             $stmt = $db->prepare('DELETE FROM storyVotes WHERE story_id = ? AND user_id = ?');
