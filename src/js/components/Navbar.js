@@ -11,7 +11,10 @@ export class Navbar {
             <span class="logo"><a href="/">GET</a></span>
             
             <input type="checkbox" id="hamburger"/>
-            <label for="hamburger"></label>
+            <label for="hamburger">
+                <i class="show fas fa-bars"></i>
+                <i class="hide fas fa-times"></i>
+            </label>
             
             <div class="nav-content">
 
