@@ -25,7 +25,7 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => 'Anonymous User can\'t change his name',
+                'reason' => 'Anonymous User can\'t change his password',
                 'code' => Error('UNAUTHORIZED')
             ]);
             exit;
