@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 import { Story } from "../components/Story.js";
 import { UserInfo } from "../components/UserInfo.js";
@@ -26,7 +26,7 @@ async function loadUserInfo() {
 	const params = getParams();
 
 	if (!params.username) {
-		window.location.href = '../pages/stories.php';
+		window.location.href = "../pages/stories.php";
 	}
 	const user_data = await fetchUserData(params.username);
 	user_info = new UserInfo(user_data);
@@ -50,7 +50,7 @@ const updateStoriesVoting = user_votes => {
 const populateUserInfo = () => {
 	const user_info_container = document.getElementById("user_info_container");
 	user_info_container.appendChild(user_info.render());
-}
+};
 
 
 const populateUserStories = (user_stories_data) => {

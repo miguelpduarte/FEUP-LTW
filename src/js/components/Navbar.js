@@ -2,7 +2,7 @@
 
 import { logoutUser } from "../fetch_actions/user_fetch_actions.js";
 
-const BASE_URL = "/~up201603647";
+const BASE_URL = "";
 
 export class Navbar {
 	render() {
