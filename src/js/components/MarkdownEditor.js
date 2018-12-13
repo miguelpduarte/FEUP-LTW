@@ -16,8 +16,8 @@ export class MarkdownEditor {
 
 		for (const label of this.editor.getElementsByClassName("tab-label")) {
 			label.addEventListener("click", () => {
-				this.showTab(label.classList[1])
-		});	
+				this.showTab(label.classList[1]);
+			});	
 		}
         
 		return this.editor;
@@ -26,7 +26,7 @@ export class MarkdownEditor {
 	showTab(selectedClass) {
 		const tabs = this.editor.getElementsByClassName("tab");
 		for (const tab of tabs) {
-			if(tab.classList[1] != selectedClass)
+			if (tab.classList[1] != selectedClass)
 				tab.classList.remove("visible");
 			else
 				tab.classList.add("visible");
@@ -34,7 +34,7 @@ export class MarkdownEditor {
 
 		const tab_labels = this.editor.getElementsByClassName("tab-label");
 		for (const tab of tab_labels) {
-			if(tab.classList[1] != selectedClass)
+			if (tab.classList[1] != selectedClass)
 				tab.classList.remove("visible");
 			else
 				tab.classList.add("visible");
@@ -48,5 +48,10 @@ export class MarkdownEditor {
 
 	getContent() {
 		return this.editor.querySelector("textarea").value;
+	}
+
+	setContent(content) {
+		this.editor.querySelector("textarea").value = content;
+		this.editor.querySelector(".preview-selector.tab").innerHTML = mdToHTML(content);
 	}
 }
