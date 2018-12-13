@@ -5,7 +5,7 @@
     <section class="error-message">
         <h1>403</h1>
         <p>Forbidden</p>
-        <video src="<?= $BASE_DIR ?>/assets/404.gif" autoplay loop></video>
+        <video src="<?= $BASE_DIR ?>/assets/403.mp4" autoplay loop></video>
     </section>
 <?php
     draw_footer();

@@ -1,5 +1,5 @@
 ErrorDocument 404 /~up201603647/pages/404.php
-ErrorDocument 403 /~up201603647/pages/404.php
+ErrorDocument 403 /~up201603647/pages/403.php
 
 <Files ~ "\.(db|sql)$">  
 Order Allow,Deny
