@@ -8,10 +8,13 @@
 @import "./forms.css";
 @import "./simple_success_message.css";
 @import "./tabs.css";
+@import "./404.css";
+@import "./settings.css";
 
 body {
     margin: 0;
     margin-top: 6em;
+    height: 100vh;
 }
 
 img {
@@ -30,8 +33,4 @@ img {
 
 .refresh-btn:hover {
     transform: rotate(720deg);
-}
-
-img {
-    max-width: 100%;
 }

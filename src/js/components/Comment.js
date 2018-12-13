@@ -28,6 +28,7 @@ export class Comment {
 		this.loading = false;
 
 		this.vote_status = VoteStatus.none;
+		this.comment_votes = [];
 	}
 
 	updateVoting(comment_votes) {

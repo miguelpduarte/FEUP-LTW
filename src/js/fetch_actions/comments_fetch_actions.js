@@ -5,7 +5,7 @@ export const fetchComments = (story_id, n_comments, off, n_nested, n_off) => {
 	const real_id = Number.parseInt(story_id);
 
 	return new Promise((resolve, reject) => {
-		fetch(`/api/comment.php?story_id=${real_id}&n_comments=${n_comments}&off=${
+		fetch(`../api/comment.php?story_id=${real_id}&n_comments=${n_comments}&off=${
 			off}&n_nested=${n_nested}&n_off=${n_off}`)
 			.then(res => res.json())
 			.then(data => {
@@ -24,7 +24,7 @@ export const fetchSubComments = (comment_id, n_comments, off) => {
 	const real_id = Number.parseInt(comment_id);
 
 	return new Promise((resolve, reject) => {
-		fetch(`/api/comment.php?comment_id=${real_id}&n_comments=${
+		fetch(`../api/comment.php?comment_id=${real_id}&n_comments=${
 			n_comments}&off=${off}`)
 			.then(res => res.json())
 			.then(data => {
@@ -50,7 +50,7 @@ export const fetchVoteComment = async (id, upvote) => {
 	};
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/commentVote.php", {
+		fetch("../api/commentVote.php", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json; charset=utf-8",
@@ -78,7 +78,7 @@ export const fetchUnvoteComment = async id => {
 	};
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/commentVote.php", {
+		fetch("../api/commentVote.php", {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
@@ -106,8 +106,8 @@ export const fetchPostComment = async (story_id, content) => {
 		csrf: user.csrf
 	};
 
-	return new Promise((resolve, reject) => {
-		fetch("/api/comment.php", {
+    return new Promise((resolve, reject) => {
+		fetch("../api/comment.php", {
 			method: "POST",
 			credentials: "include",
 			headers: {
@@ -138,7 +138,7 @@ export const fetchPostSubComment = async (comment_id, content) => {
 	};
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/comment.php", {
+		fetch("../api/comment.php", {
 			method: "POST",
 			credentials: "include",
 			headers: {

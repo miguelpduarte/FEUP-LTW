@@ -23,7 +23,7 @@ const showAlreadyLoggedIn = () => {
 	const already_logged_in = new SimpleMessage(
 		"You are already logged in!",
 		"You must first logout to create an account!",
-		[{href: "/pages/stories.php", text: "Homepage"}]
+		[{href: "../pages/stories.php", text: "Homepage"}]
 	);
 	const rendered_already_logged_in = already_logged_in.render();
 	content_container.appendChild(rendered_already_logged_in);
@@ -44,7 +44,7 @@ export const changeToLoginOrHomepageView = () => {
 	const login_or_homepage = new SimpleMessage(
 		"Account registered successfully!",
 		"You may now login with your account!",
-		[{href: "/pages/stories.php", text: "Homepage"}, {href: "/pages/login.php", text: "Login"}]
+		[{href: "../pages/stories.php", text: "Homepage"}, {href: "/pages/login.php", text: "Login"}]
 	);
 	const rendered_login_or_homepage = login_or_homepage.render();
 	content_container.appendChild(rendered_login_or_homepage);

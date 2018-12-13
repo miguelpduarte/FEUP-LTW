@@ -3,7 +3,7 @@
     draw_header('New Story');
 ?>
     <div id="story_form_container"></div>
-    <script type="module" src="/js/page_actions/new_story_actions.js"></script>
+    <script type="module" src="../js/page_actions/new_story_actions.js"></script>
 <?php
     draw_footer();
 ?>
