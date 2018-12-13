@@ -5,7 +5,7 @@
     <div id="content">
         <div id="register_form_container"></div>
     </div>
-    <script type="module" src="/js/page_actions/register_actions.js"></script>
+    <script type="module" src="../js/page_actions/register_actions.js"></script>
 <?php
     draw_footer();
 ?>

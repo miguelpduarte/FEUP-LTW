@@ -11,7 +11,7 @@ class ErrorHandler {
 			1: {
 				msg: "Not logged in",
 				defaultAction: () => {
-					window.location.href = "/pages/login.php";
+					window.location.href = "../pages/login.php";
 				}
 			},
 
