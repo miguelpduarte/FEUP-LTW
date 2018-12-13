@@ -1,6 +1,6 @@
 <?php
 
-$BASE_DIR = "/~up201603647";
+$BASE_DIR = "";
 
 /**
  * Draws the header for all pages

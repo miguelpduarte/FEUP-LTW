@@ -2,7 +2,7 @@
 
 import { logoutUser } from "../fetch_actions/user_fetch_actions.js";
 
-const BASE_URL = "/~up201603647";
+const BASE_URL = "";
 
 export class Navbar {
 	render() {
@@ -23,9 +23,8 @@ export class Navbar {
                 <div class="hamburger">
                     
                     <ul>
-                        <li><a href="${BASE_URL}/">Stuff</a></li>
+                        <li><a href="${BASE_URL}/">Home</a></li>
                         <li><a href="${BASE_URL}/pages/channels.php">Channels</a></li>
-                        <li><a href="${BASE_URL}/ipsum.php">Lorem</a></li>
                         <li><a href="${BASE_URL}/pages/new_story.php">Add Story</a></li>
                     </ul>
                 </div>
