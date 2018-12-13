@@ -33,10 +33,12 @@
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT story_id, author as author_id, title, channel, created_at, username as author_name, score
                                 FROM stories 
+                                JOIN users ON stories.author = users.user_id
                                 WHERE channel = ?
                                 ORDER BY score, created_at DESC
                                 LIMIT ? OFFSET ?');
-        $stmt->execute(array($username, $n_stories, $offset));
+        $stmt->execute(array($id, $n_stories, $offset));
+
         return $stmt->fetchAll(); 
     }
 
