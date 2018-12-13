@@ -19,7 +19,15 @@ class ErrorHandler {
 				msg: "Channel name can only contain lowercase letters and numbers",
 				defaultAction: () => {
 				}
-			}
+			},
+			
+			17: {
+				msg: "Channel does not exist",
+				defaultAction: () => {
+				}
+			},
+
+
 		};
 	}
 

@@ -1,0 +1,6 @@
+.error-msg {
+    font-family: var(--title-font);
+    font-size: 2em;
+    margin: 0;
+    opacity: 0.5;
+}
