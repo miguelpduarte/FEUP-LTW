@@ -11,7 +11,7 @@ export const createUser = (name, username, password, password_confirmation) => {
 	});
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/user.php", {
+		fetch("../api/user.php", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -37,7 +37,7 @@ export const loginUser = (username, password) => {
 	});
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/login.php", {
+		fetch("../api/login.php", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -58,7 +58,7 @@ export const loginUser = (username, password) => {
 
 export const getUserLoginInfo = () => {
 	return new Promise((resolve, reject) => {
-		fetch("/api/login.php")
+		fetch("../api/login.php")
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
@@ -73,7 +73,7 @@ export const getUserLoginInfo = () => {
 
 export const getLoggedUserStoryVotes = () => {
 	return new Promise((resolve, reject) => {
-		fetch("/api/storyVote.php")
+		fetch("../api/storyVote.php")
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
@@ -88,7 +88,7 @@ export const getLoggedUserStoryVotes = () => {
 
 export const getLoggedUserCommentVotes = () => {
 	return new Promise((resolve, reject) => {
-		fetch("/api/commentVote.php")
+		fetch("../api/commentVote.php")
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
@@ -102,7 +102,7 @@ export const getLoggedUserCommentVotes = () => {
 
 export const getLoggedUserBio = () => {
 	return new Promise((resolve, reject) => {
-		fetch("/api/settings/changeBio.php")
+		fetch("../api/settings/changeBio.php")
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
@@ -116,7 +116,7 @@ export const getLoggedUserBio = () => {
 
 export const logoutUser = () => {
 	return new Promise(async (resolve, reject) => {
-		fetch("/api/login.php", {
+		fetch("../api/login.php", {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json"
@@ -138,7 +138,7 @@ export const logoutUser = () => {
 
 export const changeName = new_name => {
 	return new Promise(async (resolve, reject) => {
-		fetch("/api/settings/changeName.php", {
+		fetch("../api/settings/changeName.php", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -168,7 +168,7 @@ export const changePassword = async (old_password, new_password, new_password_co
 	};
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/settings/changePassword.php", {
+		fetch("../api/settings/changePassword.php", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -193,7 +193,7 @@ export const changeBio = async new_bio => {
 	};
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/settings/changeBio.php", {
+		fetch("../api/settings/changeBio.php", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json"
@@ -214,7 +214,7 @@ export const changeBio = async new_bio => {
 
 export const fetchUserStories = (username, offset, n_stories) => {
 	return new Promise((resolve, reject) => {
-		fetch(`/api/userStories.php?username=${username}&n_stories=${n_stories}&off=${offset}`)
+		fetch(`../api/userStories.php?username=${username}&n_stories=${n_stories}&off=${offset}`)
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
@@ -228,7 +228,7 @@ export const fetchUserStories = (username, offset, n_stories) => {
 
 export const fetchUserData = (username) => {
 	return new Promise((resolve, reject) => {
-		fetch(`/api/user.php?username=${username}`)
+		fetch(`../api/user.php?username=${username}`)
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
