@@ -100,13 +100,105 @@ export const getLoggedUserCommentVotes = () => {
 	});
 };
 
+export const getLoggedUserBio = () => {
+	return new Promise((resolve, reject) => {
+		fetch("/api/settings/changeBio.php")
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					return resolve(data.data);
+				} else {
+					return reject(data.reason);
+				}
+			});
+	});
+};
+
 export const logoutUser = () => {
 	return new Promise(async (resolve, reject) => {
 		fetch("../api/login.php", {
 			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json"
+			},
 			body: JSON.stringify({
 				csrf: (await getUserInfo()).csrf
 			})
+		})
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					return resolve();
+				} else {
+					return reject(data.reason);
+				}
+			});
+	});
+};
+
+export const changeName = new_name => {
+	return new Promise(async (resolve, reject) => {
+		fetch("/api/settings/changeName.php", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				csrf: (await getUserInfo()).csrf,
+				new_name
+			})
+		})
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					return resolve();
+				} else {
+					return reject(data.reason);
+				}
+			});
+	});
+};
+
+export const changePassword = async (old_password, new_password, new_password_confirmation) => {
+	const body = {
+		old_password,
+		new_password,
+		new_password_confirmation,
+		csrf: (await getUserInfo()).csrf,
+	};
+
+	return new Promise((resolve, reject) => {
+		fetch("/api/settings/changePassword.php", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(body)
+		})
+			.then(res =>  res.json())
+			.then(data => {
+				if (data.success) {
+					return resolve();
+				} else {
+					return reject(data.reason);
+				}
+			});
+	});
+};
+
+export const changeBio = async new_bio => {
+	const body = {
+		new_bio,
+		csrf: (await getUserInfo()).csrf,
+	};
+
+	return new Promise((resolve, reject) => {
+		fetch("/api/settings/changeBio.php", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(body)
 		})
 			.then(res => res.json())
 			.then(data => {

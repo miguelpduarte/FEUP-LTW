@@ -3,7 +3,8 @@ CREATE TABLE users (
     user_id INTEGER PRIMARY KEY,
     username VARCHAR UNIQUE NOT NULL,
     password VARCHAR NOT NULL,
-    name VARCHAR NOT NULL
+    name VARCHAR NOT NULL,
+    bio VARCHAR NOT NULL DEFAULT 'This is a user bio'
 );
 
 DROP TABLE IF EXISTS stories;

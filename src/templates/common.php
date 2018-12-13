@@ -22,11 +22,6 @@ function draw_header($page_title) {
         </head>
         <body>
             <nav id="navbar_container"></nav>
-            <?php if(isset($_GET['logged_in'])) { ?>
-                <div id="already_logged_in">
-                    You are already logged in!
-                </div>
-            <?php } ?>
 <?php } ?>
 
 <?php
