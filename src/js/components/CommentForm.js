@@ -86,7 +86,7 @@ export class CommentForm {
 		this.form = document.createElement("form");
 		this.form.classList.add("editor");
 		this.form.method = "post";
-		this.form.action = "/api/comment.php";
+		this.form.action = "../api/comment.php";
 
 		this.markdown_editor = new MarkdownEditor();
 		this.form.appendChild(this.markdown_editor.render());

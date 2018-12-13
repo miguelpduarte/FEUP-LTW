@@ -4,7 +4,7 @@
 ?>
     <div id="story_container"></div>
     <div id="comments_container"></div>
-    <script type="module" src="/js/page_actions/story_actions.js"></script>
+    <script type="module" src="../js/page_actions/story_actions.js"></script>
 <?php
     draw_footer();
 ?>

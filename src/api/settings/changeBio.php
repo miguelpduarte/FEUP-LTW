@@ -6,13 +6,50 @@
     $method = $_SERVER['REQUEST_METHOD'];
 
     switch ($method) {
+        case 'GET':
+            // get logged in user bio
+            handle_get();
+            break;
         case 'POST':
-            //change user's password
+            //change the user's bio
             handle_post();
             break;
         default:
             handle_error();  
             break;
+    }
+
+    function handle_get() {
+        header('Content-Type: application/json');
+    
+        $currentUser = getLoggedUser();
+        if (!$currentUser) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => 'User not logged in',
+                'code' => Error('UNAUTHORIZED')
+            ]);
+            exit;
+        }
+
+        try {
+            $bio = getUserBio($currentUser['user_id']);
+            http_response_code(200);
+            echo json_encode([
+                'success' => true,
+                'data' => $bio
+            ]);
+            exit;
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'reason' => 'Error getting current user\'s bio',
+                'code' => Error('GET_BIO'),
+            ]);
+            exit;
+        }
     }
     
     function handle_post() {
@@ -25,37 +62,17 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'reason' => 'Anonymous User can\'t change his password',
+                'reason' => 'Anonymous User can\'t change his bio',
                 'code' => Error('UNAUTHORIZED')
             ]);
             exit;
         }
 
-        if(empty($data['old_password'])) {
+        if(empty($data['new_bio'])) {
             http_response_code(400);
             echo json_encode([
                 'success' => false,
-                'reason' => 'Old Password is missing',
-                'code' => Error('MISSING_PARAM')
-                ]);
-            exit;
-        }
-
-        if(empty($data['new_password'])) {
-            http_response_code(400);
-            echo json_encode([
-                'success' => false,
-                'reason' => 'New Password is missing',
-                'code' => Error('MISSING_PARAM')
-                ]);
-            exit;
-        }
-
-        if(empty($data['new_password_confirmation'])) {
-            http_response_code(400);
-            echo json_encode([
-                'success' => false,
-                'reason' => 'New Password Confirmation is missing',
+                'reason' => 'New Bio is missing',
                 'code' => Error('MISSING_PARAM')
                 ]);
             exit;
@@ -81,30 +98,8 @@
             exit;
         }
 
-        if(strlen($data['new_password']) < 8) {
-            http_response_code(401);
-            echo json_encode([
-                'success' => false,
-                'reason' => 'Password is too short, must be at least 8 characters long',
-                'code' => Error('SHORT_PASSWORD')
-                ]);
-            exit;
-        }
-
-        if ($data['new_password'] !== $data['new_password_confirmation']) {
-            http_response_code(400);
-            echo json_encode([
-                'success' => false,
-                'reason' => 'The new passwords do not match',
-                'code' => Error("PASSWORD_NO_CONFIRMATION")
-                ]);
-            exit; 
-        }
-
         try {
-            changePassword($currentUser['user_id'], $data['old_password'], $data['new_password']);
-            session_unset();
-            session_destroy();
+            changeBio($currentUser['user_id'], $data['new_bio']);
             http_response_code(200);
             echo json_encode([
                 'success' => true
@@ -114,8 +109,8 @@
             http_response_code(500);
             echo json_encode([
                 'success' => false,
-                'reason' => $e->getMessage(),
-                'code' => Error('CHANGE_PASSWORD'),
+                'reason' => 'Error changing current user\'s bio',
+                'code' => Error('CHANGE_BIO'),
             ]);
             exit;
         }

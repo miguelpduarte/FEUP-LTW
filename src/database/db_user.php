@@ -2,38 +2,48 @@
     require_once(realpath( dirname( __FILE__ ) ) . '/../utils/database.php');
 
     /**
-     * Returns stories without content.
+     * Returns a user by username
      */
     function getUser($username) {
         $db = Database::instance()->db();
+
         $stmt = $db->prepare(
-            'SELECT user_id, username, name, storyScore, commentScore
+            'SELECT user_id, username, name, bio, storyScore, commentScore
             FROM
                 (
-                    (SELECT users.user_id, users.username, users.name, SUM(stories.score) as storyScore
+                    (SELECT users.user_id, users.username, users.name, users.bio, SUM(stories.score) as storyScore
                     FROM users
-                    JOIN stories ON stories.author = users.user_id
+                    LEFT OUTER JOIN stories ON stories.author = users.user_id
                     WHERE users.username = ?
                     GROUP BY users.user_id)
-                JOIN 
+                LEFT OUTER JOIN 
                     (SELECT users.user_id as a, SUM(comments.score) as commentScore
                     FROM users
-                    JOIN comments ON comments.author = users.user_id
+                    LEFT OUTER JOIN comments ON comments.author = users.user_id
                     WHERE users.username = ?
                     GROUP BY users.user_id)
-                ON user_id = a
                 )
             ');
+            
         $stmt->execute(array($username, $username));
         return $stmt->fetch(); 
+    }
+
+    /**
+     * Returns a user's bio
+     */
+    function getUserBio($user_id) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare(
+            'SELECT bio FROM users WHERE user_id = ?');
+        $stmt->execute(array($user_id));
+        return $stmt->fetch();
     }
 
     /**
      * Validates Username/Password and returns the matching user if it exists.
      */
     function verifyLoginCredentials($username, $password) {
-
-        
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT user_id, password FROM users WHERE username = ?');
         $stmt->execute(array($username));
@@ -47,8 +57,6 @@
             return null;
         }
     }
-
-   
 
     /**
      * Inserts a user into the database.
@@ -72,8 +80,18 @@
         $stmt = $db->prepare('UPDATE users SET name = ? WHERE user_id = ?');
         
         $stmt->execute(array($new_name, $user_id));
-        
     }
+
+    /**
+     * Change a user's bio.
+     */
+    function changeBio($user_id, $new_bio) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('UPDATE users SET bio = ? WHERE user_id = ?');
+        
+        $stmt->execute(array($new_bio, $user_id));
+    }
+    
     /**
      * Change a user's password.
      */
@@ -101,12 +119,8 @@
             }
         } else {
             throw new Exception("Wrong password");
-        }
-
-        
+        }        
     }
-
-
 
     /**
      * Get the story votes of user_id

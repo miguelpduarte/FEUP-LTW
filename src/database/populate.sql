@@ -1,10 +1,10 @@
 -- users
 -- testuser, password123
-INSERT INTO users values(1, 'testuser', '$2y$10$7UAmhAXfqbt9aA/TFE3XHez3p/KU9jj1bmNTD2R2V7M0jCuqfCXbG', 'Test User');
+INSERT INTO users(user_id, username, password, name) values(1, 'testuser', '$2y$10$7UAmhAXfqbt9aA/TFE3XHez3p/KU9jj1bmNTD2R2V7M0jCuqfCXbG', 'Test User');
 -- testuser2, password123
-INSERT INTO users values(2, 'testuser2', '$2y$10$7UAmhAXfqbt9aA/TFE3XHez3p/KU9jj1bmNTD2R2V7M0jCuqfCXbG', 'Test User 2');
-INSERT INTO users values(3, '<script>alert(1)</script>', '<script>alert(1)</script>', 'Unsuccessful XSSer <script>alert(1)</script>');
-INSERT INTO users values(4, '<img src="" onerror="alert(1)" />', '<img src="" onerror="alert(1)" />', 'Unsuccessful XSSer2 <img src="" onerror="alert(1)" />');
+INSERT INTO users(user_id, username, password, name) values(2, 'testuser2', '$2y$10$7UAmhAXfqbt9aA/TFE3XHez3p/KU9jj1bmNTD2R2V7M0jCuqfCXbG', 'Test User 2');
+INSERT INTO users(user_id, username, password, name) values(3, '<script>alert(1)</script>', '<script>alert(1)</script>', 'Unsuccessful XSSer <script>alert(1)</script>');
+INSERT INTO users(user_id, username, password, name) values(4, '<img src="" onerror="alert(1)" />', '<img src="" onerror="alert(1)" />', 'Unsuccessful XSSer2 <img src="" onerror="alert(1)" />');
 
 -- channels
 INSERT INTO channels values(0, 'default', '#cc0055');
@@ -84,9 +84,9 @@ And this is not!',
 2, 3, NULL);
 
 INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(NULL, 'This is a sub-level _reply_ to the **parent** comment!', 1, NULL, 1);
-INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(NULL, 'This is a sub-level _reply_ to the **parent** comment!', 1, NULL, 1);
-INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(NULL, 'This is a sub-level _reply_ to the **parent** comment!', 1, NULL, 1);
-INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(NULL, 'This is a sub-level _reply_ to the **parent** comment!', 1, NULL, 1);
+INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(NULL, 'This is another sub-level _reply_ to the **parent** comment!', 1, NULL, 1);
+INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(NULL, 'What? Another sub-level reply?', 1, NULL, 1);
+INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(NULL, 'Just passing through and leaving... A sub-level reply...', 1, NULL, 1);
 
 -- comment votes
 INSERT INTO commentVotes VALUES(1, 1, 1);

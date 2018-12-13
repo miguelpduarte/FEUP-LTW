@@ -1,0 +1,43 @@
+@import "./palette.css";
+
+.user-info {
+    margin-top: 4em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-info * {
+    font-family: var(--content-font);
+}
+
+.user-info .info-username {
+    font-size: 2.5em;
+    font-family: var(--title-font);
+    margin: 0;
+}
+
+.user-info .info-name {
+    margin: 0.5em 0 0 0;
+    font-size: 1.5em;
+    opacity: 0.5;
+}
+
+.user-info .info-scores {
+    display: flex;
+}
+
+.user-info .info-scores .info-storyScore {
+    border-right: 2px solid var(--even-lighter-grey);
+    padding-right: 1em;
+    font-size: 1.5em;
+}
+
+.user-info .info-scores .info-commentScore {
+    padding-left: 1em;
+    font-size: 1.5em;
+}
+
+.user-info .info-bio {
+    text-align: center;
+}

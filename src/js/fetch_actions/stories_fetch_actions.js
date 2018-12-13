@@ -6,7 +6,7 @@ export const fetchNewestStories = (offset, n_stories) => {
 	const real_n_stories = Number.parseInt(n_stories);
 
 	return new Promise((resolve, reject) => {
-		fetch(`/api/story.php?off=${real_offset}&n_stories=${real_n_stories}`)
+		fetch(`../api/story.php?off=${real_offset}&n_stories=${real_n_stories}`)
 			.then(res => res.json())
 			.then(data => {
 				// Checking for data errors
@@ -22,7 +22,7 @@ export const fetchNewestStories = (offset, n_stories) => {
 
 export const fetchTopStories = () => {
 	return new Promise((resolve, reject) => {
-		fetch("/api/top_stories.php")
+		fetch("../api/top_stories.php")
 			.then(res => res.json())
 			.then(data => {
 				// Checking for data errors
@@ -41,7 +41,7 @@ export const fetchStory = id => {
 	const real_id = Number.parseInt(id);
 
 	return new Promise((resolve, reject) => {
-		fetch(`/api/story.php?id=${real_id}`)
+		fetch(`../api/story.php?id=${real_id}`)
 			.then(res => res.json())
 			.then(data => {
 				// Check for data errors
@@ -64,7 +64,7 @@ export const fetchPostStory = async (content, title, channel) => {
 	};
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/story.php", {
+		fetch("../api/story.php", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json; charset=utf-8",
@@ -94,7 +94,7 @@ export const fetchVoteStory = async (id, upvote) => {
 	};
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/storyVote.php", {
+		fetch("../api/storyVote.php", {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json; charset=utf-8",
@@ -122,7 +122,7 @@ export const fetchUnvoteStory = async id => {
 	};
 
 	return new Promise((resolve, reject) => {
-		fetch("/api/storyVote.php", {
+		fetch("../api/storyVote.php", {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
