@@ -25,13 +25,18 @@
     }
 
 
-    /**
-     * Returns all stories from given channel.
+     /**
+     * Returns stories from given channel
      */
-    function getStoriesByChannel($id) {
+    function getStoriesByChannel($id, $offset, $n_stories) {
+        $n_stories = ($n_stories == 0 ? 999999999999999 : $n_stories);
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT story_id, title FROM stories WHERE channel = ?');
-        $stmt->execute(array($id));
+        $stmt = $db->prepare('SELECT story_id, author as author_id, title, channel, created_at, username as author_name, score
+                                FROM stories 
+                                WHERE channel = ?
+                                ORDER BY score, created_at DESC
+                                LIMIT ? OFFSET ?');
+        $stmt->execute(array($username, $n_stories, $offset));
         return $stmt->fetchAll(); 
     }
 

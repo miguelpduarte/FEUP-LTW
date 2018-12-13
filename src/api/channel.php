@@ -25,13 +25,17 @@
     function handle_get() {
         header('Content-Type: application/json');
         if(isset($_GET['id'])) { //Get Channel's Stories
-            $stories = getStoriesByChannel($_GET['id']);
+
+            $n_stories = (isset($_GET['n_stories']) && $_GET['n_stories'] !== '' ? intval($_GET['n_stories']) : 0);
+            $offset = (isset($_GET['off']) && $_GET['off'] !== '' ? intval($_GET['off']) : 0);
+
+            $stories = getStoriesByChannel($_GET['id'], $offset, $n_stories);
             
             if(empty($stories)) {
                 http_response_code(404);
                 echo json_encode([
                     'success' => false,
-                    'reason' => "There's no channel with id (" . $_GET['id'] . ")",
+                    'reason' => "No stories or channel found",
                     'code' => Error("NOT_FOUND")
                 ]);
                 exit;
