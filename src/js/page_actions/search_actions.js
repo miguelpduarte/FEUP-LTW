@@ -12,7 +12,7 @@ const BASE_URL = ""
 const user_results = [];
 const channel_results = new Map();
 const story_results = new Map();
-
+let queryUpdated = false;
 
 
 const loadStories = async (query) => {
@@ -96,13 +96,21 @@ const loadPage = (query) => {
     loadStories(query);
 }
 
-
-document.querySelector('.query-area').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const query = document.querySelector('.query-area input').value;
-    clearPage();
+const updateSugestions = () => {
+	if (!queryUpdated)
+		return;
+	const query = document.querySelector('.query-area input').value;
+	if (query === "")
+		return;
     loadPage(query);
-    window.history.pushState('Object', 'Title',`${BASE_URL}/pages/search.php?query=${query}`)
+	window.history.pushState('Object', 'Title',`${BASE_URL}/pages/search.php?query=${query}`);
+	queryUpdated = false;
+}
+
+window.setInterval(() => updateSugestions(), 200);
+document.querySelector('.query-area input').addEventListener('input', (e) => {
+    clearPage();
+    queryUpdated = true;
 });
 
 const query = getParams().query;
