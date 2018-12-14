@@ -5,6 +5,7 @@ import { getParams } from "../utils.js";
 import { fetchChannelStories } from "../fetch_actions/channel_fetch_actions.js";
 import { isUserLoggedIn, getUserStoryVotes } from "../store.js";
 import { errorHandler } from "../ErrorHandler.js";
+import { SimpleMessage } from '../components/SimpleMessage.js';
 
 const channel_stories = new Map();
 let loading = false;
@@ -35,10 +36,9 @@ const loadChannelStories = async (offset, n_stories) => {
 const showErrorMessage = msg => {
     const container = document.getElementById("content");
     
-    const error_element = document.createElement('p');
-    error_element.classList.add('error-msg');
-    error_element.textContent = msg;
-    container.prepend(error_element);
+    const simpleMessage = new SimpleMessage(msg, '', [{text: 'Homepage', href:'/pages/stories.php'}]).render(); 
+    container.prepend(simpleMessage);
+    document.getElementById('top').remove();
 }
 
 
