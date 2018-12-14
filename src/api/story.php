@@ -26,13 +26,6 @@
             $offset = (isset($_GET['off']) && $_GET['off'] !== '' ? intval($_GET['off']) : 0);
             
             $data = getStoriesNoContent($offset, $n_stories);
-
-            //Ensuring that no NULLs are left behind (when a story does not have any rating)
-            foreach ($data as $key => $value) {
-                if($value['score'] === NULL) {
-                    $data[$key]['score'] = '0';
-                }
-            }
         }
 
         if($data === false) {
