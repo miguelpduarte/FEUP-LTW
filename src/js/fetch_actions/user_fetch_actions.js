@@ -234,7 +234,7 @@ export const fetchUserData = (username) => {
 				if (data.success) {
 					return resolve(data.data);
 				} else {
-					return reject(data.reason);
+					return reject(data.code);
 				}
 			});
 	});
