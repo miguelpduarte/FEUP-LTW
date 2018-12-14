@@ -3,6 +3,7 @@
     draw_header('Channel Page');
 ?>
     <div id="content">
+        <div id="channel_info_container"></div>
         <div id="top">
             <div class="line-container">
                 <div class="line-starter">

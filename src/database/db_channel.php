@@ -15,6 +15,20 @@
     }
 
     /**
+     * Returns channel's info.
+     */
+    
+    function getChannel($id) {
+
+        $db = Database::instance()->db();
+        
+        $stmt = $db->prepare('SELECT channel_id, name, color FROM channels WHERE channel_id = ?');
+        $stmt->execute(array($id));
+        
+        return $stmt->fetch(); 
+    }
+
+    /**
      * Returns all channels with a given query
      */
     function getChannelsLike($query) {
@@ -86,7 +100,7 @@
 
     function removeFromChannel($story_id) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('UPDATE stories SET channel = NULL WHERE story_id = ?' );
+        $stmt = $db->prepare('UPDATE stories SET channel = 0 WHERE story_id = ?' );
 
         try {
             $stmt->execute(array($story_id));

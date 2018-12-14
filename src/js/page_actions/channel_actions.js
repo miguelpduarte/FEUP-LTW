@@ -2,15 +2,16 @@
 
 import { Story } from "../components/Story.js";
 import { getParams } from "../utils.js";
-import { fetchChannelStories } from "../fetch_actions/channel_fetch_actions.js";
+import { fetchChannelStories, fetchChannelData } from "../fetch_actions/channel_fetch_actions.js";
 import { isUserLoggedIn, getUserStoryVotes } from "../store.js";
 import { errorHandler } from "../ErrorHandler.js";
 import { SimpleMessage } from '../components/SimpleMessage.js';
+import { ChannelInfo } from "../components/ChannelInfo.js";
 
 const channel_stories = new Map();
 let loading = false;
 
-const loadChannelStories = async (offset, n_stories) => {
+const loadChannelTitle = async () => {
 	loading = true;
     const params = getParams();
     
@@ -19,14 +20,49 @@ const loadChannelStories = async (offset, n_stories) => {
     }
 
     try {
-        const channel_stories_data = await fetchChannelStories(params.id, offset, n_stories);
-        populateChannelStories(channel_stories_data);
+        const channel_data = await fetchChannelData(params.id);
+		populateChannelInfo(channel_data);
+		return true;
+
     } catch(e) {
         const err = errorHandler.getError(e);
-			showErrorMessage(err.msg);
-			err.defaultAction();
+		showErrorMessage(err.msg);
+		err.defaultAction();
+		return false;
+		
     }
+};
 
+const populateChannelInfo = (channel_data) => {
+	const channel_info_container = document.getElementById("channel_info_container");
+	
+	
+	const channel_info = new ChannelInfo(channel_data);
+	const channel_info_elem = channel_info.render();
+	channel_info_container.appendChild(channel_info_elem);
+	
+	
+	loading = false;
+}
+
+const loadChannelStories = async (offset, n_stories) => {
+	loading = true;
+    const params = getParams();
+    
+    if(!params.id) {
+		window.location.href = "../pages/stories.php";
+    }
+	
+    try {
+		const channel_stories_data = await fetchChannelStories(params.id, offset, n_stories);
+        populateChannelStories(channel_stories_data);
+    } catch(e) {
+		
+		const err = errorHandler.getError(e);
+		showErrorMessage(err.msg);
+		err.defaultAction();
+    }
+	
 	if (await isUserLoggedIn()) {
 		const user_votes = await getUserStoryVotes();
 		updateStoriesVoting(user_votes);
@@ -34,7 +70,7 @@ const loadChannelStories = async (offset, n_stories) => {
 };
 
 const showErrorMessage = msg => {
-    const container = document.getElementById("content");
+	const container = document.getElementById("content");
     
     const simpleMessage = new SimpleMessage(msg, '', [{text: 'Homepage', href:'/pages/stories.php'}]).render(); 
     container.prepend(simpleMessage);
@@ -96,5 +132,9 @@ const scrollListener = () => {
 document.getElementById("refresh_top_stories").addEventListener("click", refreshChannelStories);
 document.addEventListener("scroll", () => scrollListener());
 
-loadChannelStories(0,5);
+loadChannelTitle()
+	.then(() => {
+		loadChannelStories(0,5);
+	})
+	.catch(() => {})
 
