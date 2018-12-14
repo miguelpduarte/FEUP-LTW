@@ -8,7 +8,7 @@ INSERT INTO users(user_id, username, password, name) values(4, '<img src="" oner
 
 -- channels
 INSERT INTO channels values(0, 'default', '#cc0055');
-INSERT INTO channels values(1, '1234chan', 'bb00ff');
+INSERT INTO channels values(1, '1234chan', '#bb00ff');
 INSERT INTO channels values(2, 'definitelynotreddit', '#ff4500');
 
 -- stories
