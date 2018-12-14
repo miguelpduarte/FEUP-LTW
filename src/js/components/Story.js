@@ -92,7 +92,8 @@ export class Story {
 		// Storing attached DOM element for further use
 		this.element = article;
 
-		this.fetchChannelInfo();
+		const info_elem = this.element.querySelector('.story-card-info');
+		this.fetchChannelInfo(info_elem);
 
 		return article;
 	}
@@ -104,16 +105,16 @@ export class Story {
 		}
 	}
 
-	async fetchChannelInfo() {
+	async fetchChannelInfo(el) {
 		this.channel_info = await fetchChannelData(this.data.channel);
 
 		const channel_info_elem = document.createElement('div');
 		channel_info_elem.classList.add('channel-info');
 		channel_info_elem.innerHTML = `<a href="channel.php?id=${this.channel_info.channel_id}"></a>`
 
-		const header_elem = this.element.querySelector('.story-card-info');
+		
 		console.log(this.element);
-		header_elem.prepend(channel_info_elem);
+		el.prepend(channel_info_elem);
 		channel_info_elem.querySelector("a").textContent = `#${this.channel_info.name}`;
 		channel_info_elem.style.color = this.channel_info.color;
 		
@@ -316,6 +317,8 @@ export class Story {
 
 		this.element = section;
 
+		const info_elem = this.element.querySelector('.story-info');
+		this.fetchChannelInfo(info_elem);
 
 		this.fetchChannelInfo();
 		return section;
