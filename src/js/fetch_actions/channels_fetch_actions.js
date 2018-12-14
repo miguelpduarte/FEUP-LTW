@@ -26,9 +26,6 @@ export const fetchChannels = (offset, n_channels) => {
 			.then(data => {
 				// Checking for data errors
 				if (data.success) {
-					console.log('====================================');
-					console.log(data.data);
-					console.log('====================================');
 					return resolve(data.data);
 				} else {
 					return reject("Fetching not successful, reason: " + data.reason);

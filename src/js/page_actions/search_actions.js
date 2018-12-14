@@ -142,7 +142,6 @@ document.querySelector('.query-area input').addEventListener('input', (e) => {
 
 document.querySelectorAll('.search-link').forEach(search_link => { 
 	search_link.addEventListener('click', (e) => {
-		console.log(e.target);
 		e.preventDefault();
 		document.querySelector(e.target.dataset.target).scrollIntoView({
 			behavior: "smooth",
