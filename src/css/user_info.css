@@ -31,11 +31,13 @@
     border-right: 2px solid var(--even-lighter-grey);
     padding-right: 1em;
     font-size: 1.5em;
+    cursor: default;
 }
 
 .user-info .info-scores .info-commentScore {
     padding-left: 1em;
     font-size: 1.5em;
+    cursor: default;
 }
 
 .user-info .info-bio {
