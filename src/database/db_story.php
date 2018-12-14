@@ -175,7 +175,7 @@
 
     function getStoriesLike($query) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT story_id, author as author_id, title, content, channel, created_at, updated_at, username as author_name, score
+        $stmt = $db->prepare('SELECT story_id, author as author_id, title, content, channel, created_at, updated_at, username as author_name, score, n_comments
          FROM stories JOIN users ON stories.author = users.user_id WHERE title LIKE ?');
         $stmt->execute(array("%$query%"));
         return $stmt->fetchAll(); 
