@@ -6,24 +6,25 @@
      */
     function getUser($username) {
         $db = Database::instance()->db();
+
         $stmt = $db->prepare(
             'SELECT user_id, username, name, bio, storyScore, commentScore
             FROM
                 (
                     (SELECT users.user_id, users.username, users.name, users.bio, SUM(stories.score) as storyScore
                     FROM users
-                    JOIN stories ON stories.author = users.user_id
+                    LEFT OUTER JOIN stories ON stories.author = users.user_id
                     WHERE users.username = ?
                     GROUP BY users.user_id)
-                JOIN 
+                LEFT OUTER JOIN 
                     (SELECT users.user_id as a, SUM(comments.score) as commentScore
                     FROM users
-                    JOIN comments ON comments.author = users.user_id
+                    LEFT OUTER JOIN comments ON comments.author = users.user_id
                     WHERE users.username = ?
                     GROUP BY users.user_id)
-                ON user_id = a
                 )
             ');
+            
         $stmt->execute(array($username, $username));
         return $stmt->fetch(); 
     }
