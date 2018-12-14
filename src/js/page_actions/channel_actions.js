@@ -132,9 +132,11 @@ const scrollListener = () => {
 document.getElementById("refresh_top_stories").addEventListener("click", refreshChannelStories);
 document.addEventListener("scroll", () => scrollListener());
 
-loadChannelTitle()
-	.then(() => {
+// Only render channel stories if channel exists
+const loadPage = async () => {
+	if(await loadChannelTitle()) {
 		loadChannelStories(0,5);
-	})
-	.catch(() => {})
+	}
+}
 
+loadPage();

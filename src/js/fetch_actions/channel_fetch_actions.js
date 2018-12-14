@@ -6,7 +6,6 @@ export const fetchChannelData = id => {
 		fetch(`../api/channel.php?id=${id}`)
 			.then(res => res.json())
 			.then(data => {
-				console.log(data)
 				if (data.success) {
 					return resolve(data.data);
 				} else {

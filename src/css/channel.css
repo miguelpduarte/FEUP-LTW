@@ -1,0 +1,8 @@
+.channel-info {
+    font-family:  var(--title-font);
+    font-size: 2em;
+}
+
+.channel-info h2 {
+    padding: 0.5em 0 0.5em 0.5em;
+}

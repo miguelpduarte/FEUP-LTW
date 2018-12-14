@@ -15,7 +15,7 @@ export class ChannelInfo {
 
         const info_name = this.element.querySelector(".info-name");
         info_name.textContent = this.name;
-        info_name.style.borderBottom = '2px solid pink';
+        info_name.style.borderLeft = `5px solid ${this.color}`;
 		return this.element;
 	}
 }
