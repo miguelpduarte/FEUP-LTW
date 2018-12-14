@@ -184,7 +184,7 @@
 
     function getUsersLike($query) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT user_id, username FROM users WHERE username LIKE ?');
+        $stmt = $db->prepare('SELECT username FROM users WHERE username LIKE ?');
         $stmt->execute(array("%$query%"));
         return $stmt->fetchAll(); 
     }

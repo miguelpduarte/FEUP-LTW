@@ -22,7 +22,7 @@
             $distances = []; 
 
             foreach ($users_like as $key => $value) {
-                $distances[$key] = levenshtein($value['username'], $query);
+                $distances[$key] = levenshtein($value['username'], $_GET['query']);
             }
 
             $best_matches = [];
