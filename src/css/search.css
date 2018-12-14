@@ -23,10 +23,19 @@
 }
 
 .search-options {
-    margin: 2em auto 3em auto;
+    margin: 2em auto 0em auto;
     list-style: none;
     padding: 0;
     display: flex;
     justify-content: space-evenly;
     width: 80%;
+}
+
+.result-container {
+    padding-top: 5em;
+}
+
+
+.result-container:first-of-type {
+    padding-top: 3.5em;
 }

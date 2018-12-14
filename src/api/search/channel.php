@@ -19,11 +19,26 @@
         
         if(!empty($_GET['query'])) {
             $channels = getChannelsLike($_GET['query']); 
+            $distances = []; 
 
+            foreach ($stories_like as $key => $value) {
+                $distances[$key] = levenshtein($value['name'], $_GET['query']);
+            }
+
+            $best_matches = [];
+            asort($distances);
+            $count  = 0;
+            foreach ($distances as $key => $value) {
+                if ($count >= 10) {
+                    break;
+                }
+                
+                array_push($best_matches, $stories_like[$key]);
+            }
             http_response_code(200);
             echo json_encode([
                 'success' => true,
-                'data' => $channels
+                'data' => $best_matches
             ]);
             exit;
 

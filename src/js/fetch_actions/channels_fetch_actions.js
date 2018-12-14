@@ -1,6 +1,6 @@
 "use strict";
 
-export const fetchChannel = query => {
+export const fetchChannelLike = query => {
 	return new Promise((resolve, reject) => {
 		fetch(`../api/channel.php?query=${query}`)
 			.then(res => res.json())

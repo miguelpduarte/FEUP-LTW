@@ -1,16 +1,16 @@
 "use strict"
 
+import { Channel } from "../components/Channel.js";
 import { Story } from "../components/Story.js";
 import { getParams } from "../utils.js";
 import { fetchStoriesLike } from "../fetch_actions/stories_fetch_actions.js"
 import { fetchUsersLike } from "../fetch_actions/user_fetch_actions.js"
+import { fetchChannelLike } from "../fetch_actions/channels_fetch_actions.js"
 import { isUserLoggedIn, getUserStoryVotes } from "../store.js";
 import { UserCard } from "../components/UserCard.js";
 
 const BASE_URL = ""
 
-const user_results = [];
-const channel_results = new Map();
 const story_results = new Map();
 let queryUpdated = false;
 
@@ -72,7 +72,6 @@ const populateUsers = (users_data) => {
     
 	for (const user_data of users_data) {
 		const user = new UserCard(user_data);
-		user_results.push(user);
 		const user_card = user.render();
 		users_container.appendChild(user_card);
 	}
@@ -86,12 +85,39 @@ const clearUsers = () => {
     }
 };
 
+const loadChannels = async (query) => {
+	const channels_data = await fetchChannelLike(query);
+	populateChannels(channels_data);
+};
+
+const populateChannels = (channels_data) => {
+	const channels_container = document.getElementById("channels_container");
+    
+	for (const channel_data of channels_data) {
+		const channel = new Channel(channel_data);
+		const channel_card = channel.render();
+		channels_container.appendChild(channel_card);
+	}
+};
+
+const clearChannels = () => {
+	const channels_container = document.getElementById("channels_container");
+
+	while (channels_container.firstChild) {
+		channels_container.removeChild(channels_container.firstChild);
+	}
+
+};
+
+
 const clearPage = () => {
     clearStories();
-    clearUsers();
+	clearUsers();
+	clearChannels();
 }
 
 const loadPage = (query) => {
+	loadChannels(query);
     loadSearchUsers(query);
     loadStories(query);
 }
@@ -102,6 +128,7 @@ const updateSugestions = () => {
 	const query = document.querySelector('.query-area input').value;
 	if (query === "")
 		return;
+	clearPage();	
     loadPage(query);
 	window.history.pushState('Object', 'Title',`${BASE_URL}/pages/search.php?query=${query}`);
 	queryUpdated = false;
@@ -111,6 +138,18 @@ window.setInterval(() => updateSugestions(), 200);
 document.querySelector('.query-area input').addEventListener('input', (e) => {
     clearPage();
     queryUpdated = true;
+});
+
+document.querySelectorAll('.search-link').forEach(search_link => { 
+	search_link.addEventListener('click', (e) => {
+		console.log(e.target);
+		e.preventDefault();
+		document.querySelector(e.target.dataset.target).scrollIntoView({
+			behavior: "smooth",
+			block: "start", 
+			inline: "start"
+		});
+	})
 });
 
 const query = getParams().query;

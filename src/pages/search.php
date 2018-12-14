@@ -4,14 +4,14 @@
 ?>
     <div id="content" class="search-page">
         <form class="query-area">
-                <input type="text" id="query" class="query-input" name="query" placeholder="Insert your query here">
+                <input type="text" id="query" class="query-input" name="query" placeholder="Insert your query here" autocomplete="off">
         </form>
         <ul class="search-options">
-            <li><a href="#channels">Channels</a></li>
-            <li><a href="#users">Users</a></li>
-            <li><a href="#stories">Stories</a></li>
+            <li><a class="search-link" data-target="#channels" href="#channels">Channels</a></li>
+            <li><a class="search-link" data-target="#users" href="#users">Users</a></li>
+            <li><a class="search-link" data-target="#stories" href="#stories">Stories</a></li>
         </ul>
-        <div id="channels">
+        <div id="channels" class="result-container">
             <div class="line-container">
                 <div class="line"><hr/></div>
                 <div class="line-middle">
@@ -22,7 +22,7 @@
             </div>
             <div id="channels_container"></div>
         </div>
-        <div id="users">
+        <div id="users" class="result-container">
             <div class="line-container">
                 <div class="line"><hr/></div>
                 <div class="line-middle">
@@ -33,7 +33,7 @@
             </div>
             <div id="users_container"></div>
         </div>
-        <div id="stories">
+        <div id="stories" class="result-container">
             <div class="line-container">
                 <div class="line"><hr/></div>
                 <div class="line-middle">
