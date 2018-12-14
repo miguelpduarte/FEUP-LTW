@@ -57,7 +57,7 @@
     font-size: 2.5em;
     font-family: var(--title-font);
     margin-bottom: 0.2em;
-    margin-top: 0;
+    margin-top: 0.2em;
 }
 
 .full-story .content{
@@ -108,4 +108,22 @@
 
 .full-story.downvoted .voting-wrapper .vote-down {
     color: var(--downvote-color);
+}
+
+.channel-info a {
+    text-decoration: none;
+    font-size: 0.5em;
+}
+
+
+@media screen and (max-width: 60em) {
+
+    .full-story .title {
+        font-size: 1.5em;
+        padding-right: 0.5em;
+    }
+
+    .full-story .voting-wrapper {
+        font-size: 1.5em;
+    }
 }

@@ -1,17 +1,34 @@
 "use strict";
 
-export const fetchChannel = query => {
+
+export const fetchChannelData = id => {
 	return new Promise((resolve, reject) => {
-		fetch(`../api/search/channel.php?query=${query}`)
+		fetch(`../api/channel.php?id=${id}`)
 			.then(res => res.json())
 			.then(data => {
-				// Check for data errors
 				if (data.success) {
 					return resolve(data.data);
 				} else {
-					return reject("Fetching not successful, reason: " + data.reason);
+					return reject(data.code);
 				}
-			})
-			.catch(err => console.error("Fetch error:", err));
+			});
+	});
+}
+
+
+
+export const fetchChannelStories = (id, offset, n_stories) => {
+	return new Promise((resolve, reject) => {
+		fetch(`../api/channelStories.php?id=${id}&n_stories=${n_stories}&off=${offset}`)
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					return resolve(data.data);
+				} else {
+					return reject(data.code);
+				}
+			});
 	});
 };
+
+

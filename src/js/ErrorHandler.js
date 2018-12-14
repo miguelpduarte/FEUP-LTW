@@ -20,6 +20,14 @@ class ErrorHandler {
 				defaultAction: () => {
 				}
 			},
+			
+			17: {
+				msg: "Channel does not exist",
+				defaultAction: () => {
+				}
+			},
+
+
 			18: {
 				msg: "User not found",
 				defaultAction: () => {

@@ -4,11 +4,28 @@
     /**
      * Returns all channels.
      */
-    function getAllChannels() {
+    
+    function getAllChannels($offset, $n_channels) {
+        $n_channels = ($n_channels == 0 ? 999999999999999 : $n_channels);
+
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT channel_id, name FROM channels');
-        $stmt->execute();
+        $stmt = $db->prepare('SELECT channel_id, name, color FROM channels LIMIT ? OFFSET ?');
+        $stmt->execute(array($n_channels, $offset));
         return $stmt->fetchAll(); 
+    }
+
+    /**
+     * Returns channel's info.
+     */
+    
+    function getChannel($id) {
+
+        $db = Database::instance()->db();
+        
+        $stmt = $db->prepare('SELECT channel_id, name, color FROM channels WHERE channel_id = ?');
+        $stmt->execute(array($id));
+        
+        return $stmt->fetch(); 
     }
 
     /**
@@ -16,19 +33,26 @@
      */
     function getChannelsLike($query) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT channel_id, name FROM channels WHERE name LIKE ?');
+        $stmt = $db->prepare('SELECT channel_id, name, color FROM channels WHERE name LIKE ?');
         $stmt->execute(array("%$query%"));
         return $stmt->fetchAll(); 
     }
 
 
-    /**
-     * Returns all stories from given channel.
+     /**
+     * Returns stories from given channel
      */
-    function getStoriesByChannel($id) {
+    function getStoriesByChannel($id, $offset, $n_stories) {
+        $n_stories = ($n_stories == 0 ? 999999999999999 : $n_stories);
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT story_id, title FROM stories WHERE channel = ?');
-        $stmt->execute(array($id));
+        $stmt = $db->prepare('SELECT story_id, author as author_id, title, channel, created_at, username as author_name, score
+                                FROM stories 
+                                JOIN users ON stories.author = users.user_id
+                                WHERE channel = ?
+                                ORDER BY score, created_at DESC
+                                LIMIT ? OFFSET ?');
+        $stmt->execute(array($id, $n_stories, $offset));
+
         return $stmt->fetchAll(); 
     }
 
@@ -44,10 +68,12 @@
         $id = $fetch_stmt->fetch();
         
         if(!$id) { //channel doesn't exist yet -> must be created
-            $insert_stmt = $db->prepare('INSERT INTO channels (name) values(?)');
+            $insert_stmt = $db->prepare('INSERT INTO channels (name, color) values(?, ?)');
     
+            $color = $rand_color();
+
             try{
-                $insert_stmt->execute(array($name));
+                $insert_stmt->execute(array($name, $color));
                 $id = $db->lastInsertId();
             } catch(Exception $err) {
                 $error = $err->getCode();
@@ -74,7 +100,7 @@
 
     function removeFromChannel($story_id) {
         $db = Database::instance()->db();
-        $stmt = $db->prepare('UPDATE stories SET channel = NULL WHERE story_id = ?' );
+        $stmt = $db->prepare('UPDATE stories SET channel = 0 WHERE story_id = ?' );
 
         try {
             $stmt->execute(array($story_id));
@@ -86,7 +112,12 @@
         
         
 
-
+    /**
+     * Generates a random color in HEX format
+     */
+    function rand_color() {
+        return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+    }
         
 
     
