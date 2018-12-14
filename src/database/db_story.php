@@ -57,6 +57,22 @@
         return $stmt->fetchAll(); 
     }
 
+    /**
+     * Returns stories without content.
+     */
+    function getUserStories($username, $offset, $n_stories) {
+        $n_stories = ($n_stories == 0 ? 999999999999999 : $n_stories);
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT stories.story_id, author as author_id, title, channel, created_at, username as author_name, score
+                                FROM stories 
+                                JOIN users ON stories.author = users.user_id
+                                WHERE users.username = ?
+                                ORDER BY created_at DESC
+                                LIMIT ? OFFSET ?');
+        $stmt->execute(array($username, $n_stories, $offset));
+        return $stmt->fetchAll(); 
+    }
+
     
     /**
      * Inserts a story into the database.

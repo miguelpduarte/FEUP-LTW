@@ -10,6 +10,8 @@
 @import "./tabs.css";
 @import "./404.css";
 @import "./settings.css";
+@import "./user_info.css";
+
 
 body {
     margin: 0;
