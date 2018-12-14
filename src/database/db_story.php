@@ -172,5 +172,12 @@
 
         return $stmt->fetch();
     }
+
+    function getStoriesLike($query) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT story_id, title FROM stories WHERE title LIKE ?');
+        $stmt->execute(array("%$query%"));
+        return $stmt->fetchAll(); 
+    }
     
 ?>
