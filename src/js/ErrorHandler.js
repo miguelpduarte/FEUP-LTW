@@ -28,6 +28,11 @@ class ErrorHandler {
 			},
 
 
+			18: {
+				msg: "User not found",
+				defaultAction: () => {
+				}
+			}
 		};
 	}
 

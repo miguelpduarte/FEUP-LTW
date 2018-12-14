@@ -11,9 +11,10 @@ DROP TABLE IF EXISTS stories;
 CREATE TABLE stories (
     story_id INTEGER PRIMARY KEY AUTOINCREMENT,
     author INTEGER REFERENCES users NOT NULL,
-    score INTEGER DEFAULT 0,
+    score INTEGER NOT NULL DEFAULT 0,
     title VARCHAR NOT NULL,
     content VARCHAR NOT NULL,
+    n_comments INTEGER NOT NULL DEFAULT 0,
     channel INTEGER REFERENCES channels ON DELETE SET NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME
@@ -70,6 +71,28 @@ FOR EACH ROW WHEN
                 WHERE comment_id = new.parent_comment) is NULL 
 BEGIN
     SELECT RAISE(ABORT, 'The level of the comment is invalid');
+END;
+
+DROP TRIGGER IF EXISTS commentCountAdd;
+CREATE TRIGGER IF NOT EXISTS commentCountAdd
+AFTER INSERT ON comments
+FOR EACH ROW
+WHEN NEW.story NOT NULL
+BEGIN
+    UPDATE stories
+    SET n_comments = n_comments + 1
+    WHERE story_id = NEW.story;
+END;
+
+DROP TRIGGER IF EXISTS commentCountSubtract;
+CREATE TRIGGER IF NOT EXISTS commentCountSubtract
+AFTER DELETE ON comments
+FOR EACH ROW
+WHEN OLD.story NOT NULL
+BEGIN
+    UPDATE stories
+    SET n_comments = n_comments - 1
+    WHERE story_id = OLD.story;
 END;
 
 DROP TRIGGER IF EXISTS storyUpdateDate;

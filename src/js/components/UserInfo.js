@@ -17,8 +17,8 @@ export class UserInfo {
             <h2 class="info-username"></h2>
             <h3 class="info-name"></h3>
             <div class="info-scores">
-                <p class="info-storyScore"></p>
-                <p class="info-commentScore"></p>
+                <p class="info-storyScore" title="Story Score"></p>
+                <p class="info-commentScore" title="Comment Score"></p>
             </div>
             <p class="info-bio"> </p>
             `;

@@ -22,6 +22,7 @@ function Error($ERR) {
         case 'CHANGE_BIO':return 15;
         case 'GET_BIO':return 16;
         case 'NOT_FOUND':return 17;
+        case 'USER_NOT_FOUND':return 18;
         default: return 0;
     }
 }

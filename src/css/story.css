@@ -114,3 +114,16 @@
     text-decoration: none;
     font-size: 0.5em;
 }
+
+
+@media screen and (max-width: 60em) {
+
+    .full-story .title {
+        font-size: 1.5em;
+        padding-right: 0.5em;
+    }
+
+    .full-story .voting-wrapper {
+        font-size: 1.5em;
+    }
+}

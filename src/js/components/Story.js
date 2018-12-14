@@ -34,7 +34,9 @@ export class Story {
                     <div class="story-card-details">
                         <span class="author"><a href="user.php?username=${this.data.author_name}"></a></span>
                         <i class="fas fa-user-clock"></i>
-                        <span class="date">${moment(this.data.created_at).fromNow()}</span>
+						<span class="date">${moment(this.data.created_at).fromNow()}</span>
+						<i class="fas fa-comments"></i>
+						<span class="n_comments">${this.data.n_comments}</span>
                     </div>
                 </div>
                 <div class="voting-wrapper">

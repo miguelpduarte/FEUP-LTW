@@ -28,8 +28,8 @@
                 http_response_code(404);
                 echo json_encode([
                     'success' => false,
-                    'reason' => 'Database fetching failed',
-                    'code' => Error("OTHER")
+                    'reason' => 'User not found',
+                    'code' => Error("USER_NOT_FOUND")
 
                 ]);
                 exit;

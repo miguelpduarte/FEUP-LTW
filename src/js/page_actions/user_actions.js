@@ -5,6 +5,10 @@ import { UserInfo } from "../components/UserInfo.js";
 import { getParams } from "../utils.js";
 import { fetchUserStories, fetchUserData } from "../fetch_actions/user_fetch_actions.js";
 import { isUserLoggedIn, getUserStoryVotes } from "../store.js";
+import { errorHandler } from "../ErrorHandler.js";
+import { SimpleMessage } from "../components/SimpleMessage.js";
+
+
 
 const user_stories = new Map();
 let user_info = null;
@@ -28,9 +32,23 @@ async function loadUserInfo() {
 	if (!params.username) {
 		window.location.href = "../pages/stories.php";
 	}
-	const user_data = await fetchUserData(params.username);
-	user_info = new UserInfo(user_data);
-	populateUserInfo();
+	try {
+		const user_data = await fetchUserData(params.username);
+		user_info = new UserInfo(user_data);
+		populateUserInfo();
+		
+	} catch (err) {
+		const error = errorHandler.getError(err);
+		const non_existant_user = new SimpleMessage(
+			error.msg,
+			"",
+			[{href: "../pages/stories.php", text: "Homepage"}]
+		);
+		const rendered_non_existant_user = non_existant_user.render()
+		document.getElementById('content').appendChild(rendered_non_existant_user);
+		document.getElementById('newest').remove();
+		error.defaultAction();	
+	}
 }
 
 

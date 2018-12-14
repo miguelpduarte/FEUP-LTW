@@ -10,6 +10,7 @@
     -moz-box-shadow:    0 0 8px var(--main-color-lighter);
     -webkit-box-shadow: 0 0 8px var(--main-color-lighter);
     box-shadow:         0 0 8px var(--main-color-lighter);
+
 }
 
 .story-card-info {
@@ -25,6 +26,13 @@
 /* .story-card.loading {
     background-color: palegreen;
 } */
+
+#top_stories_container .story-card .story-card-header {
+    background: -moz-linear-gradient(top, rgba(237,158,47,0.14) 0%, rgba(237,158,47,0.14) 11%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(237,158,47,0.14) 0%,rgba(237,158,47,0.14) 11%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(237,158,47,0.14) 0%,rgba(237,158,47,0.14) 11%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#24ed9e2f', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
 
 .story-card .story-card-header {
     background-color: white;
@@ -178,4 +186,14 @@
 
 .story-card.downvoted .voting-wrapper .voting .vote-down {
     color: var(--downvote-color);
+}
+
+@media screen and (max-width: 60em) {
+
+    .story-card .voting .vote-up, .story-card .voting .vote-down {
+        font-size: 1.5em;
+    }
+    .story-card .story-card-header .voting-wrapper .score {
+        font-size: 1.5em;
+    }
 }
