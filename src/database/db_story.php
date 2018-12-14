@@ -9,7 +9,7 @@
         $n_stories = ($n_stories == 0 ? 999999999999999 : $n_stories);
         $db = Database::instance()->db();
         $stmt = $db->prepare(
-            'SELECT stories.story_id, author as author_id, title, channel, created_at, username as author_name, score
+            'SELECT stories.story_id, author as author_id, title, channel, created_at, username as author_name, n_comments, score
             FROM stories 
             JOIN users ON stories.author = users.user_id
             ORDER BY  created_at DESC
@@ -25,7 +25,7 @@
     function getTopStoriesNoContent() {
         $db = Database::instance()->db();
         $stmt = $db->prepare(
-            'SELECT stories.story_id, author as author_id, title, channel, created_at, username as author_name, score
+            'SELECT stories.story_id, author as author_id, title, channel, created_at, username as author_name, n_comments, score
             FROM stories 
             JOIN users ON stories.author = users.user_id
             ORDER BY score DESC
