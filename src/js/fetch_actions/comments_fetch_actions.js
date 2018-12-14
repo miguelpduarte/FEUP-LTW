@@ -106,7 +106,7 @@ export const fetchPostComment = async (story_id, content) => {
 		csrf: user.csrf
 	};
 
-    return new Promise((resolve, reject) => {
+	return new Promise((resolve, reject) => {
 		fetch("../api/comment.php", {
 			method: "POST",
 			credentials: "include",

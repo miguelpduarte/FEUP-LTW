@@ -19,6 +19,11 @@ class ErrorHandler {
 				msg: "Channel name can only contain lowercase letters and numbers",
 				defaultAction: () => {
 				}
+			},
+			18: {
+				msg: "User not found",
+				defaultAction: () => {
+				}
 			}
 		};
 	}
