@@ -45,7 +45,7 @@
     function getStoriesByChannel($id, $offset, $n_stories) {
         $n_stories = ($n_stories == 0 ? 999999999999999 : $n_stories);
         $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT story_id, author as author_id, title, channel, created_at, username as author_name, score
+        $stmt = $db->prepare('SELECT story_id, author as author_id, title, channel, created_at, username as author_name, score, n_comments
                                 FROM stories 
                                 JOIN users ON stories.author = users.user_id
                                 WHERE channel = ?

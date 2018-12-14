@@ -58,9 +58,6 @@ const loadChannelStories = async (offset, n_stories) => {
         populateChannelStories(channel_stories_data);
     } catch(e) {
 		
-		const err = errorHandler.getError(e);
-		showErrorMessage(err.msg);
-		err.defaultAction();
     }
 	
 	if (await isUserLoggedIn()) {

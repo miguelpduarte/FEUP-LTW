@@ -12,7 +12,7 @@
                 <div class="line"><hr/></div>
                 <div class="line-middle">
                     Top
-                    <i class="fas fa-clock"></i>
+                    <i class="fas fa-graduation-cap"></i>
                 </div>
                 <div class="line"><hr/></div>
             </div>
