@@ -114,8 +114,6 @@ export class Story {
 		channel_info_elem.classList.add('channel-info');
 		channel_info_elem.innerHTML = `<a href="channel.php?id=${this.channel_info.channel_id}"></a>`
 
-		
-		console.log(this.element);
 		el.prepend(channel_info_elem);
 		channel_info_elem.querySelector("a").textContent = `#${this.channel_info.name}`;
 		channel_info_elem.style.color = this.channel_info.color;
