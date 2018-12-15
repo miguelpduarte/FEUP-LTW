@@ -28,7 +28,7 @@ INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, '
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, 'Good Question', '![Good Question](https://i.redd.it/5zfoljctoc421.png)', 3);
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, 'Classic', '![Classic](https://i.redd.it/vw5hzy3884t01.jpg)', 3);
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, 'Unit Testing', '![Unit Testing](https://i.redd.it/xbanlndqd9421.png)', 3);
-INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, 'Javascript', '![Javasricpt](https://i.redd.it/kqao5r0f5c421.jpg)', 3);
+INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, 'Javascript', '![Javascript](https://i.redd.it/kqao5r0f5c421.jpg)', 3);
 
 
 -- comments
