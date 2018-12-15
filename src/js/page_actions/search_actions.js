@@ -1,15 +1,15 @@
-"use strict"
+"use strict";
 
 import { Channel } from "../components/Channel.js";
 import { Story } from "../components/Story.js";
 import { getParams } from "../utils.js";
-import { fetchStoriesLike } from "../fetch_actions/stories_fetch_actions.js"
-import { fetchUsersLike } from "../fetch_actions/user_fetch_actions.js"
-import { fetchChannelLike } from "../fetch_actions/channels_fetch_actions.js"
+import { fetchStoriesLike } from "../fetch_actions/stories_fetch_actions.js";
+import { fetchUsersLike } from "../fetch_actions/user_fetch_actions.js";
+import { fetchChannelLike } from "../fetch_actions/channels_fetch_actions.js";
 import { isUserLoggedIn, getUserStoryVotes } from "../store.js";
 import { UserCard } from "../components/UserCard.js";
 
-const BASE_URL = ""
+const BASE_URL = "";
 
 const story_results = new Map();
 let queryUpdated = false;
@@ -82,7 +82,7 @@ const clearUsers = () => {
 
 	while (users_container.firstChild) {
 		users_container.removeChild(users_container.firstChild);
-    }
+	}
 };
 
 const loadChannels = async (query) => {
@@ -111,50 +111,50 @@ const clearChannels = () => {
 
 
 const clearPage = () => {
-    clearStories();
+	clearStories();
 	clearUsers();
 	clearChannels();
-}
+};
 
 const loadPage = (query) => {
 	loadChannels(query);
-    loadSearchUsers(query);
-    loadStories(query);
-}
+	loadSearchUsers(query);
+	loadStories(query);
+};
 
 const updateSugestions = () => {
 	if (!queryUpdated)
 		return;
-	const query = document.querySelector('.query-area input').value;
+	const query = document.querySelector(".query-area input").value;
 	if (query === "")
 		return;
 	clearPage();	
-    loadPage(query);
-	window.history.pushState('Object', 'Title',`${BASE_URL}/pages/search.php?query=${query}`);
+	loadPage(query);
+	window.history.pushState("Object", "Title",`${BASE_URL}/pages/search.php?query=${query}`);
 	queryUpdated = false;
-}
+};
 
 window.setInterval(() => updateSugestions(), 200);
-document.querySelector('.query-area input').addEventListener('input', (e) => {
-    clearPage();
-    queryUpdated = true;
+document.querySelector(".query-area input").addEventListener("input", (e) => {
+	clearPage();
+	queryUpdated = true;
 });
 
-document.querySelectorAll('.search-link').forEach(search_link => { 
-	search_link.addEventListener('click', (e) => {
+document.querySelectorAll(".search-link").forEach(search_link => { 
+	search_link.addEventListener("click", (e) => {
 		e.preventDefault();
 		document.querySelector(e.target.dataset.target).scrollIntoView({
 			behavior: "smooth",
 			block: "start", 
 			inline: "start"
 		});
-	})
+	});
 });
 
 const query = getParams().query;
 if (query) {
-	const queryInput = document.querySelector('.query-area input');
+	const queryInput = document.querySelector(".query-area input");
 	queryInput.value = query;
 	queryInput.focus();
-    loadPage(query);
+	loadPage(query);
 }
