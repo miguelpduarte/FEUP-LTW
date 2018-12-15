@@ -89,7 +89,6 @@ function handle_post() {
     $user = verifyLoginCredentials($username, $password);
     if($user) {
         http_response_code(200);
-        session_start();
 
         $_SESSION['csrf'] = generate_random_token();
         $_SESSION['user_id'] = $user['user_id'];

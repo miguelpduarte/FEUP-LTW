@@ -179,4 +179,13 @@
             throw new Exception("Error fetching comment votes for user $user_id");
         }
     }
+
+
+
+    function getUsersLike($query) {
+        $db = Database::instance()->db();
+        $stmt = $db->prepare('SELECT username FROM users WHERE username LIKE ?');
+        $stmt->execute(array("%$query%"));
+        return $stmt->fetchAll(); 
+    }
 ?>

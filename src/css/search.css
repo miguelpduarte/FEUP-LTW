@@ -1,0 +1,46 @@
+@import "./palette.css";
+
+.search-page#content {
+    margin-top: 10em;
+}
+
+.search-page .search-title {
+    font-family: var(--title-font);
+    color:  var(--very-light-grey);    
+    font-size: 3em;
+}
+
+.query-area input {
+    width: 100%;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    font-size: 1.5em;
+    border: 2px solid var(--very-light-grey);
+    box-sizing: border-box;
+    font-family: var(--content-font);
+}
+
+.search-options a {
+    text-decoration: none;
+    color: var(--main-color);
+    font-family: var(--content-font);
+    font-size: 1.1em;
+}
+
+.search-options {
+    margin: 2em auto 0em auto;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+}
+
+.result-container {
+    padding-top: 5em;
+}
+
+
+.result-container:first-of-type {
+    padding-top: 3.5em;
+}

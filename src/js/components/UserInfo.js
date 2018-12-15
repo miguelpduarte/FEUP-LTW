@@ -30,4 +30,20 @@ export class UserInfo {
 		this.element.querySelector(".info-bio").innerHTML = mdToHTML(this.bio);
 		return this.element;
 	}
+
+	renderCard() {
+		let article = document.createElement("div");
+		article.classList.add("user-card");
+		article.id = `user_${this.id}`;
+		article.innerHTML = `
+                <div class="user-card-info">
+                    <h1 class="username"><a href="user.php?username=${this.username}"></a></h1>
+                </div>
+        `;
+		
+		article.querySelector('.username').textContent = this.username;
+		this.element = article;
+
+		return article;
+	}
 }

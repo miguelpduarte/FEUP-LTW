@@ -13,6 +13,8 @@
 @import "./404.css";
 @import "./settings.css";
 @import "./user_info.css";
+@import "./search.css";
+@import "./user_card.css";
 
 
 body {

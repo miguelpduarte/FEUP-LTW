@@ -2,7 +2,7 @@ import { MarkdownEditor } from "./MarkdownEditor.js";
 import { fetchPostStory }  from "../fetch_actions/stories_fetch_actions.js";
 import { errorHandler } from "../ErrorHandler.js";
 import { whitespaceString } from "../utils.js";
-import { fetchChannel } from "../fetch_actions/channels_fetch_actions.js";
+import { fetchChannelLike } from "../fetch_actions/channels_fetch_actions.js";
 
 
 export class StoryForm {
@@ -106,7 +106,7 @@ export class StoryForm {
 
 		const prefix = this.form.getElementsByClassName("channel-selector")[0].value;
 		this.channelUpdated = false;
-		let channels = await fetchChannel(prefix);
+		let channels = await fetchChannelLike(prefix);
 
 		let datalist = document.getElementById("channel-suggestions");
 		while (datalist.firstChild) {
