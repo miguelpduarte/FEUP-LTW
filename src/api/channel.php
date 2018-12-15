@@ -8,13 +8,13 @@
 
     switch ($method) {
         case 'GET':
-            // Get All Channels
+            // Get Channel info
             // or 
             // Get channel info
             handle_get();
             break;
         case 'PATCH':
-            // Edit Channel
+            // Edit Channel of a Story
             handle_patch();
             break;
         default:
@@ -101,34 +101,34 @@
         }
 
         $currentUser = getLoggedUser();
-        if($currentUser) {
-            if(empty($data['csrf'])) {
-                http_response_code(401);
-                echo json_encode([
-                    'success' => false,
-                    'reason' => "CSRF was not provided.",
-                    'code' => Error("MISSING_CSRF")
-                    ]);
-                exit;
-            }
-    
-            if(!verifyCSRF($data['csrf'])) {
-                http_response_code(401);
-                echo json_encode([
-                    'success' => false,
-                    'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
-                    'code' => Error("WRONG_CSRF")
-                    ]);
-                exit;
-            }
-        } else {
+        if(!$currentUser) {
             http_response_code(401);
-                echo json_encode([
-                    'success' => false,
-                    'reason' => "Must be logged in.",
-                    'code' => Error("UNAUTHORIZED")
-                    ]);
-                exit;
+            echo json_encode([
+                'success' => false,
+                'reason' => "Must be logged in.",
+                'code' => Error("UNAUTHORIZED")
+                ]);
+            exit;
+        }
+        
+        if(empty($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF was not provided.",
+                'code' => Error("MISSING_CSRF")
+                ]);
+            exit;
+        }
+
+        if(!verifyCSRF($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
+                'code' => Error("WRONG_CSRF")
+                ]);
+            exit;
         }
 
         try {
@@ -170,7 +170,8 @@
                 ]);
                 exit;
             }
-        } else { // Remove from channel
+        } else {
+            // Remove from channel (aka move to the default channel)
             try {
                 removeFromChannel($story_id);
                 http_response_code(200);
