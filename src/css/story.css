@@ -121,3 +121,51 @@
         font-size: 1.5em;
     }
 }
+
+/* For editing the channel */
+.channel-info i {
+    opacity: 0;
+    transition: 0.2s opacity ease-in-out;
+    cursor: pointer;
+    margin-left: 0.5em;
+}
+
+.channel-info:hover i {
+    opacity: 1;
+}
+
+.channel-edit {
+    display: none;
+}
+
+.full-story.editing-channel .channel-edit {
+    display: initial;
+}
+
+.full-story.editing-channel .channel-info {
+    display: none;
+}
+
+/* Channel edit form styling */
+form.channel-edit button {
+    border-radius: 10px;
+    background-color: var(--main-color);
+    color: white;
+    font-family: var(--title-font);
+    padding: 0.6em;
+    border: 1px solid black;
+}
+
+form.channel-edit button:active {
+    background-color: var(--main-color-dark);
+}
+
+form.channel-edit input {
+    border: 2px solid var(--even-lighter-grey);
+    border-radius: 5px;
+    font-family: var(--content-font);
+    font-size: 1em;
+    padding: 0.5em;
+    padding-top: 0.7em;
+    box-sizing: border-box;
+}

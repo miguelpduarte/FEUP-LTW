@@ -1,7 +1,7 @@
 "use strict";
 
 import { Channel } from "../components/Channel.js";
-import { Story } from "../components/Story.js";
+import { StoryCard } from "../components/Story/StoryCard.js";
 import { getParams } from "../utils.js";
 import { fetchStoriesLike } from "../fetch_actions/stories_fetch_actions.js";
 import { fetchUsersLike } from "../fetch_actions/user_fetch_actions.js";
@@ -42,9 +42,9 @@ const populateStories = (stories_data) => {
 	const stories_container = document.getElementById("stories_container");
     
 	for (const story_data of stories_data) {
-		const story = new Story(story_data);
+		const story = new StoryCard(story_data);
 		story_results.set(story_data.story_id, story);
-		const story_card = story.renderCard();
+		const story_card = story.render();
 		stories_container.appendChild(story_card);
 	}
 };
@@ -132,7 +132,7 @@ const updateSugestions = () => {
 };
 
 window.setInterval(() => updateSugestions(), 200);
-document.querySelector(".query-area input").addEventListener("input", (e) => {
+document.querySelector(".query-area input").addEventListener("input", () => {
 	clearPage();
 	queryUpdated = true;
 });
