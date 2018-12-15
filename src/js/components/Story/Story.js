@@ -1,7 +1,7 @@
 "use strict";
 
 import { mdToHTML } from "../../utils.js";
-import { isUserLoggedIn, VoteStatus, getUserInfo } from "../../store.js";
+import { isUserLoggedIn, getUserInfo } from "../../store.js";
 import { GenericStory } from "./GenericStory.js";
 
 export class Story extends GenericStory {
@@ -9,14 +9,6 @@ export class Story extends GenericStory {
 		super();
 
 		this.data = story_data;
-		
-		// Cast score to int because BE can't do it - so it can be used with incrementing and decrementing
-		// No longer necessary i believe
-		// this.data.score = parseInt(story_data.score);
-
-		this.is_open = false;
-
-		this.vote_status = VoteStatus.none;
 	}
 
 	render() {

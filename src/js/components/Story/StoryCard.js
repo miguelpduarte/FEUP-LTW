@@ -2,7 +2,6 @@
 
 import { fetchStory } from "../../fetch_actions/stories_fetch_actions.js";
 import { mdToHTML } from "../../utils.js";
-import { VoteStatus } from "../../store.js";
 import { GenericStory } from "./GenericStory.js";
 
 export class StoryCard extends GenericStory {
@@ -11,12 +10,7 @@ export class StoryCard extends GenericStory {
 		this.content_loaded = !!story_data.content;
 		this.data = story_data;
 		
-		// Cast score to int because BE can't do it - so it can be used with incrementing and decrementing
-		// this.data.score = parseInt(story_data.score);
-
 		this.is_open = false;
-
-		this.vote_status = VoteStatus.none;
 	}
 
 	render() {

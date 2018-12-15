@@ -7,6 +7,9 @@ export class GenericStory {
 		if (new.target === GenericStory) {
 			throw TypeError("new of abstract class GenericStory");
 		}
+        
+		// Initial voting state
+		this.vote_status = VoteStatus.none;
 	}
     
 	/**

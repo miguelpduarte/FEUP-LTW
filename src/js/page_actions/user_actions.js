@@ -1,6 +1,6 @@
 "use strict";
 
-import { Story } from "../components/Story.js";
+import { StoryCard } from "../components/Story/StoryCard.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { getParams } from "../utils.js";
 import { fetchUserStories, fetchUserData } from "../fetch_actions/user_fetch_actions.js";
@@ -44,9 +44,9 @@ async function loadUserInfo() {
 			"",
 			[{href: "../pages/stories.php", text: "Homepage"}]
 		);
-		const rendered_non_existant_user = non_existant_user.render()
-		document.getElementById('content').appendChild(rendered_non_existant_user);
-		document.getElementById('newest').remove();
+		const rendered_non_existant_user = non_existant_user.render();
+		document.getElementById("content").appendChild(rendered_non_existant_user);
+		document.getElementById("newest").remove();
 		error.defaultAction();	
 	}
 }
@@ -75,9 +75,9 @@ const populateUserStories = (user_stories_data) => {
 	const user_stories_container = document.getElementById("user_stories_container");
     
 	for (const user_story_data of user_stories_data) {
-		const story = new Story(user_story_data);
+		const story = new StoryCard(user_story_data);
 		user_stories.set(user_story_data.story_id, story);
-		const story_card = story.renderCard();
+		const story_card = story.render();
 		user_stories_container.appendChild(story_card);
 	}
 	loading = false;
