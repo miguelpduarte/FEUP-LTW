@@ -26,17 +26,30 @@ export class Navbar {
                         <li><a href="${BASE_URL}/">Home</a></li>
                         <li><a href="${BASE_URL}/pages/channels.php">Channels</a></li>
                         <li><a href="${BASE_URL}/pages/new_story.php">Add Story</a></li>
+                        <li class="search-url"><a href="${BASE_URL}/pages/search.php">Search</a></li>
                     </ul>
                 </div>
 
+                
                 <div class="login-register right-content">
-                    <ul>
+                
+                <ul>
+                        <li> <div class="search">
+                            <form class="search-bar" action="${BASE_URL}/pages/search.php" method="GET">
+                                <input type="text" class="query-input" name="query" placeholder="Insert your query here" autocomplete="off">
+                            </form>
+                        </div> </li>
                         <li><a href="${BASE_URL}/pages/login.php">Login</a></li>
                         <li><a href="${BASE_URL}/pages/register.php">Register</a></li>
                     </ul>
                 </div>
                 <div class="user-details right-content">
                     <ul>
+                        <li> <div class="search">
+                            <form class="search-bar" action="${BASE_URL}/pages/search.php" method="GET">
+                                <input type="text" class="query-input" name="query" placeholder="Insert your query here" autocomplete="off">
+                            </form>
+                        </div> </li>
                         <li><a class="username" href="${BASE_URL}/pages/user.php?username=">loading_username</a></li>
                         <li><a href="${BASE_URL}/pages/settings.php">Settings</a></li>
                         <li><a class="logout">Logout</a></li>

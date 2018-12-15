@@ -10,7 +10,7 @@
         case 'GET':
             // Get All Channels
             // or 
-            // Get Stories from Channel (if id is specified)
+            // Get channel info
             handle_get();
             break;
         case 'PATCH':
