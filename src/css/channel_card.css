@@ -1,0 +1,37 @@
+@import "./palette.css";
+
+
+.channel-card {
+    margin-top: 2em;
+    transition: box-shadow 0.2s ease-in-out;
+    -moz-box-shadow:    0 0 8px var(--main-color-lighter);
+    -webkit-box-shadow: 0 0 8px var(--main-color-lighter);
+    box-shadow:         0 0 8px var(--main-color-lighter);
+    border-left: 5px solid var(--main-color);
+    box-sizing: border-box;
+}
+
+.channel-card-info {
+    padding: 2em;
+}
+
+.channel-card:hover {
+    -moz-box-shadow:    0 0 12px var(--main-color-light);
+    -webkit-box-shadow: 0 0 12px var(--main-color-light);
+    box-shadow:         0 0 12px var(--main-color-light);
+}
+
+
+.channel-card .title {
+    font-family: var(--title-font), sans-serif;
+    font-weight: normal;
+    font-size: 1.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+
+.channel-card a {
+    text-decoration: none;
+    color: inherit;
+}

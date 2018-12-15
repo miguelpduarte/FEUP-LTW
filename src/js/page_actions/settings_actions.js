@@ -19,7 +19,6 @@ const initSettingsForm = async () => {
 };
 
 const showNotLoggedIn = () => {
-	console.log("wow");
 	const content_container = document.getElementById("content");
 	const not_logged_in = new SimpleMessage(
 		"You are not logged in!",
