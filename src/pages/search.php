@@ -3,6 +3,7 @@
     draw_header('Search');
 ?>
     <div id="content" class="search-page">
+        <h1 class="search-title"> Search </h1>
         <form class="query-area">
                 <input type="text" id="query" class="query-input" name="query" placeholder="Insert your query here" autocomplete="off">
         </form>

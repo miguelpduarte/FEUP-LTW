@@ -10,6 +10,7 @@ INSERT INTO users(user_id, username, password, name) values(4, '<img src="" oner
 INSERT INTO channels values(0, 'default', '#cc0055');
 INSERT INTO channels values(1, '1234chan', '#bb00ff');
 INSERT INTO channels values(2, 'definitelynotreddit', '#ff4500');
+INSERT INTO channels values(3, 'programmerhumor', '#611E6C');
 
 -- stories
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(1, 1, 'This is a very existing title', 'This is a very existing story, not a test at all', 1);
@@ -23,8 +24,11 @@ This now has a lot of content that goes on and on and on and on and on and on an
 Oh look! A penguin! ![penguin](https://cdn.pixabay.com/photo/2013/07/13/11/44/penguin-158551__340.png)',
 2);
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(4, 3, '<script>alert(1)</script>', '<script>alert(this); alert(1)</script>', 2);
-INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 4, '<img src="" onerror="alert(1)" />', '<img src="" onerror="alert(1)" />', 0);
-
+INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, '<img src="" onerror="alert(1)" />', '<img src="" onerror="alert(1)" />', 0);
+INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, 'Good Question', '![Good Question](https://i.redd.it/5zfoljctoc421.png)', 3);
+INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, 'Classic', '![Classic](https://i.redd.it/vw5hzy3884t01.jpg)', 3);
+INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, 'Unit Testing', '![Unit Testing](https://i.redd.it/xbanlndqd9421.png)', 3);
+INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, 'Javascript', '![Javasricpt](https://i.redd.it/kqao5r0f5c421.jpg)', 3);
 
 
 -- comments
@@ -96,3 +100,7 @@ INSERT INTO commentVotes VALUES(1, 2, -1);
 INSERT INTO storyVotes(user_id, story_id, rating) VALUES(1, 1, 1);
 INSERT INTO storyVotes(user_id, story_id, rating) VALUES(2, 1, 1);
 INSERT INTO storyVotes(user_id, story_id, rating) VALUES(1, 2, -1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(1, 9, 1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(2, 9, 1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(3, 9, 1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(4, 9, 1);

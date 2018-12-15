@@ -70,7 +70,7 @@
         if(!$id) { //channel doesn't exist yet -> must be created
             $insert_stmt = $db->prepare('INSERT INTO channels (name, color) values(?, ?)');
     
-            $color = $rand_color();
+            $color = rand_color();
 
             try{
                 $insert_stmt->execute(array($name, $color));

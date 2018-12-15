@@ -1,7 +1,13 @@
 @import "./palette.css";
 
 .search-page#content {
-    margin-top: 2em;
+    margin-top: 10em;
+}
+
+.search-page .search-title {
+    font-family: var(--title-font);
+    color:  var(--very-light-grey);    
+    font-size: 3em;
 }
 
 .query-area input {
