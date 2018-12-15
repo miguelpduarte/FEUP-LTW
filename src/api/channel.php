@@ -24,22 +24,34 @@
 
     function handle_get() {
         header('Content-Type: application/json');
-        if(isset($_GET['id'])) { //Get Channel's Stories
-            $stories = getStoriesByChannel($_GET['id']);
+        if(isset($_GET['id'])) { //Get Channel's info
             
-            if(empty($stories)) {
-                http_response_code(404);
-                echo json_encode([
-                    'success' => false,
-                    'reason' => "There's no channel with id (" . $_GET['id'] . ")",
-                    'code' => Error("NOT_FOUND")
-                ]);
-            exit;
-            } else {
+            
+            try {
+                $channel_info = getChannel($_GET['id']);
+                
+                if(!$channel_info) {
+                    http_response_code(404);
+                    echo json_encode([
+                        'success' => false,
+                        'reason' => 'Error Getting channel with id ' . $_GET['id'],
+                        'code' => Error('NOT_FOUND')
+                    ]);
+                    exit;
+                }
+
                 http_response_code(200);
                 echo json_encode([
                     'success' => true,
-                    'data' => $stories
+                    'data' => $channel_info
+                ]);
+                exit;
+            } catch(Exception $e) {
+                http_response_code(404);
+                echo json_encode([
+                    'success' => false,
+                    'reason' => "Error Getting channel with id $id",
+                    'code' => Error('NOT_FOUND')
                 ]);
                 exit;
             }
@@ -56,7 +68,11 @@
             exit;
 
         } else { // Get existent channels
-            $channels = getAllChannels();
+
+            $n_channels = (isset($_GET['n_channels']) && $_GET['n_channels'] !== '' ? intval($_GET['n_channels']) : 0);
+            $offset = (isset($_GET['off']) && $_GET['off'] !== '' ? intval($_GET['off']) : 0);
+            
+            $channels = getAllChannels($offset, $n_channels);
 
             http_response_code(200);
                 echo json_encode([

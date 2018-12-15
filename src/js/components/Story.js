@@ -1,13 +1,16 @@
 "use strict";
 
 import { fetchStory, fetchVoteStory, fetchUnvoteStory } from "../fetch_actions/stories_fetch_actions.js";
+import { fetchChannelData } from "../fetch_actions/channel_fetch_actions.js";
 import { mdToHTML } from "../utils.js";
 import { isUserLoggedIn, VoteStatus } from "../store.js";
+import { changeName } from "../fetch_actions/user_fetch_actions.js";
 
 export class Story {
 	constructor(story_data) {
 		this.content_loaded = !!story_data.content;
 		this.data = story_data;
+		
 		// Cast score to int because BE can't do it - so it can be used with incrementing and decrementing
 		this.data.score = parseInt(story_data.score);
 
@@ -91,6 +94,9 @@ export class Story {
 		// Storing attached DOM element for further use
 		this.element = article;
 
+		const info_elem = this.element.querySelector('.story-card-info');
+		this.fetchChannelInfo(info_elem);
+
 		return article;
 	}
 
@@ -99,6 +105,23 @@ export class Story {
 			card_content_wrapper.style.height = card_content_wrapper.scrollHeight+"px";
 			this.card_content_wrapper_calc_height = card_content_wrapper.scrollHeight;
 		}
+	}
+
+	async fetchChannelInfo(el) {
+		try {
+			this.channel_info = await fetchChannelData(this.data.channel);
+	
+			const channel_info_elem = document.createElement('div');
+			channel_info_elem.classList.add('channel-info');
+			channel_info_elem.innerHTML = `<a href="channel.php?id=${this.channel_info.channel_id}"></a>`
+	
+			el.prepend(channel_info_elem);
+			channel_info_elem.querySelector("a").textContent = `#${this.channel_info.name}`;
+			channel_info_elem.style.color = this.channel_info.color;
+		} catch(e) {
+			
+		}
+		
 	}
 
 	/**
@@ -257,10 +280,12 @@ export class Story {
 		let section = document.createElement("section");
 		section.id = `story_${this.data.story_id}`;
 		section.className = "full-story";
+
 		
 		section.innerHTML = `
             <section class="story-header">
                 <div class="story-info">
+                    
                     <h1 class="title"><a href="story.php?id=${this.data.story_id}"></a></h1>
                     <div class="story-details">
                         <span class="author"><a href="user.php?username=${this.data.author_name}"></a></span>
@@ -296,6 +321,9 @@ export class Story {
 
 		this.element = section;
 
+		const info_elem = this.element.querySelector('.story-info');
+		this.fetchChannelInfo(info_elem);
+		
 		return section;
 	}
 }
