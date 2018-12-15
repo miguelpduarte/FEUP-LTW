@@ -9,7 +9,7 @@ export const fetchChannelLike = query => {
 				if (data.success) {
 					return resolve(data.data);
 				} else {
-					return reject("Fetching not successful, reason: " + data.reason);
+					return reject(data.code);
 				}
 			})
 			.catch(err => console.error("Fetch error:", err));
