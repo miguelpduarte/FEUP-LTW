@@ -1,6 +1,9 @@
 .channel-info {
     font-family:  var(--title-font);
-    font-size: 2em;
+}
+
+.channel-info a {
+    text-decoration: none;
 }
 
 .channel-info h2 {

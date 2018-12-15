@@ -110,12 +110,6 @@
     color: var(--downvote-color);
 }
 
-.channel-info a {
-    text-decoration: none;
-    font-size: 0.5em;
-}
-
-
 @media screen and (max-width: 60em) {
 
     .full-story .title {
