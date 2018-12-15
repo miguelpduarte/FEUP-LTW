@@ -9,11 +9,8 @@ import { fetchChannelLike } from "../fetch_actions/channels_fetch_actions.js";
 import { isUserLoggedIn, getUserStoryVotes } from "../store.js";
 import { UserCard } from "../components/UserCard.js";
 
-const BASE_URL = "";
-
 const story_results = new Map();
 let queryUpdated = false;
-
 
 const loadStories = async (query) => {
 	loadSearchStories(query);
@@ -128,9 +125,9 @@ const updateSugestions = () => {
 	const query = document.querySelector(".query-area input").value;
 	if (query === "")
 		return;
-	clearPage();	
+	clearPage();
 	loadPage(query);
-	window.history.pushState("Object", "Title",`${BASE_URL}/pages/search.php?query=${query}`);
+	window.history.pushState("Object", "Title",`./search.php?query=${query}`);
 	queryUpdated = false;
 };
 
