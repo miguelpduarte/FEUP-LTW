@@ -153,6 +153,8 @@ document.querySelectorAll('.search-link').forEach(search_link => {
 
 const query = getParams().query;
 if (query) {
-    document.querySelector('.query-area input').value = query;
+	const queryInput = document.querySelector('.query-area input');
+	queryInput.value = query;
+	queryInput.focus();
     loadPage(query);
 }
