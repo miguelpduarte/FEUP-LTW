@@ -156,7 +156,7 @@ END;
 
 DROP TRIGGER IF EXISTS deleteChannelIfItHasNoStories_onupdatestory;
 CREATE TRIGGER IF NOT EXISTS deleteChannelIfItHasNoStories_onupdatestory
-AFTER UPDATE ON stories
+AFTER UPDATE OF channel ON stories
 FOR EACH ROW
 WHEN NOT EXISTS (SELECT * FROM stories WHERE channel = Old.channel)
 BEGIN
