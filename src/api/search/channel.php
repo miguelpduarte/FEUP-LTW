@@ -21,7 +21,7 @@
             $channels = getChannelsLike($_GET['query']); 
             $distances = []; 
 
-            foreach ($stories_like as $key => $value) {
+            foreach ($channels as $key => $value) {
                 $distances[$key] = levenshtein($value['name'], $_GET['query']);
             }
 
@@ -33,7 +33,7 @@
                     break;
                 }
                 
-                array_push($best_matches, $stories_like[$key]);
+                array_push($best_matches, $channels[$key]);
             }
             http_response_code(200);
             echo json_encode([
