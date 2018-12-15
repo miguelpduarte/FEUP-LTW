@@ -319,8 +319,7 @@ export class Story {
 
 		const info_elem = this.element.querySelector('.story-info');
 		this.fetchChannelInfo(info_elem);
-
-		this.fetchChannelInfo();
+		
 		return section;
 	}
 }
