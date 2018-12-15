@@ -99,7 +99,30 @@
     margin: 0 0 0 2em;
 }
 
+
+/* Search bar */
+#navbar .nav-content .hamburger .search-url {
+    display: none;
+}
+
+#navbar .search-bar input {
+    border: 2px solid var(--even-lighter-grey);
+    width: 100%;
+    border-radius: 5px;
+    font-family: var(--content-font);
+    font-size: 1em;
+    padding: 0.5em;
+}
+
 @media screen and (max-width: 60em) {
+
+    #navbar .nav-content .hamburger .search-url{
+        display: inline-block;
+    }
+
+    #navbar .search-bar {
+        display: none;
+    }
 
     #navbar .nav-content {
         flex-direction: column;
