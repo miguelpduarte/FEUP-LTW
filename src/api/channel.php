@@ -87,10 +87,7 @@
         header('Content-Type: application/json');
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $story_id = $data['story_id'];
-        $csrf = $data['csrf'];
-
-        if(empty($story_id)) {
+        if(empty($data['story_id'])) {
             http_response_code(400);
                 echo json_encode([
                     'success' => false,
@@ -110,7 +107,7 @@
                 ]);
             exit;
         }
-        
+
         if(empty($data['csrf'])) {
             http_response_code(401);
             echo json_encode([
@@ -132,7 +129,7 @@
         }
 
         try {
-            if(!verifyStoryOwnership($story_id, $currentUser['user_id'])) {
+            if(!verifyStoryOwnership($data['story_id'], $currentUser['user_id'])) {
                 http_response_code(401);
                 echo json_encode([
                     'success' => false,
@@ -151,10 +148,10 @@
             exit;
         }
 
-        if(!empty($data['channel_id'])) { // Change channel
+        if(!empty($data['new_channel'])) {
+            // Change channel
             try {
-
-                changeChannel($story_id, $newChannel);
+                changeChannel($data['story_id'], $data['new_channel']);
                 http_response_code(200);
                 echo json_encode([
                     'success' => true,
@@ -173,7 +170,7 @@
         } else {
             // Remove from channel (aka move to the default channel)
             try {
-                removeFromChannel($story_id);
+                removeFromChannel($data['story_id']);
                 http_response_code(200);
                 echo json_encode([
                     'success' => true,

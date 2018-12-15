@@ -86,13 +86,23 @@
     
     }
 
-    function changeChannel($story_id, $newChannel) {
+    function changeChannel($story_id, $new_channel_name) {
+        // Ensuring that the channel exists, and if it does not, creating it
+        $insertChannelError = '';
+        $channel_id = insertChannel($new_channel_name, $insertChannelError);
+        
+        if ($insertChannelError) {
+            throw new Exception("Error Assigning Channel");
+        }
+
         $db = Database::instance()->db();
-        $stmt = $db->prepare('UPDATE stories SET channel = ? WHERE story_id = ?' );
+        $stmt = $db->prepare(
+        'UPDATE stories
+         SET channel = ?
+         WHERE story_id = ?');
 
         try {
-            $stmt->execute(array($newChannel, $story_id));
-
+            $stmt->execute(array($channel_id, $story_id));
         } catch(Exception $err) {
             throw new Exception("Error changing Channel");
         }
