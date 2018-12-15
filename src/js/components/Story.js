@@ -3,8 +3,7 @@
 import { fetchStory, fetchVoteStory, fetchUnvoteStory } from "../fetch_actions/stories_fetch_actions.js";
 import { fetchChannelData } from "../fetch_actions/channel_fetch_actions.js";
 import { mdToHTML } from "../utils.js";
-import { isUserLoggedIn, VoteStatus } from "../store.js";
-import { changeName } from "../fetch_actions/user_fetch_actions.js";
+import { isUserLoggedIn, VoteStatus, getUserInfo } from "../store.js";
 
 export class Story {
 	constructor(story_data) {
@@ -17,10 +16,6 @@ export class Story {
 		this.is_open = false;
 
 		this.vote_status = VoteStatus.none;
-	}
-
-	renderTopCard() {
-		return null;
 	}
 
 	renderCard() {
@@ -94,7 +89,8 @@ export class Story {
 		// Storing attached DOM element for further use
 		this.element = article;
 
-		const info_elem = this.element.querySelector('.story-card-info');
+		// Adding channel information
+		const info_elem = this.element.querySelector(".story-card-info");
 		this.fetchChannelInfo(info_elem);
 
 		return article;
@@ -111,15 +107,15 @@ export class Story {
 		try {
 			this.channel_info = await fetchChannelData(this.data.channel);
 	
-			const channel_info_elem = document.createElement('div');
-			channel_info_elem.classList.add('channel-info');
-			channel_info_elem.innerHTML = `<a href="channel.php?id=${this.channel_info.channel_id}"></a>`
+			const channel_info_elem = document.createElement("div");
+			channel_info_elem.classList.add("channel-info");
+			channel_info_elem.innerHTML = `<a href="channel.php?id=${this.channel_info.channel_id}"></a>`;
 	
 			el.prepend(channel_info_elem);
 			channel_info_elem.querySelector("a").textContent = `#${this.channel_info.name}`;
 			channel_info_elem.style.color = this.channel_info.color;
-		} catch(e) {
-			
+		} catch (e) {
+			return;
 		}
 		
 	}
@@ -321,9 +317,40 @@ export class Story {
 
 		this.element = section;
 
-		const info_elem = this.element.querySelector('.story-info');
-		this.fetchChannelInfo(info_elem);
+		// Adding channel information
+		const info_elem = this.element.querySelector(".story-info");
+		const channel_info_promise = this.fetchChannelInfo(info_elem);
+
+		// Adding editing buttons and possibilities if the logged in user is the story author
+		this.addEditingIfAuthor(channel_info_promise);
 		
 		return section;
+	}
+
+	async addEditingIfAuthor(channel_info_promise) {
+		// To ensure concurrency
+		await channel_info_promise;
+
+		if (!await isUserLoggedIn()) {
+			return;
+		}
+
+		const logged_in_username = (await getUserInfo()).username;
+
+		if (logged_in_username !== this.data.author_name) {
+			return;
+		}
+
+		// The logged in user is the post author, create editing elements and etc
+
+		const channel_pencil = document.createElement("i");
+		channel_pencil.classList.add("fas", "fa-pencil-alt");
+		this.element.querySelector(".channel-info").appendChild(channel_pencil);
+		
+
+		// Initial editing state
+		// this.editing_
+
+
 	}
 }
