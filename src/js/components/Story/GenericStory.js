@@ -5,7 +5,7 @@ import { isUserLoggedIn, VoteStatus } from "../../store.js";
 export class GenericStory {
 	constructor() {
 		if (new.target === GenericStory) {
-			throw TypeError("new of abstract class GenericStory");
+			throw new TypeError("new of abstract class GenericStory");
 		}
         
 		// Initial voting state

@@ -9,7 +9,6 @@ import { errorHandler } from "../ErrorHandler.js";
 import { SimpleMessage } from "../components/SimpleMessage.js";
 
 
-
 const user_stories = new Map();
 let user_info = null;
 let loading = false;
