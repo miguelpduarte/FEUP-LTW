@@ -108,16 +108,19 @@ export class Story {
 	}
 
 	async fetchChannelInfo(el) {
-		this.channel_info = await fetchChannelData(this.data.channel);
-
-		const channel_info_elem = document.createElement('div');
-		channel_info_elem.classList.add('channel-info');
-		channel_info_elem.innerHTML = `<a href="channel.php?id=${this.channel_info.channel_id}"></a>`
-
-		
-		el.prepend(channel_info_elem);
-		channel_info_elem.querySelector("a").textContent = `#${this.channel_info.name}`;
-		channel_info_elem.style.color = this.channel_info.color;
+		try {
+			this.channel_info = await fetchChannelData(this.data.channel);
+	
+			const channel_info_elem = document.createElement('div');
+			channel_info_elem.classList.add('channel-info');
+			channel_info_elem.innerHTML = `<a href="channel.php?id=${this.channel_info.channel_id}"></a>`
+	
+			el.prepend(channel_info_elem);
+			channel_info_elem.querySelector("a").textContent = `#${this.channel_info.name}`;
+			channel_info_elem.style.color = this.channel_info.color;
+		} catch(e) {
+			
+		}
 		
 	}
 
@@ -320,7 +323,7 @@ export class Story {
 
 		const info_elem = this.element.querySelector('.story-info');
 		this.fetchChannelInfo(info_elem);
-
+		
 		return section;
 	}
 }

@@ -6,7 +6,7 @@
      */
     
     function getAllChannels($offset, $n_channels) {
-        $n_channels = ($n_channels == 0 ? 999999999999999 : $n_channels);
+        $n_channels = ($n_channels === 0 ? 999999999999999 : $n_channels);
 
         $db = Database::instance()->db();
         $stmt = $db->prepare('SELECT channel_id, name, color FROM channels LIMIT ? OFFSET ?');

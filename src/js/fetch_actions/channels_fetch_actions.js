@@ -1,5 +1,3 @@
-"use strict";
-
 export const fetchChannelLike = query => {
 	return new Promise((resolve, reject) => {
 		fetch(`../api/channel.php?query=${query}`)
@@ -28,7 +26,7 @@ export const fetchChannels = (offset, n_channels) => {
 				if (data.success) {
 					return resolve(data.data);
 				} else {
-					return reject("Fetching not successful, reason: " + data.reason);
+					return reject(data.code);
 				}
 			})
 			.catch(err => console.error("Fetch error:", err));
