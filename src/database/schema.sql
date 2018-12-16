@@ -97,7 +97,7 @@ END;
 
 DROP TRIGGER IF EXISTS storyUpdateDate;
 CREATE TRIGGER IF NOT EXISTS storyUpdateDate
-AFTER UPDATE ON stories
+AFTER UPDATE OF content ON stories
 FOR EACH ROW
 BEGIN
     UPDATE stories
