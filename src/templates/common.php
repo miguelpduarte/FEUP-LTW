@@ -44,6 +44,12 @@ function draw_header($page_title) {
         </head>
         <body>
             <nav id="navbar_container"></nav>
+            <div id="create-story-btn">
+                <div class="btn-icon">
+                    <i class="fas fa-plus main"></i>
+                    <i class="fas fa-pen secondary"></i>
+                </div>
+            </div>
 <?php } ?>
 
 <?php

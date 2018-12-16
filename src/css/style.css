@@ -40,3 +40,58 @@ img {
 .refresh-btn:hover {
     transform: rotate(720deg);
 }
+
+#create-story-btn {
+    position: fixed;
+    width: 56px;
+    height: 56px;
+    right: 3%;
+    bottom: 3%;
+    background-color: var(--main-color);
+    border-radius: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    -moz-box-shadow:    0 0 20px rgba(0, 0, 0, 0.8);
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    box-shadow:         0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+#create-story-btn .btn-icon {
+    width: 56px;
+    height: 56px;
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#create-story-btn i {
+    position: absolute;
+}
+
+#create-story-btn:hover {
+    -moz-box-shadow:    0 0 20px 2px rgba(0, 0, 0, 0.8);
+    -webkit-box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.8);
+    box-shadow:         0 0 20px 2px rgba(0, 0, 0, 0.8);
+}
+
+#create-story-btn .main, #create-story-btn .secondary {
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+#create-story-btn .secondary {
+    opacity:0;
+}
+
+#create-story-btn:hover .main {
+    opacity:0;
+    transform: rotate(360deg);
+}
+#create-story-btn:hover .secondary {
+    opacity:1;
+    transform: rotate(360deg);
+}
