@@ -80,12 +80,14 @@ export class Story extends GenericStory {
 			return;
 		}
 
-		// The logged in user is the post author, create editing elements and etc
+		// Thus, the logged in user is the post author, create editing elements
 
 		// Channel editing
 		const channel_pencil = document.createElement("i");
 		channel_pencil.classList.add("fas", "fa-pencil-alt");
 		channel_pencil.addEventListener("click", () => {
+			const hashless_curr_channel_name = this.element.querySelector(".channel-info a").textContent.substr(1);
+			this.element.querySelector(".channel-edit input[name='new_channel']").value = hashless_curr_channel_name;
 			this.element.classList.add("editing-channel");
 		});
 		this.element.querySelector(".channel-info").appendChild(channel_pencil);
@@ -93,10 +95,14 @@ export class Story extends GenericStory {
 		const channel_edit_form = document.createElement("form");
 		channel_edit_form.classList.add("channel-edit");
 		channel_edit_form.innerHTML =`
-		<input type="text"></input>
+		<input type="text" name="new_channel"></input>
 		<button>Save</button>
 		`;
-		this.element.querySelector(".story-info").prepend(channel_edit_form);		
+		channel_edit_form.addEventListener("submit", e => {
+			e.preventDefault();
+			this.element.classList.remove("editing-channel");
+		});
+		this.element.querySelector(".story-info").prepend(channel_edit_form);
 
 	}
 }

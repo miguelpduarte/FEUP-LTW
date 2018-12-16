@@ -134,12 +134,12 @@
     opacity: 1;
 }
 
-.channel-edit {
+form.channel-edit {
     display: none;
 }
 
-.full-story.editing-channel .channel-edit {
-    display: initial;
+.full-story.editing-channel form.channel-edit {
+    display: flex;
 }
 
 .full-story.editing-channel .channel-info {
@@ -147,6 +147,10 @@
 }
 
 /* Channel edit form styling */
+form.channel-edit {
+    align-items: center;
+}
+
 form.channel-edit button {
     border-radius: 10px;
     background-color: var(--main-color);
@@ -161,11 +165,9 @@ form.channel-edit button:active {
 }
 
 form.channel-edit input {
-    border: 2px solid var(--even-lighter-grey);
+    border: 1px solid var(--even-lighter-grey);
     border-radius: 5px;
     font-family: var(--content-font);
-    font-size: 1em;
-    padding: 0.5em;
-    padding-top: 0.7em;
-    box-sizing: border-box;
+    padding: 0.7em 0.2em 0.6em 0.6em;
+    margin-right: 1em;
 }
