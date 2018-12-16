@@ -41,6 +41,7 @@ function draw_header($page_title) {
             <script src="<?= $BASE_DIR ?>/libs/remarkable.min.js"></script>
             <script src="<?= $BASE_DIR ?>/libs/moment.min.js"></script>
             <script src="<?= $BASE_DIR ?>/libs/highlight.min.js"></script>
+            <script src="<?= $BASE_DIR ?>/js/common.js" defer></script>
         </head>
         <body>
             <nav id="navbar_container"></nav>
