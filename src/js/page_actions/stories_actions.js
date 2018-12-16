@@ -1,6 +1,6 @@
 "use strict";
 
-import { Story } from "../components/Story.js";
+import { StoryCard } from "../components/Story/StoryCard.js";
 import { fetchNewestStories, fetchTopStories } from "../fetch_actions/stories_fetch_actions.js";
 import { isUserLoggedIn, getUserStoryVotes } from "../store.js";
 
@@ -44,9 +44,9 @@ const populateTopStories = (top_stories_data) => {
 	const top_stories_container = document.getElementById("top_stories_container");
     
 	for (const top_story_data of top_stories_data) {
-		const story = new Story(top_story_data);
+		const story = new StoryCard(top_story_data);
 		top_stories.set(top_story_data.story_id, story);
-		const story_card = story.renderCard();
+		const story_card = story.render();
 		top_stories_container.appendChild(story_card);
 	}
 };
@@ -71,9 +71,9 @@ const populateNewestStories = (newest_stories_data) => {
 	const newest_stories_container = document.getElementById("newest_stories_container");
     
 	for (const newest_story_data of newest_stories_data) {
-		const story = new Story(newest_story_data);
+		const story = new StoryCard(newest_story_data);
 		newest_stories.set(newest_story_data.story_id, story);
-		const story_card = story.renderCard();
+		const story_card = story.render();
 		newest_stories_container.appendChild(story_card);
 	}
 

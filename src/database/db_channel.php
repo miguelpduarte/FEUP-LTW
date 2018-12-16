@@ -49,7 +49,7 @@
                                 FROM stories 
                                 JOIN users ON stories.author = users.user_id
                                 WHERE channel = ?
-                                ORDER BY score, created_at DESC
+                                ORDER BY score DESC, created_at DESC
                                 LIMIT ? OFFSET ?');
         $stmt->execute(array($id, $n_stories, $offset));
 
@@ -86,13 +86,24 @@
     
     }
 
-    function changeChannel($story_id, $newChannel) {
+    function changeChannel($story_id, $new_channel_name) {
+        // Ensuring that the channel exists, and if it does not, creating it
+        $insertChannelError = '';
+        $channel_id = insertChannel($new_channel_name, $insertChannelError);
+        
+        if ($insertChannelError) {
+            throw new Exception("Error Assigning Channel");
+        }
+
         $db = Database::instance()->db();
-        $stmt = $db->prepare('UPDATE stories SET channel = ? WHERE story_id = ?' );
+        $stmt = $db->prepare(
+        'UPDATE stories
+         SET channel = ?
+         WHERE story_id = ?');
 
         try {
-            $stmt->execute(array($newChannel, $story_id));
-
+            $stmt->execute(array($channel_id, $story_id));
+            return $channel_id;
         } catch(Exception $err) {
             throw new Exception("Error changing Channel");
         }
@@ -104,7 +115,7 @@
 
         try {
             $stmt->execute(array($story_id));
-
+            return 0;
         } catch(Exception $err) {
             throw new Exception("Error removing Channel");
         }

@@ -91,7 +91,12 @@ export class CommentSection {
 				0
 			);
 
-			this.addComments(comment_data);
+			if(comment_data.length > 0) {
+				this.addComments(comment_data);
+			} else { // Remove loading message
+				this.section.removeChild(this.section.lastChild);
+			} 
+
 		} catch (err) {
 			console.error("Fetching comments error:", err);
 		}
@@ -99,6 +104,7 @@ export class CommentSection {
 	}
 
 	addComments(comment_data) {
+
 		// Remove loading message
 		this.section.removeChild(this.section.lastChild);
 		let needFullReload = false;

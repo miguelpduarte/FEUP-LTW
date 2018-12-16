@@ -1,7 +1,6 @@
 <?php
     require_once(realpath( dirname( __FILE__ ) ) . '/../utils/errors.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_channel.php');
-    require_once(realpath( dirname( __FILE__ ) ) . '/../database/db_story.php');
     require_once(realpath( dirname( __FILE__ ) ) . '/inc.session.php');
 
     $method = $_SERVER['REQUEST_METHOD'];
@@ -18,9 +17,9 @@
 
     function handle_get() {
         header('Content-Type: application/json');
-        if(isset($_GET['id'])) { //Get Channel's Stories
-            $n_stories = (isset($_GET['n_stories']) && $_GET['n_stories'] !== '' ? intval($_GET['n_stories']) : 0);
-            $offset = (isset($_GET['off']) && $_GET['off'] !== '' ? intval($_GET['off']) : 0);
+        if(!empty($_GET['id'])) { //Get Channel's Stories
+            $n_stories = (!empty($_GET['n_stories']) ? intval($_GET['n_stories']) : 0);
+            $offset = (!empty($_GET['off']) ? intval($_GET['off']) : 0);
 
             $stories = getStoriesByChannel($_GET['id'], $offset, $n_stories);
             

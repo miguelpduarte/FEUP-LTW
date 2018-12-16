@@ -1,6 +1,6 @@
 "use strict";
 
-import { Story } from "../components/Story.js";
+import { Story } from "../components/Story/Story.js";
 import { CommentSection } from "../components/CommentSection.js";
 import { getParams } from "../utils.js";
 import { fetchStory } from "../fetch_actions/stories_fetch_actions.js";
@@ -15,7 +15,7 @@ const createStory = (story_data, comment_data) => {
 	const comments_container = document.getElementById("comments_container");
 	story = new Story(story_data);
 	comment_section = new CommentSection(comment_data, story_data.story_id);
-	story_container.appendChild(story.renderFull());
+	story_container.appendChild(story.render());
 	comments_container.appendChild(comment_section.render());
 };
 

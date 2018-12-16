@@ -8,13 +8,13 @@
 
     switch ($method) {
         case 'GET':
-            // Get All Channels
+            // Get Channel info
             // or 
             // Get channel info
             handle_get();
             break;
         case 'PATCH':
-            // Edit Channel
+            // Edit Channel of a Story
             handle_patch();
             break;
         default:
@@ -87,10 +87,7 @@
         header('Content-Type: application/json');
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $story_id = $data['story_id'];
-        $csrf = $data['csrf'];
-
-        if(empty($story_id)) {
+        if(empty($data['story_id'])) {
             http_response_code(400);
                 echo json_encode([
                     'success' => false,
@@ -101,38 +98,38 @@
         }
 
         $currentUser = getLoggedUser();
-        if($currentUser) {
-            if(empty($data['csrf'])) {
-                http_response_code(401);
-                echo json_encode([
-                    'success' => false,
-                    'reason' => "CSRF was not provided.",
-                    'code' => Error("MISSING_CSRF")
-                    ]);
-                exit;
-            }
-    
-            if(!verifyCSRF($data['csrf'])) {
-                http_response_code(401);
-                echo json_encode([
-                    'success' => false,
-                    'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
-                    'code' => Error("WRONG_CSRF")
-                    ]);
-                exit;
-            }
-        } else {
+        if(!$currentUser) {
             http_response_code(401);
-                echo json_encode([
-                    'success' => false,
-                    'reason' => "Must be logged in.",
-                    'code' => Error("UNAUTHORIZED")
-                    ]);
-                exit;
+            echo json_encode([
+                'success' => false,
+                'reason' => "Must be logged in.",
+                'code' => Error("UNAUTHORIZED")
+                ]);
+            exit;
+        }
+
+        if(empty($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF was not provided.",
+                'code' => Error("MISSING_CSRF")
+                ]);
+            exit;
+        }
+
+        if(!verifyCSRF($data['csrf'])) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
+                'code' => Error("WRONG_CSRF")
+                ]);
+            exit;
         }
 
         try {
-            if(!verifyStoryOwnership($story_id, $currentUser['user_id'])) {
+            if(!verifyStoryOwnership($data['story_id'], $currentUser['user_id'])) {
                 http_response_code(401);
                 echo json_encode([
                     'success' => false,
@@ -151,13 +148,14 @@
             exit;
         }
 
-        if(!empty($data['channel_id'])) { // Change channel
+        if(!empty($data['new_channel'])) {
+            // Change channel
             try {
-
-                changeChannel($story_id, $newChannel);
+                $channel_id = changeChannel($data['story_id'], $data['new_channel']);
                 http_response_code(200);
                 echo json_encode([
                     'success' => true,
+                    'channel_id' => $channel_id,
                 ]);
                 exit;
                 
@@ -170,12 +168,14 @@
                 ]);
                 exit;
             }
-        } else { // Remove from channel
+        } else {
+            // Remove from channel (aka move to the default channel)
             try {
-                removeFromChannel($story_id);
+                $channel_id = removeFromChannel($data['story_id']);
                 http_response_code(200);
                 echo json_encode([
                     'success' => true,
+                    'channel_id' => $channel_id,
                 ]);
                 exit;
             } catch(Exception $err) {

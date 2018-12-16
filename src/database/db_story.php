@@ -48,16 +48,6 @@
     }
 
     /**
-     * Return all stories from a given channel.
-     */
-    function getStoriesInChannel($channel) {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT story_id, author, title, content FROM stories WHERE channel = ?');
-        $stmt->execute(array($channel));
-        return $stmt->fetchAll(); 
-    }
-
-    /**
      * Returns stories without content.
      */
     function getUserStories($username, $offset, $n_stories) {
@@ -91,6 +81,20 @@
             return $db->lastInsertId();
         }
         
+    }
+
+    /**
+     * Edits a story's content
+     */
+    function editStoryContent($story_id, $new_content) {
+        $db = Database::instance()->db();
+
+        $stmt = $db->prepare(
+        'UPDATE stories
+         SET content = ?
+         WHERE story_id = ?');
+
+        $stmt->execute(array($new_content, $story_id));
     }
 
     /**
