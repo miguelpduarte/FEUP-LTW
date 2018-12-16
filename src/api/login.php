@@ -91,7 +91,7 @@ function handle_post() {
         http_response_code(200);
 
         $_SESSION['csrf'] = generate_random_token();
-        $_SESSION['user_id'] = $user['user_id'];
+        $_SESSION['user_identifier_GET'] = $user['user_id'];
         $_SESSION['username'] = $username;
         echo json_encode([
             'success' => true
