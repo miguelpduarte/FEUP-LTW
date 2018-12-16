@@ -85,11 +85,12 @@ img {
 
 #create-story-btn .secondary {
     opacity:0;
+    transform: rotate(180deg);
 }
 
 #create-story-btn:hover .main {
     opacity:0;
-    transform: rotate(360deg);
+    transform: rotate(180deg);
 }
 #create-story-btn:hover .secondary {
     opacity:1;
