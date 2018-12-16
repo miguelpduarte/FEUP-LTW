@@ -109,6 +109,33 @@ export const fetchEditStoryChannel = async (story_id, new_channel) => {
 	});
 };
 
+export const fetchEditStoryContent = async (story_id, new_content) => {
+	const body = {
+		story_id,
+		new_content,
+		csrf: (await getUserInfo()).csrf
+	};
+
+	return new Promise((resolve, reject) => {
+		fetch("../api/story.php", {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+			},
+			body: JSON.stringify(body),
+		})
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					return resolve();
+				} else {
+					return reject(data.reason);
+				}
+			})
+			.catch(err => reject(err));
+	});
+};
+
 // upvote must be boolean
 export const fetchVoteStory = async (id, upvote) => {
 	// Safety

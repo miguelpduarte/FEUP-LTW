@@ -72,7 +72,13 @@
     height: 10rem;
 }
 
+/* For editing user bio in settings page */
 #settings_form .md-editor > textarea, #settings_form .preview-selector.tab {
+    height: 20rem;
+}
+
+/* For editing story content in story page */
+form.content-edit .md-editor > textarea, form.content-edit .preview-selector.tab {
     height: 20rem;
 }
 

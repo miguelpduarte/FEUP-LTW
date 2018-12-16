@@ -3,7 +3,8 @@
 import { mdToHTML } from "../../utils.js";
 import { isUserLoggedIn, getUserInfo } from "../../store.js";
 import { GenericStory } from "./GenericStory.js";
-import { fetchEditStoryChannel } from "../../fetch_actions/stories_fetch_actions.js";
+import { fetchEditStoryChannel, fetchEditStoryContent } from "../../fetch_actions/stories_fetch_actions.js";
+import { MarkdownEditor } from "../MarkdownEditor.js";
 
 export class Story extends GenericStory {
 	constructor(story_data) {
@@ -34,8 +35,10 @@ export class Story extends GenericStory {
                     <div class="score">${this.data.score}</div>
                     <i class="vote-down fas fa-chevron-down"></i>
                 </div>
-            </section>
-            <hr/>
+			</section>
+			<div class="story-line">
+            	<hr/>
+			</div>
             <div class="content">${mdToHTML(this.data.content)}</div>
         `;
 
@@ -144,6 +147,76 @@ export class Story extends GenericStory {
 	}
 
 	async createContentEditing() {
+		this.content_editor = new MarkdownEditor();
 
+		const edit_content_form = document.createElement("form");
+		edit_content_form.classList.add("content-edit");
+		edit_content_form.setAttribute("novalidate", "");
+		edit_content_form.method = "";
+		edit_content_form.action = "";
+
+		edit_content_form.innerHTML = `
+			<div class="editor-wrapper"></div>
+			<div class="error"></div>
+			<div class="buttons">
+				<button>Save</button>
+				<div class="cancel">Cancel</div>
+			</div>
+		`;
+		
+		// Inserting markdown editor
+		edit_content_form.querySelector(".editor-wrapper").appendChild(this.content_editor.render());
+
+		// Adding event listeners
+		edit_content_form.querySelector(".cancel").addEventListener("click", () => {
+			this.element.classList.remove("editing-content");
+			this.editing_content = false;
+		});
+
+		edit_content_form.addEventListener("submit", async e => {
+			e.preventDefault();
+
+			// New content must not be empty
+			const new_content = this.content_editor.getContent();
+			if (!new_content) {
+				edit_content_form.querySelector(".error").textContent = "New story content must not be empty!";
+				return;
+			}
+
+			// Attempt to set new content
+			try {
+				await fetchEditStoryContent(this.data.story_id, new_content);
+				this.updateStoryContent(new_content);
+			} catch (err) {
+				edit_content_form.querySelector(".error").textContent = err;
+				return;
+			}
+
+			this.element.classList.remove("editing-content");
+			this.editing_content = false;
+		});
+
+		this.element.querySelector(".content").insertAdjacentElement("beforebegin", edit_content_form);
+
+		const content_pencil = document.createElement("i");
+		content_pencil.classList.add("fas", "fa-pencil-alt", "content-edit-pencil");
+		content_pencil.addEventListener("click", () => {
+			// The plain text is only available in this.data
+			const curr_content = this.data.content;
+			this.content_editor.setContent(curr_content);
+			// Clearing any previous errors
+			this.element.querySelector(".content-edit .error").textContent = "";
+			this.element.classList.add("editing-content");
+			this.editing_content = true;
+		});
+
+		this.element.querySelector(".story-line").appendChild(content_pencil);
+	}
+
+	updateStoryContent(new_content) {
+		// Saving the new content for sequential edits
+		this.data.content = new_content;
+		// Rerendering the new markdown text
+		this.element.querySelector(".content").innerHTML = mdToHTML(new_content);
 	}
 }
