@@ -46,6 +46,20 @@ export class Story extends GenericStory {
 		// Author name
 		section.querySelector(".story-details .author a").textContent = this.data.author_name;
 
+		if (this.data.updated_at) {
+			// Adding updated at visualization
+			const updated_at_icon = document.createElement("i");
+			updated_at_icon.classList.add("fas", "fa-user-edit");
+			const updated_at_span = document.createElement("span");
+			updated_at_span.classList.add("edit-date");
+			updated_at_span.textContent = moment(this.data.updated_at).fromNow();
+			// console.log("u_at", this.data.updated_at);
+
+			const story_details_elem = section.querySelector(".story-details");
+			story_details_elem.appendChild(updated_at_icon);
+			story_details_elem.appendChild(updated_at_span);
+		}
+
 		// Upvoting
 		section.querySelector(".vote-up").addEventListener("click", e => {
 			e.stopPropagation();
