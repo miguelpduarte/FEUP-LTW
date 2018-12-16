@@ -48,16 +48,6 @@
     }
 
     /**
-     * Return all stories from a given channel.
-     */
-    function getStoriesInChannel($channel) {
-        $db = Database::instance()->db();
-        $stmt = $db->prepare('SELECT story_id, author, title, content FROM stories WHERE channel = ?');
-        $stmt->execute(array($channel));
-        return $stmt->fetchAll(); 
-    }
-
-    /**
      * Returns stories without content.
      */
     function getUserStories($username, $offset, $n_stories) {
