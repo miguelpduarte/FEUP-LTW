@@ -82,6 +82,33 @@ export const fetchPostStory = async (content, title, channel) => {
 	});
 };
 
+export const fetchEditStoryChannel = async (story_id, new_channel) => {
+	const body = {
+		story_id,
+		new_channel,
+		csrf: (await getUserInfo()).csrf
+	};
+
+	return new Promise((resolve, reject) => {
+		fetch("../api/channel.php", {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json; charset=utf-8",
+			},
+			body: JSON.stringify(body),
+		})
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					return resolve(data);
+				} else {
+					return reject(data.reason);
+				}
+			})
+			.catch(err => reject(err));
+	});
+};
+
 // upvote must be boolean
 export const fetchVoteStory = async (id, upvote) => {
 	// Safety

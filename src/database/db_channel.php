@@ -103,6 +103,7 @@
 
         try {
             $stmt->execute(array($channel_id, $story_id));
+            return $channel_id;
         } catch(Exception $err) {
             throw new Exception("Error changing Channel");
         }
@@ -114,7 +115,7 @@
 
         try {
             $stmt->execute(array($story_id));
-
+            return 0;
         } catch(Exception $err) {
             throw new Exception("Error removing Channel");
         }

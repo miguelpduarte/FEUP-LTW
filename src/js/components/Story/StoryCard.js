@@ -19,7 +19,8 @@ export class StoryCard extends GenericStory {
 		article.id = `story_${this.data.story_id}`;
 		article.innerHTML = `
             <section class="story-card-header">
-                <div class="story-card-info">
+				<div class="story-card-info">
+					<div class="channel-info"></div>				
                     <h1 class="title"><a href="story.php?id=${this.data.story_id}"></a></h1>
                     <div class="story-card-details">
                         <span class="author"><a href="user.php?username=${this.data.author_name}"></a></span>
@@ -85,8 +86,8 @@ export class StoryCard extends GenericStory {
 		this.element = article;
 
 		// Adding channel information
-		const info_elem = this.element.querySelector(".story-card-info");
-		this.fetchChannelInfo(info_elem);
+		const channel_info_elem = this.element.querySelector(".channel-info");
+		this.fetchChannelInfo(channel_info_elem);
 
 		return article;
 	}

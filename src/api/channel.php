@@ -151,10 +151,11 @@
         if(!empty($data['new_channel'])) {
             // Change channel
             try {
-                changeChannel($data['story_id'], $data['new_channel']);
+                $channel_id = changeChannel($data['story_id'], $data['new_channel']);
                 http_response_code(200);
                 echo json_encode([
                     'success' => true,
+                    'channel_id' => $channel_id,
                 ]);
                 exit;
                 
@@ -170,10 +171,11 @@
         } else {
             // Remove from channel (aka move to the default channel)
             try {
-                removeFromChannel($data['story_id']);
+                $channel_id = removeFromChannel($data['story_id']);
                 http_response_code(200);
                 echo json_encode([
                     'success' => true,
+                    'channel_id' => $channel_id,
                 ]);
                 exit;
             } catch(Exception $err) {
