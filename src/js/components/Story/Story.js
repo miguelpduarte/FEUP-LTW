@@ -119,7 +119,7 @@ export class Story extends GenericStory {
 				const res = await fetchEditStoryChannel(this.data.story_id, new_channel);
 				// Update internal data
 				this.data.channel = res.channel_id;
-				this.resetChannelInfo();
+				this.updateChannelInfo();
 			} catch (err) {
 				this.element.querySelector(".channel-edit .error").textContent = err;
 				return;
@@ -135,7 +135,7 @@ export class Story extends GenericStory {
 		this.element.querySelector(".story-info").prepend(channel_edit_form);
 	}
 
-	resetChannelInfo() {
+	updateChannelInfo() {
 		const channel_info_elem = this.element.querySelector(".channel-info");
 		// Removing the previous channel link
 		channel_info_elem.removeChild(channel_info_elem.firstChild);
