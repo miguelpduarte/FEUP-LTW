@@ -6,6 +6,9 @@
 
 .channel-info a {
     text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden;
 }
 
 .channel-info h2 {

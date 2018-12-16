@@ -23,7 +23,6 @@ export class Navbar {
                 <div class="hamburger">
                     
                     <ul>
-                        <li><a href="${BASE_URL}/">Home</a></li>
                         <li><a href="${BASE_URL}/pages/channels.php">Channels</a></li>
                         <li class="search-url"><a href="${BASE_URL}/pages/search.php">Search</a></li>
                     </ul>
