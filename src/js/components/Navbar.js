@@ -2,7 +2,7 @@
 
 import { logoutUser } from "../fetch_actions/user_fetch_actions.js";
 
-const BASE_URL = "";
+const BASE_DIR = "BASE_DIR_PLACEHOLDER";
 
 export class Navbar {
 	render() {
@@ -10,7 +10,7 @@ export class Navbar {
 		navbar_elem.id = "navbar";
 
 		navbar_elem.innerHTML = `
-            <span class="logo"><a href="${BASE_URL}/">GET</a></span>
+            <span class="logo"><a href="${BASE_DIR}/">GET</a></span>
             
             <input type="checkbox" id="hamburger"/>
             <label for="hamburger">
@@ -23,10 +23,10 @@ export class Navbar {
                 <div class="hamburger">
                     
                     <ul>
-                        <li><a href="${BASE_URL}/">Home</a></li>
-                        <li><a href="${BASE_URL}/pages/channels.php">Channels</a></li>
-                        <li><a href="${BASE_URL}/pages/new_story.php">Add Story</a></li>
-                        <li class="search-url"><a href="${BASE_URL}/pages/search.php">Search</a></li>
+                        <li><a href="${BASE_DIR}/">Home</a></li>
+                        <li><a href="${BASE_DIR}/pages/channels.php">Channels</a></li>
+                        <li><a href="${BASE_DIR}/pages/new_story.php">Add Story</a></li>
+                        <li class="search-url"><a href="${BASE_DIR}/pages/search.php">Search</a></li>
                     </ul>
                 </div>
 
@@ -35,23 +35,23 @@ export class Navbar {
                 
                 <ul>
                         <li> <div class="search">
-                            <form class="search-bar" action="${BASE_URL}/pages/search.php" method="GET">
+                            <form class="search-bar" action="${BASE_DIR}/pages/search.php" method="GET">
                                 <input type="text" class="query-input" name="query" placeholder="Insert your query here" autocomplete="off">
                             </form>
                         </div> </li>
-                        <li><a href="${BASE_URL}/pages/login.php">Login</a></li>
-                        <li><a href="${BASE_URL}/pages/register.php">Register</a></li>
+                        <li><a href="${BASE_DIR}/pages/login.php">Login</a></li>
+                        <li><a href="${BASE_DIR}/pages/register.php">Register</a></li>
                     </ul>
                 </div>
                 <div class="user-details right-content">
                     <ul>
                         <li> <div class="search">
-                            <form class="search-bar" action="${BASE_URL}/pages/search.php" method="GET">
+                            <form class="search-bar" action="${BASE_DIR}/pages/search.php" method="GET">
                                 <input type="text" class="query-input" name="query" placeholder="Insert your query here" autocomplete="off">
                             </form>
                         </div> </li>
-                        <li><a class="username" href="${BASE_URL}/pages/user.php?username=">loading_username</a></li>
-                        <li><a href="${BASE_URL}/pages/settings.php">Settings</a></li>
+                        <li><a class="username" href="${BASE_DIR}/pages/user.php?username=">loading_username</a></li>
+                        <li><a href="${BASE_DIR}/pages/settings.php">Settings</a></li>
                         <li><a class="logout">Logout</a></li>
                     </ul>
                 </div>
@@ -63,7 +63,7 @@ export class Navbar {
 		navbar_elem.querySelector(".logout").addEventListener("click", () => {
 			logoutUser()
 			// Going to the homepage after logout
-				.then(() => {window.location.href = `${BASE_URL}/pages/stories.php`;})
+				.then(() => {window.location.href = `${BASE_DIR}/pages/stories.php`;})
 				.catch();
 		});
 
@@ -76,7 +76,7 @@ export class Navbar {
 	updateWithUserInfo(user_info) {
 		const username_elem = this.element.querySelector(".user-details .username");
 		username_elem.textContent = user_info.username;
-		username_elem.href = `${BASE_URL}/pages/user.php?username=${user_info.username}`;
+		username_elem.href = `${BASE_DIR}/pages/user.php?username=${user_info.username}`;
 		this.element.classList.add("logged-in");
 	}
 }

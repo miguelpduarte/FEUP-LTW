@@ -1,6 +1,6 @@
 <?php
 
-$BASE_DIR = "";
+$BASE_DIR = "BASE_DIR_PLACEHOLDER";
 
 /**
  * Draws the header for all pages
