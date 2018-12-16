@@ -84,6 +84,20 @@
     }
 
     /**
+     * Edits a story's content
+     */
+    function editStoryContent($story_id, $new_content) {
+        $db = Database::instance()->db();
+
+        $stmt = $db->prepare(
+        'UPDATE stories
+         SET content = ?
+         WHERE story_id = ?');
+
+        $stmt->execute(array($new_content, $story_id));
+    }
+
+    /**
      * Returns true if story with <story_id> has author with <$user_id>
      */
     function verifyStoryOwnership($story_id, $user_id) {

@@ -27,6 +27,17 @@ img {
     max-width: 100%;
 }
 
+button {
+    cursor: pointer;
+}
+
+blockquote {
+    background-color: var(--very-light-grey);
+    padding: 0.5em;
+    font-style: italic; 
+    border-left: 4px solid var(--main-color);
+}
+
 #content {
     margin: 0 auto 2em auto;
     max-width: 80%;

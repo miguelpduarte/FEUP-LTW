@@ -50,7 +50,11 @@
     color: var(--grey);
     font-style: italic;
     font-family: var(--title-font), sans-serif;
+}
 
+.story-details i {
+    margin-left: 0.5em;
+    margin-right: 0.1em;
 }
 
 .full-story .title {
@@ -110,12 +114,6 @@
     color: var(--downvote-color);
 }
 
-.channel-info a {
-    text-decoration: none;
-    font-size: 0.5em;
-}
-
-
 @media screen and (max-width: 60em) {
 
     .full-story .title {
@@ -126,4 +124,137 @@
     .full-story .voting-wrapper {
         font-size: 1.5em;
     }
+}
+
+/* For editing the channel */
+.channel-info i {
+    opacity: 0;
+    transition: 0.2s opacity ease-in-out;
+    cursor: pointer;
+    margin-left: 0.5em;
+}
+
+.channel-info:hover i {
+    opacity: 1;
+}
+
+form.channel-edit {
+    display: none;
+}
+
+.full-story.editing-channel form.channel-edit {
+    display: flex;
+}
+
+.full-story.editing-channel .channel-info {
+    display: none;
+}
+
+/* Channel edit form styling */
+form.channel-edit {
+    align-items: center;
+}
+
+form.channel-edit button {
+    border-radius: 10px;
+    background-color: var(--main-color);
+    color: white;
+    font-family: var(--title-font);
+    padding: 0.6em;
+    border: 1px solid black;
+}
+
+form.channel-edit button:active {
+    background-color: var(--main-color-dark);
+}
+
+form.channel-edit input {
+    border: 1px solid var(--even-lighter-grey);
+    border-radius: 5px;
+    font-family: var(--content-font);
+    padding: 0.7em 0.2em 0.6em 0.6em;
+    margin-right: 1em;
+}
+
+form.channel-edit .cancel {
+    font-family: var(--title-font);
+    color: var(--grey);
+    cursor: pointer;
+    margin-left: 0.8em;
+}
+
+form.channel-edit .error {
+    font-family: var(--content-font);
+    margin-left: 0.8em;
+    color: red;
+}
+
+/* For editing the content */
+.story-line {
+    display: flex;
+    align-items: center;
+}
+.story-line hr {
+    flex: 1 1 0;
+}
+
+.content-edit-pencil {
+    flex: 0 0 auto;
+    margin-left: 1em;
+    cursor: pointer;
+}
+
+form.content-edit {
+    display: none;
+}
+
+.full-story.editing-content form.content-edit {
+    display: flex;
+}
+
+.full-story.editing-content .content, .full-story.editing-content .content-edit-pencil {
+    display: none;
+}
+
+/* Content edit form styling */
+
+form.content-edit {
+    flex-direction: column;
+    padding: 2em;
+}
+
+form.content-edit .error {
+    font-family: var(--content-font);
+    margin-top: 0.8em;
+    color: red;
+    text-align: center;
+    margin-bottom: 0.2em;
+}
+
+form.content-edit .buttons {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-evenly;
+}
+
+form.content-edit .buttons .cancel {
+    font-family: var(--title-font);
+    color: var(--grey);
+    cursor: pointer;
+    font-size: 1.1em;
+    /* margin-left: 0.8em; */
+}
+
+form.content-edit .buttons button {
+    border-radius: 10px;
+    background-color: var(--main-color);
+    color: white;
+    font-family: var(--title-font);
+    padding: 0.5em;
+    font-size: 1.1em;
+    border: 1px solid black;
+}
+
+form.content-edit .buttons button:active {
+    background-color: var(--main-color-dark);
 }
