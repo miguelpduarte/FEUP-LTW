@@ -41,7 +41,6 @@ function draw_header($page_title) {
             <script src="<?= $BASE_DIR ?>/libs/remarkable.min.js"></script>
             <script src="<?= $BASE_DIR ?>/libs/moment.min.js"></script>
             <script src="<?= $BASE_DIR ?>/libs/highlight.min.js"></script>
-            <script src="<?= $BASE_DIR ?>/js/common.js" defer></script>
         </head>
         <body>
             <nav id="navbar_container"></nav>
@@ -51,14 +50,15 @@ function draw_header($page_title) {
                     <i class="fas fa-pen secondary"></i>
                 </div>
             </div>
-<?php } ?>
-
-<?php
+            <?php } ?>
+            
+            <?php
 /**
  * Draws the footer for all pages.
  */
 function draw_footer() { 
     global $BASE_DIR; ?>
+    <script type="module" src="<?= $BASE_DIR ?>/js/common.js"></script>
     <script type="module" src="<?= $BASE_DIR ?>/js/page_actions/navbar_actions.js"></script>
     </body>
 </html>
