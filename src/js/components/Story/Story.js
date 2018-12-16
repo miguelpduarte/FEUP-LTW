@@ -106,7 +106,7 @@ export class Story extends GenericStory {
 
 	async createChannelEditing() {
 		const channel_pencil = document.createElement("i");
-		channel_pencil.classList.add("fas", "fa-pencil-alt");
+		channel_pencil.classList.add("fas", "fa-pen");
 		channel_pencil.addEventListener("click", () => {
 			// Setting the initial input box value to be the current channel text (without the hashtag)
 			const hashless_curr_channel_name = this.element.querySelector(".channel-info a").textContent.substr(1);
@@ -213,7 +213,7 @@ export class Story extends GenericStory {
 		this.element.querySelector(".content").insertAdjacentElement("beforebegin", edit_content_form);
 
 		const content_pencil = document.createElement("i");
-		content_pencil.classList.add("fas", "fa-pencil-alt", "content-edit-pencil");
+		content_pencil.classList.add("fas", "fa-pen", "content-edit-pencil");
 		content_pencil.addEventListener("click", () => {
 			// The plain text is only available in this.data
 			const curr_content = this.data.content;

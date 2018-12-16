@@ -201,6 +201,7 @@ form.channel-edit .error {
 .content-edit-pencil {
     flex: 0 0 auto;
     margin-left: 1em;
+    cursor: pointer;
 }
 
 form.content-edit {
