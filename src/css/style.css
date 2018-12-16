@@ -54,6 +54,7 @@ img {
     justify-content: center;
     align-items: center;
     color: white;
+    font-size: 1.2em;
     -moz-box-shadow:    0 0 20px rgba(0, 0, 0, 0.8);
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
     box-shadow:         0 0 20px rgba(0, 0, 0, 0.8);
