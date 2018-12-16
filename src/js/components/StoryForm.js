@@ -7,8 +7,8 @@ import { fetchChannelLike } from "../fetch_actions/channels_fetch_actions.js";
 
 export class StoryForm {
 	render() {
-		this.section = document.createElement("section");
-		this.section.classList.add("story-form");
+		this.element = document.createElement("div");
+		this.element.classList.add("story-form");
         
 		this.createForm();
 		this.createButton();
@@ -16,9 +16,9 @@ export class StoryForm {
         
 		this.form.appendChild(this.msgSection);
 		this.form.appendChild(this.button);
-		this.section.appendChild(this.form);
+		this.element.appendChild(this.form);
 
-		return this.section;
+		return this.element;
 	}
 
 	createMsgUser() {
@@ -74,8 +74,8 @@ export class StoryForm {
 	}
 
 	showErrorMessage(err_msg) {
-		this.section.querySelector(".msg-field").textContent = "Error: " + err_msg;
-		this.section.classList.add("invalid");
+		this.element.querySelector(".msg-field").textContent = "Error: " + err_msg;
+		this.element.classList.add("invalid");
 	}
 
 	createForm() {
@@ -84,15 +84,15 @@ export class StoryForm {
 		this.form.method = "post";
 		this.form.action = "../api/story.php";
 		this.form.innerHTML = 
-        `<section class="title-area">
+        `<div class="title-area">
             <input type="text" id="title" class="title-input" name="title" placeholder="Insert your title here">
-        </section>
-        <section class="channel-area">
+        </div>
+        <div class="channel-area">
             <input type="text" name="channel-selector" class="channel-selector" 
                 list="channel-suggestions" autocomplete="off" placeholder="Insert the channel here">
             <datalist id="channel-suggestions"></datalist>
-        </section>
-        <section class="editor"></section>`;
+        </div>
+        <div class="editor"></div>`;
 
 		this.markdown_editor = new MarkdownEditor();
 		this.form.querySelector(".editor").appendChild(this.markdown_editor.render());

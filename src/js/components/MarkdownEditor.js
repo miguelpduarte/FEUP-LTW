@@ -2,14 +2,14 @@ import { mdToHTML } from "../utils.js";
 
 export class MarkdownEditor {
 	render() {
-		this.editor = document.createElement("section");
+		this.editor = document.createElement("div");
 		this.editor.classList.add("md-editor");
 		this.editor.innerHTML = `
         <a class="tab-label editor-selector visible">Editor</a>
         <a class="tab-label preview-selector">Preview</a>
 
         <textarea id="editor" name="editor-tab" class="tab editor-selector visible"></textarea>
-        <section id="preview" class="tab preview-selector"></section>`;
+        <div id="preview" class="tab preview-selector"></div>`;
 
 		this.updatePreview();
 		this.editor.querySelector("textarea").addEventListener("input", () => this.updatePreview());
