@@ -49,7 +49,7 @@
                                 FROM stories 
                                 JOIN users ON stories.author = users.user_id
                                 WHERE channel = ?
-                                ORDER BY score, created_at DESC
+                                ORDER BY score DESC, created_at DESC
                                 LIMIT ? OFFSET ?');
         $stmt->execute(array($id, $n_stories, $offset));
 
