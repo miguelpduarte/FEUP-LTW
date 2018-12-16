@@ -1,9 +1,8 @@
 import { StoryForm } from "../components/StoryForm.js";
+import { removeCreateStoryFAB } from "../common.js";
 let story_form = null;
 
-const removeCreateStoryFAB = () => {
-	document.getElementById('create-story-btn').remove();
-}
+
 
 const createStoryForm = () => {
 	const story_form_container = document.getElementById("story_form_container");
