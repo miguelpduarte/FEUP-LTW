@@ -1,6 +1,5 @@
 "use strict";
 
-
 export const fetchChannelData = id => {
 	return new Promise((resolve, reject) => {
 		fetch(`../api/channel.php?id=${id}`)
@@ -13,9 +12,7 @@ export const fetchChannelData = id => {
 				}
 			});
 	});
-}
-
-
+};
 
 export const fetchChannelStories = (id, offset, n_stories) => {
 	return new Promise((resolve, reject) => {

@@ -1,5 +1,5 @@
 "use strict";
-import { getUserInfo, getCsrf } from "../store.js";
+import { getCsrf } from "../store.js";
 
 export const fetchNewestStories = (offset, n_stories) => {
 	const real_offset = Number.parseInt(offset);
@@ -55,7 +55,7 @@ export const fetchStory = id => {
 	});
 };
 
-export const fetchPostStory = async (content, title, channel) => {
+export const fetchPostStory = (content, title, channel) => {
 	const body = {
 		content,
 		title,
@@ -82,7 +82,7 @@ export const fetchPostStory = async (content, title, channel) => {
 	});
 };
 
-export const fetchEditStoryChannel = async (story_id, new_channel) => {
+export const fetchEditStoryChannel = (story_id, new_channel) => {
 	const body = {
 		story_id,
 		new_channel,
@@ -109,7 +109,7 @@ export const fetchEditStoryChannel = async (story_id, new_channel) => {
 	});
 };
 
-export const fetchEditStoryContent = async (story_id, new_content) => {
+export const fetchEditStoryContent = (story_id, new_content) => {
 	const body = {
 		story_id,
 		new_content,
@@ -137,7 +137,7 @@ export const fetchEditStoryContent = async (story_id, new_content) => {
 };
 
 // upvote must be boolean
-export const fetchVoteStory = async (id, upvote) => {
+export const fetchVoteStory = (id, upvote) => {
 	// Safety
 	const real_id = Number.parseInt(id);
 	
@@ -166,7 +166,7 @@ export const fetchVoteStory = async (id, upvote) => {
 	});
 };
 
-export const fetchUnvoteStory = async id => {
+export const fetchUnvoteStory = id => {
 	// Safety
 	const real_id = Number.parseInt(id);
 

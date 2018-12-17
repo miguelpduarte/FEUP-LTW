@@ -59,7 +59,7 @@ export const loginUser = (username, password) => {
 export const getUserLoginInfo = () => {
 
 	return new Promise((resolve, reject) => {
-		if(getCsrf() === null) {
+		if (getCsrf() === null) {
 			reject();
 		}
 
@@ -165,7 +165,7 @@ export const changeName = new_name => {
 	});
 };
 
-export const changePassword = async (old_password, new_password, new_password_confirmation) => {
+export const changePassword = (old_password, new_password, new_password_confirmation) => {
 	const body = {
 		old_password,
 		new_password,
@@ -192,7 +192,7 @@ export const changePassword = async (old_password, new_password, new_password_co
 	});
 };
 
-export const changeBio = async new_bio => {
+export const changeBio = new_bio => {
 	const body = {
 		new_bio,
 		csrf: getCsrf(),
