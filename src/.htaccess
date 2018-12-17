@@ -1,5 +1,5 @@
-ErrorDocument 404 /~up201603647/pages/404.php
-ErrorDocument 403 /~up201603647/pages/403.php
+ErrorDocument 404 BASE_DIR_PLACEHOLDER/pages/404.php
+ErrorDocument 403 BASE_DIR_PLACEHOLDER/pages/403.php
 
 <Files ~ "\.(db|sql|sh)$">  
 Order Allow,Deny
