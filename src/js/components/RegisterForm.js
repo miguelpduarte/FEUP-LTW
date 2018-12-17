@@ -2,6 +2,7 @@
 
 import { createUser } from "../fetch_actions/user_fetch_actions.js";
 import { changeToLoginOrHomepageView } from "../page_actions/register_actions.js";
+import { errorHandler } from "../ErrorHandler.js";
 
 export class RegisterForm {
 	constructor() {
@@ -70,8 +71,11 @@ export class RegisterForm {
 			// (Errors are sent to catch block instead of returning directly)
 			await createUser(name, username, password, password_confirmation);
 			changeToLoginOrHomepageView();
-		} catch (err_msg) {
-			this.showErrorMessage(err_msg);
+		} catch (err) {
+			const err = errorHandler.getError(error);
+			this.showErrorMessage(err.msg);
+			err.defaultAction();
+			return;
 		}
 	}
 

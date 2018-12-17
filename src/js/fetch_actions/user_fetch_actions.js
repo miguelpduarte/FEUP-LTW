@@ -23,7 +23,7 @@ export const createUser = (name, username, password, password_confirmation) => {
 				if (data.success) {
 					return resolve();
 				} else {
-					return reject(data.reason);
+					return reject(data.code);
 				}
 			})
 			.catch(err => reject(err));

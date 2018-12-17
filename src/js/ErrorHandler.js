@@ -15,6 +15,12 @@ class ErrorHandler {
 				}
 			},
 
+			10: {
+				msg: "Username already taken",
+				defaultAction: () => {
+				}
+			},
+
 			2: {
 				msg: "Channel name can only contain lowercase letters and numbers",
 				defaultAction: () => {
