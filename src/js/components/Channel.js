@@ -15,7 +15,6 @@ export class Channel {
             <div class="channel-card-info">
                 <h2 class="title"><a href="channel.php?id=${this.data.channel_id}"></a></h2>
             </div>
-            
         `;
 
 		// Adding textContent
