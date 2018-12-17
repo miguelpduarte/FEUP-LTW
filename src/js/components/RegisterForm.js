@@ -18,22 +18,26 @@ export class RegisterForm {
 		register_form_elem.action = "";
 
 		register_form_elem.innerHTML = `
-            <label>Name
-                <input type="text" name="name" required>
+			<div class="input-wrapper">
+				<label for="name">Name</label>
+				<input id="name" type="text" name="name" required>
+				<div class="feedback"></div>
+			</div>
+			<div class="input-wrapper">
+				<label for="username">Username</label>
+				<input id="username" type="text" name="username" placeholder="Used for your login" required>
+				<div class="feedback"></div>
+			</div>
+			<div class="input-wrapper">
+	            <label for="password">Password</label>
+                <input id="password" type="password" name="password" minlength="8" required>
                 <div class="feedback"></div>
-            </label>
-            <label>Username
-                <input type="text" name="username" placeholder="Used for your login" required>
-                <div class="feedback"></div>
-            </label>
-            <label>Password
-                <input type="password" name="password" minlength="8" required>
-                <div class="feedback"></div>
-            </label>
-            <label>Confirm Password
-                <input type="password" name="password-confirmation" minlength="8" placeholder="Third time's the charm!" required>
-                <div class="feedback"></div>
-            </label>
+			</div>
+			<div class="input-wrapper">
+				<label for="password_confirmation">Confirm Password</label>
+				<input id="password_confirmation" type="password" name="password-confirmation" minlength="8" placeholder="Third time's the charm!" required>
+				<div class="feedback"></div>
+			</div>
             <button>Register</button>
             <div class="result"></div>
         `;

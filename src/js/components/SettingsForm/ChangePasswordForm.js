@@ -13,18 +13,21 @@ export class ChangePasswordForm {
 		form_elem.action = "";
 
 		form_elem.innerHTML = `
-			<label>Old Password
-                <input type="password" name="old_password" required>
+			<div class="input-wrapper">
+				<label for="old_password">Old Password</label>
+                <input id="old_password" type="password" name="old_password" required>
                 <div class="feedback"></div>
-            </label>
-			<label>New Password
-                <input type="password" name="new_password" required>
+			</div>
+			<div class="input-wrapper">
+				<label for="new_password">New Password</label>
+                <input id="new_password" type="password" name="new_password" required>
                 <div class="feedback"></div>
-            </label>
-            <label>Confirm New Password
-                <input type="password" name="new_password_confirmation" required>
+			</div>
+			<div class="input-wrapper">
+            	<label for="new_password_confirmation">Confirm New Password</label>
+                <input id="new_password_confirmation" type="password" name="new_password_confirmation" required>
                 <div class="feedback"></div>
-            </label>
+			</div>
             <button>Change Password</button>
             <div class="result"></div>
         `;

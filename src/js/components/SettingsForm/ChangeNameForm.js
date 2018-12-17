@@ -11,10 +11,11 @@ export class ChangeNameForm {
 		form_elem.action = "";
 
 		form_elem.innerHTML = `
-            <label>New Name
-                <input type="text" name="new_name" required>
+			<div class="input-wrapper">
+            	<label for="new_name">New Name</label>
+                <input id="new_name" type="text" name="new_name" required>
                 <div class="feedback"></div>
-			</label>
+			</div>
             <button>Change Name</button>
             <div class="result"></div>
         `;

@@ -16,10 +16,11 @@ export class ChangeBioForm {
 		form_elem.action = "";
 
 		form_elem.innerHTML = `
-            <label>New Bio
-                <div class="editor-wrapper"></div>
-                <div class="feedback"></div>
-			</label>
+			<div class="input-wrapper">
+				<label>New Bio</label>
+				<div class="editor-wrapper"></div>
+				<div class="feedback"></div>
+			</div>
             <button>Change Bio</button>
             <div class="result"></div>
 		`;
