@@ -8,8 +8,8 @@ export class MarkdownEditor {
         <a class="tab-label editor-selector visible">Editor</a>
         <a class="tab-label preview-selector">Preview</a>
 
-        <textarea id="editor" name="editor-tab" class="tab editor-selector visible"></textarea>
-        <div id="preview" class="tab preview-selector"></div>`;
+        <textarea name="editor-tab" class="tab editor-selector visible"></textarea>
+        <div class="tab preview-selector"></div>`;
 
 		this.updatePreview();
 		this.editor.querySelector("textarea").addEventListener("input", () => this.updatePreview());
