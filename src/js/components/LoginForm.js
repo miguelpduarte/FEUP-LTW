@@ -9,8 +9,6 @@ export class LoginForm {
 		login_form_elem.id = "login_form";
 		login_form_elem.classList.add("fancy-form");
 		login_form_elem.setAttribute("novalidate", "");
-		login_form_elem.method = "";
-		login_form_elem.action = "";
 
 		// Estavas a fazer isto: Passar para label adjacente em vez de estar a dar wrap
 		// feedback: testar com 1em de font-size e tirar o font-weight pq era a label wrapping que estava a pôr isso

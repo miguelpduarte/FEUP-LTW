@@ -21,7 +21,7 @@ export class UserInfo {
                 <p class="info-commentScore" title="Comment Score"></p>
             </div>
             <div class="info-bio"></div>
-            `;
+		`;
 
 		this.element.querySelector(".info-name").textContent = this.name;
 		this.element.querySelector(".info-username").textContent = this.username;

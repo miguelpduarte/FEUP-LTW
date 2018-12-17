@@ -14,8 +14,6 @@ export class RegisterForm {
 		register_form_elem.id = "register_form";
 		register_form_elem.classList.add("fancy-form");
 		register_form_elem.setAttribute("novalidate", "");
-		register_form_elem.method = "";
-		register_form_elem.action = "";
 
 		register_form_elem.innerHTML = `
 			<div class="input-wrapper">
