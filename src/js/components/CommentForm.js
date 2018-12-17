@@ -107,12 +107,12 @@ export class CommentForm {
 			created_at: response.data.created_at,
 		};
 		const newComment = new Comment(commentData, false);
-		document.querySelector(".local-comments").prepend(newComment.render());
-		document.querySelector(`#comment_${response.data.comment_id}`).classList.add("local-comment");
+		const rendered_newComment = newComment.render();
+		rendered_newComment.classList.add("local-comment");
+		document.querySelector(".local-comments").prepend(rendered_newComment);
 	}
 
 	appendLocalSubComment(response) {
-
 		const commentData = {
 			comment_id: response.data.comment_id,
 			author: response.data.author,
@@ -120,10 +120,10 @@ export class CommentForm {
 			content: response.data.content,
 			created_at: response.data.created_at,
 		};
+
 		const newComment = new Comment(commentData, false);
-		document.querySelector(`.local-subcomments#comment_${this.id}`).prepend(newComment.render());
-		document.querySelector(`#comment_${response.data.comment_id}`).classList.add("local-subcomment");
-
+		const rendered_newComment = newComment.render();
+		rendered_newComment.classList.add("local-subcomment");
+		document.querySelector(`#comment_${this.id} .local-subcomments`).prepend(rendered_newComment);
 	}
-
 }

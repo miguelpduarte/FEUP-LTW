@@ -14,13 +14,13 @@ export class Story extends GenericStory {
 	}
 
 	render() {
-		let section = document.createElement("section");
-		section.id = `story_${this.data.story_id}`;
-		section.className = "full-story";
+		let div = document.createElement("div");
+		div.id = `story_${this.data.story_id}`;
+		div.className = "full-story";
 
 		
-		section.innerHTML = `
-            <section class="story-header">
+		div.innerHTML = `
+            <div class="story-header">
                 <div class="story-info">
                     <div class="channel-info"></div>
                     <h1 class="title"><a href="story.php?id=${this.data.story_id}"></a></h1>
@@ -35,16 +35,16 @@ export class Story extends GenericStory {
                     <div class="score">${this.data.score}</div>
                     <i class="vote-down fas fa-chevron-down"></i>
                 </div>
-			</section>
+			</div>
 			<div class="story-line">
             	<hr/>
 			</div>
             <div class="content">${mdToHTML(this.data.content)}</div>
         `;
 
-		section.querySelector(".title").textContent = this.data.title;
+		div.querySelector(".title").textContent = this.data.title;
 		// Author name
-		section.querySelector(".story-details .author a").textContent = this.data.author_name;
+		div.querySelector(".story-details .author a").textContent = this.data.author_name;
 
 		if (this.data.updated_at) {
 			// Adding updated at visualization
@@ -55,24 +55,24 @@ export class Story extends GenericStory {
 			updated_at_span.textContent = moment(this.data.updated_at).fromNow();
 			// console.log("u_at", this.data.updated_at);
 
-			const story_details_elem = section.querySelector(".story-details");
+			const story_details_elem = div.querySelector(".story-details");
 			story_details_elem.appendChild(updated_at_icon);
 			story_details_elem.appendChild(updated_at_span);
 		}
 
 		// Upvoting
-		section.querySelector(".vote-up").addEventListener("click", e => {
+		div.querySelector(".vote-up").addEventListener("click", e => {
 			e.stopPropagation();
 			this.upvote();
 		});
 
 		// Downvoting
-		section.querySelector(".vote-down").addEventListener("click", e => {
+		div.querySelector(".vote-down").addEventListener("click", e => {
 			e.stopPropagation();
 			this.downvote();
 		});
 
-		this.element = section;
+		this.element = div;
 
 		// Adding channel information
 		const channel_info_elem = this.element.querySelector(".channel-info");
@@ -81,7 +81,7 @@ export class Story extends GenericStory {
 		// Adding editing buttons and possibilities if the logged in user is the story author
 		this.addEditingIfAuthor(channel_info_promise);
 		
-		return section;
+		return div;
 	}
 
 	async addEditingIfAuthor(channel_info_promise) {

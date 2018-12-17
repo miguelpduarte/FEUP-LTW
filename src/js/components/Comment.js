@@ -56,12 +56,12 @@ export class Comment {
 	}
 
 	render() {
-		this.element = document.createElement("section");
+		this.element = document.createElement("div");
 		this.element.classList.add("comment-container");
 		this.element.id = `comment_${this.comment_id}`;
 
 		this.element.innerHTML =
-		`<section class="comment">
+		`<div class="comment">
 			<div class="comment-card-info">
 				<div class="md-content">${mdToHTML(this.content)}</div>
 				<div class="comment-card-details">
@@ -75,7 +75,7 @@ export class Comment {
 				<div class="score">${this.score}</div>
 				<i class="vote-down fas fa-chevron-down"></i>
 			</div>
-		</section>`;
+		</div>`;
     
 		this.element.querySelector(".author").textContent = this.author;
 		
@@ -84,21 +84,20 @@ export class Comment {
 			this.element.appendChild(form_area);
 			this.element.querySelector(".show-reply").addEventListener("click", () => this.showForm());			
 
-			const localSubcomments = document.createElement("section");
+			const localSubcomments = document.createElement("div");
 			localSubcomments.classList.add("local-subcomments");
-			localSubcomments.setAttribute("id", `comment_${this.comment_id}`);
 			this.element.appendChild(localSubcomments);
 		}
 
 		if (this.subComments.size) {
-			const subcomment_section = document.createElement("section");
-			subcomment_section.classList.add("subcomment-container");
+			const subcomment_div = document.createElement("div");
+			subcomment_div.classList.add("subcomment-container");
 
 			for (const nComment of this.subComments.values()) {
-				subcomment_section.appendChild(nComment.render());
+				subcomment_div.appendChild(nComment.render());
 			}
 
-			this.element.appendChild(subcomment_section);
+			this.element.appendChild(subcomment_div);
 
 			const expand_comments = this.createExpandComments();
 			this.element.appendChild(expand_comments);
@@ -118,7 +117,7 @@ export class Comment {
 	}
 
 	createFormArea() {
-		const form_area = document.createElement("section");
+		const form_area = document.createElement("div");
 		form_area.classList.add("new-subcomment");
 		form_area.innerHTML = "<a class=\"show-reply\">Reply  <i class=\"fas fa-comments\"></i></a>";
 		return form_area;
@@ -183,7 +182,7 @@ export class Comment {
 				comment.classList.remove("downvoted");
 				break;
 			default:
-				console.warn("Wrong call to Story.setVoteStatus!");
+				console.warn("Wrong call to setVoteStatus!");
 				break;
 		}
 	}
