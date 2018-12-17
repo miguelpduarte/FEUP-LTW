@@ -34,4 +34,5 @@
 .channel-card a {
     text-decoration: none;
     color: inherit;
+    word-wrap: break-word;
 }
