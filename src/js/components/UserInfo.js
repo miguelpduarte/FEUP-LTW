@@ -20,7 +20,7 @@ export class UserInfo {
                 <p class="info-storyScore" title="Story Score"></p>
                 <p class="info-commentScore" title="Comment Score"></p>
             </div>
-            <p class="info-bio"> </p>
+            <div class="info-bio"></div>
             `;
 
 		this.element.querySelector(".info-name").textContent = this.name;
@@ -37,11 +37,11 @@ export class UserInfo {
 		article.id = `user_${this.id}`;
 		article.innerHTML = `
                 <div class="user-card-info">
-                    <h1 class="username"><a href="user.php?username=${this.username}"></a></h1>
+                    <h2 class="username"><a href="user.php?username=${this.username}"></a></h2>
                 </div>
         `;
 		
-		article.querySelector('.username').textContent = this.username;
+		article.querySelector(".username").textContent = this.username;
 		this.element = article;
 
 		return article;

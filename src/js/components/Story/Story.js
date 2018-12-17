@@ -23,7 +23,7 @@ export class Story extends GenericStory {
             <div class="story-header">
                 <div class="story-info">
                     <div class="channel-info"></div>
-                    <h1 class="title"><a href="story.php?id=${this.data.story_id}"></a></h1>
+                    <h2 class="title"><a href="story.php?id=${this.data.story_id}"></a></h2>
                     <div class="story-details">
                         <span class="author"><a href="user.php?username=${this.data.author_name}"></a></span>
                         <i class="fas fa-user-clock"></i>
