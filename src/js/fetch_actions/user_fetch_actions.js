@@ -120,7 +120,6 @@ export const getLoggedUserBio = () => {
 };
 
 export const logoutUser = () => {
-	console.log(getCsrf())
 	return new Promise(async (resolve, reject) => {
 		fetch("../api/login.php", {
 			method: "DELETE",
