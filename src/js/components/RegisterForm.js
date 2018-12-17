@@ -71,7 +71,7 @@ export class RegisterForm {
 			// (Errors are sent to catch block instead of returning directly)
 			await createUser(name, username, password, password_confirmation);
 			changeToLoginOrHomepageView();
-		} catch (err) {
+		} catch (error) {
 			const err = errorHandler.getError(error);
 			this.showErrorMessage(err.msg);
 			err.defaultAction();
