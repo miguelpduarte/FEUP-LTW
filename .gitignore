@@ -1,2 +1,8 @@
 # lmao
 node_modules
+
+src/\.htaccess\.bak
+
+src/js/components/Navbar\.js\.bak
+
+src/templates/common\.php\.bak

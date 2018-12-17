@@ -100,7 +100,7 @@
 
 .story-card-header {
     display: grid;
-    grid-template-columns: 1fr 20%;
+    grid-template-columns: 80% 20%;
     grid-template-rows: auto;
 }
 
@@ -186,6 +186,16 @@
 
 .story-card.downvoted .voting-wrapper .voting .vote-down {
     color: var(--downvote-color);
+}
+
+.voting-wrapper .voting .vote-up, .voting-wrapper .voting .vote-down {
+    transition: transform 0.2s;
+}
+.voting-wrapper .voting .vote-up:hover {
+    transform: translateY(-5px);
+}
+.voting-wrapper .voting .vote-down:hover {
+    transform: translateY(5px);
 }
 
 @media screen and (max-width: 60em) {
