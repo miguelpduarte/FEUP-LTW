@@ -7,8 +7,6 @@ export class ChangeNameForm {
 		const form_elem = document.createElement("form");
 		form_elem.id = "change_name_form";
 		form_elem.setAttribute("novalidate", "");
-		form_elem.method = "";
-		form_elem.action = "";
 
 		form_elem.innerHTML = `
 			<div class="input-wrapper">
