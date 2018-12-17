@@ -25,11 +25,11 @@ INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, '
 
 
 -- comments
-INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Look",2, 3, NULL);
-INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"If you had",2, 3, NULL);
-INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"One shot",2, 3, NULL);
-INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Or one opportunity",2, 3, NULL);
-INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"To seize everything you ever wanted",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Look",1, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"If you had",3, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"One shot",1, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Or one opportunity",4, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"To seize everything you ever wanted",1, 3, NULL);
 INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"In one moment",2, 3, NULL);
 INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Would you capture it",2, 3, NULL);
 INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Or just let it slip?",2, 3, NULL);
@@ -209,3 +209,16 @@ INSERT INTO storyVotes(user_id, story_id, rating) VALUES(1, 9, 1);
 INSERT INTO storyVotes(user_id, story_id, rating) VALUES(2, 9, 1);
 INSERT INTO storyVotes(user_id, story_id, rating) VALUES(3, 9, 1);
 INSERT INTO storyVotes(user_id, story_id, rating) VALUES(4, 9, 1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(1, 8, 1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(2, 8, -1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(3, 8, 1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(4, 8, -1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(1, 7, -1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(2, 7, -1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(3, 7, -1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(4, 7, -1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(1, 5, 1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(2, 6, -1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(3, 5, 1);
+INSERT INTO storyVotes(user_id, story_id, rating) VALUES(4, 6, -1);
+
