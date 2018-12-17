@@ -24,6 +24,10 @@ export const isUserLoggedIn = async () => {
 };
 
 export const getUserInfo = () => {
+	if(getCsrf() === null) {
+		return;
+	}
+	
 	if (store.user !== undefined) {
 		// User info already loaded, getting from "cache"
 		return store.user;
@@ -100,3 +104,15 @@ export const getUserCommentVotes = () => {
 
 	return store.comment_votes_loading_promise;
 };
+
+export const saveCsrf = csrf => {
+	localStorage.setItem('csrf', csrf);
+}
+
+export const getCsrf = () => {
+	return localStorage.getItem('csrf');
+}
+
+export const deleteCsrf = () => {
+	localStorage.removeItem('csrf');
+}

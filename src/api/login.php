@@ -27,7 +27,28 @@ switch ($method) {
 function handle_get() {
     header('Content-Type: application/json');
 
+    if(empty($_GET['csrf'])) {
+        http_response_code(401);
+        echo json_encode([
+            'success' => false,
+            'reason' => "CSRF was not provided.",
+            'code' => Error("MISSING_CSRF")
+            ]);
+        exit;
+    }
+
+    if(!verifyCSRF($_GET['csrf'])) {
+        http_response_code(401);
+        echo json_encode([
+            'success' => false,
+            'reason' => "CSRF did not match. SHOW YOUR ID SIR!",
+            'code' => Error("WRONG_CSRF")
+            ]);
+        exit;
+    }
+
     $currentUser = getLoggedUser();
+
     if (!$currentUser) {
         http_response_code(401);
         echo json_encode([
@@ -42,8 +63,7 @@ function handle_get() {
     echo json_encode([
         'success' => true,
         'data' => [
-            'username' => $currentUser['username'],
-            'csrf' => $currentUser['csrf'],
+            'username' => $currentUser['username']
         ],
     ]);
     exit;
@@ -94,7 +114,10 @@ function handle_post() {
         $_SESSION['user_identifier_GET'] = $user['user_id'];
         $_SESSION['username'] = $username;
         echo json_encode([
-            'success' => true
+            'success' => true,
+            'data' => [
+                'csrf' => $_SESSION['csrf']
+            ]
         ]);
         exit;
     } else {

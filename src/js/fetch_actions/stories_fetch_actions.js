@@ -1,5 +1,5 @@
 "use strict";
-import { getUserInfo } from "../store.js";
+import { getUserInfo, getCsrf } from "../store.js";
 
 export const fetchNewestStories = (offset, n_stories) => {
 	const real_offset = Number.parseInt(offset);
@@ -60,7 +60,7 @@ export const fetchPostStory = async (content, title, channel) => {
 		content,
 		title,
 		channel,
-		csrf: (await getUserInfo()).csrf
+		csrf: getCsrf()
 	};
 
 	return new Promise((resolve, reject) => {
@@ -86,7 +86,7 @@ export const fetchEditStoryChannel = async (story_id, new_channel) => {
 	const body = {
 		story_id,
 		new_channel,
-		csrf: (await getUserInfo()).csrf
+		csrf: getCsrf()
 	};
 
 	return new Promise((resolve, reject) => {
@@ -113,7 +113,7 @@ export const fetchEditStoryContent = async (story_id, new_content) => {
 	const body = {
 		story_id,
 		new_content,
-		csrf: (await getUserInfo()).csrf
+		csrf: getCsrf()
 	};
 
 	return new Promise((resolve, reject) => {
@@ -144,7 +144,7 @@ export const fetchVoteStory = async (id, upvote) => {
 	const body = {
 		upvote,
 		story_id: real_id,
-		csrf: (await getUserInfo()).csrf
+		csrf: getCsrf()
 	};
 
 	return new Promise((resolve, reject) => {
@@ -172,7 +172,7 @@ export const fetchUnvoteStory = async id => {
 
 	const body = {
 		story_id: real_id,
-		csrf: (await getUserInfo()).csrf
+		csrf: getCsrf()
 	};
 
 	return new Promise((resolve, reject) => {

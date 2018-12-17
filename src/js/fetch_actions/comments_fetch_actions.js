@@ -1,5 +1,5 @@
 "use strict";
-import { getUserInfo } from "../store.js";
+import { getUserInfo, getCsrf } from "../store.js";
 
 export const fetchComments = (story_id, n_comments, off, n_nested, n_off) => {
 	const real_id = Number.parseInt(story_id);
@@ -97,13 +97,11 @@ export const fetchUnvoteComment = async id => {
 };
 
 export const fetchPostComment = async (story_id, content) => {
-	let user = await getUserInfo();
-	if (user === null)
-		throw 1;
+
 	let body = {
 		story_id: Number.parseInt(story_id),
 		content,
-		csrf: user.csrf
+		csrf: getCsrf()
 	};
 
 	return new Promise((resolve, reject) => {
@@ -128,13 +126,10 @@ export const fetchPostComment = async (story_id, content) => {
 };
 
 export const fetchPostSubComment = async (comment_id, content) => {
-	let user = await getUserInfo();
-	if (user === null)
-		throw 1;
 	let body = {
 		comment_id: Number.parseInt(comment_id),
 		content,
-		csrf: user.csrf
+		csrf: getCsrf()
 	};
 
 	return new Promise((resolve, reject) => {

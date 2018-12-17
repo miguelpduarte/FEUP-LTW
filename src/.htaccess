@@ -1,7 +1,7 @@
 ErrorDocument 404 /~up201603647/pages/404.php
 ErrorDocument 403 /~up201603647/pages/403.php
 
-<Files ~ "\.(db|sql)$">  
+<Files ~ "\.(db|sql|sh)$">  
 Order Allow,Deny
 Deny from All
 </Files>

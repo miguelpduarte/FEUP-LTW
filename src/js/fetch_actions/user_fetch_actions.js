@@ -1,6 +1,6 @@
 "use strict";
 
-import { getUserInfo } from "../store.js";
+import { getCsrf, deleteCsrf } from "../store.js";
 
 export const createUser = (name, username, password, password_confirmation) => {
 	const body = JSON.stringify({
@@ -47,7 +47,7 @@ export const loginUser = (username, password) => {
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
-					return resolve();
+					return resolve(data.data);
 				} else {
 					return reject(data.reason);
 				}
@@ -57,8 +57,13 @@ export const loginUser = (username, password) => {
 };
 
 export const getUserLoginInfo = () => {
+
 	return new Promise((resolve, reject) => {
-		fetch("../api/login.php")
+		if(getCsrf() === null) {
+			reject();
+		}
+
+		fetch(`../api/login.php?csrf=${getCsrf()}`)
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
@@ -115,6 +120,7 @@ export const getLoggedUserBio = () => {
 };
 
 export const logoutUser = () => {
+	console.log(getCsrf())
 	return new Promise(async (resolve, reject) => {
 		fetch("../api/login.php", {
 			method: "DELETE",
@@ -122,12 +128,13 @@ export const logoutUser = () => {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
-				csrf: (await getUserInfo()).csrf
+				csrf: getCsrf()
 			})
 		})
 			.then(res => res.json())
 			.then(data => {
 				if (data.success) {
+					deleteCsrf();
 					return resolve();
 				} else {
 					return reject(data.reason);
@@ -144,7 +151,7 @@ export const changeName = new_name => {
 				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
-				csrf: (await getUserInfo()).csrf,
+				csrf: getCsrf(),
 				new_name
 			})
 		})
@@ -164,7 +171,7 @@ export const changePassword = async (old_password, new_password, new_password_co
 		old_password,
 		new_password,
 		new_password_confirmation,
-		csrf: (await getUserInfo()).csrf,
+		csrf: getCsrf(),
 	};
 
 	return new Promise((resolve, reject) => {
@@ -189,7 +196,7 @@ export const changePassword = async (old_password, new_password, new_password_co
 export const changeBio = async new_bio => {
 	const body = {
 		new_bio,
-		csrf: (await getUserInfo()).csrf,
+		csrf: getCsrf(),
 	};
 
 	return new Promise((resolve, reject) => {

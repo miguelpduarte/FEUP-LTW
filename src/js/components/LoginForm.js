@@ -2,6 +2,7 @@
 
 import { loginUser } from "../fetch_actions/user_fetch_actions.js";
 import { changeToSuccessfulLoginView } from "../page_actions/login_actions.js";
+import { saveCsrf } from "../store.js"
 
 export class LoginForm {
 	render() {
@@ -51,7 +52,8 @@ export class LoginForm {
 
 		// Handle response
 		try {
-			await loginUser(username, password);
+			const response = await loginUser(username, password);
+			saveCsrf(response.csrf);
 			changeToSuccessfulLoginView();
 		} catch (err_msg) {
 			this.showErrorMessage(err_msg);
