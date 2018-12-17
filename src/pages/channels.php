@@ -4,7 +4,7 @@
 ?>
     <div id="content">
         <div id="channels_container"></div>
-        <script type="module" src="/js/page_actions/channels_actions.js"></script>
+        <script type="module" src="../js/page_actions/channels_actions.js"></script>
     </div>
 <?php
     draw_footer();
