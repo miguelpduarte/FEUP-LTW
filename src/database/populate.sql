@@ -15,14 +15,7 @@ INSERT INTO channels values(3, 'programmerhumor', '#611E6C');
 -- stories
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(1, 1, 'This is a very existing title', 'This is a very existing story, not a test at all', 1);
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(2, 2, 'This is another very existing title', 'This is another story that does exist and is not a test at all', 2);
-INSERT INTO stories(story_id, author, title, content, channel) VALUES(3, 2, 'Marking story!',
-'# Did you know that
-## This is
-*Something* cool __here__?
-This now has a lot of content that goes on and on and on and on and on and on and on and on and on and on and on and on and on
-
-Oh look! A penguin! ![penguin](https://cdn.pixabay.com/photo/2013/07/13/11/44/penguin-158551__340.png)',
-2);
+INSERT INTO stories(story_id, author, title, content, channel) VALUES(3, 2, 'Type of candy you prefer','I prefer M&Ms',2);
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(4, 3, '<script>alert(1)</script>', '<script>alert(this); alert(1)</script>', 2);
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, '<img src="" onerror="alert(1)" />', '<img src="" onerror="alert(1)" />', 0);
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, 'Good Question', '![Good Question](https://i.redd.it/5zfoljctoc421.png)', 3);
@@ -32,60 +25,172 @@ INSERT INTO stories(story_id, author, title, content, channel) VALUES(NULL, 2, '
 
 
 -- comments
-INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
-'This comments has *markdown*!
-> This is some sort of a quote
-And this is not!',
-2, 3, NULL);
-INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
-'This comments has *markdown*!
-> This is some sort of a quote
-And this is not!',
-2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
-'This comments has *markdown*!
-> This is some sort of a quote
-And this is not!',
-2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
-'This comments has *markdown*!
-> This is some sort of a quote
-And this is not!',
-2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
-'This comments has *markdown*!
-> This is some sort of a quote
-And this is not!',
-2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
-'This comments has *markdown*!
-> This is some sort of a quote
-And this is not!',
-2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
-'This comments has *markdown*!
-> This is some sort of a quote
-And this is not!',
-2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
-'This comments has *markdown*!
-> This is some sort of a quote
-And this is not!',
-2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
-'This comments has *markdown*!
-> This is some sort of a quote
-And this is not!',
-2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
-'This comments has *markdown*!
-> This is some sort of a quote
-And this is not!',
-2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
-'This comments has *markdown*!
-> This is some sort of a quote
-And this is not!',
-2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
-'This comments has *markdown*!
-> This is some sort of a quote
-And this is not!',
-2, 3, NULL);INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,
-'This comments has *markdown*!
-> This is some sort of a quote
-And this is not!',
-2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Look",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"If you had",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"One shot",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Or one opportunity",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"To seize everything you ever wanted",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"In one moment",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Would you capture it",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Or just let it slip?",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Yo",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"His palms are sweaty, knees weak, arms are heavy",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"There's vomit on his sweater already, mom's spaghetti",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"He's nervous, but on the surface he looks calm and ready",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"To drop bombs, but he keeps on forgettin'",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"What he wrote down, the whole crowd goes so loud",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"He opens his mouth, but the words won't come out",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"He's chokin', how, everybody's jokin' now",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"The clocks run out, times up, over, blaow!",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Snap back to reality, oh there goes gravity",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Oh, there goes Rabbit, he choked",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"He's so mad, but he won't give up that easy? No",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"He won't have it, he knows his whole back city's ropes",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"It don't matter, he's dope, he knows that, but he's broke",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"He's so stacked that he knows, when he goes back to his mobile home, that's when its",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Back to the lab again yo, this whole rhapsody",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"He better go capture this moment and hope it don't pass him",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You better lose yourself in the music, the moment",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You own it, you better never let it go",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You only get one shot, do not miss your chance to blow",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"This opportunity comes once in a lifetime you better",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You better lose yourself in the music, the moment",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You own it, you better never let it go",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You only get one shot, do not miss your chance to blow",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"This opportunity comes once in a lifetime you better",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"The souls escaping, through this hole that its gaping",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"This world is mine for the taking",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Make me king, as we move toward a, new world order",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"A normal life is borin', but super stardom's close to post mortar",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"It only grows harder, only grows hotter",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"He blows us all over these hoes is all on him",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Coast to coast shows, he's known as the globetrotter",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Lonely roads, God only knows, he's grown farther from home, he's no father",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"He goes home and barely knows his own daughter",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"But hold your nose 'cause here goes the cold water",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"His hoes don't want him no mo, he's cold product",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"They moved on to the next schmo who flows, he nose dove and sold nada",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"So the soap opera is told and unfolds, I suppose it's old partna, but the beat goes on",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Da da dumb da dumb da da",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You better lose yourself in the music, the moment",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You own it, you better never let it go",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You only get one shot, do not miss your chance to blow",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"This opportunity comes once in a lifetime you better",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You better lose yourself in the music, the moment",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You own it, you better never let it go",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You only get one shot, do not miss your chance to blow",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"This opportunity comes once in a lifetime you better",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"No more games, I'm a change what you call rage",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Tear this motherfuckin' roof off like two dogs caged",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"I was playin' in the beginnin', the mood all changed",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"I been chewed up and spit out and booed off stage",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"But I kept rhymin' and stepwritin' the next cipher",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Best believe somebody's payin' the pied piper",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"All the pain inside amplified by the",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Fact that I can't get by with my nine to",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Five and I can't provide the right type of",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Life for my family 'cause man, these God damn food stamps don't buy diapers",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"And its no movie, there's no Mekhi Phifer",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"This is my life and these times are so hard",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"And it's getting even harder tryin' to feed and water my seed, plus",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"See dishonor caught up between bein' a father and a prima-donna",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Baby mama drama screamin' on and too much",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"For me to want to say in one spot, another jam or not",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Has gotten me to the point, I'm like a snail I've got",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"To formulate a plot fore I end up in jail or shot",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Success is my only motherfuckin' option, failures not",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Mom, I love you, but this trail has got to go, I cannot grow old in Salem's lot",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"So here I go is my shot",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Feet fail me not 'cause maybe the only opportunity that I got",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You better lose yourself in the music, the moment",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You own it, you better never let it go",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You only get one shot, do not miss your chance to blow",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"This opportunity comes once in a lifetime you better",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You better lose yourself in the music, the moment",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You own it, you better never let it go",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You only get one shot, do not miss your chance to blow",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"This opportunity comes once in a lifetime you better",2, 3, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"You can do anything you set your mind to, man",2, 3, NULL);
+
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Is this the real life?",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Is this just fantasy?",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Caught in a landslide",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"No escape from reality",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Open your eyes",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Look up to the skies and see",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"I'm just a poor boy",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"I need no sympathy",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Because I'm easy come, easy go",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Little high, little low",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Anyway the wind blows",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Doesn't really matter to me",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"To me",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Mama, just killed a man",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Put a gun against his head",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Pulled my trigger, now he's dead",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Mama, life had just begun",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"But now I've gone and thrown it all away",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Mama!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Didn't mean to make you cry",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"If I'm not back again this time tomorrow",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Carry on, carry on",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"As if nothing really matters",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Too late, my time has come",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Sends shivers down my spine",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Body's aching all the time",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Goodbye everybody",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"I've got to go",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Gotta leave you all behind",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"And face the truth",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Mama!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"(Anyway the wind blows)",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"I don't wanna die",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"I sometimes wish I'd never been born at all",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"I see a little silhouetto of a man",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Scaramouche! Scaramouche!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Will you do the fandango?",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Thunderbolt and lightning",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Very, very frightening me!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Galileo! Galileo!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Galileo! Galileo!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Galileo, Figaro!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Magnifico!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"I'm just a poor boy and nobody loves me",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"He's just a poor boy from a poor family",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Spare him his life, from this monstrosity",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Easy come, easy go",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Will you let me go?",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Bismillah!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"No, we will not let you go!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"(Let him go!)",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Bismillah!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"We will not let you go!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"(Let him go!)",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Bismillah!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"We will not let you go!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"(Let me go!)",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Will not let you go!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"(Let me go!)",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Never, never let you go!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Never let me go!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"No, no, no, no, no, no, no!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Oh, mamma mia, mamma mia!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Mamma mia, let me go!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Beelzebub, has a devil put aside for me!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"For me!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"For me!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"So you think you can stone me and spit in my eye?",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"So you think you can love me and leave me to die?",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Oh, baby!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Can't do this to me, baby!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Just gotta get out",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Just gotta get right outta here!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Oh, yeah! Oh, yeah!",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Nothing really matters",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Anyone can see",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Nothing really matters",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Nothing really matters to me",2, 4, NULL);
+INSERT INTO comments(comment_id, content, author, story, story) VALUES(NULL,"Anyway the wind blows",2, 4, NULL);
 
 INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(NULL, 'This is a sub-level _reply_ to the **parent** comment!', 1, NULL, 1);
 INSERT INTO comments(comment_id, content, author, story, parent_comment) VALUES(NULL, 'This is another sub-level _reply_ to the **parent** comment!', 1, NULL, 1);
