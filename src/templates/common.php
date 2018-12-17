@@ -11,7 +11,6 @@ function draw_header($page_title) {
     <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <meta name="viewport" content="width=device-width,initial-scale=1">
             <meta name="theme-color" content="#660000" />
 

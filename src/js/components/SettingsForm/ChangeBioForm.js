@@ -12,14 +12,13 @@ export class ChangeBioForm {
 		const form_elem = document.createElement("form");
 		form_elem.id = "change_bio_form";
 		form_elem.setAttribute("novalidate", "");
-		form_elem.method = "";
-		form_elem.action = "";
 
 		form_elem.innerHTML = `
-            <label>New Bio
-                <div class="editor-wrapper"></div>
-                <div class="feedback"></div>
-			</label>
+			<div class="input-wrapper">
+				<label>New Bio</label>
+				<div class="editor-wrapper"></div>
+				<div class="feedback"></div>
+			</div>
             <button>Change Bio</button>
             <div class="result"></div>
 		`;

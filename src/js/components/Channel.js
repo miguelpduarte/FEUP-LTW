@@ -13,9 +13,8 @@ export class Channel {
 		article.id = `channel_${this.data.channel_id}`;
 		article.innerHTML = `
             <div class="channel-card-info">
-                <h1 class="title"><a href="channel.php?id=${this.data.channel_id}"></a></h1>
+                <h2 class="title"><a href="channel.php?id=${this.data.channel_id}"></a></h2>
             </div>
-            
         `;
 
 		// Adding textContent
@@ -23,12 +22,12 @@ export class Channel {
 		// Channel name
 		article.querySelector(".title a").textContent = this.data.name;
 
-        // Channel color
-        article.style.borderColor = this.data.color;
+		// Channel color
+		article.style.borderColor = this.data.color;
 
 		// Storing attached DOM element for further use
 		this.element = article;
 
 		return article;
-    }
+	}
 }

@@ -10,18 +10,20 @@ export class LoginForm {
 		login_form_elem.id = "login_form";
 		login_form_elem.classList.add("fancy-form");
 		login_form_elem.setAttribute("novalidate", "");
-		login_form_elem.method = "";
-		login_form_elem.action = "";
 
+		// Estavas a fazer isto: Passar para label adjacente em vez de estar a dar wrap
+		// feedback: testar com 1em de font-size e tirar o font-weight pq era a label wrapping que estava a pôr isso
 		login_form_elem.innerHTML = `
-            <label>Username
-                <input type="text" name="username" required>
+			<div class="input-wrapper">
+				<label for="username">Username</label>
+				<input id="username" type="text" name="username" required>
+				<div class="feedback"></div>
+			</div>
+			<div class="input-wrapper">
+            	<label for="password">Password</label>
+                <input id="password" type="password" name="password" required>
                 <div class="feedback"></div>
-            </label>
-            <label>Password
-                <input type="password" name="password" required>
-                <div class="feedback"></div>
-            </label>
+			</div>
             <button>Login</button>
             <div class="result"></div>
             <div class="extra-info">Don't have an account yet? <a href="../pages/register.php">Register here!</a></div>

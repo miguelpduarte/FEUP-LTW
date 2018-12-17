@@ -10,9 +10,13 @@ export class CommentForm {
 		this.id = id;
 	}
 
+	setParentSection(parent_section) {
+		this.parent_section = parent_section;
+	}
+
 	render() {
-		this.section = document.createElement("section");
-		this.section.classList.add("comment-form");
+		this.div = document.createElement("div");
+		this.div.classList.add("comment-form");
         
 		this.createForm();
 		this.createButton();
@@ -20,9 +24,9 @@ export class CommentForm {
         
 		this.form.appendChild(this.msgSection);
 		this.form.appendChild(this.button);
-		this.section.appendChild(this.form);
+		this.div.appendChild(this.form);
 
-		return this.section;
+		return this.div;
 	}
 
 	createMsgUser() {
@@ -34,7 +38,7 @@ export class CommentForm {
 		this.button = document.createElement("button");
 		this.button.classList.add("submit-button");
 		this.button.value = "submit";
-		this.button.innerHTML = "Post";
+		this.button.textContent = "Post";
 
 		this.button.addEventListener("click", (e) => {
 			e.preventDefault(); 
@@ -58,6 +62,7 @@ export class CommentForm {
 			else {
 				response = await fetchPostComment(this.id, content);
 				this.appendLocalComment(response);
+				this.parent_section.signalNewLocalComment();
 			}
 		} catch (error) {
 			const err = errorHandler.getError(error);
@@ -73,13 +78,14 @@ export class CommentForm {
 		if (whitespaceString(content)) {
 			this.showErrorMessage("The comment's content is empty");
 			return false;
-		}        
+		}
+
 		return true;
 	}
 
 	showErrorMessage(err_msg) {
-		this.section.querySelector(".msg-field").textContent = "Error: " + err_msg;
-		this.section.classList.add("invalid");
+		this.div.querySelector(".msg-field").textContent = "Error: " + err_msg;
+		this.div.classList.add("invalid");
 	}
 
 	createForm() {
@@ -101,12 +107,12 @@ export class CommentForm {
 			created_at: response.data.created_at,
 		};
 		const newComment = new Comment(commentData, false);
-		document.querySelector(".local-comments").prepend(newComment.render());
-		document.querySelector(`#comment_${response.data.comment_id}`).classList.add("local-comment");
+		const rendered_newComment = newComment.render();
+		rendered_newComment.classList.add("local-comment");
+		document.querySelector(".local-comments").prepend(rendered_newComment);
 	}
 
 	appendLocalSubComment(response) {
-
 		const commentData = {
 			comment_id: response.data.comment_id,
 			author: response.data.author,
@@ -114,10 +120,10 @@ export class CommentForm {
 			content: response.data.content,
 			created_at: response.data.created_at,
 		};
+
 		const newComment = new Comment(commentData, false);
-		document.querySelector(`.local-subcomments#comment_${this.id}`).prepend(newComment.render());
-		document.querySelector(`#comment_${response.data.comment_id}`).classList.add("local-subcomment");
-
+		const rendered_newComment = newComment.render();
+		rendered_newComment.classList.add("local-subcomment");
+		document.querySelector(`#comment_${this.id} .local-subcomments`).prepend(rendered_newComment);
 	}
-
 }

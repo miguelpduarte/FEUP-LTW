@@ -27,13 +27,16 @@
     flex-direction: column;
 }
 
-#settings_form form label:first-of-type {
+#settings_form form .input-wrapper {
+    margin-bottom: 1em;
+}
+
+#settings_form form .input-wrapper:first-of-type {
     margin-top: 1.5em;
 }
 
 #settings_form form label {
     display: inline-block;
-    margin-bottom: 1em;
     font-weight: 600;
     font-family: var(--title-font);
     font-size: 1.2em;
@@ -103,8 +106,7 @@
 #settings_form form .feedback {
     margin-top: 0.5em;
     font-family: var(--content-font);
-    font-weight: normal;
-    font-size: 0.8em;
+    font-size: 0.96em;
 }
 
 #settings_form form input.valid, #settings_form form.was-checked input:valid {

@@ -14,14 +14,14 @@ export class StoryCard extends GenericStory {
 	}
 
 	render() {
-		let article = document.createElement("article");
-		article.classList.add("story-card");
-		article.id = `story_${this.data.story_id}`;
-		article.innerHTML = `
-            <section class="story-card-header">
+		let div = document.createElement("div");
+		// Adding the story id as a class and not an id because it can be duplicated if it is both in newest and top stories
+		div.classList.add("story-card", `story_${this.data.story_id}`);
+		div.innerHTML = `
+            <div class="story-card-header">
 				<div class="story-card-info">
 					<div class="channel-info"></div>				
-                    <h1 class="title"><a href="story.php?id=${this.data.story_id}"></a></h1>
+                    <h2 class="title"><a href="story.php?id=${this.data.story_id}"></a></h2>
                     <div class="story-card-details">
                         <span class="author"><a href="user.php?username=${this.data.author_name}"></a></span>
                         <i class="fas fa-user-clock"></i>
@@ -38,26 +38,26 @@ export class StoryCard extends GenericStory {
                         <i class="vote-down fas fa-chevron-down"></i>
                     </div>
                 </div>
-            </section>
+            </div>
             <div class="content-wrapper">
                 <hr/>
-                <section class="content"></section>
+                <div class="content"></div>
             </div>
         `;
 
 		// Adding textContent
 
-		// Article title
-		article.querySelector(".title a").textContent = this.data.title;
+		// div title
+		div.querySelector(".title a").textContent = this.data.title;
 		// Author name
-		article.querySelector(".story-card-details .author a").textContent = this.data.author_name;
-		// Article content
-		article.querySelector(".content").innerHTML = this.content_loaded ? mdToHTML(this.data.content) : "Loading...";
+		div.querySelector(".story-card-details .author a").textContent = this.data.author_name;
+		// div content
+		div.querySelector(".content").innerHTML = this.content_loaded ? mdToHTML(this.data.content) : "Loading...";
 
 		// Adding event listeners
 
-		// Article opening
-		article.addEventListener("click", e => {
+		// div opening
+		div.addEventListener("click", e => {
 			//To ensure that clicking on the story or user link does not attempt to open or close the card
 			if (e.target.tagName !== "A") {
 				this.toggleCardOpen();
@@ -65,31 +65,31 @@ export class StoryCard extends GenericStory {
 		});
 
 		// Upvoting
-		article.querySelector(".vote-up").addEventListener("click", e => {
+		div.querySelector(".vote-up").addEventListener("click", e => {
 			e.stopPropagation();
 			this.upvote();
 		});
 
 		// Downvoting
-		article.querySelector(".vote-down").addEventListener("click", e => {
+		div.querySelector(".vote-down").addEventListener("click", e => {
 			e.stopPropagation();
 			this.downvote();
 		});
 
 		// Transition fix because of image loading
-		const card_content_wrapper = article.getElementsByClassName("content-wrapper")[0];
+		const card_content_wrapper = div.getElementsByClassName("content-wrapper")[0];
 		card_content_wrapper.addEventListener("transitionend", () => {
 			this.resizeCardContentWrapper(card_content_wrapper);
 		});
 
 		// Storing attached DOM element for further use
-		this.element = article;
+		this.element = div;
 
 		// Adding channel information
 		const channel_info_elem = this.element.querySelector(".channel-info");
 		this.fetchChannelInfo(channel_info_elem);
 
-		return article;
+		return div;
 	}
 
 	resizeCardContentWrapper(card_content_wrapper) {
