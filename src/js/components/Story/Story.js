@@ -166,8 +166,6 @@ export class Story extends GenericStory {
 		const edit_content_form = document.createElement("form");
 		edit_content_form.classList.add("content-edit");
 		edit_content_form.setAttribute("novalidate", "");
-		edit_content_form.method = "";
-		edit_content_form.action = "";
 
 		edit_content_form.innerHTML = `
 			<div class="editor-wrapper"></div>
