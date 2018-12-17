@@ -2,12 +2,19 @@
     font-family: var(--title-font);
     display: flex;
     align-items: center;
+    
 }
 
 .channel-info a {
     text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    overflow: hidden;
 }
 
 .channel-info h2 {
+    box-sizing: border-box;
     padding: 0.5em 0 0.5em 0.5em;
+    word-wrap: break-word;
+    width: 100%; 
 }

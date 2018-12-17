@@ -3,6 +3,7 @@
 import { LoginForm } from "../components/LoginForm.js";
 import { isUserLoggedIn } from "../store.js";
 import { SimpleMessage } from "../components/SimpleMessage.js";
+import { removeCreateStoryFAB } from "../common.js";
 
 let login_form = null;
 let login_success_msg = null;
@@ -52,5 +53,5 @@ export const changeToSuccessfulLoginView = () => {
 };
 
 // This runs as the file is loaded from here down
-
+removeCreateStoryFAB();
 initLoginForm();
