@@ -14,9 +14,9 @@
     session_start();
 
     function getLoggedUser() {
-        if($_SESSION && $_SESSION['user_id']) {
+        if($_SESSION && $_SESSION['user_identifier_GET']) {
             return [
-                'user_id' => $_SESSION['user_id'],
+                'user_id' => $_SESSION['user_identifier_GET'],
                 'username' => $_SESSION['username'],
                 'csrf' => $_SESSION['csrf']
             ];

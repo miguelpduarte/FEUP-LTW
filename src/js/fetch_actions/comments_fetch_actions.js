@@ -1,5 +1,5 @@
 "use strict";
-import { getUserInfo } from "../store.js";
+import { getCsrf } from "../store.js";
 
 export const fetchComments = (story_id, n_comments, off, n_nested, n_off) => {
 	const real_id = Number.parseInt(story_id);
@@ -39,14 +39,14 @@ export const fetchSubComments = (comment_id, n_comments, off) => {
 	});
 };
 
-export const fetchVoteComment = async (id, upvote) => {
+export const fetchVoteComment = (id, upvote) => {
 	// Safety
 	const real_id = Number.parseInt(id);
 	
 	const body = {
 		upvote,
 		comment_id: real_id,
-		csrf: (await getUserInfo()).csrf
+		csrf: getCsrf()
 	};
 
 	return new Promise((resolve, reject) => {
@@ -68,13 +68,13 @@ export const fetchVoteComment = async (id, upvote) => {
 	});
 };
 
-export const fetchUnvoteComment = async id => {
+export const fetchUnvoteComment = id => {
 	// Safety
 	const real_id = Number.parseInt(id);
 
 	const body = {
 		comment_id: real_id,
-		csrf: (await getUserInfo()).csrf
+		csrf: getCsrf()
 	};
 
 	return new Promise((resolve, reject) => {
@@ -96,14 +96,12 @@ export const fetchUnvoteComment = async id => {
 	});
 };
 
-export const fetchPostComment = async (story_id, content) => {
-	let user = await getUserInfo();
-	if (user === null)
-		throw 1;
+export const fetchPostComment = (story_id, content) => {
+
 	let body = {
 		story_id: Number.parseInt(story_id),
 		content,
-		csrf: user.csrf
+		csrf: getCsrf()
 	};
 
 	return new Promise((resolve, reject) => {
@@ -127,14 +125,11 @@ export const fetchPostComment = async (story_id, content) => {
 	});
 };
 
-export const fetchPostSubComment = async (comment_id, content) => {
-	let user = await getUserInfo();
-	if (user === null)
-		throw 1;
+export const fetchPostSubComment = (comment_id, content) => {
 	let body = {
 		comment_id: Number.parseInt(comment_id),
 		content,
-		csrf: user.csrf
+		csrf: getCsrf()
 	};
 
 	return new Promise((resolve, reject) => {
