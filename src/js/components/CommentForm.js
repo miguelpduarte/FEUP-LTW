@@ -10,9 +10,13 @@ export class CommentForm {
 		this.id = id;
 	}
 
+	setParentSection(parent_section) {
+		this.parent_section = parent_section;
+	}
+
 	render() {
-		this.section = document.createElement("section");
-		this.section.classList.add("comment-form");
+		this.div = document.createElement("div");
+		this.div.classList.add("comment-form");
         
 		this.createForm();
 		this.createButton();
@@ -20,9 +24,9 @@ export class CommentForm {
         
 		this.form.appendChild(this.msgSection);
 		this.form.appendChild(this.button);
-		this.section.appendChild(this.form);
+		this.div.appendChild(this.form);
 
-		return this.section;
+		return this.div;
 	}
 
 	createMsgUser() {
@@ -34,7 +38,7 @@ export class CommentForm {
 		this.button = document.createElement("button");
 		this.button.classList.add("submit-button");
 		this.button.value = "submit";
-		this.button.innerHTML = "Post";
+		this.button.textContent = "Post";
 
 		this.button.addEventListener("click", (e) => {
 			e.preventDefault(); 
@@ -58,6 +62,7 @@ export class CommentForm {
 			else {
 				response = await fetchPostComment(this.id, content);
 				this.appendLocalComment(response);
+				this.parent_section.signalNewLocalComment();
 			}
 		} catch (error) {
 			const err = errorHandler.getError(error);
@@ -73,13 +78,14 @@ export class CommentForm {
 		if (whitespaceString(content)) {
 			this.showErrorMessage("The comment's content is empty");
 			return false;
-		}        
+		}
+
 		return true;
 	}
 
 	showErrorMessage(err_msg) {
-		this.section.querySelector(".msg-field").textContent = "Error: " + err_msg;
-		this.section.classList.add("invalid");
+		this.div.querySelector(".msg-field").textContent = "Error: " + err_msg;
+		this.div.classList.add("invalid");
 	}
 
 	createForm() {

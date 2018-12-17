@@ -17,6 +17,7 @@ export class CommentSection {
 
 		this.section = null;
 		this.loading = false;
+		this.reached_end = false;
 
 		this.comment_votes = [];
 	}
@@ -30,8 +31,12 @@ export class CommentSection {
 		}
 	}
 
+	signalNewLocalComment() {
+		this.reached_end = false;
+	}
+
 	render() {
-		this.section = document.createElement("section");
+		this.section = document.createElement("div");
 		this.section.classList.add("comment-section");
 		
 		this.section.innerHTML = `
@@ -52,6 +57,8 @@ export class CommentSection {
 
 		document.addEventListener("scroll", () => this.scrollListener());
 		this.comment_form = new CommentForm(this.story_id);
+		// So that the form can trigger the loading of the added comment when it scrolls to it
+		this.comment_form.setParentSection(this);
 		this.section.querySelector(".new-comment").appendChild(this.comment_form.render());
 		return this.section;
 	}
@@ -70,7 +77,7 @@ export class CommentSection {
 	}
 
 	async loadMoreComments() {
-		if (!this.section || this.loading) {
+		if (!this.section || this.loading || this.reached_end) {
 			return;
 		}
 
@@ -91,16 +98,10 @@ export class CommentSection {
 				0
 			);
 
-			if(comment_data.length > 0) {
-				this.addComments(comment_data);
-			} else { // Remove loading message
-				this.section.removeChild(this.section.lastChild);
-			} 
-
+			this.addComments(comment_data);
 		} catch (err) {
 			console.error("Fetching comments error:", err);
 		}
-
 	}
 
 	addComments(comment_data) {
@@ -109,8 +110,10 @@ export class CommentSection {
 		this.section.removeChild(this.section.lastChild);
 		let needFullReload = false;
 		// Append comments
-		if (comment_data == null || comment_data.length == 0) {
+		if (!comment_data || !comment_data.length) {
 			this.loading = false;
+			// No more comments were received, we have reached the end of the comments
+			this.reached_end = true;
 			return;
 		}
 
