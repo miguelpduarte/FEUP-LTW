@@ -44,7 +44,7 @@ INSERT INTO stories(story_id, author, title, content, channel) VALUES(8, 2, 'Cla
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(9, 2, 'Unit Testing', '![Unit Testing](https://i.redd.it/xbanlndqd9421.png)', 3);
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(4, 3, '<script>alert(1)</script>', '<script>alert(this); alert(1)</script>', 2);
 INSERT INTO stories(story_id, author, title, content, channel) VALUES(3, 2, 'What''s your favorite type of candy?', 'I prefer M&Ms', 2);
-INSERT INTO stories(story_id, author, title, content, channel) VALUES(11, 7, 'Check out this photo of my travel!', '[RogerMC travel photo](https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200)', 5);
+INSERT INTO stories(story_id, author, title, content, channel) VALUES(11, 7, 'Check out this photo of my travel!', '![RogerMC travel photo](https://lonelyplanetimages.imgix.net/mastheads/GettyImages-538096543_medium.jpg?sharp=10&vib=20&w=1200)', 5);
 
 -- comments
 
