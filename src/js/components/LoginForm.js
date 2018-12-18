@@ -63,7 +63,7 @@ export class LoginForm {
 	}
 
 	showErrorMessage(err_msg) {
-		this.element.querySelector(".result").textContent = "Error: " + err_msg + " (se for erro de SQL direto é esparguete do ângelo)";
+		this.element.querySelector(".result").textContent = "Error: " + err_msg;
 		this.element.classList.add("invalid");
 	}
 
